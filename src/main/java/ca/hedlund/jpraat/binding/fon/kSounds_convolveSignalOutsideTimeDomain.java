@@ -1,0 +1,28 @@
+package ca.hedlund.jpraat.binding.fon;
+
+import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.NativeEnum;
+
+/**
+ * kSound_convolve_signalOutsideTimeDomain
+ */
+@Header("fon/Sound_enums.h")
+public enum kSounds_convolveSignalOutsideTimeDomain implements NativeEnum {
+	ZERO("zero"),
+	SIMILAR("similar");
+
+	private String name;
+	
+	private kSounds_convolveSignalOutsideTimeDomain(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public int getNativeValue() {
+		return ordinal()+1;
+	}
+
+}
