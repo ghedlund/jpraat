@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.sun.jna.Library;
 import com.sun.jna.NativeLibrary;
+import com.sun.jna.win32.StdCallFunctionMapper;
 
 public class NativeLibraryOptions extends HashMap<Object, Object> {
 	
@@ -12,6 +13,7 @@ public class NativeLibraryOptions extends HashMap<Object, Object> {
 	public NativeLibraryOptions() {
 		super();
 		
+//		put(Library.OPTION_FUNCTION_MAPPER, new NativeFunctionMapper());
 		put(Library.OPTION_TYPE_MAPPER, new NativeTypeMapper());
 	}
 
