@@ -42,6 +42,37 @@ all:
 		external/glpk/libglpk.a external/gsl/libgsl.a \
 		$(LIBS)
 
+library:
+	$(MAKE) -C external/gsl
+	$(MAKE) -C external/glpk
+	$(MAKE) -C external/mp3
+	$(MAKE) -C external/flac
+	$(MAKE) -C external/portaudio
+	$(MAKE) -C external/espeak
+	$(MAKE) -C kar
+	$(MAKE) -C num
+	$(MAKE) -C sys
+	$(MAKE) -C dwsys
+	$(MAKE) -C stat
+	$(MAKE) -C fon
+	$(MAKE) -C dwtools
+	$(MAKE) -C LPC
+	$(MAKE) -C EEG
+	$(MAKE) -C gram
+	$(MAKE) -C FFNet
+	$(MAKE) -C artsynth
+	$(MAKE) -C contrib/ola
+	$(LINK) -shared -o $(LIBRARY) fon/*.o \
+		contrib/ola/*.o artsynth/*.o \
+		FFNet/*.o gram/*.o EEG/*.o \
+		LPC/*.o dwtools/*.o \
+		fon/*.o stat/*.o dwsys/*.o \
+		sys/*.o num/*.o kar/*.o \
+		external/espeak/*.o external/portaudio/*.o \
+		external/flac/*.o external/mp3/*.o \
+		external/glpk/*.o external/gsl/*.o \
+		$(LIBS)
+
 clean:
 	$(MAKE) -C external/gsl clean
 	$(MAKE) -C external/glpk clean
