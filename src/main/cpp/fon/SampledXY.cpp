@@ -61,4 +61,26 @@ long structSampledXY :: f_getWindowSamplesY (double ymin, double ymax, long *iym
 	return *iymax - *iymin + 1;
 }
 
+#ifdef PRAAT_LIB
+double SampledXY_getYMin(SampledXY me) {
+        return my ymin;
+}
+
+double SampledXY_getYMax(SampledXY me) {
+        return my ymax;
+}
+
+long SampledXY_getNy(SampledXY me) {
+        return my ny;
+}
+
+double SampledXY_GetDy(SampledXY me) {
+        return my dy;
+}
+
+double SampledXY_getY1(SampledXY me) {
+        return my y1;
+}
+#endif
+
 /* End of file SampledXY.cpp */

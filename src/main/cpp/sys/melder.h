@@ -267,6 +267,7 @@ typedef struct structMelderDir *MelderDir;
 	void Melder_machToFile (void *void_fsref, MelderFile file);
 #endif
 
+MelderFile MelderFile_new();
 const wchar_t * MelderFile_name (MelderFile file);
 wchar_t * MelderDir_name (MelderDir dir);
 void Melder_pathToDir (const wchar_t *path, MelderDir dir);

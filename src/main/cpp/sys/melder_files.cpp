@@ -165,6 +165,11 @@ void Melder_8bitFileRepresentationToWcs_inline (const char *path, wchar_t *wpath
 	}
 #endif
 
+MelderFile MelderFile_new (void) {
+	MelderFile retVal = (MelderFile)malloc(sizeof(structMelderFile));
+	return retVal;
+}
+
 const wchar_t * MelderFile_name (MelderFile file) {
 	#if defined (UNIX)
 		wchar_t *slash = wcsrchr (file -> path, '/');

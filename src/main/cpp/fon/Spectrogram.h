@@ -97,5 +97,9 @@ Matrix Spectrogram_to_Matrix (Spectrogram me);
 	Return NULL if out of memory.  
 */
 
+#ifdef PRAAT_LIB
+double Spectrogram_getZ(int ix, int iy);
+#endif
+
 /* End of file Spectrogram.h */
 #endif

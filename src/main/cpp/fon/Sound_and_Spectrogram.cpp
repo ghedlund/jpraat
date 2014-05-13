@@ -103,7 +103,9 @@ Spectrogram Sound_to_Spectrogram (Sound me, double effectiveAnalysisWidth, doubl
 		autoNUMfft_Table fftTable;
 		NUMfft_Table_init (& fftTable, nsampFFT);
 
+#ifndef PRAAT_LIB
 		autoMelderProgress progress (L"Sound to Spectrogram...");
+#endif
 		for (long i = 1; i <= nsamp_window; i ++) {
 			double nSamplesPerWindow_f = physicalAnalysisWidth / my dx;
 			double phase = (double) i / nSamplesPerWindow_f;   /* 0 .. 1 */
@@ -150,8 +152,10 @@ Spectrogram Sound_to_Spectrogram (Sound me, double effectiveAnalysisWidth, doubl
 				}
 				for (long j = nsamp_window + 1; j <= nsampFFT; j ++) frame [j] = 0.0f;
 
+#ifndef PRAAT_LIB
 				Melder_progress (iframe / (numberOfTimes + 1.0),
 					L"Sound to Spectrogram: analysis of frame ", Melder_integer (iframe), L" out of ", Melder_integer (numberOfTimes));
+#endif
 
 				/* Compute Fast Fourier Transform of the frame. */
 

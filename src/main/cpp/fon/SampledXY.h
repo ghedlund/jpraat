@@ -58,5 +58,13 @@ long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *i
 */
 long Matrix_getWindowSamplesY (I, double ymin, double ymax, long *iymin, long *iymax);
 
+#ifdef PRAAT_LIB
+double SampledXY_getYMin(SampledXY me);
+double SampledXY_getYMax(SampledXY me);
+long SampledXY_getNy(SampledXY me);
+double SampledXY_GetDy(SampledXY me);
+double SampledXY_getY1(SampledXY me);
+#endif
+
 /* End of file SampledXY.h */
 #endif

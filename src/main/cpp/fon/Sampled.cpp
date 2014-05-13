@@ -761,4 +761,26 @@ void Sampled_drawInside (Sampled me, Graphics g, double xmin, double xmax, doubl
 	}
 }
 
+#ifdef PRAAT_LIB
+double Sampled_getXMin(Sampled me) {
+        return my xmin;
+}
+
+double Sampled_getXMax(Sampled me) {
+        return my xmax;
+}
+
+long Sampled_getNx(Sampled me) {
+        return my nx;
+}
+
+double Sampled_getDx(Sampled me) {
+        return my dx;
+}
+
+double Sampled_getX1(Sampled me) {
+        return my x1;
+}
+#endif
+
 /* End of file Sampled.cpp */

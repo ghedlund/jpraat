@@ -140,4 +140,10 @@ Matrix Spectrogram_to_Matrix (Spectrogram me) {
 	}
 }
 
+#ifdef PRAAT_LIB
+double Spectrogram_getZ (Spectrogram me, int ix, int iy) {
+	return my z [iy] [ix];
+}
+#endif
+
 /* End of Spectrogram.cpp */ 

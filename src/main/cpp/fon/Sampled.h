@@ -109,5 +109,13 @@ double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, long ilevel,
 void Sampled_drawInside
 	(Sampled me, Graphics g, double xmin, double xmax, double ymin, double ymax, bool speckle, long ilevel, int unit);
 
+#ifdef PRAAT_LIB
+double Sampled_getXMin(Sampled me);
+double Sampled_getXMax(Sampled me);
+long Sampled_getNx(Sampled me);
+double Sampled_getDx(Sampled me);
+double Sampled_getX1(Sampled me);
+#endif
+
 /* End of file Sampled.h */
 #endif
