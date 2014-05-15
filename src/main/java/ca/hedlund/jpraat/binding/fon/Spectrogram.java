@@ -18,5 +18,9 @@ public class Spectrogram extends Matrix {
 	public Matrix Spectrogram_to_Matrix () {
 		return Praat.INSTANCE.Spectrogram_to_Matrix(this);
 	}
+	
+	public double getZ(int ix, int iy) {
+		return Praat.INSTANCE.Spectrogram_getZ(this, ix, iy);
+	}
 
 }

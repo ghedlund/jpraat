@@ -2,6 +2,7 @@ package ca.hedlund.jpraat.binding;
 
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Matrix;
+import ca.hedlund.jpraat.binding.fon.Pitch;
 import ca.hedlund.jpraat.binding.fon.Sampled;
 import ca.hedlund.jpraat.binding.fon.SampledXY;
 import ca.hedlund.jpraat.binding.fon.Sound;
@@ -65,6 +66,8 @@ public interface Praat extends Library {
 	
 	/* sys/melder.h */
 	public MelderFile MelderFile_new();
+	
+	public MelderFile MelderFile_create(MelderFile file);
 	
 	public MelderFile MelderFile_open (MelderFile file);
 	
@@ -296,6 +299,10 @@ public interface Praat extends Library {
 //	Matrix TableOfReal_to_Matrix (Matrix me);
 //	TableOfReal Matrix_to_TableOfReal (Matrix me);
 	
+	/* fon/Pitch.h */
+	public Pitch Pitch_create (double tmin, double tmax, long nt, double dt, double t1,
+			double ceiling, int maxnCandidates);
+	
 	/* fon/Sound.h */
 	/**
 	 * Read sound from file
@@ -303,7 +310,7 @@ public interface Praat extends Library {
 	 * @param file
 	 * @return
 	 */
-	Sound Sound_readFromSoundFile (MelderFile file);
+	public Sound Sound_readFromSoundFile (MelderFile file);
 	
 	public Sound Sound_create (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
 	
@@ -338,6 +345,8 @@ public interface Praat extends Library {
 	public Spectrogram Matrix_to_Spectrogram (Matrix me);
 
 	public Matrix Spectrogram_to_Matrix (Spectrogram me);
+	
+	public double Spectrogram_getZ(Spectrogram me, int ix, int iy);
 	
 	/* fon/Sound_and_Spectrogram.h */
 	public Spectrogram Sound_to_Spectrogram (Sound me, double effectiveAnalysisWidth, double fmax,

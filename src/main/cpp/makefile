@@ -72,6 +72,11 @@ library:
 		external/flac/*.o external/mp3/*.o \
 		external/glpk/*.o external/gsl/*.o \
 		$(LIBS)
+	$(NM) -g --defined-only $(LIBRARY) > $(SYMBOLMAP)_1
+	$(NM) -g --defined-only $(LIBRARY) | $(CPPFILT) -p > $(SYMBOLMAP)_2
+	$(AWK) 'FNR==NR{a[$$1]=$$3;next}{print $$3 ";" a[$$1];}' $(SYMBOLMAP)_1 $(SYMBOLMAP)_2 > $(SYMBOLMAP)
+	$(RM) $(SYMBOLMAP)_1
+	$(RM) $(SYMBOLMAP)_2
 
 clean:
 	$(MAKE) -C external/gsl clean

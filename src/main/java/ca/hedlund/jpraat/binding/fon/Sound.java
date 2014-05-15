@@ -62,6 +62,7 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_extractPart(this, t1, t2, windowShape, relativeWidth, preserveTimes);
 	}
 
+	@Header("fon/Sound_to_Spectrogram.h")
 	public Spectrogram toSpectrogram (double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
 			double maximumTimeOversampling, double maximumFreqOversampling) {

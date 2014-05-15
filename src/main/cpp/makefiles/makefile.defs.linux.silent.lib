@@ -15,6 +15,7 @@ LINK = g++
 
 EXECUTABLE = praat
 LIBRARY = libpraat.so
+SYMBOLMAP = symbolmap
 
 LIBS = `pkg-config --libs gtk+-2.0` -lm -lpthread -z muldefs
 
@@ -22,3 +23,7 @@ AR = ar
 RANLIB = ls
 ICON =
 MAIN_ICON =
+NM = nm
+AWK = awk
+CPPFILT= c++filt
+

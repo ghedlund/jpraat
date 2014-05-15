@@ -29,6 +29,10 @@ public class MelderFile extends PointerType {
 		return Praat.INSTANCE.MelderFile_open(this);
 	}
 	
+	public MelderFile create() {
+		return Praat.INSTANCE.MelderFile_create(this);
+	}
+	
 	public long length () {
 		return Praat.INSTANCE.MelderFile_length(this);
 	}
