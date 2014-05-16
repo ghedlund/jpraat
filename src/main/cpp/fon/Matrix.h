@@ -25,14 +25,18 @@
 #include "../stat/TableOfReal.h"
 #include "Interpreter_decl.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "Matrix_def.h"
 oo_CLASS_CREATE (Matrix, SampledXY);
 
-void Matrix_init
+PRAAT_LIB_EXPORT void Matrix_init
 	(Matrix me, double xmin, double xmax, long nx, double dx, double x1,
 	            double ymin, double ymax, long ny, double dy, double y1);
 
-Matrix Matrix_create
+PRAAT_LIB_EXPORT Matrix Matrix_create
 	(double xmin, double xmax, long nx, double dx, double x1,
 	 double ymin, double ymax, long ny, double dy, double y1);
 /*
@@ -56,7 +60,7 @@ Matrix Matrix_create
 		result -> z [1..ny] [1..nx] == 0.0;
 */
 
-Matrix Matrix_createSimple (long numberOfRows, long numberOfColumns);
+PRAAT_LIB_EXPORT Matrix Matrix_createSimple (long numberOfRows, long numberOfColumns);
 /*
 	Function:
 		return a new empty Matrix, or NULL if out of memory.
@@ -118,7 +122,7 @@ Matrix Matrix_createSimple (long numberOfRows, long numberOfColumns);
 			Out of input.
 */
 
-long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *ixmax);
+PRAAT_LIB_EXPORT long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *ixmax);
 /*
 	Function:
 		return the number of samples with x values in [xmin, xmax].
@@ -131,39 +135,39 @@ long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *i
 		if (result != 0) result == *ixmax - *ixmin + 1;
 */
 
-double Matrix_getValueAtXY (I, double x, double y);
+PRAAT_LIB_EXPORT double Matrix_getValueAtXY (I, double x, double y);
 /*
 	Linear interpolation between matrix points,
 	constant extrapolation in cells on the edge,
 	NUMundefined outside the union of the unit squares around the points.
 */
 
-double Matrix_getSum (I);
-double Matrix_getNorm (I);
+PRAAT_LIB_EXPORT double Matrix_getSum (I);
+PRAAT_LIB_EXPORT double Matrix_getNorm (I);
 
-double Matrix_columnToX (I, double column);   /* Return my x1 + (column - 1) * my dx.	 */
+PRAAT_LIB_EXPORT double Matrix_columnToX (I, double column);   /* Return my x1 + (column - 1) * my dx.	 */
 
-double Matrix_rowToY (I, double row);   /* Return my y1 + (row - 1) * my dy. */
+PRAAT_LIB_EXPORT double Matrix_rowToY (I, double row);   /* Return my y1 + (row - 1) * my dy. */
 
-double Matrix_xToColumn (I, double x);   /* Return (x - xmin) / my dx + 1. */
+PRAAT_LIB_EXPORT double Matrix_xToColumn (I, double x);   /* Return (x - xmin) / my dx + 1. */
 
-long Matrix_xToLowColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
+PRAAT_LIB_EXPORT long Matrix_xToLowColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
 
-long Matrix_xToHighColumn (I, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
+PRAAT_LIB_EXPORT long Matrix_xToHighColumn (I, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
 
-long Matrix_xToNearestColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
+PRAAT_LIB_EXPORT long Matrix_xToNearestColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
 
-double Matrix_yToRow (I, double y);   /* Return (y - ymin) / my dy + 1. */
+PRAAT_LIB_EXPORT double Matrix_yToRow (I, double y);   /* Return (y - ymin) / my dy + 1. */
 
-long Matrix_yToLowRow (I, double y);   /* Return floor (Matrix_yToRow (me, y)). */
+PRAAT_LIB_EXPORT long Matrix_yToLowRow (I, double y);   /* Return floor (Matrix_yToRow (me, y)). */
 
-long Matrix_yToHighRow (I, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
+PRAAT_LIB_EXPORT long Matrix_yToHighRow (I, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
 
-long Matrix_yToNearestRow (I, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
+PRAAT_LIB_EXPORT long Matrix_yToNearestRow (I, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
 
-long Matrix_getWindowSamplesY (I, double ymin, double ymax, long *iymin, long *iymax);
+PRAAT_LIB_EXPORT long Matrix_getWindowSamplesY (I, double ymin, double ymax, long *iymin, long *iymax);
 
-long Matrix_getWindowExtrema (I, long ixmin, long ixmax, long iymin, long iymax,
+PRAAT_LIB_EXPORT long Matrix_getWindowExtrema (I, long ixmin, long ixmax, long iymin, long iymax,
 	double *minimum, double *maximum);
 /*
 	Function:
@@ -176,7 +180,7 @@ long Matrix_getWindowExtrema (I, long ixmin, long ixmax, long iymin, long iymax,
 		if result == 0, *minimum and *maximum are not changed;
 */
 
-void Matrix_formula (Matrix me, const wchar_t *expression, Interpreter interpreter, Matrix target);
+PRAAT_LIB_EXPORT void Matrix_formula (Matrix me, const wchar_t *expression, Interpreter interpreter, Matrix target);
 /*
 	Arguments:
 		"me" is the Matrix referred to as "self" or with "nx" etc. in the expression
@@ -191,7 +195,7 @@ void Matrix_formula (Matrix me, const wchar_t *expression, Interpreter interpret
 	Return value:
 		0 in case of failure, otherwise 1.
 */
-void Matrix_formula_part (Matrix me, double xmin, double xmax, double ymin, double ymax,
+PRAAT_LIB_EXPORT void Matrix_formula_part (Matrix me, double xmin, double xmax, double ymin, double ymax,
 	const wchar_t *expression, Interpreter interpreter, Matrix target);
 
 /***** Graphics routines. *****/
@@ -248,21 +252,21 @@ void Matrix_paintSurface (I, Graphics g, double xmin, double xmax, double ymin, 
 
 void Matrix_movie (I, Graphics g);
 
-Matrix Matrix_readFromRawTextFile (MelderFile file);
-Matrix Matrix_readAP (MelderFile file);
-Matrix Matrix_appendRows (Matrix me, Matrix thee, ClassInfo klas);
+PRAAT_LIB_EXPORT Matrix Matrix_readFromRawTextFile (MelderFile file);
+PRAAT_LIB_EXPORT Matrix Matrix_readAP (MelderFile file);
+PRAAT_LIB_EXPORT Matrix Matrix_appendRows (Matrix me, Matrix thee, ClassInfo klas);
 
-void Matrix_eigen (I, Matrix *eigenvectors, Matrix *eigenvalues);
-Matrix Matrix_power (I, long power);
+PRAAT_LIB_EXPORT void Matrix_eigen (I, Matrix *eigenvectors, Matrix *eigenvalues);
+PRAAT_LIB_EXPORT Matrix Matrix_power (I, long power);
 
-void Matrix_scaleAbsoluteExtremum (I, double scale);
+PRAAT_LIB_EXPORT void Matrix_scaleAbsoluteExtremum (I, double scale);
 
-Matrix Table_to_Matrix (Table me);
-void Matrix_writeToMatrixTextFile (Matrix me, MelderFile file);
-void Matrix_writeToHeaderlessSpreadsheetFile (Matrix me, MelderFile file);
+PRAAT_LIB_EXPORT Matrix Table_to_Matrix (Table me);
+PRAAT_LIB_EXPORT void Matrix_writeToMatrixTextFile (Matrix me, MelderFile file);
+PRAAT_LIB_EXPORT void Matrix_writeToHeaderlessSpreadsheetFile (Matrix me, MelderFile file);
 
-Matrix TableOfReal_to_Matrix (I);
-TableOfReal Matrix_to_TableOfReal (I);
+PRAAT_LIB_EXPORT Matrix TableOfReal_to_Matrix (I);
+PRAAT_LIB_EXPORT TableOfReal Matrix_to_TableOfReal (I);
 
 /* End of file Matrix.h */
 #endif

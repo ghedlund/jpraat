@@ -26,6 +26,10 @@
 
 #include "Sound_enums.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 Thing_define (Sound, Vector) {
 	// overridden methods:
 		virtual void v_info ();
@@ -48,7 +52,7 @@ Thing_define (Sound, Vector) {
 	z may be replaced (e.g., in pasting).
 */
 
-Sound Sound_create (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
+PRAAT_LIB_EXPORT Sound Sound_create (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
 /*
 	Function:
 		return a new silent Sound, or NULL if out of memory.
@@ -70,7 +74,7 @@ Sound Sound_create (long numberOfChannels, double xmin, double xmax, long nx, do
 		thy z [i] [1..nx] == 0.0;
 */
 
-Sound Sound_createSimple (long numberOfChannels, double duration, double samplingFrequency);
+PRAAT_LIB_EXPORT Sound Sound_createSimple (long numberOfChannels, double duration, double samplingFrequency);
 /*
 	Function:
 		return a new silent Sound, or NULL if out of memory.
@@ -91,26 +95,26 @@ Sound Sound_createSimple (long numberOfChannels, double duration, double samplin
 		thy z [i] [1..nx] == 0.0;
 */
 
-Sound Sound_convertToMono (Sound me);
-Sound Sound_convertToStereo (Sound me);
-Sound Sound_extractChannel (Sound me, long ichannel);
-Sound Sounds_combineToStereo (Collection me);
+PRAAT_LIB_EXPORT Sound Sound_convertToMono (Sound me);
+PRAAT_LIB_EXPORT Sound Sound_convertToStereo (Sound me);
+PRAAT_LIB_EXPORT Sound Sound_extractChannel (Sound me, long ichannel);
+PRAAT_LIB_EXPORT Sound Sounds_combineToStereo (Collection me);
 
 /* Levels for Sampled_getValueAtSample (me, index, level, unit) */
 #define Sound_LEVEL_MONO  0
 #define Sound_LEVEL_LEFT  1
 #define Sound_LEVEL_RIGHT  2
 
-Sound Sound_upsample (Sound me);   /* By a factor 2. */
+PRAAT_LIB_EXPORT Sound Sound_upsample (Sound me);   /* By a factor 2. */
 
-Sound Sound_resample (Sound me, double samplingFrequency, long precision);
+PRAAT_LIB_EXPORT Sound Sound_resample (Sound me, double samplingFrequency, long precision);
 /*
 	Method:
 		precision <= 1: linear interpolation.
 		precision >= 2: sinx/x interpolation with maximum depth equal to 'precision'.
 */
 
-Sound Sounds_append (Sound me, double silenceDuration, Sound thee);
+PRAAT_LIB_EXPORT Sound Sounds_append (Sound me, double silenceDuration, Sound thee);
 /*
 	Function:
 		append two Sounds.
@@ -128,7 +132,7 @@ Sound Sounds_append (Sound me, double silenceDuration, Sound thee);
 		result -> z [1] [i + my nx + round (silenceDuration / my dx)] == thy z [1] [i]
 */
  
-Sound Sounds_convolve (Sound me, Sound thee, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
+PRAAT_LIB_EXPORT Sound Sounds_convolve (Sound me, Sound thee, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
 /*
 	Function:
 		convolve two Sounds.
@@ -144,58 +148,58 @@ Sound Sounds_convolve (Sound me, Sound thee, enum kSounds_convolve_scaling scali
 			result -> z [1] [i] == result -> dx *
 				sum (j = 1..i, my z [1] [j] * thy z [1] [i - j + 1])
 */
-Sound Sounds_crossCorrelate (Sound me, Sound thee, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
-Sound Sounds_crossCorrelate_short (Sound me, Sound thee, double tmin, double tmax, int normalize);
-Sound Sound_autoCorrelate (Sound me, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
+PRAAT_LIB_EXPORT Sound Sounds_crossCorrelate (Sound me, Sound thee, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
+PRAAT_LIB_EXPORT Sound Sounds_crossCorrelate_short (Sound me, Sound thee, double tmin, double tmax, int normalize);
+PRAAT_LIB_EXPORT Sound Sound_autoCorrelate (Sound me, enum kSounds_convolve_scaling scaling, enum kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
 
-double Sound_getRootMeanSquare (Sound me, double xmin, double xmax);
-double Sound_getEnergy (Sound me, double xmin, double xmax);
-double Sound_getPower (Sound me, double xmin, double xmax);
-double Sound_getEnergyInAir (Sound me);
-double Sound_getPowerInAir (Sound me);
-double Sound_getIntensity_dB (Sound me);
+PRAAT_LIB_EXPORT double Sound_getRootMeanSquare (Sound me, double xmin, double xmax);
+PRAAT_LIB_EXPORT double Sound_getEnergy (Sound me, double xmin, double xmax);
+PRAAT_LIB_EXPORT double Sound_getPower (Sound me, double xmin, double xmax);
+PRAAT_LIB_EXPORT double Sound_getEnergyInAir (Sound me);
+PRAAT_LIB_EXPORT double Sound_getPowerInAir (Sound me);
+PRAAT_LIB_EXPORT double Sound_getIntensity_dB (Sound me);
 
-double Sound_getNearestZeroCrossing (Sound me, double position, long ichannel);
-void Sound_setZero (Sound me, double tmin, double tmax, int roundTimesToNearestZeroCrossing);
+PRAAT_LIB_EXPORT double Sound_getNearestZeroCrossing (Sound me, double position, long ichannel);
+PRAAT_LIB_EXPORT void Sound_setZero (Sound me, double tmin, double tmax, int roundTimesToNearestZeroCrossing);
 
-Sound Sound_createAsPureTone (long numberOfChannels, double startingTime, double endTime,
+PRAAT_LIB_EXPORT Sound Sound_createAsPureTone (long numberOfChannels, double startingTime, double endTime,
 	double sampleRate, double frequency, double amplitude, double fadeInDuration, double fadeOutDuration);
-Sound Sound_createFromToneComplex (double startingTime, double endTime,
+PRAAT_LIB_EXPORT Sound Sound_createFromToneComplex (double startingTime, double endTime,
 	double sampleRate, int phase, double frequencyStep,
 	double firstFrequency, double ceiling, long numberOfComponents);
 /* Values for `phase' parameter: */
 #define Sound_TONE_COMPLEX_SINE  0
 #define Sound_TONE_COMPLEX_COSINE  1
 
-Sound Sounds_concatenate_e (Collection me, double overlapTime);
-void Sound_multiplyByWindow (Sound me, enum kSound_windowShape windowShape);
-void Sound_scaleIntensity (Sound me, double newAverageIntensity);
-void Sound_overrideSamplingFrequency (Sound me, double newSamplingFrequency);
-Sound Sound_extractPart (Sound me, double t1, double t2, enum kSound_windowShape windowShape, double relativeWidth, bool preserveTimes);
-Sound Sound_extractPartForOverlap (Sound me, double t1, double t2, double overlap);
-void Sound_filterWithFormants (Sound me, double tmin, double tmax,
+PRAAT_LIB_EXPORT Sound Sounds_concatenate_e (Collection me, double overlapTime);
+PRAAT_LIB_EXPORT void Sound_multiplyByWindow (Sound me, enum kSound_windowShape windowShape);
+PRAAT_LIB_EXPORT void Sound_scaleIntensity (Sound me, double newAverageIntensity);
+PRAAT_LIB_EXPORT void Sound_overrideSamplingFrequency (Sound me, double newSamplingFrequency);
+PRAAT_LIB_EXPORT Sound Sound_extractPart (Sound me, double t1, double t2, enum kSound_windowShape windowShape, double relativeWidth, bool preserveTimes);
+PRAAT_LIB_EXPORT Sound Sound_extractPartForOverlap (Sound me, double t1, double t2, double overlap);
+PRAAT_LIB_EXPORT void Sound_filterWithFormants (Sound me, double tmin, double tmax,
 	int numberOfFormants, double formant [], double bandwidth []);
-Sound Sound_filter_oneFormant (Sound me, double frequency, double bandwidth);
-void Sound_filterWithOneFormantInline (Sound me, double frequency, double bandwidth);
-Sound Sound_filter_preemphasis (Sound me, double frequency);
-Sound Sound_filter_deemphasis (Sound me, double frequency);
+PRAAT_LIB_EXPORT Sound Sound_filter_oneFormant (Sound me, double frequency, double bandwidth);
+PRAAT_LIB_EXPORT void Sound_filterWithOneFormantInline (Sound me, double frequency, double bandwidth);
+PRAAT_LIB_EXPORT Sound Sound_filter_preemphasis (Sound me, double frequency);
+PRAAT_LIB_EXPORT Sound Sound_filter_deemphasis (Sound me, double frequency);
 
-void Sound_reverse (Sound me, double tmin, double tmax);
+PRAAT_LIB_EXPORT void Sound_reverse (Sound me, double tmin, double tmax);
 
 void Sound_draw (Sound me, Graphics g,
 	double tmin, double tmax, double minimum, double maximum, bool garnish, const wchar_t *method);
 /* For method, see Vector_draw. */
 
-Matrix Sound_to_Matrix (Sound me);
+PRAAT_LIB_EXPORT Matrix Sound_to_Matrix (Sound me);
 /*
 	Create a Matrix from a Sound,
 	with deep copy of all its Matrix attributes, except class information and methods.
 	Return NULL if out of memory.  
 */
 
-Sound Matrix_to_Sound (Matrix me);
+PRAAT_LIB_EXPORT Sound Matrix_to_Sound (Matrix me);
 
-Sound Matrix_to_Sound_mono (Matrix me, long row);
+PRAAT_LIB_EXPORT Sound Matrix_to_Sound_mono (Matrix me, long row);
 /*
 	Function:
 		create a Sound from one row of a Matrix.
@@ -297,18 +301,18 @@ void Sound_play (Sound me,
 
 /* To avoid clipping, keep the absolute amplitude below 1.000. */
 /* All are mono or stereo PCM. */
-void Sound_writeToAudioFile (Sound me, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
-void Sound_writeToKayFile (Sound me, MelderFile file);   /* 16 bit */
-void Sound_writeToSesamFile (Sound me, MelderFile file);   /* 12-bit SESAM/LVS */
+PRAAT_LIB_EXPORT void Sound_writeToAudioFile (Sound me, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
+PRAAT_LIB_EXPORT void Sound_writeToKayFile (Sound me, MelderFile file);   /* 16 bit */
+PRAAT_LIB_EXPORT void Sound_writeToSesamFile (Sound me, MelderFile file);   /* 12-bit SESAM/LVS */
 
-Sound Sound_readFromSoundFile (MelderFile file);   /* AIFF, WAV, NeXT/Sun, or NIST */
-Sound Sound_readFromKayFile (MelderFile file);   /* 16 bit */
-Sound Sound_readFromSesamFile (MelderFile file);   /* 12 bit SESAM/LVS */
-Sound Sound_readFromBellLabsFile (MelderFile file);   /* 16 bit */
-Sound Sound_readFromRawAlawFile (MelderFile file);
-Sound Sound_readFromMovieFile (MelderFile file);
+PRAAT_LIB_EXPORT Sound Sound_readFromSoundFile (MelderFile file);   /* AIFF, WAV, NeXT/Sun, or NIST */
+PRAAT_LIB_EXPORT Sound Sound_readFromKayFile (MelderFile file);   /* 16 bit */
+PRAAT_LIB_EXPORT Sound Sound_readFromSesamFile (MelderFile file);   /* 12 bit SESAM/LVS */
+PRAAT_LIB_EXPORT Sound Sound_readFromBellLabsFile (MelderFile file);   /* 16 bit */
+PRAAT_LIB_EXPORT Sound Sound_readFromRawAlawFile (MelderFile file);
+PRAAT_LIB_EXPORT Sound Sound_readFromMovieFile (MelderFile file);
 
-Sound Sound_readFromRawSoundFile (MelderFile file, int encoding, int numberOfChannels, double sampleRate);
+PRAAT_LIB_EXPORT Sound Sound_readFromRawSoundFile (MelderFile file, int encoding, int numberOfChannels, double sampleRate);
 /*
 	'encoding' is any of the following:
 		Melder_LINEAR_8_SIGNED
@@ -320,7 +324,7 @@ Sound Sound_readFromRawSoundFile (MelderFile file, int encoding, int numberOfCha
 	'numberOfChannels' is 1 (mono) or 2 (stereo)
 	'sampleRate' is in hertz
 */
-void Sound_writeToRawSoundFile (Sound me, MelderFile file, int encoding);
+PRAAT_LIB_EXPORT void Sound_writeToRawSoundFile (Sound me, MelderFile file, int encoding);
 /*
 	'encoding' is any of the following:
 		Melder_LINEAR_8_SIGNED
@@ -332,8 +336,8 @@ void Sound_writeToRawSoundFile (Sound me, MelderFile file, int encoding);
 
 /********** Sound_enhance.c **********/
 
-Sound Sound_lengthen_overlapAdd (Sound me, double fmin, double fmax, double factor);
-Sound Sound_deepenBandModulation (Sound me, double enhancement_dB,
+PRAAT_LIB_EXPORT Sound Sound_lengthen_overlapAdd (Sound me, double fmin, double fmax, double factor);
+PRAAT_LIB_EXPORT Sound Sound_deepenBandModulation (Sound me, double enhancement_dB,
 	double flow, double fhigh, double slowModulation, double fastModulation, double bandSmoothing);
 
 /* End of file Sound.h */

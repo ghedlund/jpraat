@@ -56,13 +56,13 @@ public interface Praat extends Library {
 	
 	public boolean Data_canReadText (Data me);
 
-	public Data Data_readFromTextFile (MelderFile file);
+	public Pointer Data_readFromTextFile (MelderFile file);
 
 	public boolean Data_canReadBinary (Data me);
 
-	public Data Data_readFromBinaryFile (MelderFile file);
+	public Pointer Data_readFromBinaryFile (MelderFile file);
 
-	public Data Data_readFromFile (MelderFile file);
+	public Pointer Data_readFromFile (MelderFile file);
 	
 	/* sys/melder.h */
 	public MelderFile MelderFile_new();

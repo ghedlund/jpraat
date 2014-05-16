@@ -22,6 +22,10 @@
 #include "Sound.h"
 #include "Collection.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #define COMPRESSED_MODE_READ_FLOAT 0
 #define COMPRESSED_MODE_READ_SHORT 1
 
@@ -54,32 +58,32 @@ Thing_define (LongSound, Sampled) {
 		virtual int v_domainQuantity () { return MelderQuantity_TIME_SECONDS; }
 };
 
-LongSound LongSound_open (MelderFile fs);
+PRAAT_LIB_EXPORT LongSound LongSound_open (MelderFile fs);
 
-Sound LongSound_extractPart (LongSound me, double tmin, double tmax, int preserveTimes);
+PRAAT_LIB_EXPORT Sound LongSound_extractPart (LongSound me, double tmin, double tmax, int preserveTimes);
 
-bool LongSound_haveWindow (LongSound me, double tmin, double tmax);
+PRAAT_LIB_EXPORT bool LongSound_haveWindow (LongSound me, double tmin, double tmax);
 /*
  * Returns 0 if error or if window exceeds buffer, otherwise 1;
  */
 
-void LongSound_getWindowExtrema (LongSound me, double tmin, double tmax, int channel, double *minimum, double *maximum);
+PRAAT_LIB_EXPORT void LongSound_getWindowExtrema (LongSound me, double tmin, double tmax, int channel, double *minimum, double *maximum);
 
-void LongSound_playPart (LongSound me, double tmin, double tmax,
+PRAAT_LIB_EXPORT void LongSound_playPart (LongSound me, double tmin, double tmax,
 	int (*callback) (void *closure, int phase, double tmin, double tmax, double t), void *closure);
 
-void LongSound_writePartToAudioFile (LongSound me, int audioFileType, double tmin, double tmax, MelderFile file);
-void LongSound_writeChannelToAudioFile (LongSound me, int audioFileType, int channel, MelderFile file);
+PRAAT_LIB_EXPORT void LongSound_writePartToAudioFile (LongSound me, int audioFileType, double tmin, double tmax, MelderFile file);
+PRAAT_LIB_EXPORT void LongSound_writeChannelToAudioFile (LongSound me, int audioFileType, int channel, MelderFile file);
 
-void LongSound_readAudioToFloat (LongSound me, double **buffer, long firstSample, long numberOfSamples);
-void LongSound_readAudioToShort (LongSound me, short *buffer, long firstSample, long numberOfSamples);
+PRAAT_LIB_EXPORT void LongSound_readAudioToFloat (LongSound me, double **buffer, long firstSample, long numberOfSamples);
+PRAAT_LIB_EXPORT void LongSound_readAudioToShort (LongSound me, short *buffer, long firstSample, long numberOfSamples);
 
-void LongSound_concatenate (Collection collection, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
+PRAAT_LIB_EXPORT void LongSound_concatenate (Collection collection, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
 /* Concatenate a collection of Sound and LongSound objects. */
 
-void LongSound_preferences (void);
-long LongSound_getBufferSizePref_seconds (void);
-void LongSound_setBufferSizePref_seconds (long size);
+PRAAT_LIB_EXPORT void LongSound_preferences (void);
+PRAAT_LIB_EXPORT long LongSound_getBufferSizePref_seconds (void);
+PRAAT_LIB_EXPORT void LongSound_setBufferSizePref_seconds (long size);
 
 /* End of file LongSound.h */
 #endif

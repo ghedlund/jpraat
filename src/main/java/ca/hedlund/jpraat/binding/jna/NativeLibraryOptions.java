@@ -13,7 +13,7 @@ public class NativeLibraryOptions extends HashMap<Object, Object> {
 	public NativeLibraryOptions() {
 		super();
 		
-		put(Library.OPTION_FUNCTION_MAPPER, new NativeFunctionMapper());
+//		put(Library.OPTION_FUNCTION_MAPPER, new NativeFunctionMapper());
 		put(Library.OPTION_TYPE_MAPPER, new NativeTypeMapper());
 	}
 

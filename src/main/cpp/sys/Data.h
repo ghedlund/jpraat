@@ -23,6 +23,10 @@
 /* It adds the functionality of reproduction, comparison, reading, and writing. */
 #include "Thing.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 typedef struct structData_Description {
 	const wchar_t *name;   /* The name of this field. */
 	int type;   /* bytewa..inheritwa, see below */
@@ -97,27 +101,27 @@ bool Data_equal (Data data1, Data data2);
 
 typedef int (*Data_CompareFunction) (Any data1, Any data2);
 
-bool Data_canWriteAsEncoding (Data me, int outputEncoding);
+PRAAT_LIB_EXPORT bool Data_canWriteAsEncoding (Data me, int outputEncoding);
 /*
 	Message:
 		"Can you write yourself in that encoding?"
 	The answer depends on whether all members can be written in that encoding.
 */
 
-bool Data_canWriteText (Data me);
+PRAAT_LIB_EXPORT bool Data_canWriteText (Data me);
 /*
 	Message:
 		"Can you write yourself as text?"
 	The answer depends on whether the subclass defines the 'writeText' method.
 */
 
-MelderFile Data_createTextFile (
+PRAAT_LIB_EXPORT MelderFile Data_createTextFile (
 	Data me,
 	MelderFile file,
 	bool verbose
 );   // returns the input MelderFile in order to be caught by an autoMelderFile
 
-void Data_writeText (Data me, MelderFile openFile);
+PRAAT_LIB_EXPORT void Data_writeText (Data me, MelderFile openFile);
 /*
 	Message:
 		"try to write yourself as text to an open file."
@@ -130,7 +134,7 @@ void Data_writeText (Data me, MelderFile openFile);
 		The format depends on the 'writeText' method defined by the subclass.
 */
 
-void Data_writeToTextFile (Data me, MelderFile file);
+PRAAT_LIB_EXPORT void Data_writeToTextFile (Data me, MelderFile file);
 /*
 	Message:
 		"try to write yourself as text to a file".
@@ -141,7 +145,7 @@ void Data_writeToTextFile (Data me, MelderFile file);
 		The format of the lines after the second line is the same as in Data_writeText.
 */
 
-void Data_writeToShortTextFile (Data me, MelderFile file);
+PRAAT_LIB_EXPORT void Data_writeToShortTextFile (Data me, MelderFile file);
 /*
 	Message:
 		"try to write yourself as text to a file".
@@ -152,14 +156,14 @@ void Data_writeToShortTextFile (Data me, MelderFile file);
 		The format of the lines after the second line is the same as in Data_writeText.
 */
 
-bool Data_canWriteBinary (Data me);
+PRAAT_LIB_EXPORT bool Data_canWriteBinary (Data me);
 /*
 	Message:
 		"Can you write yourself as binary data?"
 	The answer depends on whether the subclass defines the 'writeBinary' method.
 */
 
-void Data_writeBinary (Data me, FILE *f);
+PRAAT_LIB_EXPORT void Data_writeBinary (Data me, FILE *f);
 /*
 	Message:
 		"try to write yourself as binary data to an open file."
@@ -172,7 +176,7 @@ void Data_writeBinary (Data me, FILE *f);
 		and IEEE floating-point format.
 */
 
-void Data_writeToBinaryFile (Data me, MelderFile file);
+PRAAT_LIB_EXPORT void Data_writeToBinaryFile (Data me, MelderFile file);
 /*
 	Message:
 		"try to write yourself as binary data to a file".
@@ -182,14 +186,14 @@ void Data_writeToBinaryFile (Data me, MelderFile file);
 		The format of the file after this is the same as in Data_writeBinary.
 */
 
-bool Data_canWriteLisp (Data me);
+PRAAT_LIB_EXPORT bool Data_canWriteLisp (Data me);
 /*
 	Message:
 		"Can you write yourself as a sequece of LISP objects?"
 	The answer depends on whether the subclass defines a 'writeLisp' method.
 */
 
-void Data_writeLisp (Data me, FILE *f);
+PRAAT_LIB_EXPORT void Data_writeLisp (Data me, FILE *f);
 /*
 	Message:
 		"try to write yourself as a sequence of LISP objects to the stream <f>."
@@ -200,7 +204,7 @@ void Data_writeLisp (Data me, FILE *f);
 		The format depends on the 'writeLisp' method defined by the subclass.
 */
 
-void Data_writeLispToConsole (Data me);
+PRAAT_LIB_EXPORT void Data_writeLispToConsole (Data me);
 /*
 	Message:
 		"try to write yourself as a sequence of LISP objects to the standard output."
@@ -217,7 +221,7 @@ void Data_writeLispToConsole (Data me);
 	that you want to read by name. This call is best placed in the beginning of main ().
 */
 
-bool Data_canReadText (Data me);
+PRAAT_LIB_EXPORT bool Data_canReadText (Data me);
 /*
 	Message:
 		"Can you read yourself as text?"
@@ -225,7 +229,7 @@ bool Data_canReadText (Data me);
 	but is preferably the same as the answer from Data_canWriteText.
 */
 
-void Data_readText (Data me, MelderReadText text);
+PRAAT_LIB_EXPORT void Data_readText (Data me, MelderReadText text);
 /*
 	Message:
 		"try to read yourself as text from a string."
@@ -238,7 +242,7 @@ void Data_readText (Data me, MelderReadText text);
 		but is preferably the same as the format produced by the 'writeText' method.
 */
 
-Any Data_readFromTextFile (MelderFile file);
+PRAAT_LIB_EXPORT Any Data_readFromTextFile (MelderFile file);
 /*
 	Message:
 		"try to read a Data as text from a file".
@@ -254,7 +258,7 @@ Any Data_readFromTextFile (MelderFile file);
 		(plus those from Data_readText)
 */
 
-bool Data_canReadBinary (Data me);
+PRAAT_LIB_EXPORT bool Data_canReadBinary (Data me);
 /*
 	Message:
 		"Can you read yourself as binary data?"
@@ -262,7 +266,7 @@ bool Data_canReadBinary (Data me);
 	but is preferably the same as the answer from Data_canWriteBinary.
 */
 
-void Data_readBinary (Data me, FILE *f);
+PRAAT_LIB_EXPORT void Data_readBinary (Data me, FILE *f);
 /*
 	Message:
 		"try to read yourself as binary data from the stream <f>."
@@ -275,7 +279,7 @@ void Data_readBinary (Data me, FILE *f);
 		but is preferably the same as the format produced by the 'writeBinary' method.
 */
 
-Any Data_readFromBinaryFile (MelderFile file);
+PRAAT_LIB_EXPORT Any Data_readFromBinaryFile (MelderFile file);
 /*
 	Message:
 		"try to read a Data as binary data from a file".
@@ -333,7 +337,7 @@ Registering a file-type recognizer:
 	After this, Data_readFromFile is able to read Sun audio files.
 */
 
-Any Data_readFromFile (MelderFile file);
+PRAAT_LIB_EXPORT Any Data_readFromFile (MelderFile file);
 /*
 Purpose:
 	to read a file with data of any kind.

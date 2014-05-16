@@ -21,30 +21,34 @@
 
 #include "Sampled.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "SampledXY_def.h"
 oo_CLASS_CREATE (SampledXY, Sampled);
 
-double Matrix_columnToX (I, double column);   /* Return my x1 + (column - 1) * my dx.	 */
+PRAAT_LIB_EXPORT double Matrix_columnToX (I, double column);   /* Return my x1 + (column - 1) * my dx.	 */
 
-double Matrix_rowToY (I, double row);   /* Return my y1 + (row - 1) * my dy. */
+PRAAT_LIB_EXPORT double Matrix_rowToY (I, double row);   /* Return my y1 + (row - 1) * my dy. */
 
-double Matrix_xToColumn (I, double x);   /* Return (x - xmin) / my dx + 1. */
+PRAAT_LIB_EXPORT double Matrix_xToColumn (I, double x);   /* Return (x - xmin) / my dx + 1. */
 
-long Matrix_xToLowColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
+PRAAT_LIB_EXPORT long Matrix_xToLowColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
 
-long Matrix_xToHighColumn (I, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
+PRAAT_LIB_EXPORT long Matrix_xToHighColumn (I, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
 
-long Matrix_xToNearestColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
+PRAAT_LIB_EXPORT long Matrix_xToNearestColumn (I, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
 
-double Matrix_yToRow (I, double y);   /* Return (y - ymin) / my dy + 1. */
+PRAAT_LIB_EXPORT double Matrix_yToRow (I, double y);   /* Return (y - ymin) / my dy + 1. */
 
-long Matrix_yToLowRow (I, double y);   /* Return floor (Matrix_yToRow (me, y)). */
+PRAAT_LIB_EXPORT long Matrix_yToLowRow (I, double y);   /* Return floor (Matrix_yToRow (me, y)). */
 
-long Matrix_yToHighRow (I, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
+PRAAT_LIB_EXPORT long Matrix_yToHighRow (I, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
 
-long Matrix_yToNearestRow (I, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
+PRAAT_LIB_EXPORT long Matrix_yToNearestRow (I, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
 
-long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *ixmax);
+PRAAT_LIB_EXPORT long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *ixmax);
 /*
 	Function:
 		return the number of samples with x values in [xmin, xmax].
@@ -56,14 +60,14 @@ long Matrix_getWindowSamplesX (I, double xmin, double xmax, long *ixmin, long *i
 		if (result != 0) *ixmin <= *ixmax; else *ixmin > *ixmax;
 		if (result != 0) result == *ixmax - *ixmin + 1;
 */
-long Matrix_getWindowSamplesY (I, double ymin, double ymax, long *iymin, long *iymax);
+PRAAT_LIB_EXPORT long Matrix_getWindowSamplesY (I, double ymin, double ymax, long *iymin, long *iymax);
 
 #ifdef PRAAT_LIB
-double SampledXY_getYMin(SampledXY me);
-double SampledXY_getYMax(SampledXY me);
-long SampledXY_getNy(SampledXY me);
-double SampledXY_GetDy(SampledXY me);
-double SampledXY_getY1(SampledXY me);
+PRAAT_LIB_EXPORT double SampledXY_getYMin(SampledXY me);
+PRAAT_LIB_EXPORT double SampledXY_getYMax(SampledXY me);
+PRAAT_LIB_EXPORT long SampledXY_getNy(SampledXY me);
+PRAAT_LIB_EXPORT double SampledXY_GetDy(SampledXY me);
+PRAAT_LIB_EXPORT double SampledXY_getY1(SampledXY me);
 #endif
 
 /* End of file SampledXY.h */

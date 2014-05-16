@@ -22,6 +22,10 @@
 #include "Matrix.h"
 #include "Graphics.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 Thing_define (Spectrogram, Matrix) {
 	// overridden methods:
 	public:
@@ -42,7 +46,7 @@ Thing_define (Spectrogram, Matrix) {
 	z [iy] [ix]		// Power spectrum density.
 */
 
-Spectrogram Spectrogram_create (double tmin, double tmax, long nt, double dt, double t1,
+PRAAT_LIB_EXPORT Spectrogram Spectrogram_create (double tmin, double tmax, long nt, double dt, double t1,
 					double fmin, double fmax, long nf, double df, double f1);
 /*
 	Function:
@@ -83,14 +87,14 @@ void Spectrogram_paint (Spectrogram me, Graphics g,
 			a boolean that determines if a box, ticks, numbers, and text are written in the margins.
 */
 
-Spectrogram Matrix_to_Spectrogram (Matrix me);
+PRAAT_LIB_EXPORT Spectrogram Matrix_to_Spectrogram (Matrix me);
 /*
 	Create a Spectrogram from a Matrix,
 	with deep copy of all its attributes, except class information and methods.
 	Return NULL if out of memory.  
 */
 
-Matrix Spectrogram_to_Matrix (Spectrogram me);
+PRAAT_LIB_EXPORT Matrix Spectrogram_to_Matrix (Spectrogram me);
 /*
 	Create a Matrix from a Spectrogram,
 	with deep copy of all its attributes, except class information and methods.
@@ -98,7 +102,7 @@ Matrix Spectrogram_to_Matrix (Spectrogram me);
 */
 
 #ifdef PRAAT_LIB
-double Spectrogram_getZ(int ix, int iy);
+PRAAT_LIB_EXPORT double Spectrogram_getZ(Spectrogram me, int ix, int iy);
 #endif
 
 /* End of file Spectrogram.h */

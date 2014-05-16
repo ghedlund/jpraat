@@ -9,15 +9,15 @@ import com.sun.jna.PointerType;
 @Header("sys/Data.h")
 public class Data extends PointerType {
 	
-	public static Data readFromTextFile (MelderFile file) {
+	public static Pointer readFromTextFile (MelderFile file) {
 		return Praat.INSTANCE.Data_readFromTextFile(file);
 	}
 
-	public static Data readFromBinaryFile (MelderFile file) {
+	public static Pointer readFromBinaryFile (MelderFile file) {
 		return Praat.INSTANCE.Data_readFromBinaryFile(file);
 	}
 
-	public static Data readFromFile (MelderFile file) {
+	public static Pointer readFromFile (MelderFile file) {
 		return Praat.INSTANCE.Data_readFromFile(file);
 	}
 	

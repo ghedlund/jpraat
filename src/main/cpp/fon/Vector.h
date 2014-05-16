@@ -24,6 +24,10 @@
 /* The rows are 'channels'. There will often be only one channel, but e.g. a stereo sound has two. */
 #include "Matrix.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 Thing_define (Vector, Matrix) {
 	// overridden methods:
 	protected:
@@ -42,31 +46,31 @@ Thing_define (Vector, Matrix) {
 #define Vector_VALUE_INTERPOLATION_CUBIC  2
 #define Vector_VALUE_INTERPOLATION_SINC70  3
 #define Vector_VALUE_INTERPOLATION_SINC700  4
-double Vector_getValueAtX (Vector me, double x, long channel, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getValueAtX (Vector me, double x, long channel, int interpolation);
 
-void Vector_getMinimumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
+PRAAT_LIB_EXPORT void Vector_getMinimumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
 	double *return_minimum, double *return_xOfMinimum);
-void Vector_getMinimumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
+PRAAT_LIB_EXPORT void Vector_getMinimumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
 	double *return_minimum, double *return_xOfMinimum, long *return_channelOfMinimum);
-void Vector_getMaximumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
+PRAAT_LIB_EXPORT void Vector_getMaximumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
 	double *return_maximum, double *return_xOfMaximum);
-void Vector_getMaximumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
+PRAAT_LIB_EXPORT void Vector_getMaximumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
 	double *return_maximum, double *return_xOfMaximum, long *return_channelOfMaximum);
-double Vector_getMinimum (Vector me, double xmin, double xmax, int interpolation);
-double Vector_getMaximum (Vector me, double xmin, double xmax, int interpolation);
-double Vector_getAbsoluteExtremum (Vector me, double xmin, double xmax, int interpolation);
-double Vector_getXOfMinimum (Vector me, double xmin, double xmax, int interpolation);
-double Vector_getXOfMaximum (Vector me, double xmin, double xmax, int interpolation);
-long Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, int interpolation);
-long Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getMinimum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getMaximum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getAbsoluteExtremum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getXOfMinimum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT double Vector_getXOfMaximum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT long Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, int interpolation);
+PRAAT_LIB_EXPORT long Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, int interpolation);
 
-double Vector_getMean (Vector me, double xmin, double xmax, long channel);
-double Vector_getStandardDeviation (Vector me, double xmin, double xmax, long channel);
+PRAAT_LIB_EXPORT double Vector_getMean (Vector me, double xmin, double xmax, long channel);
+PRAAT_LIB_EXPORT double Vector_getStandardDeviation (Vector me, double xmin, double xmax, long channel);
 
-void Vector_addScalar (Vector me, double scalar);
-void Vector_subtractMean (Vector me);
-void Vector_multiplyByScalar (Vector me, double scalar);
-void Vector_scale (Vector me, double scale);
+PRAAT_LIB_EXPORT void Vector_addScalar (Vector me, double scalar);
+PRAAT_LIB_EXPORT void Vector_subtractMean (Vector me);
+PRAAT_LIB_EXPORT void Vector_multiplyByScalar (Vector me, double scalar);
+PRAAT_LIB_EXPORT void Vector_scale (Vector me, double scale);
 
 void Vector_draw (Vector me, Graphics g, double *pxmin, double *pxmax, double *pymin, double *pymax,
 	double defaultDy, const wchar_t *method);

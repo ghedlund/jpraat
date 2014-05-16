@@ -23,6 +23,10 @@
 #include "Function.h"
 #include "Graphics.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "Sampled_def.h"
 oo_CLASS_CREATE (Sampled, Function);
 
@@ -31,21 +35,21 @@ oo_CLASS_CREATE (Sampled, Function);
 /* The first sample point is at x1, the second at x1 + dx, */
 /* and the last at x1 + (nx - 1) * dx. */
 
-double Sampled_indexToX (Sampled me, long i);
+PRAAT_LIB_EXPORT double Sampled_indexToX (Sampled me, long i);
 
-double Sampled_xToIndex (Sampled me, double x);
+PRAAT_LIB_EXPORT double Sampled_xToIndex (Sampled me, double x);
 
-long Sampled_xToLowIndex (Sampled me, double x);
+PRAAT_LIB_EXPORT long Sampled_xToLowIndex (Sampled me, double x);
 
-long Sampled_xToHighIndex (Sampled me, double x);
+PRAAT_LIB_EXPORT long Sampled_xToHighIndex (Sampled me, double x);
 
-long Sampled_xToNearestIndex (Sampled me, double x);
+PRAAT_LIB_EXPORT long Sampled_xToNearestIndex (Sampled me, double x);
 
-long Sampled_getWindowSamples (Sampled me, double xmin, double xmax, long *ixmin, long *ixmax);
+PRAAT_LIB_EXPORT long Sampled_getWindowSamples (Sampled me, double xmin, double xmax, long *ixmin, long *ixmax);
 
-void Sampled_init (Sampled me, double xmin, double xmax, long nx, double dx, double x1);
+PRAAT_LIB_EXPORT void Sampled_init (Sampled me, double xmin, double xmax, long nx, double dx, double x1);
 
-void Sampled_shortTermAnalysis (Sampled me, double windowDuration, double timeStep,
+PRAAT_LIB_EXPORT void Sampled_shortTermAnalysis (Sampled me, double windowDuration, double timeStep,
 		long *numberOfFrames, double *firstTime);
 /*
 	Function:
@@ -77,44 +81,44 @@ void Sampled_shortTermAnalysis (Sampled me, double windowDuration, double timeSt
 			result -> x1 == firstTime;
 */
 
-double Sampled_getValueAtSample (Sampled me, long isamp, long ilevel, int unit);
-double Sampled_getValueAtX (Sampled me, double x, long ilevel, int unit, bool interpolate);
-long Sampled_countDefinedSamples (Sampled me, long ilevel, int unit);
-double * Sampled_getSortedValues (Sampled me, long ilevel, int unit, long *numberOfValues);
+PRAAT_LIB_EXPORT double Sampled_getValueAtSample (Sampled me, long isamp, long ilevel, int unit);
+PRAAT_LIB_EXPORT double Sampled_getValueAtX (Sampled me, double x, long ilevel, int unit, bool interpolate);
+PRAAT_LIB_EXPORT long Sampled_countDefinedSamples (Sampled me, long ilevel, int unit);
+PRAAT_LIB_EXPORT double * Sampled_getSortedValues (Sampled me, long ilevel, int unit, long *numberOfValues);
 
-double Sampled_getQuantile
+PRAAT_LIB_EXPORT double Sampled_getQuantile
 	(Sampled me, double xmin, double xmax, double quantile, long ilevel, int unit);
-double Sampled_getMean
+PRAAT_LIB_EXPORT double Sampled_getMean
 	(Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-double Sampled_getMean_standardUnit
+PRAAT_LIB_EXPORT double Sampled_getMean_standardUnit
 	(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, bool interpolate);
-double Sampled_getIntegral
+PRAAT_LIB_EXPORT double Sampled_getIntegral
 	(Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-double Sampled_getIntegral_standardUnit
+PRAAT_LIB_EXPORT double Sampled_getIntegral_standardUnit
 	(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, bool interpolate);
-double Sampled_getStandardDeviation
+PRAAT_LIB_EXPORT double Sampled_getStandardDeviation
 	(Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-double Sampled_getStandardDeviation_standardUnit
+PRAAT_LIB_EXPORT double Sampled_getStandardDeviation_standardUnit
 	(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, bool interpolate);
 
-void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate,
+PRAAT_LIB_EXPORT void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate,
 	double *return_minimum, double *return_xOfMinimum);
-double Sampled_getMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate,
+PRAAT_LIB_EXPORT double Sampled_getMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
+PRAAT_LIB_EXPORT double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
+PRAAT_LIB_EXPORT void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate,
 	double *return_maximum, double *return_xOfMaximum);
-double Sampled_getMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
-double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
+PRAAT_LIB_EXPORT double Sampled_getMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
+PRAAT_LIB_EXPORT double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, bool interpolate);
 
 void Sampled_drawInside
 	(Sampled me, Graphics g, double xmin, double xmax, double ymin, double ymax, bool speckle, long ilevel, int unit);
 
 #ifdef PRAAT_LIB
-double Sampled_getXMin(Sampled me);
-double Sampled_getXMax(Sampled me);
-long Sampled_getNx(Sampled me);
-double Sampled_getDx(Sampled me);
-double Sampled_getX1(Sampled me);
+PRAAT_LIB_EXPORT double Sampled_getXMin(Sampled me);
+PRAAT_LIB_EXPORT double Sampled_getXMax(Sampled me);
+PRAAT_LIB_EXPORT long Sampled_getNx(Sampled me);
+PRAAT_LIB_EXPORT double Sampled_getDx(Sampled me);
+PRAAT_LIB_EXPORT double Sampled_getX1(Sampled me);
 #endif
 
 /* End of file Sampled.h */
