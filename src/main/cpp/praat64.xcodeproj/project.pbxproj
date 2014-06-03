@@ -1914,6 +1914,7 @@
 		23FE2D480E4F3D44003EEE43 /* Pattern_to_Categories_cluster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2D430E4F3D44003EEE43 /* Pattern_to_Categories_cluster.cpp */; };
 		23FE2D490E4F3D44003EEE43 /* Pattern_to_Categories_cluster.h in Headers */ = {isa = PBXBuildFile; fileRef = 23FE2D440E4F3D44003EEE43 /* Pattern_to_Categories_cluster.h */; };
 		23FE2D4A0E4F3D44003EEE43 /* praat_contrib_Ola_KNN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2D450E4F3D44003EEE43 /* praat_contrib_Ola_KNN.cpp */; };
+		B41993A7193DF42E0034928D /* praatlib.h in Headers */ = {isa = PBXBuildFile; fileRef = B41993A6193DF42E0034928D /* praatlib.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -3826,7 +3827,7 @@
 		23FE2D430E4F3D44003EEE43 /* Pattern_to_Categories_cluster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pattern_to_Categories_cluster.cpp; path = contrib/ola/Pattern_to_Categories_cluster.cpp; sourceTree = "<group>"; };
 		23FE2D440E4F3D44003EEE43 /* Pattern_to_Categories_cluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pattern_to_Categories_cluster.h; path = contrib/ola/Pattern_to_Categories_cluster.h; sourceTree = "<group>"; };
 		23FE2D450E4F3D44003EEE43 /* praat_contrib_Ola_KNN.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = praat_contrib_Ola_KNN.cpp; path = contrib/ola/praat_contrib_Ola_KNN.cpp; sourceTree = "<group>"; };
-		B432ABFE19252F5400914560 /* praatlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = praatlib.h; sourceTree = "<group>"; };
+		B41993A6193DF42E0034928D /* praatlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = praatlib.h; path = sys/praatlib.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5839,7 +5840,7 @@
 				23E5CB3409A22902004E41D5 /* UiFile.cpp */,
 				2300251F0F26983000A930DB /* UiPause.h */,
 				230025210F26983700A930DB /* UiPause.cpp */,
-				B432ABFE19252F5400914560 /* praatlib.h */,
+				B41993A6193DF42E0034928D /* praatlib.h */,
 			);
 			name = sys;
 			sourceTree = "<group>";
@@ -6688,6 +6689,7 @@
 				2317A5CA15230FFA004610E9 /* mad_config.h in Headers */,
 				2317A5CB15230FFA004610E9 /* mad_decoder.h in Headers */,
 				2317A5CD15230FFA004610E9 /* mad_fixed.h in Headers */,
+				B41993A7193DF42E0034928D /* praatlib.h in Headers */,
 				2317A5CF15230FFA004610E9 /* mad_frame.h in Headers */,
 				2317A5D115230FFA004610E9 /* mad_global.h in Headers */,
 				2317A5D215230FFA004610E9 /* mad_huffman.h in Headers */,
