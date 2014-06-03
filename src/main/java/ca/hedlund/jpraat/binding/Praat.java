@@ -12,6 +12,7 @@ import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolveScaling;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolveSignalOutsideTimeDomain;
+import ca.hedlund.jpraat.binding.jna.Header;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
@@ -299,9 +300,109 @@ public interface Praat extends Library {
 //	Matrix TableOfReal_to_Matrix (Matrix me);
 //	TableOfReal Matrix_to_TableOfReal (Matrix me);
 	
-	/* fon/Pitch.h */
+	/**
+	 * See {@link Pitch#create(double, double, long, double, double, double, int)}
+	 */
+	@Header("fon/Pitch.h")
 	public Pitch Pitch_create (double tmin, double tmax, long nt, double dt, double t1,
 			double ceiling, int maxnCandidates);
+	
+	/**
+	 * See {@link Pitch#isVoiced_i(long)}
+	 */
+	@Header("fon/Pitch.h")
+	public boolean Pitch_isVoiced_i (Pitch me, long index);
+	
+	/**
+	 * See {@link Pitch#isVoiced_t(double)}
+	 */
+	@Header("fon/Pitch.h")
+	public boolean Pitch_isVoiced_t (Pitch me, double t);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getValueAtTime (Pitch me, double time, int unit, int interpolate);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getStrengthAtTime (Pitch me, double time, int unit, int interpolate);
+
+	@Header("fon/Pitch.h")
+	public long Pitch_countVoicedFrames (Pitch me);
+
+	@Header("fon/Pitch.h")
+	public double Pitch_getMean (Pitch me, double tmin, double tmax, int unit);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getMeanStrength (Pitch me, double tmin, double tmax, int unit);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getQuantile (Pitch me, double tmin, double tmax, double quantile, int unit);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getStandardDeviation (Pitch me, double tmin, double tmax, int unit);
+	
+	@Header("fon/Pitch.h")
+	public void Pitch_getMaximumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
+		Pointer return_maximum, Pointer return_timeOfMaximum);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getTimeOfMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+	
+	@Header("fon/Pitch.h")
+	public void Pitch_getMinimumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
+		Pointer return_minimum, Pointer return_timeOfMinimum);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+	
+	@Header("fon/Pitch.h")
+	public double Pitch_getTimeOfMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+	
+	@Header("fon/Pitch.h")
+	public int Pitch_getMaxnCandidates (Pitch me);
+
+	@Header("fon/Pitch.h")
+	public void Pitch_setCeiling (Pitch me, double ceiling);
+	
+	@Header("fon/Pitch.h")
+	public void Pitch_pathFinder (Pitch me, double silenceThreshold, double voicingThreshold,
+			double octaveCost, double octaveJumpCost, double voicedUnvoicedCost,
+			double ceiling, int pullFormants);
+	
+	@Header("fon/Pitch.h")
+	public void Pitch_difference (Pitch me, Pitch thee);
+
+	@Header("fon/Pitch.h")
+	public long Pitch_getMeanAbsSlope_hertz (Pitch me, Pointer slope);
+	
+	@Header("fon/Pitch.h")
+	public long Pitch_getMeanAbsSlope_mel (Pitch me, Pointer slope);
+	
+	@Header("fon/Pitch.h")
+	public long Pitch_getMeanAbsSlope_semitones (Pitch me, Pointer slope);
+	
+	@Header("fon/Pitch.h")
+	public long Pitch_getMeanAbsSlope_erb (Pitch me, Pointer slope);
+	
+	@Header("fon/Pitch.h")
+	public long Pitch_getMeanAbsSlope_noOctave (Pitch me, Pointer slope);
+	
+	@Header("fon/Pitch.h")
+	public Pitch Pitch_killOctaveJumps (Pitch me);
+
+	@Header("fon/Pitch.h")
+	public Pitch Pitch_interpolate (Pitch me);
+
+	@Header("fon/Pitch.h")
+	public Pitch Pitch_subtractLinearFit (Pitch me, int unit);
+
+	@Header("fon/Pitch.h")
+	public Pitch Pitch_smooth (Pitch me, double bandWidth);
+
+	@Header("fon/Pitch.h")
+	public void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
 	
 	/* fon/Sound.h */
 	/**
@@ -348,10 +449,43 @@ public interface Praat extends Library {
 	
 	public double Spectrogram_getZ(Spectrogram me, int ix, int iy);
 	
-	/* fon/Sound_and_Spectrogram.h */
+	@Header("fon/Sound_to_Spectrogram.h")
 	public Spectrogram Sound_to_Spectrogram (Sound me, double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
 			double maximumTimeOversampling, double maximumFreqOversampling);
+	
+	@Header("fon/Sound_to_Pitch.h")
+	public Pitch Sound_to_Pitch (Sound me, double timeStep,
+			double minimumPitch, double maximumPitch);
+
+	@Header("fon/Sound_to_Pitch.h")
+	public Pitch Sound_to_Pitch_ac (Sound me, double timeStep, double minimumPitch,
+		double periodsPerWindow, int maxnCandidates, int accurate,
+		double silenceThreshold, double voicingThreshold, double octaveCost,
+		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
+
+	@Header("fon/Sound_to_Pitch.h")
+	public Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
+		double periodsPerWindow, int maxnCandidates, int accurate,
+		double silenceThreshold, double voicingThreshold, double octaveCost,
+		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
+	
+	@Header("fon/Sound_to_Pitch.h")
+	public Pitch Sound_to_Pitch_any (Sound me,
+
+		double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
+		double minimumPitch,       /* (Hz) */
+		double periodsPerWindow,   /* ac3 for pitch analysis, 6 or 4.5 for HNR, 1 for FCC */
+		int maxnCandidates,        /* maximum number of candidates per frame */
+		int method,                /* 0 or 1 = AC, 2 or 3 = FCC, 0 or 2 = fast, 1 or 3 = accurate */
+
+		double silenceThreshold,   /* relative to purely periodic; default 0.03 */
+		double voicingThreshold,   /* relative to purely periodic; default 0.45 */
+		double octaveCost,         /* favours higher pitches; default 0.01 */
+		double octaveJumpCost,     /* default 0.35 */
+		double voicedUnvoicedCost, /* default 0.14 */
+		double maximumPitch);      /* (Hz) */
+	
 	
 	/* sendpraat.c */
 	public String sendpraat (Object display, String programName, long timeOut,  String text);
