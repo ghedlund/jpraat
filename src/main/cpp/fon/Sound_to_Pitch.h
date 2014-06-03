@@ -20,23 +20,27 @@
 #include "Sound.h"
 #include "Pitch.h"
 
-Pitch Sound_to_Pitch (Sound me, double timeStep,
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
+PRAAT_LIB_EXPORT Pitch Sound_to_Pitch (Sound me, double timeStep,
 	double minimumPitch, double maximumPitch);
 /* Calls Sound_to_Pitch_ac with default arguments. */
 
-Pitch Sound_to_Pitch_ac (Sound me, double timeStep, double minimumPitch,
+PRAAT_LIB_EXPORT Pitch Sound_to_Pitch_ac (Sound me, double timeStep, double minimumPitch,
 	double periodsPerWindow, int maxnCandidates, int accurate,
 	double silenceThreshold, double voicingThreshold, double octaveCost,
 	double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 /* Calls Sound_to_Pitch_any with AC method. */
 
-Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
+PRAAT_LIB_EXPORT Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
 	double periodsPerWindow, int maxnCandidates, int accurate,
 	double silenceThreshold, double voicingThreshold, double octaveCost,
 	double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 /* Calls Sound_to_Pitch_any with FCC method. */
 
-Pitch Sound_to_Pitch_any (Sound me,
+PRAAT_LIB_EXPORT Pitch Sound_to_Pitch_any (Sound me,
 
 	double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
 	double minimumPitch,       /* (Hz) */

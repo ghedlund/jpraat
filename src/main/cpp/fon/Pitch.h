@@ -25,10 +25,14 @@
 
 #include "Pitch_enums.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "Pitch_def.h"
 oo_CLASS_CREATE (Pitch, Sampled);
 
-Pitch Pitch_create (double tmin, double tmax, long nt, double dt, double t1,
+PRAAT_LIB_EXPORT Pitch Pitch_create (double tmin, double tmax, long nt, double dt, double t1,
 	double ceiling, int maxnCandidates);
 /*
 	Function:
@@ -65,7 +69,7 @@ void Pitch_Frame_init (Pitch_Frame me, int nCandidates);
 		my intensity == 0.0; // silent
 */
 
-bool Pitch_isVoiced_i (Pitch me, long index);
+PRAAT_LIB_EXPORT bool Pitch_isVoiced_i (Pitch me, long index);
 /*
 	Is the frame 'index' voiced?
 	A frame is considered voiced if the frequency of its first candidate
@@ -74,7 +78,7 @@ bool Pitch_isVoiced_i (Pitch me, long index);
 		index >= 1 && index <= my nx;
 */
 
-bool Pitch_isVoiced_t (Pitch me, double t);
+PRAAT_LIB_EXPORT bool Pitch_isVoiced_t (Pitch me, double t);
 /*
 	Are you voiced at time 't'?
 	The answer is TRUE iff 't' lies within a voiced frame.
@@ -92,36 +96,36 @@ bool Pitch_isVoiced_t (Pitch me, double t);
 #define Pitch_NEAREST  0
 #define Pitch_LINEAR  1
 
-double Pitch_getValueAtTime (Pitch me, double time, int unit, int interpolate);
-double Pitch_getStrengthAtTime (Pitch me, double time, int unit, int interpolate);
+PRAAT_LIB_EXPORT double Pitch_getValueAtTime (Pitch me, double time, int unit, int interpolate);
+PRAAT_LIB_EXPORT double Pitch_getStrengthAtTime (Pitch me, double time, int unit, int interpolate);
 
-long Pitch_countVoicedFrames (Pitch me);
+PRAAT_LIB_EXPORT long Pitch_countVoicedFrames (Pitch me);
 
-double Pitch_getMean (Pitch me, double tmin, double tmax, int unit);
-double Pitch_getMeanStrength (Pitch me, double tmin, double tmax, int unit);
-double Pitch_getQuantile (Pitch me, double tmin, double tmax, double quantile, int unit);
-double Pitch_getStandardDeviation (Pitch me, double tmin, double tmax, int unit);
-void Pitch_getMaximumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
+PRAAT_LIB_EXPORT double Pitch_getMean (Pitch me, double tmin, double tmax, int unit);
+PRAAT_LIB_EXPORT double Pitch_getMeanStrength (Pitch me, double tmin, double tmax, int unit);
+PRAAT_LIB_EXPORT double Pitch_getQuantile (Pitch me, double tmin, double tmax, double quantile, int unit);
+PRAAT_LIB_EXPORT double Pitch_getStandardDeviation (Pitch me, double tmin, double tmax, int unit);
+PRAAT_LIB_EXPORT void Pitch_getMaximumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
 	double *return_maximum, double *return_timeOfMaximum);
-double Pitch_getMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
-double Pitch_getTimeOfMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
-void Pitch_getMinimumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
+PRAAT_LIB_EXPORT double Pitch_getMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+PRAAT_LIB_EXPORT double Pitch_getTimeOfMaximum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+PRAAT_LIB_EXPORT void Pitch_getMinimumAndTime (Pitch me, double tmin, double tmax, int unit, int interpolate,
 	double *return_minimum, double *return_timeOfMinimum);
-double Pitch_getMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
-double Pitch_getTimeOfMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+PRAAT_LIB_EXPORT double Pitch_getMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
+PRAAT_LIB_EXPORT double Pitch_getTimeOfMinimum (Pitch me, double tmin, double tmax, int unit, int interpolate);
 
-int Pitch_getMaxnCandidates (Pitch me);
+PRAAT_LIB_EXPORT int Pitch_getMaxnCandidates (Pitch me);
 /*
 	Returns the largest number of candidates actually attested in a frame.
 */
 
-void Pitch_setCeiling (Pitch me, double ceiling);
+PRAAT_LIB_EXPORT void Pitch_setCeiling (Pitch me, double ceiling);
 /*
 	Postcondition:
 		my ceiling = ceiling;
 */
 
-void Pitch_pathFinder (Pitch me, double silenceThreshold, double voicingThreshold,
+PRAAT_LIB_EXPORT void Pitch_pathFinder (Pitch me, double silenceThreshold, double voicingThreshold,
 	double octaveCost, double octaveJumpCost, double voicedUnvoicedCost,
 	double ceiling, int pullFormants);
 
@@ -137,14 +141,14 @@ void Pitch_draw (Pitch me, Graphics g, double tmin, double tmax, double fmin, do
 	If tmax <= tmin, draw whole time domain.
 */
 
-void Pitch_difference (Pitch me, Pitch thee);
+PRAAT_LIB_EXPORT void Pitch_difference (Pitch me, Pitch thee);
 /* give information about frames that are different in me and thee. */
 
-long Pitch_getMeanAbsSlope_hertz (Pitch me, double *slope);
-long Pitch_getMeanAbsSlope_mel (Pitch me, double *slope);
-long Pitch_getMeanAbsSlope_semitones (Pitch me, double *slope);
-long Pitch_getMeanAbsSlope_erb (Pitch me, double *slope);
-long Pitch_getMeanAbsSlope_noOctave (Pitch me, double *slope);
+PRAAT_LIB_EXPORT long Pitch_getMeanAbsSlope_hertz (Pitch me, double *slope);
+PRAAT_LIB_EXPORT long Pitch_getMeanAbsSlope_mel (Pitch me, double *slope);
+PRAAT_LIB_EXPORT long Pitch_getMeanAbsSlope_semitones (Pitch me, double *slope);
+PRAAT_LIB_EXPORT long Pitch_getMeanAbsSlope_erb (Pitch me, double *slope);
+PRAAT_LIB_EXPORT long Pitch_getMeanAbsSlope_noOctave (Pitch me, double *slope);
 /*
    The value returned is the number of voiced frames (nVoiced);
    this signals if the values are valid:
@@ -154,7 +158,7 @@ long Pitch_getMeanAbsSlope_noOctave (Pitch me, double *slope);
    'minimum', 'maximum', 'mean', and 'variance' may be NULL.
 */
 
-Pitch Pitch_killOctaveJumps (Pitch me);
+PRAAT_LIB_EXPORT Pitch Pitch_killOctaveJumps (Pitch me);
 /* Add octave jumps so that every pitch step,
    including those across unvoiced frames,
    does not exceed 1/2 octave.
@@ -162,13 +166,13 @@ Pitch Pitch_killOctaveJumps (Pitch me);
       result -> ceiling = my ceiling * 2;
 */
 
-Pitch Pitch_interpolate (Pitch me);
+PRAAT_LIB_EXPORT Pitch Pitch_interpolate (Pitch me);
 /* Interpolate the pitch values of unvoiced frames. */
 /* No extrapolation beyond first and last voiced frames. */
 
-Pitch Pitch_subtractLinearFit (Pitch me, int unit);
+PRAAT_LIB_EXPORT Pitch Pitch_subtractLinearFit (Pitch me, int unit);
 
-Pitch Pitch_smooth (Pitch me, double bandWidth);
+PRAAT_LIB_EXPORT Pitch Pitch_smooth (Pitch me, double bandWidth);
 /* Smoothing by convolution with Gaussian curve.
    Time domain: exp (- (pi t bandWidth) ^ 2)
       down to 8.5 % for t = +- 0.5/bandWidth
@@ -186,7 +190,7 @@ Pitch Pitch_smooth (Pitch me, double bandWidth);
       Undo interpolation.
 */
 
-void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
+PRAAT_LIB_EXPORT void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
 /*
 	Instead of the currently chosen candidate,
 	choose the candidate with another ("target") frequency, determined by 'step'.
