@@ -73,7 +73,7 @@ public class Pitch extends Sampled {
 		return Praat.INSTANCE.Pitch_getStrengthAtTime(this, time, unit, interpolate);
 	}
 
-	public long countVoicedFrames (Pitch me) {
+	public long countVoicedFrames () {
 		return Praat.INSTANCE.Pitch_countVoicedFrames(this);
 	}
 
