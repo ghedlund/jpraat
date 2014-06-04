@@ -62,11 +62,12 @@ library:
 	$(MAKE) -C FFNet
 	$(MAKE) -C artsynth
 	$(MAKE) -C contrib/ola
-	$(LINK) -shared -o $(LIBRARY) fon/*.o \
+	$(MAKE) -C main main_Praat.o $(ICON)
+	$(LINK) -shared -o $(LIBRARY) main/main_Praat.o ${MAIN_ICON} fon/*.o \
 		contrib/ola/*.o artsynth/*.o \
 		FFNet/*.o gram/*.o EEG/*.o \
 		LPC/*.o dwtools/*.o \
-		fon/*.o stat/*.o dwsys/*.o \
+		stat/*.o dwsys/*.o \
 		sys/*.o num/*.o kar/*.o \
 		external/espeak/*.o external/portaudio/*.o \
 		external/flac/*.o external/mp3/*.o \
