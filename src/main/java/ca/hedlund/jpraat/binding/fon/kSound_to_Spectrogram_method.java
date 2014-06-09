@@ -1,9 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeEnum;
 
-@Header("fon/Sound_to_Spectrogram_enums.h")
+@Declared("fon/Sound_to_Spectrogram_enums.h")
 public enum kSound_to_Spectrogram_method implements NativeEnum {
 	FOURIER("Fourier");
 	

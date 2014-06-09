@@ -1,9 +1,8 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 
-@Header("fon/Spectrogram.h")
 public class Spectrogram extends Matrix {
 	
 	public static Spectrogram create (double tmin, double tmax, long nt, double dt, double t1,

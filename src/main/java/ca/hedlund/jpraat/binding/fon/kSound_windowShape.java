@@ -1,12 +1,12 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeEnum;
 
 /**
  * kSound_windowShape
  */
-@Header("fon/Sound_enums.h")
+@Declared("fon/Sound_enums.h")
 public enum kSound_windowShape implements NativeEnum {
 	RECTANGULAR("rectangular"),
 	TRIANGULAR("triangular"),

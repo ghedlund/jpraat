@@ -1,12 +1,12 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeEnum;
 
 /**
  * kSound_convolve_scaling
  */
-@Header("fon/Sound_enums.h")
+@Declared("fon/Sound_enums.h")
 public enum kSounds_convolveScaling implements NativeEnum {
 	INTEGRAL("integral"),
 	SUM("sum"),

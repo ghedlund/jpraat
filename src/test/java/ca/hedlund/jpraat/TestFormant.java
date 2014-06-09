@@ -6,26 +6,23 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.LongSound;
-import ca.hedlund.jpraat.binding.fon.Pitch;
 import ca.hedlund.jpraat.binding.fon.Sound;
-import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-
 @RunWith(JUnit4.class)
-public class TestPitch {
-
+public class TestFormant {
+	
 	private final static String DEMO_SOUND = "DemoVideo.wav";
 	
 	private final static double XMIN = 7.737;
 	private final static double XMAX = 10.478;
 	private final static double TIMESTEP = 0.0; // automatic
-	private final static double PITCHFLOOR = 75.0;
-	private final static double PITCHCEIL = 600.0;
+	private final static double MAXFREQ = 5000.0;
+	private final static double MAXFORMANTS = 5;
+	private final static double WINDOWLENGTH = 0.2;
+	private final static double PREEMPHASIS = 50.0;
 	
 	@Before
 	public void init() {
@@ -33,47 +30,43 @@ public class TestPitch {
 		Praat.INSTANCE.NUMinit();
 		Praat.INSTANCE.Melder_alloc_init();
 	}
-	
+
 	@Test
-	public void testPitch() {
+	public void testFormant() {
 		final String path = 
 				getClass().getResource(DEMO_SOUND).getFile();
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(path));
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
-		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);
+		final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS);
 		
-		final Pointer ixminPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		final Pointer ixmaxPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		pitch.getWindowSamples(XMIN, XMAX, ixminPtr, ixmaxPtr);
-		
+		// print a table of means
 		final StringBuilder sb = new StringBuilder();
-		sb.append("\"Time\"");
+		sb.append('\"');
+		sb.append("Time");
+		sb.append('\"');
 		
-		for(kPitch_unit unit:kPitch_unit.values()) {
+		for(int i = 0; i <= MAXFORMANTS; i++) {
 			sb.append('\t');
 			sb.append('\"');
-			sb.append(unit.getName());
+			sb.append("f");
+			sb.append(i);
 			sb.append('\"');
 		}
 		System.out.println(sb.toString());
 		sb.setLength(0);
 		
-		final long ixmin = ixminPtr.getLong(0L);
-		final long ixmax = ixmaxPtr.getLong(0L);
-		for(long ix = ixmin; ix <= ixmax; ix++) {
-			final double time = (XMIN + (ix * pitch.getDx()));
+		for(double x = XMIN; x <= XMAX; x += formant.getDx()) {
 			sb.append('\"');
-			sb.append(time);
+			sb.append(x);
 			sb.append('\"');
 			
-			for(kPitch_unit unit:kPitch_unit.values()) {
-				double value = pitch.getValueAtSample(ix, Pitch.LEVEL_FREQUENCY, unit.getNativeValue());
+			for(int i = 1; i <= MAXFORMANTS; i++) {
+				final double value = formant.getValueAtTime(i, x, 1);
 				sb.append('\t');
 				sb.append('\"');
 				sb.append(value);
 				sb.append('\"');
 			}
-			
 			System.out.println(sb.toString());
 			sb.setLength(0);
 		}

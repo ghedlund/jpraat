@@ -1,13 +1,12 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
 /**
  * 
  */
-@Header("fon/Sound.h")
 public class Sound extends Vector {
 	
 	public static final int LEVEL_MONO = 0;
@@ -62,7 +61,7 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_extractPart(this, t1, t2, windowShape, relativeWidth, preserveTimes);
 	}
 
-	@Header("fon/Sound_to_Spectrogram.h")
+	@Declared("fon/Sound_to_Spectrogram.h")
 	public Spectrogram toSpectrogram (double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
 			double maximumTimeOversampling, double maximumFreqOversampling) {
@@ -70,7 +69,7 @@ public class Sound extends Vector {
 				windowShape, maximumTimeOversampling, maximumFreqOversampling);
 	}
 	
-	@Header("fon/Sound_to_Pitch.h")
+	@Declared("fon/Sound_to_Pitch.h")
 	/* Calls Sound_to_Pitch_ac with default arguments. */
 	public Pitch to_Pitch (double timeStep,
 			double minimumPitch, double maximumPitch) {
@@ -78,7 +77,7 @@ public class Sound extends Vector {
 	}
 
 	/* Calls Sound_to_Pitch_any with AC method. */
-	@Header("fon/Sound_to_Pitch.h")
+	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch to_Pitch_ac (double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
@@ -88,7 +87,7 @@ public class Sound extends Vector {
 	}
 
 	/* Calls Sound_to_Pitch_any with FCC method. */
-	@Header("fon/Sound_to_Pitch.h")
+	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
@@ -131,7 +130,7 @@ public class Sound extends Vector {
 			It is directly copied into the Pitch object as a hint for considering
 			pitches above a certain value "voiceless".
  	*/
-	@Header("fon/Sound_to_Pitch.h")
+	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch Sound_to_Pitch_any (Sound me,
 
 		double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
@@ -150,5 +149,32 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_to_Pitch_any(this, dt, minimumPitch, periodsPerWindow, maxnCandidates, method, 
 				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
 	}
+	
+	/*
+		Which = 1: Burg.
+		Which = 2: Split-Levinson
+	*/
+	public Formant to_Formant_any (double timeStep, int numberOfPoles, double maximumFrequency,
+			double halfdt_window, int which, double preemphasisFrequency, double safetyMargin) {
+		return Praat.INSTANCE.Sound_to_Formant_any(this, timeStep, numberOfPoles, maximumFrequency, halfdt_window, which, preemphasisFrequency, safetyMargin);
+	}
+	
+	/* Throws away all formants below 50 Hz and above Nyquist minus 50 Hz. */
+	public Formant to_Formant_burg (double timeStep, double maximumNumberOfFormants,
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		return Praat.INSTANCE.Sound_to_Formant_burg(this, timeStep, maximumNumberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+	}
+
+	/* Same as previous, but keeps all formants. Good for resynthesis. */
+	public Formant to_Formant_keepAll (double timeStep, double maximumNumberOfFormants,
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		return Praat.INSTANCE.Sound_to_Formant_keepAll(this, timeStep, maximumNumberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+	}
+
+	public Formant to_Formant_willems (double timeStep, double numberOfFormants,
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		return Praat.INSTANCE.Sound_to_Formant_willems(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+	}
+	
 	
 }

@@ -3,9 +3,8 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 
-@Header("fon/SampledXY.h")
 public class SampledXY extends Sampled {
 	
 	public double getYMin() {

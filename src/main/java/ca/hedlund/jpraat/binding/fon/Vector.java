@@ -3,12 +3,11 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 
 /**
  * Bindings for Praat Vector type
  */
-@Header("fon/Vector.h")
 public class Vector extends Matrix {
 	
 	public static final int CHANNEL_AVERAGE = 0;

@@ -1,12 +1,12 @@
 package ca.hedlund.jpraat.binding.sys;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 
 import com.sun.jna.PointerType;
 import com.sun.jna.WString;
 
-@Header("sys/melder.h")
+@Declared("sys/melder.h")
 public class MelderFile extends PointerType {
 	
 	/**

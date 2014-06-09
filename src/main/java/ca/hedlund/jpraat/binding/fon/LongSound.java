@@ -1,10 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
-@Header("fon/LongSound.h")
 public class LongSound extends Sampled {
 	
 	public static LongSound open (MelderFile fs) {

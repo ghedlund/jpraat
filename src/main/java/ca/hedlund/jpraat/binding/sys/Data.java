@@ -1,12 +1,12 @@
 package ca.hedlund.jpraat.binding.sys;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.jna.Declared;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 
-@Header("sys/Data.h")
+@Declared("sys/Data.h")
 public class Data extends PointerType {
 	
 	public static Pointer readFromTextFile (MelderFile file) {
