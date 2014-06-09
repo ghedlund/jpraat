@@ -42,12 +42,6 @@
  * pb 2011/04/05 C++
  */
 
-#include "melder.h"
-#include "Gui.h"
-#include "Preferences.h"
-#include "NUM.h"
-#include <time.h>
-#define my  me ->
 
 #if defined (macintosh)
 	#include <sys/time.h>
@@ -70,6 +64,13 @@
 	#endif
 	#include <errno.h>
 #endif
+
+#include "melder.h"
+#include "Gui.h"
+#include "Preferences.h"
+#include "NUM.h"
+#include <time.h>
+#define my  me ->
 
 #include "../external/portaudio/portaudio.h"
 
