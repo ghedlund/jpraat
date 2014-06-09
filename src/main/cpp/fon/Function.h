@@ -21,6 +21,10 @@
 
 #include "Data.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "Function_def.h"
 oo_CLASS_CREATE (Function, Data);
 
@@ -31,7 +35,7 @@ oo_CLASS_CREATE (Function, Data);
 		xmin, xmax are constant;
 */
 
-void Function_init (Function me, double xmin, double xmax);
+PRAAT_LIB_EXPORT void Function_init (Function me, double xmin, double xmax);
 /*
 	Preconditions:
 		xmin <= xmax;
@@ -40,7 +44,7 @@ void Function_init (Function me, double xmin, double xmax);
 		result -> xmax == xmax;
 */
 
-int Function_getDomainQuantity (Function me);   // as input for MelderQuantity_getXXX
+PRAAT_LIB_EXPORT int Function_getDomainQuantity (Function me);   // as input for MelderQuantity_getXXX
 
 /*
  * A function value is often expressed in some unit, such as:
@@ -50,19 +54,19 @@ int Function_getDomainQuantity (Function me);   // as input for MelderQuantity_g
  * 'unit' is enumerated type that has to be defined in the header files of the descendant class,
  * starting from 0, which should be the default unit; e.g. for pitch: 0 = Hz, 1 = logHz, 2 = semitones, 3 = mel.
  */
-int Function_getMinimumUnit (Function me, long ilevel);
-int Function_getMaximumUnit (Function me, long ilevel);
+PRAAT_LIB_EXPORT int Function_getMinimumUnit (Function me, long ilevel);
+PRAAT_LIB_EXPORT int Function_getMaximumUnit (Function me, long ilevel);
 
 #define Function_UNIT_TEXT_SHORT            0x00000001
 #define Function_UNIT_TEXT_GRAPHICAL        0x00000002
 #define Function_UNIT_TEXT_MENU             0x00000004
-const wchar_t * Function_getUnitText (Function me, long ilevel, int unit, unsigned long flags);
+PRAAT_LIB_EXPORT const wchar_t * Function_getUnitText (Function me, long ilevel, int unit, unsigned long flags);
 
-bool Function_isUnitLogarithmic (Function me, long ilevel, int unit);
+PRAAT_LIB_EXPORT bool Function_isUnitLogarithmic (Function me, long ilevel, int unit);
 
-double Function_convertStandardToSpecialUnit (Function me, double value, long ilevel, int unit);
-double Function_convertSpecialToStandardUnit (Function me, double value, long ilevel, int unit);
-double Function_convertToNonlogarithmic (Function me, double value, long ilevel, int unit);
+PRAAT_LIB_EXPORT double Function_convertStandardToSpecialUnit (Function me, double value, long ilevel, int unit);
+PRAAT_LIB_EXPORT double Function_convertSpecialToStandardUnit (Function me, double value, long ilevel, int unit);
+PRAAT_LIB_EXPORT double Function_convertToNonlogarithmic (Function me, double value, long ilevel, int unit);
 
 /* The domain of a function can be changed by windowing. */
 /* Here follow some window functions. */
@@ -77,7 +81,7 @@ double Function_convertToNonlogarithmic (Function me, double value, long ilevel,
 #define Function_KAISER20  7
 #define Function_GAUSSIAN  8
 
-double Function_window (double tim, int windowType);
+PRAAT_LIB_EXPORT double Function_window (double tim, int windowType);
 /*
 	Return value:
 		a number between 0 and 1, zero outside the "domain":
@@ -125,14 +129,14 @@ double Function_window (double tim, int windowType);
 /*
  * Procedures to adapt a range to the extent of the function domain.
  */
-void Function_unidirectionalAutowindow (Function me, double *xmin, double *xmax);
-void Function_bidirectionalAutowindow (Function me, double *x1, double *x2);
-bool Function_intersectRangeWithDomain (Function me, double *x1, double *x2);
+PRAAT_LIB_EXPORT void Function_unidirectionalAutowindow (Function me, double *xmin, double *xmax);
+PRAAT_LIB_EXPORT void Function_bidirectionalAutowindow (Function me, double *x1, double *x2);
+PRAAT_LIB_EXPORT bool Function_intersectRangeWithDomain (Function me, double *x1, double *x2);
 
-void Function_shiftXBy (Function me, double shift);
-void Function_shiftXTo (Function me, double xfrom, double xto);
-void Function_scaleXBy (Function me, double factor);
-void Function_scaleXTo (Function me, double xminto, double xmaxto);
+PRAAT_LIB_EXPORT void Function_shiftXBy (Function me, double shift);
+PRAAT_LIB_EXPORT void Function_shiftXTo (Function me, double xfrom, double xto);
+PRAAT_LIB_EXPORT void Function_scaleXBy (Function me, double factor);
+PRAAT_LIB_EXPORT void Function_scaleXTo (Function me, double xminto, double xmaxto);
 
 /* End of file Function.h */
 #endif

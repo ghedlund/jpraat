@@ -281,7 +281,9 @@ static Formant Sound_to_Formant_any_inline (Sound me, double dt_in, int numberOf
 	autoNUMvector <double> frame (1, nsamp_window);
 	autoNUMvector <double> cof (1, numberOfPoles);   // superfluous if which==2, but nobody uses that anyway
 
+#ifndef PRAAT_LIB
 	autoMelderProgress progress (L"Formant analysis...");
+#endif
 
 	/* Pre-emphasis. */
 	Sound_preEmphasis (me, preemphasisFrequency);
@@ -324,7 +326,10 @@ static Formant Sound_to_Formant_any_inline (Sound me, double dt_in, int numberOf
 				Melder_casual ("(Sound_to_Formant:) Analysis results of frame %ld will be wrong.", iframe);
 			}
 		}
+
+#ifndef PRAAT_LIB
 		Melder_progress ((double) iframe / (double) nFrames, L"Formant analysis: frame ", Melder_integer (iframe));
+#endif
 	}
 	Formant_sort (thee.peek());
 	return thee.transfer();

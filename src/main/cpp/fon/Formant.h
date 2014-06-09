@@ -23,10 +23,14 @@
 #include "Table.h"
 #include "Interpreter_decl.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 #include "Formant_def.h"
 oo_CLASS_CREATE (Formant, Sampled);
 
-Formant Formant_create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants);
+PRAAT_LIB_EXPORT Formant Formant_create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants);
 /*
 	Function:
 		return a new instance of Formant, or NULL if out of memory.
@@ -46,28 +50,28 @@ Formant Formant_create (double tmin, double tmax, long nt, double dt, double t1,
 		my frames [1..nt]. formants [1..maxnFormants] = 0.0;
 		my frames [1..nt]. bandwidths [1..maxnFormants] = 0.0;
 */
-long Formant_getMinNumFormants (Formant me);
-long Formant_getMaxNumFormants (Formant me);
+PRAAT_LIB_EXPORT long Formant_getMinNumFormants (Formant me);
+PRAAT_LIB_EXPORT long Formant_getMaxNumFormants (Formant me);
 
-double Formant_getValueAtTime (Formant me, int iformant, double time, int bark);
-double Formant_getBandwidthAtTime (Formant me, int iformant, double time, int bark);
+PRAAT_LIB_EXPORT double Formant_getValueAtTime (Formant me, int iformant, double time, int bark);
+PRAAT_LIB_EXPORT double Formant_getBandwidthAtTime (Formant me, int iformant, double time, int bark);
 
-void Formant_getExtrema (Formant me, int iformant, double tmin, double tmax, double *fmin, double *fmax);
-void Formant_getMinimumAndTime (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate,
+PRAAT_LIB_EXPORT void Formant_getExtrema (Formant me, int iformant, double tmin, double tmax, double *fmin, double *fmax);
+PRAAT_LIB_EXPORT void Formant_getMinimumAndTime (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate,
 	double *return_minimum, double *return_timeOfMinimum);
-void Formant_getMaximumAndTime (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate,
+PRAAT_LIB_EXPORT void Formant_getMaximumAndTime (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate,
 	double *return_maximum, double *return_timeOfMaximum);
-double Formant_getMinimum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
-double Formant_getMaximum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
-double Formant_getTimeOfMaximum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
-double Formant_getTimeOfMinimum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
+PRAAT_LIB_EXPORT double Formant_getMinimum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
+PRAAT_LIB_EXPORT double Formant_getMaximum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
+PRAAT_LIB_EXPORT double Formant_getTimeOfMaximum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
+PRAAT_LIB_EXPORT double Formant_getTimeOfMinimum (Formant me, int iformant, double tmin, double tmax, int bark, int interpolate);
 
-double Formant_getQuantile (Formant me, int iformant, double quantile, double tmin, double tmax, int bark);
-double Formant_getQuantileOfBandwidth (Formant me, int iformant, double quantile, double tmin, double tmax, int bark);
-double Formant_getMean (Formant me, int iformant, double tmin, double tmax, int bark);
-double Formant_getStandardDeviation (Formant me, int iformant, double tmin, double tmax, int bark);
+PRAAT_LIB_EXPORT double Formant_getQuantile (Formant me, int iformant, double quantile, double tmin, double tmax, int bark);
+PRAAT_LIB_EXPORT double Formant_getQuantileOfBandwidth (Formant me, int iformant, double quantile, double tmin, double tmax, int bark);
+PRAAT_LIB_EXPORT double Formant_getMean (Formant me, int iformant, double tmin, double tmax, int bark);
+PRAAT_LIB_EXPORT double Formant_getStandardDeviation (Formant me, int iformant, double tmin, double tmax, int bark);
 
-void Formant_sort (Formant me);
+PRAAT_LIB_EXPORT void Formant_sort (Formant me);
 
 void Formant_drawTracks (Formant me, Graphics g, double tmin, double tmax, double fmax, int garnish);
 void Formant_drawSpeckles_inside (Formant me, Graphics g, double tmin, double tmax, double fmin, double fmax,
@@ -78,12 +82,12 @@ void Formant_scatterPlot (Formant me, Graphics g, double tmin, double tmax,
 	int iformant1, double fmin1, double fmax1, int iformant2, double fmin2, double fmax2,
 	double size_mm, const wchar_t *mark, int garnish);
 
-Matrix Formant_to_Matrix (Formant me, int iformant);
-Matrix Formant_to_Matrix_bandwidths (Formant me, int iformant);
+PRAAT_LIB_EXPORT Matrix Formant_to_Matrix (Formant me, int iformant);
+PRAAT_LIB_EXPORT Matrix Formant_to_Matrix_bandwidths (Formant me, int iformant);
 void Formant_formula_frequencies (Formant me, const wchar_t *formula, Interpreter interpreter);
 void Formant_formula_bandwidths (Formant me, const wchar_t *formula, Interpreter interpreter);
 
-Formant Formant_tracker (Formant me, int numberOfTracks,
+PRAAT_LIB_EXPORT Formant Formant_tracker (Formant me, int numberOfTracks,
 	double refF1, double refF2, double refF3, double refF4, double refF5,
 	double dfCost,   /* Per kHz. */
 	double bfCost, double octaveJumpCost);
@@ -93,7 +97,7 @@ Table Formant_downto_Table (Formant me, bool includeFrameNumbers,
 	bool includeIntensity, int intensityDecimals,
 	bool includeNumberOfFormants, int frequencyDecimals,
 	bool includeBandwidths);
-void Formant_list (Formant me, bool includeFrameNumbers,
+PRAAT_LIB_EXPORT void Formant_list (Formant me, bool includeFrameNumbers,
 	bool includeTimes, int timeDecimals,
 	bool includeIntensity, int intensityDecimals,
 	bool includeNumberOfFormants, int frequencyDecimals,

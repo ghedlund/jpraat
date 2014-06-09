@@ -50,7 +50,7 @@
 #include "abcio.h"
 #define NUMlog2(x)  (log (x) * NUMlog2e)
 
-void NUMinit (void);
+extern "C" void NUMinit (void);
 
 double NUMpow (double base, double exponent);   /* Zero for non-positive base. */
 void NUMshift (double *x, double xfrom, double xto);

@@ -20,6 +20,10 @@
 #include "praat.h"
 #include "praat_version.h"
 
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
 static void logo (Graphics g) {
 	Graphics_setWindow (g, 0, 1, 0.00, 0.80);
 	Graphics_setTextAlignment (g, Graphics_CENTRE, Graphics_HALF);
@@ -56,5 +60,11 @@ int main (int argc, char *argv []) {
 	}
 	return 0;
 }
+
+#ifdef PRAAT_LIB
+PRAAT_LIB_EXPORT int praat_main(int argc, char *argv []) {
+	return main(argc, argv);
+}
+#endif
 
 /* End of file main_Praat.cpp */

@@ -119,7 +119,7 @@ void Melder_writeToConsole (const wchar_t *message, bool useStderr);
 /* the f versions open up a rainy day fund or crash Praat. */
 /* These routines also maintain a count of the total number of blocks allocated. */
 
-void Melder_alloc_init (void);   // to be called around program start-up
+PRAAT_LIB_EXPORT void Melder_alloc_init (void);   // to be called around program start-up
 void * _Melder_malloc (unsigned long size);
 #define Melder_malloc(type,numberOfElements)  (type *) _Melder_malloc ((numberOfElements) * sizeof (type))
 void * _Melder_malloc_f (unsigned long size);

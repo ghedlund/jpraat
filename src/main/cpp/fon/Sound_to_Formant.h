@@ -20,22 +20,26 @@
 #include "Sound.h"
 #include "Formant.h"
 
-Formant Sound_to_Formant_any (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
+#ifdef PRAAT_LIB
+#include "praatlib.h"
+#endif
+
+PRAAT_LIB_EXPORT Formant Sound_to_Formant_any (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
 	double halfdt_window, int which, double preemphasisFrequency, double safetyMargin);
 /*
 	Which = 1: Burg.
 	Which = 2: Split-Levinson
 */
 
-Formant Sound_to_Formant_burg (Sound me, double timeStep, double maximumNumberOfFormants,
+PRAAT_LIB_EXPORT Formant Sound_to_Formant_burg (Sound me, double timeStep, double maximumNumberOfFormants,
 	double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 /* Throws away all formants below 50 Hz and above Nyquist minus 50 Hz. */
 
-Formant Sound_to_Formant_keepAll (Sound me, double timeStep, double maximumNumberOfFormants,
+PRAAT_LIB_EXPORT Formant Sound_to_Formant_keepAll (Sound me, double timeStep, double maximumNumberOfFormants,
 	double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 /* Same as previous, but keeps all formants. Good for resynthesis. */
 
-Formant Sound_to_Formant_willems (Sound me, double timeStep, double numberOfFormants,
+PRAAT_LIB_EXPORT Formant Sound_to_Formant_willems (Sound me, double timeStep, double numberOfFormants,
 	double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 
 /* End of file Sound_to_Formant.h */

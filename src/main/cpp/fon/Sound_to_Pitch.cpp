@@ -420,7 +420,8 @@ Pitch Sound_to_Pitch_any (Sound me,
 			/*
 			 * Second pass: for extra precision, maximize sin(x)/x interpolation ('sinc').
 			 */
-			for (long i = 2; i <= pitchFrame->nCandidates; i ++) {
+
+			 for (long i = 2; i <= pitchFrame->nCandidates; i ++) {
 				if (method != AC_HANNING || pitchFrame->candidate[i].frequency > 0.0 / my dx) {
 					double xmid, ymid;
 					long offset = - brent_ixmax - 1;
@@ -432,6 +433,8 @@ Pitch Sound_to_Pitch_any (Sound me,
 					pitchFrame->candidate[i].strength = ymid;
 				}
 			}
+
+
 		}   /* Next frame. */
 
 #ifndef PRAAT_LIB
