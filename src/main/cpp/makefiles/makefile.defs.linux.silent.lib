@@ -17,7 +17,7 @@ EXECUTABLE = praat
 LIBRARY = libpraat.so
 SYMBOLMAP = symbolmap
 
-LIBS = `pkg-config --libs gtk+-2.0` -lm -lpthread -z muldefs
+LIBS = `pkg-config --libs gtk+-2.0` -lm -lpthread
 
 AR = ar
 RANLIB = ls
