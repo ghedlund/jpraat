@@ -1,9 +1,0 @@
-*.o
-*.a
-praat.dll
-libpraat.so
-libpraat.dylib
-praat.exe
-praat
-makefile.defs
-libpraat.so
