@@ -1,5 +1,11 @@
 package ca.hedlund.jpraat;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,16 +35,17 @@ public class TestPitch {
 	
 	@Before
 	public void init() {
-		Praat.INSTANCE.NUMmachar();
-		Praat.INSTANCE.NUMinit();
-		Praat.INSTANCE.Melder_alloc_init();
+		Praat.INSTANCE.praat_lib_init();
 	}
 	
 	@Test
-	public void testPitch() {
-		final String path = 
-				getClass().getResource(DEMO_SOUND).getFile();
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(path));
+	public void testPitch() throws URISyntaxException {
+		final URL uri = 
+				getClass().getResource(DEMO_SOUND);
+		final File f = new File(uri.toURI());
+		Assert.assertEquals(true, f.exists());
+		
+		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);
 		

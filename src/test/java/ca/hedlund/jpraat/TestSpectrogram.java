@@ -1,15 +1,22 @@
 package ca.hedlund.jpraat;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.sun.jna.Pointer;
+
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
+import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
 @RunWith(JUnit4.class)
@@ -35,10 +42,13 @@ public class TestSpectrogram {
 	 * Test loading a {@link Spectrogram} from a {@link LongSound}.
 	 */
 	@Test
-	public void testSpectrogram() {
-		final String path = 
-				getClass().getResource(DEMO_SOUND).getFile();
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(path));
+	public void testSpectrogram() throws URISyntaxException {
+		final URL uri = 
+				getClass().getResource(DEMO_SOUND);
+		final File f = new File(uri.toURI());
+		Assert.assertEquals(true, f.exists());
+		
+		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Spectrogram spectrogram = 
 				sound.toSpectrogram(TIMESTEP, YMAX, DX, FREQSTEP, 
