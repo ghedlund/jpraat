@@ -37,6 +37,9 @@ public interface Praat extends Library {
 	Praat INSTANCE = (Praat)
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
 	
+	@Declared("sys/praatlib.h")
+	public void praat_lib_init();
+	
 	@Declared("dwsys/NUMmachar.h")
 	public void NUMmachar();
 	
