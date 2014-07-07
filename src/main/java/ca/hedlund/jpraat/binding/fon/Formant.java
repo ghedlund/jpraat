@@ -3,6 +3,7 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.stat.Table;
 
 public class Formant extends Sampled {
 	
@@ -110,12 +111,28 @@ public class Formant extends Sampled {
 		return Praat.INSTANCE.Formant_tracker(this, numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost, bfCost, octaveJumpCost);
 	}
 
-	public void list (boolean includeFrameNumbers,
-		boolean includeTimes, int timeDecimals,
-		boolean includeIntensity, int intensityDecimals,
-		boolean includeNumberOfFormants, int frequencyDecimals,
-		boolean includeBandwidths) {
-		Praat.INSTANCE.Formant_list(this, includeFrameNumbers, includeTimes, timeDecimals, includeIntensity, intensityDecimals, includeNumberOfFormants, frequencyDecimals, includeBandwidths);
+	public Table downto_Table (Boolean includeFrameNumbers,
+			Boolean includeTimes, int timeDecimals,
+			Boolean includeIntensity, int intensityDecimals,
+			Boolean includeNumberOfFormants, int frequencyDecimals,
+			Boolean includeBandwidths) {
+		return Praat.INSTANCE.Formant_downto_Table(this, 
+				(includeFrameNumbers ? 1 : 0), 
+				(includeTimes ? 1 : 0), 
+				timeDecimals,
+				(includeIntensity ? 1 :0), 
+				intensityDecimals,
+				(includeNumberOfFormants ? 1 : 0), frequencyDecimals,
+				(includeBandwidths ? 1: 0) );
+				
+	}
+	
+	public double getValueAtSample(long iframe, long which, int units) {
+		return Praat.INSTANCE.Formant_getValueAtSample(this, iframe, which, units);
+	}
+	
+	public double getIntensityAtSample(long iframe) {
+		return Praat.INSTANCE.Formant_getIntensityAtSample(this, iframe);
 	}
 
 }
