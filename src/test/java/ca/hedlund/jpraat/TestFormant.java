@@ -11,10 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.sun.jna.Native;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Sound;
+import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
 @RunWith(JUnit4.class)
@@ -32,6 +35,7 @@ public class TestFormant {
 	
 	@Before
 	public void init() {
+		Native.setProtected(true);
 		Praat.INSTANCE.praat_lib_init();
 	}
 
@@ -46,36 +50,27 @@ public class TestFormant {
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS);
 		
-		// print a table of means
+		final Table formantTable = formant.downto_Table(false, true, 3, true, 6, true, 6, true);
+		// do formant table listing
 		final StringBuilder sb = new StringBuilder();
-		sb.append('\"');
-		sb.append("Time");
-		sb.append('\"');
 		
-		for(int i = 0; i <= MAXFORMANTS; i++) {
-			sb.append('\t');
+		for(int col = 1; col < formantTable.getNcol(); col++) {
+			if(col > 1) sb.append(',');
 			sb.append('\"');
-			sb.append("f");
-			sb.append(i);
+			sb.append(formantTable.getColStr(col));
 			sb.append('\"');
 		}
 		System.out.println(sb.toString());
-		sb.setLength(0);
 		
-		for(double x = XMIN; x <= XMAX; x += formant.getDx()) {
-			sb.append('\"');
-			sb.append(x);
-			sb.append('\"');
-			
-			for(int i = 1; i <= MAXFORMANTS; i++) {
-				final double value = formant.getValueAtTime(i, x, 1);
-				sb.append('\t');
+		for(int row = 1; row <= formantTable.getNrow(); row++) {
+			sb.setLength(0);
+			for(int col = 1; col < formantTable.getNcol(); col++) {
+				if(col > 1) sb.append(',');
 				sb.append('\"');
-				sb.append(value);
+				sb.append(formantTable.getNumericValue_Assert(row, col));
 				sb.append('\"');
 			}
 			System.out.println(sb.toString());
-			sb.setLength(0);
 		}
 	}
 	

@@ -6,12 +6,15 @@ import java.net.URL;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
@@ -37,6 +40,12 @@ public class TestSpectrogram {
 	private final static double YMAX = 5000.0;
 	private final static double DY = 31.25;
 	private final static int NY = 160;
+	
+	@Before
+	public void init() {
+		Native.setProtected(true);
+		Praat.INSTANCE.praat_lib_init();
+	}
 	
 	/**
 	 * Test loading a {@link Spectrogram} from a {@link LongSound}.

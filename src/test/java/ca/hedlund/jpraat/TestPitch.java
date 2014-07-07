@@ -35,6 +35,7 @@ public class TestPitch {
 	
 	@Before
 	public void init() {
+		Native.setProtected(true);
 		Praat.INSTANCE.praat_lib_init();
 	}
 	
