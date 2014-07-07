@@ -5,6 +5,7 @@ import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.Data;
+import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
 
 /**
@@ -42,7 +43,7 @@ public class Function extends Data {
 		Praat.INSTANCE.Function_init(this, xmin, xmax);
 	}
 	
-	public int getDomainQuantity () {
+	public MelderQuantity getDomainQuantity () {
 		return Praat.INSTANCE.Function_getDomainQuantity();
 	}
 	
