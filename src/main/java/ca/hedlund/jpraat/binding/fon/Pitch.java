@@ -1,9 +1,11 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.Pointer;
+import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Header;
+import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
 @Header(value="fon/Pitch.h")
 public class Pitch extends Sampled {
@@ -228,6 +230,45 @@ public class Pitch extends Sampled {
 	 */
 	public void step (double step, double precision, double tmin, double tmax) {
 		Praat.INSTANCE.Pitch_step(this, step, precision, tmin, tmax);
+	}
+	
+	@Override
+	public MelderQuantity getDomainQuantity () {
+		return Praat.INSTANCE.Pitch_domainQuantity(this);
+	}
+	
+	@Override
+	public int getMinimumUnit (long ilevel) {
+		return Praat.INSTANCE.Pitch_getMinimumUnit(this, ilevel);
+	}
+	
+	@Override
+	public int getMaximumUnit (long ilevel) {
+		return Praat.INSTANCE.Pitch_getMaximumUnit(this, ilevel);
+	}
+
+	public WString getUnitText (long ilevel, kPitch_unit unit, long flags) {
+		return Praat.INSTANCE.Pitch_getUnitText(this, ilevel, unit, flags);
+	}
+	
+	@Override
+	public boolean isUnitLogarithmic (long ilevel, int unit) {
+		return Praat.INSTANCE.Pitch_isUnitLogarithmic(this, ilevel, unit);
+	}
+	
+	@Override
+	public double convertStandardToSpecialUnit (double value, long ilevel, int unit) {
+		return Praat.INSTANCE.Pitch_convertStandardToSpecialUnit(this, value, ilevel, unit);
+	}
+	
+	@Override
+	public double convertSpecialToStandardUnit (double value, long ilevel, int unit) {
+		return Praat.INSTANCE.Pitch_convertSpecialToStandardUnit(this, value, ilevel, unit);
+	}
+	
+	@Override
+	public double getValueAtSample (long isamp, long ilevel, int unit) {
+		return Praat.INSTANCE.Pitch_getValueAtSample(this, isamp, ilevel, unit);
 	}
 	
 }
