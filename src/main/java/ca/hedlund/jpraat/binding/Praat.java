@@ -10,6 +10,7 @@ import ca.hedlund.jpraat.binding.fon.SampledXY;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
 import ca.hedlund.jpraat.binding.fon.Vector;
+import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolveScaling;
@@ -17,8 +18,10 @@ import ca.hedlund.jpraat.binding.fon.kSounds_convolveSignalOutsideTimeDomain;
 import ca.hedlund.jpraat.binding.jna.Custom;
 import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
+import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -38,20 +41,8 @@ public interface Praat extends Library {
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
 	
 	@Declared("sys/praatlib.h")
-	public void praat_lib_init();
-	
-	@Declared("dwsys/NUMmachar.h")
-	public void NUMmachar();
-	
-	@Declared("num/NUM.h")
-	public void NUMinit();
-	
-	@Declared("sys/melder.h")
-	public void Melder_alloc_init();
-	
-	@Declared("main/praat_main.cpp")
 	@Custom
-	public int praat_main(int argc, String[] argv);
+	public void praat_lib_init();
 	
 	@Declared("sys/Data.h")
 	public boolean Data_equal (Data data1, Data data2);
@@ -133,7 +124,7 @@ public interface Praat extends Library {
 	public void Function_init (Function me, double xmin, double xmax);
 	
 	@Declared("fon/Function.h")
-	public int Function_getDomainQuantity ();   // as input for MelderQuantity_getXXX
+	public MelderQuantity Function_getDomainQuantity ();
 
 	@Declared("fon/Function.h")
 	public int Function_getMinimumUnit (long ilevel);
@@ -605,6 +596,38 @@ public interface Praat extends Library {
 	@Declared("fon/Pitch.h")
 	public void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
 	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public MelderQuantity Pitch_domainQuantity (Pitch me);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public int Pitch_getMinimumUnit (Pitch me, long ilevel);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public int Pitch_getMaximumUnit (Pitch me, long ilevel);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public WString Pitch_getUnitText (Pitch me, long ilevel, kPitch_unit unit, long flags);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public boolean Pitch_isUnitLogarithmic (Pitch me, long ilevel, int unit);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public double Pitch_convertStandardToSpecialUnit (Pitch me, double value, long ilevel, int unit);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public double Pitch_convertSpecialToStandardUnit (Pitch me, double value, long ilevel, int unit);
+	
+	@Declared("fon/Pitch_def.h")
+	@Custom
+	public double Pitch_getValueAtSample (Pitch me, long isamp, long ilevel, int unit);
+	
 	/**
 	 * Read sound from file
 	 * 
@@ -769,11 +792,19 @@ public interface Praat extends Library {
 		double bfCost, double octaveJumpCost);
 
 	@Declared("fon/Formant.h")
-	public void Formant_list (Formant me, boolean includeFrameNumbers,
-		boolean includeTimes, int timeDecimals,
-		boolean includeIntensity, int intensityDecimals,
-		boolean includeNumberOfFormants, int frequencyDecimals,
-		boolean includeBandwidths);
+	public Table Formant_downto_Table (Formant me, int includeFrameNumbers,
+			int includeTimes, int timeDecimals,
+			int includeIntensity, int intensityDecimals,
+			int includeNumberOfFormants, int frequencyDecimals,
+			int includeBandwidths);
+	
+	@Declared("fon/Formant.h")
+	@Custom
+	public double Formant_getValueAtSample(Formant me, long iframe, long which, int units);
+	
+	@Declared("fon/Formant.h")
+	@Custom
+	public double Formant_getIntensityAtSample(Formant me, long iframe);
 	
 	@Declared("fon/Sound_to_Formant.h")
 	public Formant Sound_to_Formant_any (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
@@ -796,5 +827,131 @@ public interface Praat extends Library {
 	
 	@Declared("sys/sendpraat.c")
 	public WString sendpraatW (Object display, String programName, long timeOut, WString text);
+	
+	@Declared("stat/Table.h")
+	public Table Table_createWithColumnNames (long numberOfRows, WString columnNames);
+
+	@Declared("stat/Table.h")
+	public Table Table_createWithoutColumnNames (long numberOfRows, long numberOfColumns);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendRow (Table me);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendColumn (Table me, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendSumColumn (Table me, long column1, long column2, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendDifferenceColumn (Table me, long column1, long column2, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendProductColumn (Table me, long column1, long column2, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_appendQuotientColumn (Table me, long column1, long column2, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_removeRow (Table me, long row);
+	
+	@Declared("stat/Table.h")
+	public void Table_removeColumn (Table me, long column);
+	
+	@Declared("stat/Table.h")
+	public void Table_insertRow (Table me, long row);
+	
+	@Declared("stat/Table.h")
+	public void Table_insertColumn (Table me, long column, WString label);
+	
+	@Declared("stat/Table.h")
+	public void Table_setColumnLabel (Table me, long column, WString label);
+	
+	@Declared("stat/Table.h")
+	public long Table_findColumnIndexFromColumnLabel (Table me, WString label);
+	
+	@Declared("stat/Table.h")
+	public long Table_getColumnIndexFromColumnLabel (Table me, WString columnLabel);
+	
+	@Declared("stat/Table.h")
+	public Pointer Table_getColumnIndicesFromColumnLabelString (Table me, WString string, Pointer numberOfTokens);
+	
+	@Declared("stat/Table.h")
+	public long Table_searchColumn (Table me, long column, WString value);
+	
+	/*
+	 * Procedure for reading strings or numbers from table cells:
+	 * use the following two calls exclusively.
+	 */
+	public WString  Table_getStringValue_Assert (Table me, long row, long column);
+	public double Table_getNumericValue_Assert (Table me, long row, long column);
+
+	/*
+	 * Procedure for writing strings or numbers into table cells:
+	 * use the following two calls exclusively.
+	 */
+	public void Table_setStringValue (Table me, long row, long column, WString value);
+	public void Table_setNumericValue (Table me, long row, long column, double value);
+
+	/* For optimizations only (e.g. conversion to Matrix or TableOfReal). */
+	public void Table_numericize_Assert (Table me, long columnNumber);
+	
+	public double Table_getQuantile (Table me, long column, double quantile);
+	
+	@Declared("stat/Table.h")
+	public double Table_getMean (Table me, long column);
+	
+	public double Table_getMaximum (Table me, long icol);
+	public double Table_getMinimum (Table me, long icol);
+	public double Table_getGroupMean (Table me, long column, long groupColumn, WString group);
+	public double Table_getStdev (Table me, long column);
+	public long Table_drawRowFromDistribution (Table me, long column);
+	public double Table_getCorrelation_pearsonR (Table me, long column1, long column2, double significanceLevel,
+		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getCorrelation_kendallTau (Table me, long column1, long column2, double significanceLevel,
+		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getMean_studentT (Table me, long column, double significanceLevel,
+		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getDifference_studentT (Table me, long column1, long column2, double significanceLevel,
+		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getGroupMean_studentT (Table me, long column, long groupColumn, WString group1, double significanceLevel,
+		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getGroupDifference_studentT (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
+		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public double Table_getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, WString group1, WString group2,
+		Pointer out_rankSum, Pointer out_significanceFromZero);
+	public double Table_getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
+		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	public boolean Table_getExtrema (Table me, long icol, Pointer minimum, Pointer maximum);
+	
+	public void Table_sortRows_Assert (Table me, Pointer columns, long numberOfColumns);
+	public void Table_sortRows_string (Table me, WString columns_string);
+	public void Table_randomizeRows (Table me);
+	public void Table_reflectRows (Table me);
+	
+	public void Table_writeToTabSeparatedFile (Table me, MelderFile file);
+	public void Table_writeToCommaSeparatedFile (Table me, MelderFile file);
+	public Table Table_readFromTableFile (MelderFile file);
+	public Table Table_readFromCharacterSeparatedTextFile (MelderFile file, char separator);
+	
+	public Table Table_extractRowsWhereColumn_number (Table me, long column, int which_Melder_NUMBER, double criterion);
+	public Table Table_extractRowsWhereColumn_string (Table me, long column, int which_Melder_STRING, WString criterion);
+	public Table Table_collapseRows (Table me, WString factors_string, WString columnsToSum_string,
+		WString columnsToAverage_string, WString columnsToMedianize_string,
+		WString columnsToAverageLogarithmically_string, WString columnsToMedianizeLogarithmically_string);
+	public Table Table_rowsToColumns (Table me, WString factors_string, long columnToTranspose, WString columnsToExpand_string);
+	public Table Table_transpose (Table me);
+
+	public void Table_checkSpecifiedRowNumberWithinRange (Table me, long rowNumber);
+	public void Table_checkSpecifiedColumnNumberWithinRange (Table me, long columnNumber);
+	public boolean Table_isCellNumeric_ErrorFalse (Table me, long rowNumber, long columnNumber);
+	public boolean Table_isColumnNumeric_ErrorFalse (Table me, long columnNumber);
+	
+	public double Table_getNrow (Table me);
+	public double Table_getNcol (Table me);
+	public WString  Table_getColStr (Table me, long columnNumber);
+	public double Table_getMatrix (Table m, long rowNumber, long columnNumber);
+	public WString  Table_getMatrixStr (Table me, long rowNumber, long columnNumber);
+	public double Table_getColIndex  (Table me, WString columnLabel);
 	
 }
