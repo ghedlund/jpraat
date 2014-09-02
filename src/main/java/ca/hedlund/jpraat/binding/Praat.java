@@ -379,40 +379,19 @@ public interface Praat extends Library {
 	public double SampledXY_getY1(SampledXY me);
 	
 	@Declared("fon/SampledXY.h")
-	public double Matrix_columnToX (SampledXY me, double column);   /* Return my x1 + (column - 1) * my dx.	 */
-
-	@Declared("fon/SampledXY.h")
-	public double Matrix_rowToY (SampledXY me, double row);   /* Return my y1 + (row - 1) * my dy. */
-
-	@Declared("fon/SampledXY.h")
-	public double Matrix_xToColumn (SampledXY me, double x);   /* Return (x - xmin) / my dx + 1. */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_xToLowColumn (SampledXY me, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_xToHighColumn (SampledXY me, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_xToNearestColumn (SampledXY me, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
-
-	@Declared("fon/SampledXY.h")
-	public double Matrix_yToRow (SampledXY me, double y);   /* Return (y - ymin) / my dy + 1. */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_yToLowRow (SampledXY me, double y);   /* Return floor (Matrix_yToRow (me, y)). */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_yToHighRow (SampledXY me, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_yToNearestRow (SampledXY me, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
-
-	@Declared("fon/SampledXY.h")
-	public long Matrix_getWindowSamplesX (SampledXY me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
+	public double SampledXY_indexToY (SampledXY me, long   index);
 	
 	@Declared("fon/SampledXY.h")
-	public long Matrix_getWindowSamplesY (SampledXY me, double ymin, double ymax, Pointer iymin, Pointer iymax);
+	public double SampledXY_yToIndex (SampledXY me, double y);
+	
+	@Declared("fon/SampledXY.h")
+	public long SampledXY_yToLowIndex     (SampledXY me, double y);
+	
+	@Declared("fon/SampledXY.h")
+	public long SampledXY_yToHighIndex    (SampledXY me, double y);
+	
+	@Declared("fon/SampledXY.h")
+	public long SampledXY_yToNearestIndex (SampledXY me, double y);
 	
 	@Declared("fon/Matrix.h")
 	public Matrix Matrix_create

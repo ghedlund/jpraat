@@ -19,7 +19,6 @@ public class Matrix extends SampledXY {
 		return Praat.INSTANCE.Matrix_createSimple(numberOfRows, numberOfColumns);
 	}
 	
-	@Override
 	public long getWindowSamplesX (double xmin, double xmax, Pointer ixmin, Pointer ixmax) {
 		return Praat.INSTANCE.Matrix_getWindowSamplesX(this, xmin, xmax, ixmin, ixmax);
 	}
@@ -36,68 +35,56 @@ public class Matrix extends SampledXY {
 		return Praat.INSTANCE.Matrix_getNorm(this);
 	}
 	
-	
-	@Override
 	public double columnToX (double column) {
 		/* Return my x1 + (column - 1) * my dx.	 */
 		return Praat.INSTANCE.Matrix_columnToX(this, column);
 	}
 	
-	@Override
 	/* Return my y1 + (row - 1) * my dy. */
 	public double rowToY (double row) {
 		return Praat.INSTANCE.Matrix_rowToY(this, row);
 	}
 
-	@Override
 	/* Return (x - xmin) / my dx + 1. */
 	public double xToColumn (double x) {
 		return Praat.INSTANCE.Matrix_xToColumn(this, x);
 	}
 
-	@Override
 	/* Return floor (xToColumn (me, x)). */
 	public long xToLowColumn (double x) {
 		return Praat.INSTANCE.Matrix_xToLowColumn(this, x);
 	}
 
-	@Override
 	/* Return ceil (xToColumn (me, x)). */
 	public long xToHighColumn (double x) {
 		return Praat.INSTANCE.Matrix_xToHighColumn(this, x);
 	}
 
-	@Override
 	/* Return floor (xToColumn (me, x) + 0.5). */
 	public long xToNearestColumn (double x) {
 		return Praat.INSTANCE.Matrix_xToNearestColumn(this, x);
 	}
 
-	@Override
 	/* Return (y - ymin) / my dy + 1. */
 	public double yToRow (double y) {
 		return Praat.INSTANCE.Matrix_yToRow(this, y);
 	}
 
-	@Override
 	/* Return floor (yToRow (me, y)). */
 	public long yToLowRow (double y) {
 		return Praat.INSTANCE.Matrix_yToLowRow(this, y);
 	}
 
-	@Override
 	/* Return ceil (yToRow (me, y)). */
 	public long yToHighRow (double x) {
 		return Praat.INSTANCE.Matrix_yToHighRow(this, x);
 	}
 
-	@Override
 	/* Return floor (yToRow (me, y) + 0.5). */
 	public long yToNearestRow (double y) {
 		return Praat.INSTANCE.Matrix_yToNearestRow(this, y);
 	}
 
-	@Override
 	public long getWindowSamplesY (double ymin, double ymax, Pointer iymin, Pointer iymax) {
 		return Praat.INSTANCE.Matrix_getWindowSamplesY(this, ymin, ymax, iymin, iymax);
 	}
