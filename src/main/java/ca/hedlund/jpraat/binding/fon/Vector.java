@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
@@ -25,31 +29,59 @@ public class Vector extends Matrix {
 	}
 	
 	public void getMinimumAndX (double xmin, double xmax, long channel, int interpolation,
-			 Pointer return_minimum, Pointer return_xOfMinimum) {
+			 AtomicReference<Double> return_minimum, AtomicReference<Double> return_xOfMinimum) {
 		checkInterpolation(interpolation);
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
 		Praat.INSTANCE.Vector_getMinimumAndX(this, xmin, xmax, channel, interpolation,
-				return_minimum, return_xOfMinimum);
+				minPtr, xPtr);
+		
+		return_minimum.set(minPtr.getDouble(0));
+		return_xOfMinimum.set(xPtr.getDouble(0));
 	}
 	
 	public void getMinimumAndXAndChannel (double xmin, double xmax, int interpolation,
-			Pointer return_minimum, Pointer return_xOfMinimum, Pointer return_channelOfMinimum) {
+			AtomicReference<Double> return_minimum, AtomicReference<Double> return_xOfMinimum, AtomicReference<Long> return_channelOfMinimum) {
 		checkInterpolation(interpolation);
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer chPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
 		Praat.INSTANCE.Vector_getMinimumAndXAndChannel(this, xmin, xmax, interpolation,
-				return_minimum, return_xOfMinimum, return_channelOfMinimum);
+				minPtr, xPtr, chPtr);
+		
+		return_minimum.set(minPtr.getDouble(0));
+		return_xOfMinimum.set(xPtr.getDouble(0));
+		return_channelOfMinimum.set(chPtr.getLong(0));
 	}
 	
 	public void getMaximumAndX (double xmin, double xmax, long channel, int interpolation,
-			Pointer return_maximum, Pointer return_xOfMaximum) {
+			AtomicReference<Double> return_maximum, AtomicReference<Double> return_xOfMaximum) {
 		checkInterpolation(interpolation);
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
 		Praat.INSTANCE.Vector_getMaximumAndX(this, xmin, xmax, channel, interpolation, 
-				return_maximum, return_xOfMaximum);
+				maxPtr, xPtr);
+		
+		return_maximum.set(maxPtr.getDouble(0));
+		return_xOfMaximum.set(xPtr.getDouble(0));
 	}
 
 	public void getMaximumAndXAndChannel (double xmin, double xmax, int interpolation,
-			Pointer return_maximum, Pointer return_xOfMaximum, Pointer return_channelOfMaximum) {
+			AtomicReference<Double> return_maximum, AtomicReference<Double> return_xOfMaximum, AtomicReference<Long> return_channelOfMaximum) {
 		checkInterpolation(interpolation);
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer chPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
 		Praat.INSTANCE.Vector_getMaximumAndXAndChannel(this, xmin, xmax, interpolation, 
-				return_maximum, return_xOfMaximum, return_channelOfMaximum);
+				maxPtr, xPtr, chPtr);
+		
+		return_maximum.set(maxPtr.getDouble(0));
+		return_xOfMaximum.set(xPtr.getDouble(0));
+		return_channelOfMaximum.set(chPtr.getLong(0));
 	}
 	
 	public double getMinimum (double xmin, double xmax, int interpolation) {

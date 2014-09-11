@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -96,8 +100,15 @@ public class Pitch extends Sampled {
 	}
 	
 	public void getMaximumAndTime (double tmin, double tmax, int unit, int interpolate,
-		Pointer return_maximum, Pointer return_timeOfMaximum) {
-		Praat.INSTANCE.Pitch_getMaximumAndTime(this, tmin, tmax, unit, interpolate, return_maximum, return_timeOfMaximum);
+		AtomicReference<Double> return_maximum, AtomicReference<Double> return_timeOfMaximum) {
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Pitch_getMaximumAndTime(this, tmin, tmax, unit, interpolate, 
+				maxPtr, timePtr);
+	
+		return_maximum.set(maxPtr.getDouble(0));
+		return_timeOfMaximum.set(timePtr.getDouble(0));
 	}
 	
 	public double getMaximum (double tmin, double tmax, int unit, int interpolate) {
@@ -109,8 +120,15 @@ public class Pitch extends Sampled {
 	}
 	
 	public void getMinimumAndTime (double tmin, double tmax, int unit, int interpolate,
-		Pointer return_minimum, Pointer return_timeOfMinimum) {
-		Praat.INSTANCE.Pitch_getMinimumAndTime(this, tmin, tmax, unit, interpolate, return_minimum, return_timeOfMinimum);
+			AtomicReference<Double> return_minimum, AtomicReference<Double> return_timeOfMinimum) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Pitch_getMinimumAndTime(this, tmin, tmax, unit, interpolate, 
+				minPtr, timePtr);
+	
+		return_minimum.set(minPtr.getDouble(0));
+		return_timeOfMinimum.set(timePtr.getDouble(0));
 	}
 	
 	public double getMinimum (double tmin, double tmax, int unit, int interpolate) {

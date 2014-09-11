@@ -1,5 +1,10 @@
 package ca.hedlund.jpraat.binding.stat;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -57,24 +62,33 @@ public class Table extends Data {
 		Praat.INSTANCE.Table_insertRow(this, row);
 	}
 	
-	public void insertColumn ( long column, WString label) {
+	public void insertColumn ( long column, WString label ) {
 		Praat.INSTANCE.Table_insertColumn(this, column, label);
 	}
 	
-	public void setColumnLabel ( long column, WString label) {
+	public void setColumnLabel ( long column, WString label ) {
 		Praat.INSTANCE.Table_setColumnLabel(this, column, label);
 	}
 	
-	public long findColumnIndexFromColumnLabel ( WString label) {
+	public long findColumnIndexFromColumnLabel ( WString label ) {
 		return Praat.INSTANCE.Table_findColumnIndexFromColumnLabel(this, label);
 	}
 	
-	public long getColumnIndexFromColumnLabel ( WString label) {
+	public long getColumnIndexFromColumnLabel ( WString label ) {
 		return Praat.INSTANCE.Table_getColumnIndexFromColumnLabel(this, label);
 	}
 	
-	public Pointer getColumnIndicesFromColumnLabelString ( WString label, Pointer numberOfTokens) {
-		return Praat.INSTANCE.Table_getColumnIndicesFromColumnLabelString(this, label, numberOfTokens);
+	public long[] getColumnIndicesFromColumnLabelString ( WString label ) {
+		long[] retVal = new long[0];
+		
+		final Pointer numberOfTokensPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		final Pointer ptrToLongArray  =
+				Praat.INSTANCE.Table_getColumnIndicesFromColumnLabelString(this, label, numberOfTokensPtr);
+		
+		final long numberOfTokens = numberOfTokensPtr.getLong(0);
+		retVal = ptrToLongArray.getLongArray(0, (int)numberOfTokens);
+		
+		return retVal;
 	}
 	
 	public long searchColumn ( long column, WString value) {
@@ -122,55 +136,149 @@ public class Table extends Data {
 	}
 	
 	public double getCorrelation_pearsonR (Table me, long column1, long column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getCorrelation_pearsonR(this, column1, column2, significanceLevel, 
-				out_significance, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_significance, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer out_significancePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		double retVal = Praat.INSTANCE.Table_getCorrelation_pearsonR(this, column1, column2, significanceLevel, 
+				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
+		
+		out_significance.set(out_significancePtr.getDouble(0));
+		out_lowerLimit.set(out_lowerLimitPtr.getDouble(0));
+		out_upperLimit.set(out_upperLimitPtr.getDouble(0));
+		
+		return retVal;
 	}
 	
 	public double getCorrelation_kendallTau (Table me, long column1, long column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getCorrelation_kendallTau(this, column1, column2, significanceLevel, 
-				out_significance, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_significance, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer out_significancePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		double retVal = Praat.INSTANCE.Table_getCorrelation_kendallTau(this, column1, column2, significanceLevel, 
+				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
+		
+		out_significance.set(out_significancePtr.getDouble(0));
+		out_lowerLimit.set(out_lowerLimitPtr.getDouble(0));
+		out_upperLimit.set(out_upperLimitPtr.getDouble(0));
+		
+		return retVal;
 	}
 	
 	public double getMean_studentT (Table me, long column, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getMean_studentT(this, column, significanceLevel, out_tFromZero, 
-				out_numberOfDegreesOfFreedom, out_significanceFromZero, out_lowerLimit, out_upperLimit);	
+			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
+			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
+		
+		double retVal = Praat.INSTANCE.Table_getMean_studentT(this, column, significanceLevel, 
+				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
+				varPtr.getPointer(3), varPtr.getPointer(4));
+		
+		out_tFromZero.set(varPtr.getDouble(0));
+		out_numberOfDegreesOfFreedom.set(varPtr.getDouble(1));
+		out_significanceFromZero.set(varPtr.getDouble(2));
+		out_lowerLimit.set(varPtr.getDouble(3));
+		out_upperLimit.set(varPtr.getDouble(4));
+		
+		return retVal;
 	}
 	
 	public double getDifference_studentT (Table me, long column1, long column2, double significanceLevel,
-		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getDifference_studentT(this, column1, column2, significanceLevel, out_t, 
-				out_numberOfDegreesOfFreedom, out_significance, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
+			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
+		
+		double retVal = Praat.INSTANCE.Table_getDifference_studentT(this, column1, column2, significanceLevel, 
+				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
+				varPtr.getPointer(3), varPtr.getPointer(4));
+		
+		out_tFromZero.set(varPtr.getDouble(0));
+		out_numberOfDegreesOfFreedom.set(varPtr.getDouble(1));
+		out_significanceFromZero.set(varPtr.getDouble(2));
+		out_lowerLimit.set(varPtr.getDouble(3));
+		out_upperLimit.set(varPtr.getDouble(4));
+		
+		return retVal;
 	}
 	
 	public double getGroupMean_studentT (Table me, long column, long groupColumn, WString group1, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getGroupMean_studentT(this, column, groupColumn, group1, significanceLevel, 
-				out_tFromZero, out_numberOfDegreesOfFreedom, out_significanceFromZero, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
+			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
+		
+		double retVal = Praat.INSTANCE.Table_getGroupMean_studentT(this, column, groupColumn, group1, significanceLevel, 
+				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
+				varPtr.getPointer(3), varPtr.getPointer(4));
+	
+		out_tFromZero.set(varPtr.getDouble(0));
+		out_numberOfDegreesOfFreedom.set(varPtr.getDouble(1));
+		out_significanceFromZero.set(varPtr.getDouble(2));
+		out_lowerLimit.set(varPtr.getDouble(3));
+		out_upperLimit.set(varPtr.getDouble(4));
+		
+		return retVal;
 	}
 	
 	public double getGroupDifference_studentT (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getGroupDifference_studentT(this, column, groupColumn, group1, group2, significanceLevel,
-				out_tFromZero, out_numberOfDegreesOfFreedom, out_significanceFromZero, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
+			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
+		
+		double retVal = Praat.INSTANCE.Table_getGroupDifference_studentT(this, column, groupColumn, group1, group2, significanceLevel,
+				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
+				varPtr.getPointer(3), varPtr.getPointer(4));
+	
+		out_tFromZero.set(varPtr.getDouble(0));
+		out_numberOfDegreesOfFreedom.set(varPtr.getDouble(1));
+		out_significanceFromZero.set(varPtr.getDouble(2));
+		out_lowerLimit.set(varPtr.getDouble(3));
+		out_upperLimit.set(varPtr.getDouble(4));
+		
+		return retVal;
 	}
 	
 	public double getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, WString group1, WString group2,
-		Pointer out_rankSum, Pointer out_significanceFromZero) {
-		return Praat.INSTANCE.Table_getGroupDifference_wilcoxonRankSum(this, column, groupColumn, 
-				group1, group2, out_rankSum, out_significanceFromZero);
+			AtomicReference<Double> out_rankSum, AtomicReference<Double> out_significanceFromZero) {
+		final Pointer rankSumPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer significanceFromZeroPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		double retVal = Praat.INSTANCE.Table_getGroupDifference_wilcoxonRankSum(this, column, groupColumn, 
+				group1, group2, rankSumPtr, significanceFromZeroPtr);
+		
+		out_rankSum.set(rankSumPtr.getDouble(0));
+		out_significanceFromZero.set(significanceFromZeroPtr.getDouble(0));
+		
+		return retVal;
 	}
 	
 	public double getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit) {
-		return Praat.INSTANCE.Table_getVarianceRatio(this, column1, column2, significanceLevel, 
-				out_significance, out_lowerLimit, out_upperLimit);
+			AtomicReference<Double> out_significance, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) {
+		final Pointer out_significancePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		double retVal = Praat.INSTANCE.Table_getVarianceRatio(this, column1, column2, significanceLevel, 
+				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
+		
+		out_significance.set(out_significancePtr.getDouble(0));
+		out_lowerLimit.set(out_lowerLimitPtr.getDouble(0));
+		out_upperLimit.set(out_upperLimitPtr.getDouble(0));
+		
+		return retVal;
 	}
 	
-	public boolean getExtrema (Table me, long icol, Pointer minimum, Pointer maximum) {
-		return Praat.INSTANCE.Table_getExtrema(this, icol, minimum, maximum);
+	public boolean getExtrema (Table me, long icol, AtomicReference<Double> minimum, AtomicReference<Double> maximum) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		boolean retVal = Praat.INSTANCE.Table_getExtrema(this, icol, minPtr, maxPtr);
+		
+		minimum.set(minPtr.getDouble(0));
+		maximum.set(maxPtr.getDouble(0));
+		
+		return retVal;
 	}
 	
 	public void sortRows_Assert (Pointer columns, long numberOfColumns) {

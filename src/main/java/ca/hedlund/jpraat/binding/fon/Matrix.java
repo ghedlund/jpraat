@@ -1,9 +1,13 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 
@@ -19,8 +23,18 @@ public class Matrix extends SampledXY {
 		return Praat.INSTANCE.Matrix_createSimple(numberOfRows, numberOfColumns);
 	}
 	
-	public long getWindowSamplesX (double xmin, double xmax, Pointer ixmin, Pointer ixmax) {
-		return Praat.INSTANCE.Matrix_getWindowSamplesX(this, xmin, xmax, ixmin, ixmax);
+	public long getWindowSamplesX (double xmin, double xmax, 
+			AtomicReference<Long> ixmin, AtomicReference<Long> ixmax) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
+		long retVal = Praat.INSTANCE.Matrix_getWindowSamplesX(this, xmin, xmax, 
+				minPtr, maxPtr);
+		
+		ixmin.set(minPtr.getLong(0));
+		ixmax.set(maxPtr.getLong(0));
+		
+		return retVal;
 	}
 	
 	public double getValueAtXY (double x, double y) {
@@ -85,8 +99,18 @@ public class Matrix extends SampledXY {
 		return Praat.INSTANCE.Matrix_yToNearestRow(this, y);
 	}
 
-	public long getWindowSamplesY (double ymin, double ymax, Pointer iymin, Pointer iymax) {
-		return Praat.INSTANCE.Matrix_getWindowSamplesY(this, ymin, ymax, iymin, iymax);
+	public long getWindowSamplesY (double ymin, double ymax, 
+			AtomicReference<Long> iymin, AtomicReference<Long> iymax) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
+		long retVal = Praat.INSTANCE.Matrix_getWindowSamplesY(this, ymin, ymax, 
+				minPtr, maxPtr);
+		
+		iymin.set(minPtr.getLong(0));
+		iymax.set(maxPtr.getLong(0));
+		
+		return retVal;
 	}
 	
 	/**
@@ -100,8 +124,17 @@ public class Matrix extends SampledXY {
 				if result == 0, *minimum and *maximum are not changed;
 	 */
 	public long getWindowExtrema (long ixmin, long ixmax, long iymin, long iymax,
-			Pointer minimum, Pointer maximum) {
-		return Praat.INSTANCE.Matrix_getWindowExtrema(this, ixmin, ixmax, iymin, iymax, minimum, maximum);
+			AtomicReference<Double> minimum, AtomicReference<Double> maximum) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		long retVal = Praat.INSTANCE.Matrix_getWindowExtrema(this, ixmin, ixmax, iymin, iymax, 
+				minPtr, maxPtr);
+		
+		minimum.set(minPtr.getDouble(0));
+		maximum.set(maxPtr.getDouble(0));
+		
+		return retVal;
 	}
 
 	public static Matrix readFromRawTextFile (MelderFile file) {

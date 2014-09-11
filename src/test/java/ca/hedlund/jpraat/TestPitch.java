@@ -3,6 +3,7 @@ package ca.hedlund.jpraat;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicReference;
 
 import junit.framework.Assert;
 
@@ -50,9 +51,9 @@ public class TestPitch {
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);
 		
-		final Pointer ixminPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		final Pointer ixmaxPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		pitch.getWindowSamples(XMIN, XMAX, ixminPtr, ixmaxPtr);
+		final AtomicReference<Long> ixminRef = new AtomicReference<Long>();
+		final AtomicReference<Long> ixmaxRef = new AtomicReference<Long>();
+		pitch.getWindowSamples(XMIN, XMAX, ixminRef, ixmaxRef);
 		
 		final StringBuilder sb = new StringBuilder();
 		sb.append("\"Time\"");
@@ -66,8 +67,8 @@ public class TestPitch {
 		System.out.println(sb.toString());
 		sb.setLength(0);
 		
-		final long ixmin = ixminPtr.getLong(0L);
-		final long ixmax = ixmaxPtr.getLong(0L);
+		final long ixmin = ixminRef.get();
+		final long ixmax = ixmaxRef.get();
 		for(long ix = ixmin; ix <= ixmax; ix++) {
 			final double time = (XMIN + (ix * pitch.getDx()));
 			sb.append('\"');

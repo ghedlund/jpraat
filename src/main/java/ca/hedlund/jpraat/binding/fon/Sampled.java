@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
@@ -47,13 +51,30 @@ public class Sampled extends Function {
 		return Praat.INSTANCE.Sampled_xToNearestIndex(this, x);
 	}
 
-	public long getWindowSamples (double xmin, double xmax, Pointer ixmin, Pointer ixmax) {
-		return Praat.INSTANCE.Sampled_getWindowSamples(this, xmin, xmax, ixmin, ixmax);
+	public long getWindowSamples (double xmin, double xmax, 
+			AtomicReference<Long> ixmin, AtomicReference<Long> ixmax) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
+		long retVal = Praat.INSTANCE.Sampled_getWindowSamples(this, xmin, xmax, 
+				minPtr, maxPtr);
+		
+		ixmin.set(minPtr.getLong(0));
+		ixmax.set(maxPtr.getLong(0));
+		
+		return retVal;
 	}
 
 	public void shortTermAnalysis (double windowDuration, double timeStep,
-			Pointer numberOfFrames, Pointer firstTime) {
-		Praat.INSTANCE.Sampled_shortTermAnalysis(this, windowDuration, timeStep, numberOfFrames, firstTime);
+			AtomicReference<Long> numberOfFrames, AtomicReference<Double> firstTime) {
+		final Pointer numPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Sampled_shortTermAnalysis(this, windowDuration, timeStep, 
+				numPtr, timePtr);
+		
+		numberOfFrames.set(numPtr.getLong(0));
+		firstTime.set(timePtr.getDouble(0));
 	}
 	
 	public double getValueAtSample (long isamp, long ilevel, int unit) {
@@ -68,8 +89,13 @@ public class Sampled extends Function {
 		return Praat.INSTANCE.Sampled_countDefinedSamples(this, ilevel, unit);
 	}
 	
-	public Pointer getSortedValues (long ilevel, int unit, Pointer numberOfValues) {
-		return Praat.INSTANCE.Sampled_getSortedValues(this, ilevel, unit, numberOfValues);
+	public double[] getSortedValues (long ilevel, int unit) {
+		final Pointer numPtr = new Memory(Native.getNativeSize(Long.TYPE));
+		
+		final Pointer ret = Praat.INSTANCE.Sampled_getSortedValues(this, ilevel, unit, numPtr);
+		
+		double[] retVal = ret.getDoubleArray(0, (int)numPtr.getLong(0));
+		return retVal;
 	}
 
 	public double getQuantile
@@ -111,9 +137,15 @@ public class Sampled extends Function {
 	}
 
 	public void getMinimumAndX (double xmin, double xmax, long ilevel, int unit, int interpolate,
-		Pointer return_minimum, Pointer return_xOfMinimum) {
+		AtomicReference<Double> return_minimum, AtomicReference<Double> return_xOfMinimum) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
 		Praat.INSTANCE.Sampled_getMinimumAndX(this, xmin, xmax, ilevel, unit, 
-				interpolate, return_minimum, return_xOfMinimum);
+				interpolate, minPtr, xPtr);
+		
+		return_minimum.set(minPtr.getDouble(0));
+		return_xOfMinimum.set(xPtr.getDouble(0));
 	}
 	
 	
@@ -126,9 +158,15 @@ public class Sampled extends Function {
 	}
 	
 	public void getMaximumAndX (double xmin, double xmax, long ilevel, int unit, int interpolate,
-		Pointer return_maximum, Pointer return_xOfMaximum) {
+			AtomicReference<Double> return_maximum, AtomicReference<Double> return_xOfMaximum) {
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
 		Praat.INSTANCE.Sampled_getMaximumAndX(this, xmin, xmax, ilevel, unit,
-				interpolate, return_maximum, return_xOfMaximum);
+				interpolate, maxPtr, xPtr);
+		
+		return_maximum.set(maxPtr.getDouble(0));
+		return_xOfMaximum.set(xPtr.getDouble(0));
 	}
 	
 	public double getMaximum (double xmin, double xmax, long ilevel, int unit, int interpolate) {

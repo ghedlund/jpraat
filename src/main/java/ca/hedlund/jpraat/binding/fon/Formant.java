@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
@@ -46,18 +50,39 @@ public class Formant extends Sampled {
 		return Praat.INSTANCE.Formant_getBandwidthAtTime(this, iformant, time, bark);
 	}
 
-	public void getExtrema (int iformant, double tmin, double tmax, Pointer fmin, Pointer fmax) {
-		Praat.INSTANCE.Formant_getExtrema(this, iformant, tmin, tmax, fmin, fmax);
+	public void getExtrema (int iformant, double tmin, double tmax, 
+			AtomicReference<Double> fmin, AtomicReference<Double> fmax) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Formant_getExtrema(this, iformant, tmin, tmax, minPtr, maxPtr);
+		
+		fmin.set(minPtr.getDouble(0));
+		fmax.set(maxPtr.getDouble(0));
 	}
 	
 	public void getMinimumAndTime (int iformant, double tmin, double tmax, int bark, int interpolate,
-		Pointer return_minimum, Pointer return_timeOfMinimum) {
-		Praat.INSTANCE.Formant_getMinimumAndTime(this, iformant, tmin, tmax, bark, interpolate, return_minimum, return_timeOfMinimum);
+			AtomicReference<Double> return_minimum, AtomicReference<Double> return_timeOfMinimum) {
+		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Formant_getMinimumAndTime(this, iformant, tmin, tmax, bark, interpolate,
+				minPtr, timePtr);
+	
+		return_minimum.set(minPtr.getDouble(0));
+		return_timeOfMinimum.set(timePtr.getDouble(0));
 	}
 	
 	public void getMaximumAndTime (int iformant, double tmin, double tmax, int bark, int interpolate,
-		Pointer return_maximum, Pointer return_timeOfMaximum) {
-		Praat.INSTANCE.Formant_getMaximumAndTime(this, iformant, tmin, tmax, bark, interpolate, return_maximum, return_timeOfMaximum);
+			AtomicReference<Double> return_maximum, AtomicReference<Double> return_timeOfMaximum) {
+		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
+		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
+		
+		Praat.INSTANCE.Formant_getMaximumAndTime(this, iformant, tmin, tmax, bark, interpolate,
+				maxPtr, timePtr);
+		
+		return_maximum.set(maxPtr.getDouble(0));
+		return_timeOfMaximum.set(timePtr.getDouble(0));
 	}
 	
 	public double getMinimum (int iformant, double tmin, double tmax, int bark, int interpolate) {
