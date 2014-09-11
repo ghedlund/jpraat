@@ -4,10 +4,9 @@ import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Declared;
 
 import com.sun.jna.Pointer;
-import com.sun.jna.PointerType;
 
 @Declared("sys/Data.h")
-public class Data extends PointerType {
+public class Data extends Thing {
 	
 	public static Pointer readFromTextFile (MelderFile file) {
 		return Praat.INSTANCE.Data_readFromTextFile(file);

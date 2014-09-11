@@ -22,6 +22,7 @@ import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
+import ca.hedlund.jpraat.binding.sys.Thing;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -43,6 +44,40 @@ public interface Praat extends Library {
 	@Declared("sys/praatlib.h")
 	@Custom
 	public void praat_lib_init();
+	
+	@Declared("sys/Thing.h")
+	WString Thing_className (Thing me);
+	
+	@Declared("sys/Thing.h")
+	public void _Thing_forget(Thing me);
+	
+	@Declared("sys/Thing.h")
+	public void Thing_info (Thing me);
+	
+	@Declared("sys/Thing.h")
+	public void Thing_infoWithId (Thing me, long id);
+	
+	@Declared("sys/Thing.h")
+	public Thing Thing_newFromClassName (WString className);
+	
+	/* Return a pointer to your internal name (which can be NULL). */
+	@Declared("sys/Thing.h")
+	public WString Thing_getName (Thing me);
+
+	@Declared("sys/Thing.h")
+	public WString Thing_messageName (Thing me);
+
+	/*
+		Function:
+			remember that you are called 'name'.
+		Postconditions:
+			my name *and* my name are copies of 'name'.
+	 */
+	@Declared("sys/Thing.h")
+	public void Thing_setName (Thing me, WString name);
+
+	@Declared("sys/Thing.h")
+	public void Thing_swap (Thing me, Thing thee);
 	
 	@Declared("sys/Data.h")
 	public boolean Data_equal (Data data1, Data data2);
