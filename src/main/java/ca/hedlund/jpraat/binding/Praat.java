@@ -2,6 +2,7 @@ package ca.hedlund.jpraat.binding;
 
 import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.Function;
+import ca.hedlund.jpraat.binding.fon.Intensity;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Matrix;
 import ca.hedlund.jpraat.binding.fon.Pitch;
@@ -58,14 +59,11 @@ public interface Praat extends Library {
 	public void Thing_infoWithId (Thing me, long id);
 	
 	@Declared("sys/Thing.h")
-	public Thing Thing_newFromClassName (WString className);
+	public Object Thing_newFromClassName (WString className);
 	
 	/* Return a pointer to your internal name (which can be NULL). */
 	@Declared("sys/Thing.h")
 	public WString Thing_getName (Thing me);
-
-	@Declared("sys/Thing.h")
-	public WString Thing_messageName (Thing me);
 
 	/*
 		Function:
@@ -300,6 +298,47 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Vector.h")
 	public void Vector_scale (Vector me, double scale);
+	
+	@Declared("fon/Intensity.h")
+	public Intensity Intensity_create (double tmin, double tmax, long nt, double dt, double t1);
+	
+	@Declared("fon/Intensity.h")
+	public Matrix Intensity_to_Matrix (Intensity me);
+	
+	@Declared("fon/Intensity.h")
+	public Intensity Matrix_to_Intensity (Matrix me);
+
+	@Declared("fon/Intensity.h")
+	public double Intensity_getQuantile (Intensity me, double tmin, double tmax, double quantile);
+	
+	@Declared("fon/Intensity.h")
+	public double Intensity_getAverage (Intensity me, double tmin, double tmax, int averagingMethod);
+	
+	/*
+		Function:
+			smooth away the periodic part of a signal,
+			by convolving the square of the signal with a Kaiser(20.24) window;
+			and resample on original sample points.
+		Arguments:
+			'minimumPitch':
+				the minimum periodicity frequency that will be smoothed away
+				to at most 0.00001 %.
+				The Hanning/Hamming-equivalent window length will be 3.2 / 'minimumPitch'.
+				The actual window length will be twice that.
+			'timeStep':
+				if <= 0.0, then 0.8 / minimumPitch.
+		Performance:
+			every periodicity frequency greater than 'minimumPitch'
+			will be smoothed away to at most 0.00001 %;
+			if 'timeStep' is 0 or less than 3.2 / 'minimumPitch',
+			aliased frequencies will be at least 140 dB down.
+		Example:
+			minimumPitch = 100 Hz;
+			Hanning/Hanning-equivalent window duration = 32 ms;
+			actual window duration = 64 ms;
+	 */
+	@Declared("fon/Sound_to_Intensity.h")
+	public Intensity Sound_to_Intensity (Sound me, double minimumPitch, double timeStep, int subtractMean);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getXMin(Sampled me);

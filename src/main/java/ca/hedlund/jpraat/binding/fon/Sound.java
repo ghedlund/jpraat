@@ -176,5 +176,8 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_to_Formant_willems(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
 	}
 	
+	public Intensity to_Intensity (double minimumPitch, double timeStep, int subtractMean) {
+		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
+	}
 	
 }
