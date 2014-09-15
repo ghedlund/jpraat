@@ -8,7 +8,7 @@ import com.sun.jna.WString;
 
 public class Thing extends PointerType {
 
-	public static Thing newFromClassName (WString className) {
+	public static Object newFromClassName (WString className) {
 		return Praat.INSTANCE.Thing_newFromClassName(className);
 	}
 
@@ -40,17 +40,6 @@ public class Thing extends PointerType {
 	public WString getName () {
 		return Praat.INSTANCE.Thing_getName(this);
 	}
-
-	public WString messageName () {
-		return Praat.INSTANCE.Thing_messageName(this);
-	}
-
-	/*
-		Function:
-			remember that you are called 'name'.
-		Postconditions:
-			my name *and* my name are copies of 'name'.
-	 */
 	
 	public void setName (WString name) {
 		Praat.INSTANCE.Thing_setName(this, name);
