@@ -88,7 +88,7 @@ public class Sound extends Vector {
 
 	/* Calls Sound_to_Pitch_any with FCC method. */
 	@Declared("fon/Sound_to_Pitch.h")
-	public Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
+	public Pitch to_Pitch_cc (double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) {

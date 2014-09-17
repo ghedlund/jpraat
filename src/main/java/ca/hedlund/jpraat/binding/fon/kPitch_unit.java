@@ -29,5 +29,18 @@ public enum kPitch_unit implements NativeEnum {
 	public int getNativeValue() {
 		return ordinal();
 	}
+	
+	public static kPitch_unit fromString(String val) {
+		kPitch_unit retVal = null;
+		
+		for(kPitch_unit v:values()) {
+			if(v.getName().equalsIgnoreCase(val)) {
+				retVal = v;
+				break;
+			}
+		}
+		
+		return retVal;
+	}
 
 }
