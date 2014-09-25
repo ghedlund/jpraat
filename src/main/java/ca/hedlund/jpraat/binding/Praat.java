@@ -23,6 +23,7 @@ import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
+import ca.hedlund.jpraat.binding.sys.PraatVersion;
 import ca.hedlund.jpraat.binding.sys.Thing;
 
 import com.sun.jna.Library;
@@ -42,9 +43,17 @@ public interface Praat extends Library {
 	Praat INSTANCE = (Praat)
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
 	
+	@Declared("sys/praat_version.h")
+	@Custom
+	public PraatVersion praat_version();
+	
 	@Declared("sys/praatlib.h")
 	@Custom
 	public void praat_lib_init();
+	
+	@Declared("sys/praat.h")
+	@Custom
+	public WString praat_dir();
 	
 	@Declared("sys/Thing.h")
 	WString Thing_className (Thing me);
