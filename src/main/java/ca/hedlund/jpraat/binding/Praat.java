@@ -219,6 +219,13 @@ public interface Praat extends Library {
 	@Declared("fon/LongSound.h")
 	public Sound LongSound_extractPart (LongSound me, double tmin, double tmax, int preserveTimes);
 	
+	@Declared("fon/LongSound.h")
+	public boolean LongSound_haveWindow (LongSound me, double tmin, double tmax);
+	
+	@Declared("fon/LongSound.h")
+	public void LongSound_getWindowExtrema (LongSound me, double tmin, double tmax, int channel, 
+			Pointer minimum, Pointer maximum);
+	
 	/**
 	 * Get value at given x position and channel using the specified
 	 * interpolation.
