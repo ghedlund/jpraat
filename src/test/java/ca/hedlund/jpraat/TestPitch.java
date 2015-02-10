@@ -40,6 +40,21 @@ public class TestPitch {
 		Praat.INSTANCE.praat_lib_init();
 	}
 	
+
+//	@Test
+//	public void doTestPitch() throws URISyntaxException {
+//		final Runnable onBg = new Runnable() {
+//			public void run() {
+//				try {
+//					testPitch();
+//				} catch (Exception e) {}
+//			}
+//		};
+//
+//		new Thread(onBg).start();
+//
+//	}
+		
 	@Test
 	public void testPitch() throws URISyntaxException {
 		final URL uri = 
