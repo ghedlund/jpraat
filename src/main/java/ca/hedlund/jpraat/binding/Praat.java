@@ -158,10 +158,12 @@ public interface Praat extends Library {
 	public MelderFile MelderFile_new();
 	
 	@Declared("sys/melder.h")
-	public MelderFile MelderFile_create(MelderFile file);
+	@Wrapped
+	public MelderFile MelderFile_create_wrapped(MelderFile file);
 	
 	@Declared("sys/melder.h")
-	public MelderFile MelderFile_open (MelderFile file);
+	@Wrapped
+	public MelderFile MelderFile_open_wrapped (MelderFile file);
 	
 	@Declared("sys/melder.h")
 	@Wrapped

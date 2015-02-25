@@ -27,12 +27,16 @@ public class MelderFile extends PointerType {
 		return retVal;
 	}
 	
-	public MelderFile open() {
-		return Praat.INSTANCE.MelderFile_open(this);
+	public MelderFile open() throws PraatException {
+		MelderFile retVal = Praat.INSTANCE.MelderFile_open_wrapped (this);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public MelderFile create() {
-		return Praat.INSTANCE.MelderFile_create(this);
+	public MelderFile create() throws PraatException {
+		MelderFile retVal = Praat.INSTANCE.MelderFile_create_wrapped(this);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public long length () {
