@@ -1,4 +1,4 @@
-package ca.hedlund.jpraat.binding.jna;
+package ca.hedlund.jpraat.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
