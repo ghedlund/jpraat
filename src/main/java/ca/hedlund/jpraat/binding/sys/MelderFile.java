@@ -1,7 +1,8 @@
 package ca.hedlund.jpraat.binding.sys;
 
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Declared;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.PointerType;
 import com.sun.jna.WString;
@@ -15,13 +16,14 @@ public class MelderFile extends PointerType {
 	 * @param path
 	 * @return file
 	 */
-	public static MelderFile fromPath(String path) {
+	public static MelderFile fromPath(String path) throws PraatException {
 		return fromPath(new WString(path));
 	}
 	
-	public static MelderFile fromPath(WString path) {
+	public static MelderFile fromPath(WString path) throws PraatException {
 		final MelderFile retVal = Praat.INSTANCE.MelderFile_new();
-		Praat.INSTANCE.Melder_pathToFile(path, retVal);
+		Praat.INSTANCE.Melder_pathToFile_wrapped(path, retVal);
+		Praat.checkLastError(); 
 		return retVal;
 	}
 	

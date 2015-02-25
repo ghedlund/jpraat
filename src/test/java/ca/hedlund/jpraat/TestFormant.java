@@ -19,6 +19,7 @@ import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 @RunWith(JUnit4.class)
 public class TestFormant {
@@ -40,7 +41,7 @@ public class TestFormant {
 	}
 
 	@Test
-	public void testFormant() throws URISyntaxException {
+	public void testFormant() throws URISyntaxException, PraatException {
 		final URL uri = 
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());

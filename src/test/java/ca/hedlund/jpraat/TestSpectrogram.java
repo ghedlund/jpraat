@@ -21,6 +21,7 @@ import ca.hedlund.jpraat.binding.fon.Spectrogram;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 @RunWith(JUnit4.class)
 public class TestSpectrogram {
@@ -51,7 +52,7 @@ public class TestSpectrogram {
 	 * Test loading a {@link Spectrogram} from a {@link LongSound}.
 	 */
 	@Test
-	public void testSpectrogram() throws URISyntaxException {
+	public void testSpectrogram() throws URISyntaxException, PraatException {
 		final URL uri = 
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());

@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding;
 
+import ca.hedlund.jpraat.annotations.Custom;
+import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.NativeType;
+import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.Function;
 import ca.hedlund.jpraat.binding.fon.Intensity;
@@ -16,8 +20,6 @@ import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolveScaling;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolveSignalOutsideTimeDomain;
-import ca.hedlund.jpraat.binding.jna.Custom;
-import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
@@ -25,6 +27,7 @@ import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.binding.sys.PraatVersion;
 import ca.hedlund.jpraat.binding.sys.Thing;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -42,6 +45,14 @@ public interface Praat extends Library {
 	 */
 	Praat INSTANCE = (Praat)
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
+	
+	public static void checkLastError() throws PraatException {
+		if(INSTANCE.jpraat_last_error() != null && INSTANCE.jpraat_last_error().length() > 0)
+			throw new PraatException(INSTANCE.jpraat_last_error());
+	}
+	
+	@Custom
+	public String jpraat_last_error();
 	
 	@Declared("sys/praat_version.h")
 	@Custom
@@ -96,22 +107,27 @@ public interface Praat extends Library {
 	public boolean Data_canWriteText (Data me);
 
 	@Declared("sys/Data.h")
-	public MelderFile Data_createTextFile (Data me, MelderFile file, boolean verbose);
+	@Wrapped
+	public MelderFile Data_createTextFile_wrapped (Data me, MelderFile file, boolean verbose);
 
 	@Declared("sys/Data.h")
-	public void Data_writeText (Data me, MelderFile openFile);
+	@Wrapped
+	public void Data_writeText_wrapped (Data me, MelderFile openFile);
 
 	@Declared("sys/Data.h")
-	public void Data_writeToTextFile (Data me, MelderFile file);
+	@Wrapped
+	public void Data_writeToTextFile_wrapped (Data me, MelderFile file);
 	
 	@Declared("sys/Data.h")
-	public void Data_writeToShortTextFile (Data me, MelderFile file);
+	@Wrapped
+	public void Data_writeToShortTextFile_wrapped (Data me, MelderFile file);
 
 	@Declared("sys/Data.h")
 	public boolean Data_canWriteBinary (Data me);
 
 	@Declared("sys/Data.h")
-	public void Data_writeToBinaryFile (Data me, MelderFile file);
+	@Wrapped
+	public void Data_writeToBinaryFile_wrapped (Data me, MelderFile file);
 
 	@Declared("sys/Data.h")
 	public boolean Data_canWriteLisp (Data me);
@@ -123,16 +139,19 @@ public interface Praat extends Library {
 	public boolean Data_canReadText (Data me);
 
 	@Declared("sys/Data.h")
-	public Pointer Data_readFromTextFile (MelderFile file);
+	@Wrapped
+	public @NativeType("Any") Pointer Data_readFromTextFile_wrapped (MelderFile file);
 
 	@Declared("sys/Data.h")
 	public boolean Data_canReadBinary (Data me);
 
 	@Declared("sys/Data.h")
-	public Pointer Data_readFromBinaryFile (MelderFile file);
+	@Wrapped
+	public @NativeType("Any") Pointer Data_readFromBinaryFile_wrapped (MelderFile file);
 
 	@Declared("sys/Data.h")
-	public Pointer Data_readFromFile (MelderFile file);
+	@Wrapped
+	public @NativeType("Any") Pointer Data_readFromFile_wrapped (MelderFile file);
 	
 	@Declared("sys/melder.h")
 	@Custom
@@ -145,7 +164,8 @@ public interface Praat extends Library {
 	public MelderFile MelderFile_open (MelderFile file);
 	
 	@Declared("sys/melder.h")
-	public void Melder_pathToFile (WString path, MelderFile file);
+	@Wrapped
+	public void Melder_pathToFile_wrapped (WString path, MelderFile file);
 	
 	@Declared("sys/melder.h")
 	public WString Melder_fileToPath (MelderFile file);
@@ -214,7 +234,8 @@ public interface Praat extends Library {
 	public void Function_scaleXTo (Function me, double xminto, double xmaxto);
 	
 	@Declared("fon/LongSound.h")
-	public LongSound LongSound_open (MelderFile fs);
+	@Wrapped
+	public LongSound LongSound_open_wrapped (MelderFile fs);
 
 	@Declared("fon/LongSound.h")
 	public Sound LongSound_extractPart (LongSound me, double tmin, double tmax, int preserveTimes);
@@ -876,7 +897,8 @@ public interface Praat extends Library {
 	public double Formant_getIntensityAtSample(Formant me, long iframe);
 	
 	@Declared("fon/Sound_to_Formant.h")
-	public Formant Sound_to_Formant_any (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
+	@Wrapped
+	public Formant Sound_to_Formant_any_wrapped (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
 		double halfdt_window, int which, double preemphasisFrequency, double safetyMargin);
 
 	@Declared("fon/Sound_to_Formant.h")

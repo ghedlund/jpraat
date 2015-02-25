@@ -8,11 +8,14 @@ import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class LongSound extends Sampled {
 	
-	public static LongSound open (MelderFile fs) {
-		return Praat.INSTANCE.LongSound_open(fs);
+	public static LongSound open (MelderFile fs) throws PraatException {
+		LongSound retVal = Praat.INSTANCE.LongSound_open_wrapped(fs);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/**

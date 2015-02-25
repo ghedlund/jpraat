@@ -7,8 +7,8 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
+import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Header;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
 @Header(value="fon/Pitch.h")

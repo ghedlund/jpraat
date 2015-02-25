@@ -1,8 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 /**
  * 
@@ -13,7 +14,7 @@ public class Sound extends Vector {
 	public static final int LEVEL_LEFT = 1;
 	public static final int LEVEL_RIGHT = 2;
 
-	public static Sound readFromPath(String path) {
+	public static Sound readFromPath(String path) throws PraatException {
 		return readFromSoundFile(MelderFile.fromPath(path));
 	}
 	
@@ -213,9 +214,12 @@ public class Sound extends Vector {
 		Which = 2: Split-Levinson
 	*/
 	public Formant to_Formant_any (double timeStep, int numberOfPoles, double maximumFrequency,
-			double halfdt_window, int which, double preemphasisFrequency, double safetyMargin) {
+			double halfdt_window, int which, double preemphasisFrequency, double safetyMargin) throws PraatException {
 		checkFormantWindow(numberOfPoles, halfdt_window);
-		return Praat.INSTANCE.Sound_to_Formant_any(this, timeStep, numberOfPoles, maximumFrequency, halfdt_window, which, preemphasisFrequency, safetyMargin);
+		Formant retVal =
+				Praat.INSTANCE.Sound_to_Formant_any_wrapped(this, timeStep, numberOfPoles, maximumFrequency, halfdt_window, which, preemphasisFrequency, safetyMargin);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	/* Throws away all formants below 50 Hz and above Nyquist minus 50 Hz. */

@@ -1,7 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Declared;
 
 public class Spectrogram extends Matrix {
 	

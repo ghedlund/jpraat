@@ -18,6 +18,7 @@ import ca.hedlund.jpraat.binding.fon.Pitch;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
@@ -56,13 +57,14 @@ public class TestPitch {
 //	}
 		
 	@Test
-	public void testPitch() throws URISyntaxException {
+	public void testPitch() throws URISyntaxException, PraatException {
 		final URL uri = 
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
+		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath()+"adsafdsafdsaf");
+		final LongSound longSound = LongSound.open(melderFile);
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);
 		

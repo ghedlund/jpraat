@@ -1,6 +1,6 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.binding.jna.Declared;
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.jna.NativeEnum;
 
 /**

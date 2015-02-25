@@ -2,8 +2,8 @@ package ca.hedlund.jpraat.binding.fon;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Declared;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 
 import com.sun.jna.Memory;
