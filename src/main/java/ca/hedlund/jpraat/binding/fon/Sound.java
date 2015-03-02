@@ -101,10 +101,9 @@ public class Sound extends Vector {
 	 * 
 	 * @throws IllegalArgumentException
 	 */
-	@Declared("fon/Sound_to_Spectrogram.h")
 	public Spectrogram toSpectrogram (double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
-			double maximumTimeOversampling, double maximumFreqOversampling) {
+			double maximumTimeOversampling, double maximumFreqOversampling) throws PraatException {
 		
 		// do some checks so here so we don't throw MelderErrors and crash the JVM
 		// from praat:fon/Sound_and_Spectrogram.cpp#Sound_to_Spectrogram
@@ -119,39 +118,44 @@ public class Sound extends Vector {
 			throw new IllegalArgumentException("Your sound is too short.");
 		}
 		
-		return Praat.INSTANCE.Sound_to_Spectrogram(this, effectiveAnalysisWidth, fmax, minimumTimeStep1, minimumFreqStep1, 
+		Spectrogram retVal = Praat.INSTANCE.Sound_to_Spectrogram_wrapped(this, effectiveAnalysisWidth, fmax, minimumTimeStep1, minimumFreqStep1, 
 				windowShape, maximumTimeOversampling, maximumFreqOversampling);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	@Declared("fon/Sound_to_Pitch.h")
-	/* Calls Sound_to_Pitch_ac with default arguments. */
 	public Pitch to_Pitch (double timeStep,
-			double minimumPitch, double maximumPitch) {
-		return Praat.INSTANCE.Sound_to_Pitch(this, timeStep, minimumPitch, maximumPitch);
+			double minimumPitch, double maximumPitch) throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_wrapped(this, timeStep, minimumPitch, maximumPitch);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/* Calls Sound_to_Pitch_any with AC method. */
-	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch to_Pitch_ac (double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
-		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) {
+		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) throws PraatException {
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
-		return Praat.INSTANCE.Sound_to_Pitch_ac(this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate, 
+		
+		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_ac_wrapped (this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate, 
 				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/* Calls Sound_to_Pitch_any with FCC method. */
-	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch to_Pitch_cc (double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
-		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) {
+		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) throws PraatException {
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
-		return Praat.INSTANCE.Sound_to_Pitch_cc(this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate,
+		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_cc_wrapped(this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate,
 				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	/*
@@ -188,7 +192,6 @@ public class Sound extends Vector {
 			It is directly copied into the Pitch object as a hint for considering
 			pitches above a certain value "voiceless".
  	*/
-	@Declared("fon/Sound_to_Pitch.h")
 	public Pitch Sound_to_Pitch_any (Sound me,
 
 		double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
@@ -202,12 +205,14 @@ public class Sound extends Vector {
 		double octaveCost,         /* favours higher pitches; default 0.01 */
 		double octaveJumpCost,     /* default 0.35 */
 		double voicedUnvoicedCost, /* default 0.14 */
-		double maximumPitch)     /* (Hz) */
+		double maximumPitch)    throws PraatException  /* (Hz) */
 	{
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
-		return Praat.INSTANCE.Sound_to_Pitch_any(this, dt, minimumPitch, periodsPerWindow, maxnCandidates, method, 
+		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_any_wrapped (this, dt, minimumPitch, periodsPerWindow, maxnCandidates, method, 
 				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	private void checkMaxnCandidates(int maxnCandidates) {
@@ -247,22 +252,33 @@ public class Sound extends Vector {
 	
 	/* Throws away all formants below 50 Hz and above Nyquist minus 50 Hz. */
 	public Formant to_Formant_burg (double timeStep, double numberOfFormants,
-		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) 
+		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		return Praat.INSTANCE.Sound_to_Formant_burg(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Formant retVal = 
+				Praat.INSTANCE.Sound_to_Formant_burg_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/* Same as previous, but keeps all formants. Good for resynthesis. */
 	public Formant to_Formant_keepAll (double timeStep, double numberOfFormants,
-		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) 
+		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		return Praat.INSTANCE.Sound_to_Formant_keepAll(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Formant retVal = Praat.INSTANCE.Sound_to_Formant_keepAll_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	public Formant to_Formant_willems (double timeStep, double numberOfFormants,
-		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) {
+		double maximumFormantFrequency, double windowLength, double preemphasisFrequency)
+		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		return Praat.INSTANCE.Sound_to_Formant_willems(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Formant retVal =
+				Praat.INSTANCE.Sound_to_Formant_willems_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	private void checkFormantWindow(int numberOfPoles, double windowLength) {

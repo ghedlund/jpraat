@@ -8,6 +8,7 @@ import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.stat.Table;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Formant extends Sampled {
 	
@@ -30,8 +31,11 @@ public class Formant extends Sampled {
 			my frames [1..nt]. formants [1..maxnFormants] = 0.0;
 			my frames [1..nt]. bandwidths [1..maxnFormants] = 0.0;
 	 */
-	public static Formant create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants) {
-		return Praat.INSTANCE.Formant_create(tmin, tmax, nt, dt, t1, maxnFormants);
+	public static Formant create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants)
+		throws PraatException {
+		Formant retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, nt, dt, t1, maxnFormants);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public long getMinNumFormants () {
@@ -121,27 +125,34 @@ public class Formant extends Sampled {
 		Praat.INSTANCE.Formant_sort(this);
 	}
 
-	public Matrix to_Matrix (int iformant) {
-		return Praat.INSTANCE.Formant_to_Matrix(this, iformant);
+	public Matrix to_Matrix (int iformant) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Formant_to_Matrix_wrapped (this, iformant);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Matrix to_Matrix_bandwidths (int iformant) {
-		return Praat.INSTANCE.Formant_to_Matrix_bandwidths(this, iformant);
+	public Matrix to_Matrix_bandwidths (int iformant) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Formant_to_Matrix_bandwidths_wrapped(this, iformant);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	public Formant tracker (int numberOfTracks,
 		double refF1, double refF2, double refF3, double refF4, double refF5,
 		double dfCost,   /* Per kHz. */
-		double bfCost, double octaveJumpCost) {
-		return Praat.INSTANCE.Formant_tracker(this, numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost, bfCost, octaveJumpCost);
+		double bfCost, double octaveJumpCost) throws PraatException {
+		Formant retVal =
+				Praat.INSTANCE.Formant_tracker_wrapped(this, numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost, bfCost, octaveJumpCost);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	public Table downto_Table (Boolean includeFrameNumbers,
 			Boolean includeTimes, int timeDecimals,
 			Boolean includeIntensity, int intensityDecimals,
 			Boolean includeNumberOfFormants, int frequencyDecimals,
-			Boolean includeBandwidths) {
-		return Praat.INSTANCE.Formant_downto_Table(this, 
+			Boolean includeBandwidths) throws PraatException {
+		Table retVal = Praat.INSTANCE.Formant_downto_Table_wrapped(this, 
 				(includeFrameNumbers ? 1 : 0), 
 				(includeTimes ? 1 : 0), 
 				timeDecimals,
@@ -149,7 +160,8 @@ public class Formant extends Sampled {
 				intensityDecimals,
 				(includeNumberOfFormants ? 1 : 0), frequencyDecimals,
 				(includeBandwidths ? 1: 0) );
-				
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public double getValueAtSample(long iframe, long which, int units) {

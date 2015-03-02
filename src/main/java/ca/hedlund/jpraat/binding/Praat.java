@@ -803,42 +803,50 @@ public interface Praat extends Library {
 	public Sound Sound_extractPart_wrapped (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes);
 	
 	@Declared("fon/Spectrogram.h")
-	public Spectrogram Spectrogram_create (double tmin, double tmax, long nt, double dt, double t1,
+	@Wrapped
+	public Spectrogram Spectrogram_create_wrapped (double tmin, double tmax, long nt, double dt, double t1,
 					double fmin, double fmax, long nf, double df, double f1);
 
 	@Declared("fon/Spectrogram.h")
-	public Spectrogram Matrix_to_Spectrogram (Matrix me);
+	@Wrapped
+	public Spectrogram Matrix_to_Spectrogram_wrapped (Matrix me);
 
 	@Declared("fon/Spectrogram.h")
-	public Matrix Spectrogram_to_Matrix (Spectrogram me);
+	@Wrapped
+	public Matrix Spectrogram_to_Matrix_wrapped (Spectrogram me);
 	
 	@Declared("fon/Spectrogram.h")
 	@Custom
 	public double Spectrogram_getZ(Spectrogram me, int ix, int iy);
 	
-	@Declared("fon/Sound_to_Spectrogram.h")
-	public Spectrogram Sound_to_Spectrogram (Sound me, double effectiveAnalysisWidth, double fmax,
+	@Declared("fon/Sound_and_Spectrogram.h")
+	@Wrapped
+	public Spectrogram Sound_to_Spectrogram_wrapped (Sound me, double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
 			double maximumTimeOversampling, double maximumFreqOversampling);
 	
 	@Declared("fon/Sound_to_Pitch.h")
-	public Pitch Sound_to_Pitch (Sound me, double timeStep,
+	@Wrapped
+	public Pitch Sound_to_Pitch_wrapped (Sound me, double timeStep,
 			double minimumPitch, double maximumPitch);
 
 	@Declared("fon/Sound_to_Pitch.h")
-	public Pitch Sound_to_Pitch_ac (Sound me, double timeStep, double minimumPitch,
+	@Wrapped
+	public Pitch Sound_to_Pitch_ac_wrapped (Sound me, double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 
 	@Declared("fon/Sound_to_Pitch.h")
-	public Pitch Sound_to_Pitch_cc (Sound me, double timeStep, double minimumPitch,
+	@Wrapped
+	public Pitch Sound_to_Pitch_cc_wrapped (Sound me, double timeStep, double minimumPitch,
 		double periodsPerWindow, int maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 	
 	@Declared("fon/Sound_to_Pitch.h")
-	public Pitch Sound_to_Pitch_any (Sound me,
+	@Wrapped
+	public Pitch Sound_to_Pitch_any_wrapped (Sound me,
 
 		double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
 		double minimumPitch,       /* (Hz) */
@@ -854,7 +862,8 @@ public interface Praat extends Library {
 		double maximumPitch);      /* (Hz) */
 	
 	@Declared("fon/Formant.h")
-	public Formant Formant_create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants);
+	@Wrapped
+	public Formant Formant_create_wrapped (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants);
 
 	@Declared("fon/Formant.h")
 	public long Formant_getMinNumFormants (Formant me);
@@ -907,19 +916,23 @@ public interface Praat extends Library {
 	public void Formant_sort (Formant me);
 
 	@Declared("fon/Formant.h")
-	public Matrix Formant_to_Matrix (Formant me, int iformant);
+	@Wrapped
+	public Matrix Formant_to_Matrix_wrapped (Formant me, int iformant);
 	
 	@Declared("fon/Formant.h")
-	public Matrix Formant_to_Matrix_bandwidths (Formant me, int iformant);
+	@Wrapped
+	public Matrix Formant_to_Matrix_bandwidths_wrapped (Formant me, int iformant);
 
 	@Declared("fon/Formant.h")
-	public Formant Formant_tracker (Formant me, int numberOfTracks,
+	@Wrapped
+	public Formant Formant_tracker_wrapped (Formant me, int numberOfTracks,
 		double refF1, double refF2, double refF3, double refF4, double refF5,
 		double dfCost,   /* Per kHz. */
 		double bfCost, double octaveJumpCost);
 
 	@Declared("fon/Formant.h")
-	public Table Formant_downto_Table (Formant me, int includeFrameNumbers,
+	@Wrapped
+	public Table Formant_downto_Table_wrapped (Formant me, int includeFrameNumbers,
 			int includeTimes, int timeDecimals,
 			int includeIntensity, int intensityDecimals,
 			int includeNumberOfFormants, int frequencyDecimals,
@@ -939,15 +952,18 @@ public interface Praat extends Library {
 		double halfdt_window, int which, double preemphasisFrequency, double safetyMargin);
 
 	@Declared("fon/Sound_to_Formant.h")
-	public Formant Sound_to_Formant_burg (Sound me, double timeStep, double maximumNumberOfFormants,
+	@Wrapped
+	public Formant Sound_to_Formant_burg_wrapped (Sound me, double timeStep, double maximumNumberOfFormants,
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 
 	@Declared("fon/Sound_to_Formant.h")
-	public Formant Sound_to_Formant_keepAll (Sound me, double timeStep, double maximumNumberOfFormants,
+	@Wrapped
+	public Formant Sound_to_Formant_keepAll_wrapped (Sound me, double timeStep, double maximumNumberOfFormants,
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 
 	@Declared("fon/Sound_to_Formant.h")
-	public Formant Sound_to_Formant_willems (Sound me, double timeStep, double numberOfFormants,
+	@Wrapped
+	public Formant Sound_to_Formant_willems_wrapped (Sound me, double timeStep, double numberOfFormants,
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 	
 	@Declared("sys/sendpraat.c")
