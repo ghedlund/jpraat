@@ -1,6 +1,7 @@
 package ca.hedlund.jpraat.binding.sys;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
@@ -8,8 +9,10 @@ import com.sun.jna.WString;
 
 public class Thing extends PointerType {
 
-	public static Object newFromClassName (WString className) {
-		return Praat.INSTANCE.Thing_newFromClassName(className);
+	public static Object newFromClassName (WString className) throws PraatException {
+		Object retVal = Praat.INSTANCE.Thing_newFromClassName_wrapped (className);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	@Override

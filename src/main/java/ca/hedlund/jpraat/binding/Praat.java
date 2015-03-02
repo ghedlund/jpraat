@@ -79,7 +79,8 @@ public interface Praat extends Library {
 	public void Thing_infoWithId (Thing me, long id);
 	
 	@Declared("sys/Thing.h")
-	public Object Thing_newFromClassName (WString className);
+	@Wrapped
+	public Object Thing_newFromClassName_wrapped (WString className);
 	
 	/* Return a pointer to your internal name (which can be NULL). */
 	@Declared("sys/Thing.h")
