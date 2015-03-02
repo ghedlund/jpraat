@@ -252,7 +252,7 @@ public interface Praat extends Library {
 	@Declared("fon/LongSound.h")
 	@Wrapped
 	public void LongSound_getWindowExtrema_wrapped (LongSound me, double tmin, double tmax, int channel, 
-			Pointer minimum, Pointer maximum);
+			@NativeType("double*") Pointer minimum, @NativeType("double*") Pointer maximum);
 	
 	/**
 	 * Get value at given x position and channel using the specified
@@ -425,7 +425,7 @@ public interface Praat extends Library {
 	@Declared("fon/Sampled.h")
 	@Wrapped
 	public void Sampled_shortTermAnalysis_wrapped (Sampled me, double windowDuration, double timeStep,
-			Pointer numberOfFrames, Pointer firstTime);
+			@NativeType("long*") Pointer numberOfFrames, @NativeType("double*") Pointer firstTime);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getValueAtSample (Sampled me, NativeLong isamp, NativeLong ilevel, int unit);
@@ -1035,7 +1035,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, Pointer numberOfTokens);
+	public @NativeType("long*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("long*") Pointer numberOfTokens);
 	
 	@Declared("stat/Table.h")
 	public NativeLong Table_searchColumn (Table me, NativeLong column, WString value);
@@ -1047,6 +1047,14 @@ public interface Praat extends Library {
 	@Declared("stat/Table.h")
 	@Wrapped
 	public void Table_setNumericValue_wrapped (Table me, NativeLong row, NativeLong column, double value);
+	
+	@Declared("stat/Table.h")
+	@Wrapped
+	public WString Table_getStringValue_Assert_wrapped (Table me, NativeLong row, NativeLong column);
+	
+	@Declared("stat/Table.h")
+	@Wrapped
+	public double Table_getNumericValue_Assert_wrapped (Table me, NativeLong row, NativeLong column);
 
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1079,50 +1087,54 @@ public interface Praat extends Library {
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getCorrelation_pearsonR_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getCorrelation_kendallTau_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getMean_studentT_wrapped (Table me, NativeLong column, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_tFromZero, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom, 
+		@NativeType("double*") Pointer out_significanceFromZero, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getDifference_studentT_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
-		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_t, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom, 
+		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getGroupMean_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_tFromZero, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom, 
+		@NativeType("double*") Pointer out_significanceFromZero, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getGroupDifference_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2, double significanceLevel,
-		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_tFromZero, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom,
+		@NativeType("double*") Pointer out_significanceFromZero, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2,
-		Pointer out_rankSum, Pointer out_significanceFromZero);
+		@NativeType("double*") Pointer out_rankSum, @NativeType("double*") Pointer out_significanceFromZero);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getVarianceRatio_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
-		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public boolean Table_getExtrema_wrapped (Table me, NativeLong icol, Pointer minimum, Pointer maximum);
+	public boolean Table_getExtrema_wrapped (Table me, NativeLong icol, @NativeType("double*") Pointer minimum, @NativeType("double*") Pointer maximum);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_sortRows_Assert_wrapped (Table me, Pointer columns, NativeLong numberOfColumns);
+	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("long*") Pointer columns, NativeLong numberOfColumns);
 	
 	@Declared("stat/Table.h")
 	@Wrapped

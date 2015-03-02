@@ -122,6 +122,18 @@ public class Table extends Data {
 	public long searchColumn ( long column, WString value) {
 		return Praat.INSTANCE.Table_searchColumn(this, new NativeLong(column), value).longValue();
 	}
+	
+	public WString getStringValue(long row, long column) throws PraatException {
+		WString retVal = Praat.INSTANCE.Table_getStringValue_Assert_wrapped(this, new NativeLong(row), new NativeLong(column));
+		Praat.checkLastError();
+		return retVal;
+	}
+	
+	public double getNumericValue(long row, long column) throws PraatException {
+		double retVal = Praat.INSTANCE.Table_getNumericValue_Assert_wrapped(this, new NativeLong(row), new NativeLong(column));
+		Praat.checkLastError();
+		return retVal;
+	}
 
 	public void setStringValue (long row, long column, WString value) throws PraatException {
 		Praat.INSTANCE.Table_setStringValue_wrapped (this, new NativeLong(row), new NativeLong(column), value);

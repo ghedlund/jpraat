@@ -68,7 +68,7 @@ public class TestFormant {
 			for(int col = 1; col < formantTable.getNcol(); col++) {
 				if(col > 1) sb.append(',');
 				sb.append('\"');
-				sb.append(formantTable.getNumericValue_Assert(row, col));
+				sb.append(formantTable.getNumericValue(row, col));
 				sb.append('\"');
 			}
 			System.out.println(sb.toString());
