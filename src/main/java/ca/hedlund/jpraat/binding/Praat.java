@@ -973,174 +973,212 @@ public interface Praat extends Library {
 	public WString sendpraatW (Object display, String programName, long timeOut, WString text);
 	
 	@Declared("stat/Table.h")
-	public Table Table_createWithColumnNames (long numberOfRows, WString columnNames);
+	@Wrapped
+	public Table Table_createWithColumnNames_wrapped (long numberOfRows, WString columnNames);
 
 	@Declared("stat/Table.h")
-	public Table Table_createWithoutColumnNames (long numberOfRows, long numberOfColumns);
+	@Wrapped
+	public Table Table_createWithoutColumnNames_wrapped (long numberOfRows, long numberOfColumns);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendRow (Table me);
+	@Wrapped
+	public void Table_appendRow_wrapped (Table me);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendColumn (Table me, WString label);
+	@Wrapped
+	public void Table_appendColumn_wrapped (Table me, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendSumColumn (Table me, long column1, long column2, WString label);
+	@Wrapped
+	public void Table_appendSumColumn_wrapped (Table me, long column1, long column2, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendDifferenceColumn (Table me, long column1, long column2, WString label);
+	@Wrapped
+	public void Table_appendDifferenceColumn_wrapped (Table me, long column1, long column2, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendProductColumn (Table me, long column1, long column2, WString label);
+	@Wrapped
+	public void Table_appendProductColumn_wrapped (Table me, long column1, long column2, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_appendQuotientColumn (Table me, long column1, long column2, WString label);
+	@Wrapped
+	public void Table_appendQuotientColumn_wrapped (Table me, long column1, long column2, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_removeRow (Table me, long row);
+	@Wrapped
+	public void Table_removeRow_wrapped (Table me, long row);
 	
 	@Declared("stat/Table.h")
-	public void Table_removeColumn (Table me, long column);
+	@Wrapped
+	public void Table_removeColumn_wrapped (Table me, long column);
 	
 	@Declared("stat/Table.h")
-	public void Table_insertRow (Table me, long row);
+	@Wrapped
+	public void Table_insertRow_wrapped (Table me, long row);
 	
 	@Declared("stat/Table.h")
-	public void Table_insertColumn (Table me, long column, WString label);
+	@Wrapped
+	public void Table_insertColumn_wrapped (Table me, long column, WString label);
 	
 	@Declared("stat/Table.h")
-	public void Table_setColumnLabel (Table me, long column, WString label);
+	@Wrapped
+	public void Table_setColumnLabel_wrapped (Table me, long column, WString label);
 	
 	@Declared("stat/Table.h")
 	public long Table_findColumnIndexFromColumnLabel (Table me, WString label);
 	
 	@Declared("stat/Table.h")
-	public long Table_getColumnIndexFromColumnLabel (Table me, WString columnLabel);
+	@Wrapped
+	public long Table_getColumnIndexFromColumnLabel_wrapped (Table me, WString columnLabel);
 	
 	@Declared("stat/Table.h")
-	public Pointer Table_getColumnIndicesFromColumnLabelString (Table me, WString string, Pointer numberOfTokens);
+	@Wrapped
+	public Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, Pointer numberOfTokens);
 	
 	@Declared("stat/Table.h")
 	public long Table_searchColumn (Table me, long column, WString value);
 	
-	/*
-	 * Procedure for reading strings or numbers from table cells:
-	 * use the following two calls exclusively.
-	 */
-	public WString  Table_getStringValue_Assert (Table me, long row, long column);
-	public double Table_getNumericValue_Assert (Table me, long row, long column);
-
-	/*
-	 * Procedure for writing strings or numbers into table cells:
-	 * use the following two calls exclusively.
-	 */
-	public void Table_setStringValue (Table me, long row, long column, WString value);
-	public void Table_setNumericValue (Table me, long row, long column, double value);
-
-	/* For optimizations only (e.g. conversion to Matrix or TableOfReal). */
-	public void Table_numericize_Assert (Table me, long columnNumber);
-	
-	public double Table_getQuantile (Table me, long column, double quantile);
+	@Declared("stat/Table.h")
+	@Wrapped
+	public void Table_setStringValue_wrapped (Table me, long row, long column, WString value);
 	
 	@Declared("stat/Table.h")
-	public double Table_getMean (Table me, long column);
-	
-	@Declared("stat/Table.h")
-	public double Table_getMaximum (Table me, long icol);
+	@Wrapped
+	public void Table_setNumericValue_wrapped (Table me, long row, long column, double value);
 
 	@Declared("stat/Table.h")
-	public double Table_getMinimum (Table me, long icol);
+	@Wrapped
+	public double Table_getQuantile_wrapped (Table me, long column, double quantile);
 	
 	@Declared("stat/Table.h")
-	public double Table_getGroupMean (Table me, long column, long groupColumn, WString group);
+	@Wrapped
+	public double Table_getMean_wrapped (Table me, long column);
 	
 	@Declared("stat/Table.h")
-	public double Table_getStdev (Table me, long column);
+	@Wrapped
+	public double Table_getMaximum_wrapped (Table me, long icol);
+
+	@Declared("stat/Table.h")
+	@Wrapped
+	public double Table_getMinimum_wrapped (Table me, long icol);
 	
 	@Declared("stat/Table.h")
-	public long Table_drawRowFromDistribution (Table me, long column);
+	@Wrapped
+	public double Table_getGroupMean_wrapped (Table me, long column, long groupColumn, WString group);
 	
 	@Declared("stat/Table.h")
-	public double Table_getCorrelation_pearsonR (Table me, long column1, long column2, double significanceLevel,
+	@Wrapped
+	public double Table_getStdev_wrapped (Table me, long column);
+	
+	@Declared("stat/Table.h")
+	@Wrapped
+	public long Table_drawRowFromDistribution_wrapped (Table me, long column);
+	
+	@Declared("stat/Table.h")
+	@Wrapped
+	public double Table_getCorrelation_pearsonR_wrapped (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getCorrelation_kendallTau (Table me, long column1, long column2, double significanceLevel,
+	@Wrapped
+	public double Table_getCorrelation_kendallTau_wrapped (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getMean_studentT (Table me, long column, double significanceLevel,
+	@Wrapped
+	public double Table_getMean_studentT_wrapped (Table me, long column, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getDifference_studentT (Table me, long column1, long column2, double significanceLevel,
+	@Wrapped
+	public double Table_getDifference_studentT_wrapped (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getGroupMean_studentT (Table me, long column, long groupColumn, WString group1, double significanceLevel,
+	@Wrapped
+	public double Table_getGroupMean_studentT_wrapped (Table me, long column, long groupColumn, WString group1, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getGroupDifference_studentT (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
+	@Wrapped
+	public double Table_getGroupDifference_studentT_wrapped (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public double Table_getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, WString group1, WString group2,
+	@Wrapped
+	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, long column, long groupColumn, WString group1, WString group2,
 		Pointer out_rankSum, Pointer out_significanceFromZero);
 	
 	@Declared("stat/Table.h")
-	public double Table_getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
+	@Wrapped
+	public double Table_getVarianceRatio_wrapped (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
-	public boolean Table_getExtrema (Table me, long icol, Pointer minimum, Pointer maximum);
+	@Wrapped
+	public boolean Table_getExtrema_wrapped (Table me, long icol, Pointer minimum, Pointer maximum);
 	
 	@Declared("stat/Table.h")
-	public void Table_sortRows_Assert (Table me, Pointer columns, long numberOfColumns);
+	@Wrapped
+	public void Table_sortRows_Assert_wrapped (Table me, Pointer columns, long numberOfColumns);
 	
 	@Declared("stat/Table.h")
-	public void Table_sortRows_string (Table me, WString columns_string);
+	@Wrapped
+	public void Table_sortRows_string_wrapped (Table me, WString columns_string);
 	
 	@Declared("stat/Table.h")
-	public void Table_randomizeRows (Table me);
+	@Wrapped
+	public void Table_randomizeRows_wrapped (Table me);
 	
 	@Declared("stat/Table.h")
-	public void Table_reflectRows (Table me);
+	@Wrapped
+	public void Table_reflectRows_wrapped (Table me);
 	
 	@Declared("stat/Table.h")
-	public void Table_writeToTabSeparatedFile (Table me, MelderFile file);
+	@Wrapped
+	public void Table_writeToTabSeparatedFile_wrapped (Table me, MelderFile file);
 	
 	@Declared("stat/Table.h")
-	public void Table_writeToCommaSeparatedFile (Table me, MelderFile file);
+	@Wrapped
+	public void Table_writeToCommaSeparatedFile_wrapped (Table me, MelderFile file);
 	
 	@Declared("stat/Table.h")
-	public Table Table_readFromTableFile (MelderFile file);
+	@Wrapped
+	public Table Table_readFromTableFile_wrapped (MelderFile file);
 	
 	@Declared("stat/Table.h")
-	public Table Table_readFromCharacterSeparatedTextFile (MelderFile file, char separator);
+	@Wrapped
+	public Table Table_readFromCharacterSeparatedTextFile_wrapped (MelderFile file, char separator);
 	
 	@Declared("stat/Table.h")
-	public Table Table_extractRowsWhereColumn_number (Table me, long column, int which_Melder_NUMBER, double criterion);
+	@Wrapped
+	public Table Table_extractRowsWhereColumn_number_wrapped (Table me, long column, int which_Melder_NUMBER, double criterion);
 	
 	@Declared("stat/Table.h")
-	public Table Table_extractRowsWhereColumn_string (Table me, long column, int which_Melder_STRING, WString criterion);
+	@Wrapped
+	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, long column, int which_Melder_STRING, WString criterion);
 	
 	@Declared("stat/Table.h")
-	public Table Table_collapseRows (Table me, WString factors_string, WString columnsToSum_string,
+	@Wrapped
+	public Table Table_collapseRows_wrapped (Table me, WString factors_string, WString columnsToSum_string,
 		WString columnsToAverage_string, WString columnsToMedianize_string,
 		WString columnsToAverageLogarithmically_string, WString columnsToMedianizeLogarithmically_string);
 	
 	@Declared("stat/Table.h")
-	public Table Table_rowsToColumns (Table me, WString factors_string, long columnToTranspose, WString columnsToExpand_string);
+	@Wrapped
+	public Table Table_rowsToColumns_wrapped (Table me, WString factors_string, long columnToTranspose, WString columnsToExpand_string);
 	
 	@Declared("stat/Table.h")
-	public Table Table_transpose (Table me);
+	@Wrapped
+	public Table Table_transpose_wrapped (Table me);
 
 	@Declared("stat/Table.h")
-	public void Table_checkSpecifiedRowNumberWithinRange (Table me, long rowNumber);
+	@Wrapped
+	public void Table_checkSpecifiedRowNumberWithinRange_wrapped (Table me, long rowNumber);
 	
 	@Declared("stat/Table.h")
-	public void Table_checkSpecifiedColumnNumberWithinRange (Table me, long columnNumber);
+	@Wrapped
+	public void Table_checkSpecifiedColumnNumberWithinRange_wrapped (Table me, long columnNumber);
 	
 	@Declared("stat/Table.h")
 	public boolean Table_isCellNumeric_ErrorFalse (Table me, long rowNumber, long columnNumber);
