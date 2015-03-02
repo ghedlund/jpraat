@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
@@ -33,17 +34,17 @@ public class Formant extends Sampled {
 	 */
 	public static Formant create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants)
 		throws PraatException {
-		Formant retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, nt, dt, t1, maxnFormants);
+		Formant retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, maxnFormants);
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public long getMinNumFormants () {
-		return Praat.INSTANCE.Formant_getMinNumFormants(this);
+		return Praat.INSTANCE.Formant_getMinNumFormants(this).longValue();
 	}
 	
 	public long getMaxNumFormants () {
-		return Praat.INSTANCE.Formant_getMaxNumFormants(this);
+		return Praat.INSTANCE.Formant_getMaxNumFormants(this).longValue();
 	}
 
 	public double getValueAtTime (int iformant, double time, int bark) {
@@ -165,11 +166,11 @@ public class Formant extends Sampled {
 	}
 	
 	public double getValueAtSample(long iframe, long which, int units) {
-		return Praat.INSTANCE.Formant_getValueAtSample(this, iframe, which, units);
+		return Praat.INSTANCE.Formant_getValueAtSample(this, new NativeLong(iframe), new NativeLong(which), units);
 	}
 	
 	public double getIntensityAtSample(long iframe) {
-		return Praat.INSTANCE.Formant_getIntensityAtSample(this, iframe);
+		return Praat.INSTANCE.Formant_getIntensityAtSample(this, new NativeLong(iframe));
 	}
 
 }

@@ -31,6 +31,7 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -76,7 +77,7 @@ public interface Praat extends Library {
 	public void Thing_info (Thing me);
 	
 	@Declared("sys/Thing.h")
-	public void Thing_infoWithId (Thing me, long id);
+	public void Thing_infoWithId (Thing me, NativeLong id);
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
@@ -174,7 +175,7 @@ public interface Praat extends Library {
 	public WString Melder_fileToPath (MelderFile file);
 	
 	@Declared("sys/melder.h")
-	public long MelderFile_length (MelderFile file);
+	public NativeLong MelderFile_length (MelderFile file);
 	
 	@Declared("sys/melder.h")
 	public boolean MelderFile_isNull (MelderFile file);
@@ -192,25 +193,25 @@ public interface Praat extends Library {
 	public MelderQuantity Function_getDomainQuantity ();
 
 	@Declared("fon/Function.h")
-	public int Function_getMinimumUnit (long ilevel);
+	public int Function_getMinimumUnit (NativeLong ilevel);
 	
 	@Declared("fon/Function.h")
-	public int Function_getMaximumUnit (long ilevel);
+	public int Function_getMaximumUnit (NativeLong ilevel);
 	
 	@Declared("fun/Function.h")
-	public WString Function_getUnitText(Function me, long ilevel, int unit, long flags);
+	public WString Function_getUnitText(Function me, NativeLong ilevel, int unit, NativeLong flags);
 	
 	@Declared("fon/Function.h")
-	public boolean Function_isUnitLogarithmic (Function me, long ilevel, int unit);
+	public boolean Function_isUnitLogarithmic (Function me, NativeLong ilevel, int unit);
 
 	@Declared("fon/Function.h")
-	public double Function_convertStandardToSpecialUnit (Function me, double value, long ilevel, int unit);
+	public double Function_convertStandardToSpecialUnit (Function me, double value, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Function.h")
-	public double Function_convertSpecialToStandardUnit (Function me, double value, long ilevel, int unit);
+	public double Function_convertSpecialToStandardUnit (Function me, double value, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Function.h")
-	public double Function_convertToNonlogarithmic (Function me, double value, long ilevel, int unit);
+	public double Function_convertToNonlogarithmic (Function me, double value, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Function.h")
 	public double Function_window (double tim, int windowType);
@@ -264,7 +265,7 @@ public interface Praat extends Library {
 	 * @return
 	 */
 	@Declared("fon/Vector.h")
-	public double Vector_getValueAtX (Vector me, double x, long channel, int interpolation);
+	public double Vector_getValueAtX (Vector me, double x, NativeLong channel, int interpolation);
 	
 	/**
 	 * Find the minimum value and x location for the minmum.
@@ -281,7 +282,7 @@ public interface Praat extends Library {
 	 * @param return_xOfMinimum (pointer to double)
 	 */
 	@Declared("fon/Vector.h")
-	public void Vector_getMinimumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
+	public void Vector_getMinimumAndX (Vector me, double xmin, double xmax, NativeLong channel, int interpolation,
 			 Pointer return_minimum, Pointer return_xOfMinimum);
 	
 	/**
@@ -292,14 +293,14 @@ public interface Praat extends Library {
 	 * @param interpolation
 	 * @param return_minimum (pointer to double)
 	 * @param return_xOfMinimum (pointer to double)
-	 * @param return_channelOfMinimum (pointer to long)
+	 * @param return_channelOfMinimum (pointer to NativeLong)
 	 */
 	@Declared("fon/Vector.h")
 	public void Vector_getMinimumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
 			Pointer return_minimum, Pointer return_xOfMinimum, Pointer return_channelOfMinimum);
 	
 	@Declared("fon/Vector.h")
-	public void Vector_getMaximumAndX (Vector me, double xmin, double xmax, long channel, int interpolation,
+	public void Vector_getMaximumAndX (Vector me, double xmin, double xmax, NativeLong channel, int interpolation,
 			Pointer return_maximum, Pointer return_xOfMaximum);
 	
 	@Declared("fon/Vector.h")
@@ -319,16 +320,16 @@ public interface Praat extends Library {
 	public double Vector_getXOfMaximum (Vector me, double xmin, double xmax, int interpolation);
 	
 	@Declared("fon/Vector.h")
-	public long Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, int interpolation);
+	public NativeLong Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, int interpolation);
 	
 	@Declared("fon/Vector.h")
-	public long Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, int interpolation);
+	public NativeLong Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, int interpolation);
 
 	@Declared("fon/Vector.h")
-	public double Vector_getMean (Vector me, double xmin, double xmax, long channel);
+	public double Vector_getMean (Vector me, double xmin, double xmax, NativeLong channel);
 	
 	@Declared("fon/Vector.h")
-	public double Vector_getStandardDeviation (Vector me, double xmin, double xmax, long channel);
+	public double Vector_getStandardDeviation (Vector me, double xmin, double xmax, NativeLong channel);
 
 	@Declared("fon/Vector.h")
 	public void Vector_addScalar (Vector me, double scalar);
@@ -344,7 +345,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Intensity.h")
 	@Wrapped
-	public Intensity Intensity_create_wrapped (double tmin, double tmax, long nt, double dt, double t1);
+	public Intensity Intensity_create_wrapped (double tmin, double tmax, NativeLong nt, double dt, double t1);
 	
 	@Declared("fon/Intensity.h")
 	@Wrapped
@@ -395,7 +396,7 @@ public interface Praat extends Library {
 	public double Sampled_getXMax(Sampled me);
 	
 	@Declared("fon/Sampled.h")
-	public long Sampled_getNx(Sampled me);
+	public NativeLong Sampled_getNx(Sampled me);
 
 	@Declared("fon/Sampled.h")
 	public double Sampled_getDx(Sampled me);
@@ -404,22 +405,22 @@ public interface Praat extends Library {
 	public double Sampled_getX1(Sampled me);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_indexToX (Sampled me, long i);
+	public double Sampled_indexToX (Sampled me, NativeLong i);
 
 	@Declared("fon/Sampled.h")
 	public double Sampled_xToIndex (Sampled me, double x);
 
 	@Declared("fon/Sampled.h")
-	public long Sampled_xToLowIndex (Sampled me, double x);
+	public NativeLong Sampled_xToLowIndex (Sampled me, double x);
 
 	@Declared("fon/Sampled.h")
-	public long Sampled_xToHighIndex (Sampled me, double x);
+	public NativeLong Sampled_xToHighIndex (Sampled me, double x);
 
 	@Declared("fon/Sampled.h")
-	public long Sampled_xToNearestIndex (Sampled me, double x);
+	public NativeLong Sampled_xToNearestIndex (Sampled me, double x);
 
 	@Declared("fon/Sampled.h")
-	public long Sampled_getWindowSamples (Sampled me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
+	public NativeLong Sampled_getWindowSamples (Sampled me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
 
 	@Declared("fon/Sampled.h")
 	@Wrapped
@@ -427,65 +428,65 @@ public interface Praat extends Library {
 			Pointer numberOfFrames, Pointer firstTime);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getValueAtSample (Sampled me, long isamp, long ilevel, int unit);
+	public double Sampled_getValueAtSample (Sampled me, NativeLong isamp, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getValueAtX (Sampled me, double x, long ilevel, int unit, int interpolate);
+	public double Sampled_getValueAtX (Sampled me, double x, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public long Sampled_countDefinedSamples (Sampled me, long ilevel, int unit);
+	public NativeLong Sampled_countDefinedSamples (Sampled me, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Sampled.h")
-	public Pointer Sampled_getSortedValues (Sampled me, long ilevel, int unit, Pointer numberOfValues);
+	public Pointer Sampled_getSortedValues (Sampled me, NativeLong ilevel, int unit, Pointer numberOfValues);
 
 	@Declared("fon/Sampled.h")
 	@Wrapped
 	public double Sampled_getQuantile_wrapped
-		(Sampled me, double xmin, double xmax, double quantile, long ilevel, int unit);
+		(Sampled me, double xmin, double xmax, double quantile, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getMean
-		(Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getMean_standardUnit
-		(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int averagingUnit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getIntegral
-		(Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getIntegral_standardUnit
-		(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int averagingUnit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getStandardDeviation
-		(Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getStandardDeviation_standardUnit
-		(Sampled me, double xmin, double xmax, long ilevel, int averagingUnit, int interpolate);
+		(Sampled me, double xmin, double xmax, NativeLong ilevel, int averagingUnit, int interpolate);
 
 	@Declared("fon/Sampled.h")
-	public void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate,
+	public void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate,
 		Pointer return_minimum, Pointer return_xOfMinimum);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+	public double Sampled_getMinimum (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+	public double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate,
+	public void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate,
 		Pointer return_maximum, Pointer return_xOfMaximum);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+	public double Sampled_getMaximum (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, long ilevel, int unit, int interpolate);
+	public double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, NativeLong ilevel, int unit, int interpolate);
 
 	@Declared("fon/SampledXY.h")
 	public double SampledXY_getYMin(SampledXY me);
@@ -494,7 +495,7 @@ public interface Praat extends Library {
 	public double SampledXY_getYMax(SampledXY me);
 	
 	@Declared("fon/SampledXY.h")
-	public long SampledXY_getNy(SampledXY me);
+	public NativeLong SampledXY_getNy(SampledXY me);
 	
 	@Declared("fon/SampledXY.h")
 	public double SampledXY_GetDy(SampledXY me);
@@ -503,32 +504,32 @@ public interface Praat extends Library {
 	public double SampledXY_getY1(SampledXY me);
 	
 	@Declared("fon/SampledXY.h")
-	public double SampledXY_indexToY (SampledXY me, long   index);
+	public double SampledXY_indexToY (SampledXY me, NativeLong   index);
 	
 	@Declared("fon/SampledXY.h")
 	public double SampledXY_yToIndex (SampledXY me, double y);
 	
 	@Declared("fon/SampledXY.h")
-	public long SampledXY_yToLowIndex     (SampledXY me, double y);
+	public NativeLong SampledXY_yToLowIndex     (SampledXY me, double y);
 	
 	@Declared("fon/SampledXY.h")
-	public long SampledXY_yToHighIndex    (SampledXY me, double y);
+	public NativeLong SampledXY_yToHighIndex    (SampledXY me, double y);
 	
 	@Declared("fon/SampledXY.h")
-	public long SampledXY_yToNearestIndex (SampledXY me, double y);
+	public NativeLong SampledXY_yToNearestIndex (SampledXY me, double y);
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
 	public Matrix Matrix_create_wrapped
-		(double xmin, double xmax, long nx, double dx, double x1,
-		 double ymin, double ymax, long ny, double dy, double y1);
+		(double xmin, double xmax, NativeLong nx, double dx, double x1,
+		 double ymin, double ymax, NativeLong ny, double dy, double y1);
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
-	public Matrix Matrix_createSimple_wrapped (long numberOfRows, long numberOfColumns);
+	public Matrix Matrix_createSimple_wrapped (NativeLong numberOfRows, NativeLong numberOfColumns);
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_getWindowSamplesX (Matrix me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
+	public NativeLong Matrix_getWindowSamplesX (Matrix me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
 	
 	@Declared("fon/Matrix.h")
 	public double Matrix_getValueAtXY (Matrix me, double x, double y);
@@ -549,31 +550,31 @@ public interface Praat extends Library {
 	public double Matrix_xToColumn (Matrix me, double x);   /* Return (x - xmin) / my dx + 1. */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_xToLowColumn (Matrix me, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
+	public NativeLong Matrix_xToLowColumn (Matrix me, double x);   /* Return floor (Matrix_xToColumn (me, x)). */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_xToHighColumn (Matrix me, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
+	public NativeLong Matrix_xToHighColumn (Matrix me, double x);   /* Return ceil (Matrix_xToColumn (me, x)). */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_xToNearestColumn (Matrix me, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
+	public NativeLong Matrix_xToNearestColumn (Matrix me, double x);   /* Return floor (Matrix_xToColumn (me, x) + 0.5). */
 	
 	@Declared("fon/Matrix.h")
 	public double Matrix_yToRow (Matrix me, double y);   /* Return (y - ymin) / my dy + 1. */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_yToLowRow (Matrix me, double y);   /* Return floor (Matrix_yToRow (me, y)). */
+	public NativeLong Matrix_yToLowRow (Matrix me, double y);   /* Return floor (Matrix_yToRow (me, y)). */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_yToHighRow (Matrix me, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
+	public NativeLong Matrix_yToHighRow (Matrix me, double x);   /* Return ceil (Matrix_yToRow (me, y)). */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_yToNearestRow (Matrix me, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
+	public NativeLong Matrix_yToNearestRow (Matrix me, double y);   /* Return floor (Matrix_yToRow (me, y) + 0.5). */
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_getWindowSamplesY (Matrix me, double ymin, double ymax, Pointer iymin, Pointer iymax);
+	public NativeLong Matrix_getWindowSamplesY (Matrix me, double ymin, double ymax, Pointer iymin, Pointer iymax);
 	
 	@Declared("fon/Matrix.h")
-	public long Matrix_getWindowExtrema (Matrix me, long ixmin, long ixmax, long iymin, long iymax,
+	public NativeLong Matrix_getWindowExtrema (Matrix me, NativeLong ixmin, NativeLong ixmax, NativeLong iymin, NativeLong iymax,
 		Pointer minimum, Pointer maximum);
 	
 	@Declared("fon/Matrix.h")
@@ -590,7 +591,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
-	public Matrix Matrix_power_wrapped (Matrix me, long power);
+	public Matrix Matrix_power_wrapped (Matrix me, NativeLong power);
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
@@ -605,18 +606,18 @@ public interface Praat extends Library {
 	public void Matrix_writeToHeaderlessSpreadsheetFile_wrapped (Matrix me, MelderFile file);
 	
 	/**
-	 * See {@link Pitch#create(double, double, long, double, double, double, int)}
+	 * See {@link Pitch#create(double, double, NativeLong, double, double, double, int)}
 	 */
 	@Declared("fon/Pitch.h")
 	@Wrapped
-	public Pitch Pitch_create_wrapped (double tmin, double tmax, long nt, double dt, double t1,
+	public Pitch Pitch_create_wrapped (double tmin, double tmax, NativeLong nt, double dt, double t1,
 			double ceiling, int maxnCandidates);
 	
 	/**
-	 * See {@link Pitch#isVoiced_i(long)}
+	 * See {@link Pitch#isVoiced_i(NativeLong)}
 	 */
 	@Declared("fon/Pitch.h")
-	public boolean Pitch_isVoiced_i (Pitch me, long index);
+	public boolean Pitch_isVoiced_i (Pitch me, NativeLong index);
 	
 	/**
 	 * See {@link Pitch#isVoiced_t(double)}
@@ -631,7 +632,7 @@ public interface Praat extends Library {
 	public double Pitch_getStrengthAtTime (Pitch me, double time, int unit, int interpolate);
 
 	@Declared("fon/Pitch.h")
-	public long Pitch_countVoicedFrames (Pitch me);
+	public NativeLong Pitch_countVoicedFrames (Pitch me);
 
 	@Declared("fon/Pitch.h")
 	public double Pitch_getMean (Pitch me, double tmin, double tmax, int unit);
@@ -681,19 +682,19 @@ public interface Praat extends Library {
 	public void Pitch_difference (Pitch me, Pitch thee);
 
 	@Declared("fon/Pitch.h")
-	public long Pitch_getMeanAbsSlope_hertz (Pitch me, Pointer slope);
+	public NativeLong Pitch_getMeanAbsSlope_hertz (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
-	public long Pitch_getMeanAbsSlope_mel (Pitch me, Pointer slope);
+	public NativeLong Pitch_getMeanAbsSlope_mel (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
-	public long Pitch_getMeanAbsSlope_semitones (Pitch me, Pointer slope);
+	public NativeLong Pitch_getMeanAbsSlope_semitones (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
-	public long Pitch_getMeanAbsSlope_erb (Pitch me, Pointer slope);
+	public NativeLong Pitch_getMeanAbsSlope_erb (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
-	public long Pitch_getMeanAbsSlope_noOctave (Pitch me, Pointer slope);
+	public NativeLong Pitch_getMeanAbsSlope_noOctave (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
 	@Wrapped
@@ -720,31 +721,31 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public int Pitch_getMinimumUnit (Pitch me, long ilevel);
+	public int Pitch_getMinimumUnit (Pitch me, NativeLong ilevel);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public int Pitch_getMaximumUnit (Pitch me, long ilevel);
+	public int Pitch_getMaximumUnit (Pitch me, NativeLong ilevel);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public WString Pitch_getUnitText (Pitch me, long ilevel, kPitch_unit unit, long flags);
+	public WString Pitch_getUnitText (Pitch me, NativeLong ilevel, kPitch_unit unit, NativeLong flags);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public boolean Pitch_isUnitLogarithmic (Pitch me, long ilevel, int unit);
+	public boolean Pitch_isUnitLogarithmic (Pitch me, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public double Pitch_convertStandardToSpecialUnit (Pitch me, double value, long ilevel, int unit);
+	public double Pitch_convertStandardToSpecialUnit (Pitch me, double value, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public double Pitch_convertSpecialToStandardUnit (Pitch me, double value, long ilevel, int unit);
+	public double Pitch_convertSpecialToStandardUnit (Pitch me, double value, NativeLong ilevel, int unit);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public double Pitch_getValueAtSample (Pitch me, long isamp, long ilevel, int unit);
+	public double Pitch_getValueAtSample (Pitch me, NativeLong isamp, NativeLong ilevel, int unit);
 	
 	/**
 	 * Read sound from file
@@ -758,7 +759,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public Sound Sound_create_wrapped (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
+	public Sound Sound_create_wrapped (NativeLong numberOfChannels, double xmin, double xmax, NativeLong nx, double dx, double x1);
 	
 	/**
 	 * Create a sound object
@@ -770,7 +771,7 @@ public interface Praat extends Library {
 	 */
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public Sound Sound_createSimple_wrapped (long numberOfChannels, double duration, double samplingFrequency);
+	public Sound Sound_createSimple_wrapped (NativeLong numberOfChannels, double duration, double samplingFrequency);
 	
 	@Declared("fon/Sound.h")
 	public double Sound_getEnergyInAir (Sound me);
@@ -785,7 +786,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public Sound Sound_extractChannel_wrapped (Sound me, long ichannel);
+	public Sound Sound_extractChannel_wrapped (Sound me, NativeLong ichannel);
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
@@ -793,7 +794,7 @@ public interface Praat extends Library {
 
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public Sound Sound_resample_wrapped (Sound me, double samplingFrequency, long precision);
+	public Sound Sound_resample_wrapped (Sound me, double samplingFrequency, NativeLong precision);
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
@@ -805,8 +806,8 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Spectrogram.h")
 	@Wrapped
-	public Spectrogram Spectrogram_create_wrapped (double tmin, double tmax, long nt, double dt, double t1,
-					double fmin, double fmax, long nf, double df, double f1);
+	public Spectrogram Spectrogram_create_wrapped (double tmin, double tmax, NativeLong nt, double dt, double t1,
+					double fmin, double fmax, NativeLong nf, double df, double f1);
 
 	@Declared("fon/Spectrogram.h")
 	@Wrapped
@@ -864,13 +865,13 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Formant.h")
 	@Wrapped
-	public Formant Formant_create_wrapped (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants);
+	public Formant Formant_create_wrapped (double tmin, double tmax, NativeLong nt, double dt, double t1, int maxnFormants);
 
 	@Declared("fon/Formant.h")
-	public long Formant_getMinNumFormants (Formant me);
+	public NativeLong Formant_getMinNumFormants (Formant me);
 	
 	@Declared("fon/Formant.h")
-	public long Formant_getMaxNumFormants (Formant me);
+	public NativeLong Formant_getMaxNumFormants (Formant me);
 
 	@Declared("fon/Formant.h")
 	public double Formant_getValueAtTime (Formant me, int iformant, double time, int bark);
@@ -941,11 +942,11 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Formant.h")
 	@Custom
-	public double Formant_getValueAtSample(Formant me, long iframe, long which, int units);
+	public double Formant_getValueAtSample(Formant me, NativeLong iframe, NativeLong which, int units);
 	
 	@Declared("fon/Formant.h")
 	@Custom
-	public double Formant_getIntensityAtSample(Formant me, long iframe);
+	public double Formant_getIntensityAtSample(Formant me, NativeLong iframe);
 	
 	@Declared("fon/Sound_to_Formant.h")
 	@Wrapped
@@ -968,18 +969,18 @@ public interface Praat extends Library {
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency);
 	
 	@Declared("sys/sendpraat.c")
-	public String sendpraat (Object display, String programName, long timeOut,  String text);
+	public String sendpraat (Object display, String programName, NativeLong timeOut,  String text);
 	
 	@Declared("sys/sendpraat.c")
-	public WString sendpraatW (Object display, String programName, long timeOut, WString text);
+	public WString sendpraatW (Object display, String programName, NativeLong timeOut, WString text);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_createWithColumnNames_wrapped (long numberOfRows, WString columnNames);
+	public Table Table_createWithColumnNames_wrapped (NativeLong numberOfRows, WString columnNames);
 
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_createWithoutColumnNames_wrapped (long numberOfRows, long numberOfColumns);
+	public Table Table_createWithoutColumnNames_wrapped (NativeLong numberOfRows, NativeLong numberOfColumns);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -991,137 +992,137 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendSumColumn_wrapped (Table me, long column1, long column2, WString label);
+	public void Table_appendSumColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendDifferenceColumn_wrapped (Table me, long column1, long column2, WString label);
+	public void Table_appendDifferenceColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendProductColumn_wrapped (Table me, long column1, long column2, WString label);
+	public void Table_appendProductColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendQuotientColumn_wrapped (Table me, long column1, long column2, WString label);
+	public void Table_appendQuotientColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_removeRow_wrapped (Table me, long row);
+	public void Table_removeRow_wrapped (Table me, NativeLong row);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_removeColumn_wrapped (Table me, long column);
+	public void Table_removeColumn_wrapped (Table me, NativeLong column);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_insertRow_wrapped (Table me, long row);
+	public void Table_insertRow_wrapped (Table me, NativeLong row);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_insertColumn_wrapped (Table me, long column, WString label);
+	public void Table_insertColumn_wrapped (Table me, NativeLong column, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_setColumnLabel_wrapped (Table me, long column, WString label);
+	public void Table_setColumnLabel_wrapped (Table me, NativeLong column, WString label);
 	
 	@Declared("stat/Table.h")
-	public long Table_findColumnIndexFromColumnLabel (Table me, WString label);
+	public NativeLong Table_findColumnIndexFromColumnLabel (Table me, WString label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public long Table_getColumnIndexFromColumnLabel_wrapped (Table me, WString columnLabel);
+	public NativeLong Table_getColumnIndexFromColumnLabel_wrapped (Table me, WString columnLabel);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
 	public Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, Pointer numberOfTokens);
 	
 	@Declared("stat/Table.h")
-	public long Table_searchColumn (Table me, long column, WString value);
+	public NativeLong Table_searchColumn (Table me, NativeLong column, WString value);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_setStringValue_wrapped (Table me, long row, long column, WString value);
+	public void Table_setStringValue_wrapped (Table me, NativeLong row, NativeLong column, WString value);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_setNumericValue_wrapped (Table me, long row, long column, double value);
+	public void Table_setNumericValue_wrapped (Table me, NativeLong row, NativeLong column, double value);
 
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getQuantile_wrapped (Table me, long column, double quantile);
+	public double Table_getQuantile_wrapped (Table me, NativeLong column, double quantile);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getMean_wrapped (Table me, long column);
+	public double Table_getMean_wrapped (Table me, NativeLong column);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getMaximum_wrapped (Table me, long icol);
+	public double Table_getMaximum_wrapped (Table me, NativeLong icol);
 
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getMinimum_wrapped (Table me, long icol);
+	public double Table_getMinimum_wrapped (Table me, NativeLong icol);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupMean_wrapped (Table me, long column, long groupColumn, WString group);
+	public double Table_getGroupMean_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getStdev_wrapped (Table me, long column);
+	public double Table_getStdev_wrapped (Table me, NativeLong column);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public long Table_drawRowFromDistribution_wrapped (Table me, long column);
+	public NativeLong Table_drawRowFromDistribution_wrapped (Table me, NativeLong column);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getCorrelation_pearsonR_wrapped (Table me, long column1, long column2, double significanceLevel,
+	public double Table_getCorrelation_pearsonR_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getCorrelation_kendallTau_wrapped (Table me, long column1, long column2, double significanceLevel,
+	public double Table_getCorrelation_kendallTau_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getMean_studentT_wrapped (Table me, long column, double significanceLevel,
+	public double Table_getMean_studentT_wrapped (Table me, NativeLong column, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getDifference_studentT_wrapped (Table me, long column1, long column2, double significanceLevel,
+	public double Table_getDifference_studentT_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
 		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupMean_studentT_wrapped (Table me, long column, long groupColumn, WString group1, double significanceLevel,
+	public double Table_getGroupMean_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupDifference_studentT_wrapped (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
+	public double Table_getGroupDifference_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, long column, long groupColumn, WString group1, WString group2,
+	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2,
 		Pointer out_rankSum, Pointer out_significanceFromZero);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getVarianceRatio_wrapped (Table me, long column1, long column2, double significanceLevel,
+	public double Table_getVarianceRatio_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public boolean Table_getExtrema_wrapped (Table me, long icol, Pointer minimum, Pointer maximum);
+	public boolean Table_getExtrema_wrapped (Table me, NativeLong icol, Pointer minimum, Pointer maximum);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_sortRows_Assert_wrapped (Table me, Pointer columns, long numberOfColumns);
+	public void Table_sortRows_Assert_wrapped (Table me, Pointer columns, NativeLong numberOfColumns);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1153,11 +1154,11 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_extractRowsWhereColumn_number_wrapped (Table me, long column, int which_Melder_NUMBER, double criterion);
+	public Table Table_extractRowsWhereColumn_number_wrapped (Table me, NativeLong column, int which_Melder_NUMBER, double criterion);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, long column, int which_Melder_STRING, WString criterion);
+	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, NativeLong column, int which_Melder_STRING, WString criterion);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1167,7 +1168,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_rowsToColumns_wrapped (Table me, WString factors_string, long columnToTranspose, WString columnsToExpand_string);
+	public Table Table_rowsToColumns_wrapped (Table me, WString factors_string, NativeLong columnToTranspose, WString columnsToExpand_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1175,17 +1176,17 @@ public interface Praat extends Library {
 
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_checkSpecifiedRowNumberWithinRange_wrapped (Table me, long rowNumber);
+	public void Table_checkSpecifiedRowNumberWithinRange_wrapped (Table me, NativeLong rowNumber);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_checkSpecifiedColumnNumberWithinRange_wrapped (Table me, long columnNumber);
+	public void Table_checkSpecifiedColumnNumberWithinRange_wrapped (Table me, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public boolean Table_isCellNumeric_ErrorFalse (Table me, long rowNumber, long columnNumber);
+	public boolean Table_isCellNumeric_ErrorFalse (Table me, NativeLong rowNumber, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public boolean Table_isColumnNumeric_ErrorFalse (Table me, long columnNumber);
+	public boolean Table_isColumnNumeric_ErrorFalse (Table me, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
 	public double Table_getNrow (Table me);
@@ -1194,13 +1195,13 @@ public interface Praat extends Library {
 	public double Table_getNcol (Table me);
 	
 	@Declared("stat/Table.h")
-	public WString  Table_getColStr (Table me, long columnNumber);
+	public WString  Table_getColStr (Table me, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public double Table_getMatrix (Table m, long rowNumber, long columnNumber);
+	public double Table_getMatrix (Table m, NativeLong rowNumber, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public WString  Table_getMatrixStr (Table me, long rowNumber, long columnNumber);
+	public WString  Table_getMatrixStr (Table me, NativeLong rowNumber, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
 	public double Table_getColIndex  (Table me, WString columnLabel);

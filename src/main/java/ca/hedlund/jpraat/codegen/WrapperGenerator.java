@@ -9,6 +9,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.jna.NativeLong;
 import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Declared;
@@ -175,6 +176,8 @@ public class WrapperGenerator {
 			retVal = "const wchar_t*";
 		} else if(clazz == String.class) {
 			retVal = "const char*";
+		} else if(clazz == NativeLong.class) {
+			retVal = "long";
 		}
 		
 		return retVal;

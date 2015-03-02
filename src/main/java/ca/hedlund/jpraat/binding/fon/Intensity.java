@@ -1,5 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import com.sun.jna.NativeLong;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -15,7 +17,7 @@ public class Intensity extends Vector {
 	public static final int AVERAGING_DB = 3;
 	
 	public static Intensity create (double tmin, double tmax, long nt, double dt, double t1) throws PraatException {
-		Intensity retVal = Praat.INSTANCE.Intensity_create_wrapped (tmin, tmax, nt, dt, t1);
+		Intensity retVal = Praat.INSTANCE.Intensity_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1);
 		Praat.checkLastError();
 		return retVal;
 	}

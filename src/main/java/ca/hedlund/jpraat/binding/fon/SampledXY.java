@@ -1,5 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import com.sun.jna.NativeLong;
+
 import ca.hedlund.jpraat.binding.Praat;
 
 public class SampledXY extends Sampled {
@@ -13,7 +15,7 @@ public class SampledXY extends Sampled {
 	}
 	
 	public long getNy() {
-		return Praat.INSTANCE.SampledXY_getNy(this);
+		return Praat.INSTANCE.SampledXY_getNy(this).longValue();
 	}
 	
 	public double getDy() {
@@ -25,7 +27,7 @@ public class SampledXY extends Sampled {
 	}
 	
 	public double indexToY (long   index) {
-		return Praat.INSTANCE.SampledXY_indexToY(this, index);
+		return Praat.INSTANCE.SampledXY_indexToY(this, new NativeLong(index));
 	}
 	
 	public double yToIndex (double y) {
@@ -33,15 +35,15 @@ public class SampledXY extends Sampled {
 	}
 	
 	public long yToLowIndex     (double y) {
-		return Praat.INSTANCE.SampledXY_yToLowIndex(this, y);
+		return Praat.INSTANCE.SampledXY_yToLowIndex(this, y).longValue();
 	}
 	
 	public long yToHighIndex    (double y) {
-		return Praat.INSTANCE.SampledXY_yToHighIndex(this, y);
+		return Praat.INSTANCE.SampledXY_yToHighIndex(this, y).longValue();
 	}
 	
 	public long yToNearestIndex (double y) {
-		return Praat.INSTANCE.SampledXY_yToNearestIndex(this, y);
+		return Praat.INSTANCE.SampledXY_yToNearestIndex(this, y).longValue();
 	}
 	
 }

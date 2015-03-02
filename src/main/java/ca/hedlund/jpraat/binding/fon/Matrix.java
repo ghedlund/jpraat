@@ -9,6 +9,7 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 
@@ -17,13 +18,13 @@ public class Matrix extends SampledXY {
 	public static Matrix create
 	(double xmin, double xmax, long nx, double dx, double x1,
 	 double ymin, double ymax, long ny, double dy, double y1) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_create_wrapped (xmin, xmax, nx, dx, x1, ymin, ymax, ny, dy, y1);
+		Matrix retVal = Praat.INSTANCE.Matrix_create_wrapped (xmin, xmax, new NativeLong(nx), dx, x1, ymin, ymax, new NativeLong(ny), dy, y1);
 		Praat.checkLastError();
 		return retVal;
 	}
 
 	public static Matrix createSimple (long numberOfRows, long numberOfColumns) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_createSimple_wrapped (numberOfRows, numberOfColumns);
+		Matrix retVal = Praat.INSTANCE.Matrix_createSimple_wrapped (new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -34,7 +35,7 @@ public class Matrix extends SampledXY {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
 		
 		long retVal = Praat.INSTANCE.Matrix_getWindowSamplesX(this, xmin, xmax, 
-				minPtr, maxPtr);
+				minPtr, maxPtr).longValue();
 		
 		ixmin.set(minPtr.getLong(0));
 		ixmax.set(maxPtr.getLong(0));
@@ -71,17 +72,17 @@ public class Matrix extends SampledXY {
 
 	/* Return floor (xToColumn (me, x)). */
 	public long xToLowColumn (double x) {
-		return Praat.INSTANCE.Matrix_xToLowColumn(this, x);
+		return Praat.INSTANCE.Matrix_xToLowColumn(this, x).longValue();
 	}
 
 	/* Return ceil (xToColumn (me, x)). */
 	public long xToHighColumn (double x) {
-		return Praat.INSTANCE.Matrix_xToHighColumn(this, x);
+		return Praat.INSTANCE.Matrix_xToHighColumn(this, x).longValue();
 	}
 
 	/* Return floor (xToColumn (me, x) + 0.5). */
 	public long xToNearestColumn (double x) {
-		return Praat.INSTANCE.Matrix_xToNearestColumn(this, x);
+		return Praat.INSTANCE.Matrix_xToNearestColumn(this, x).longValue();
 	}
 
 	/* Return (y - ymin) / my dy + 1. */
@@ -91,17 +92,17 @@ public class Matrix extends SampledXY {
 
 	/* Return floor (yToRow (me, y)). */
 	public long yToLowRow (double y) {
-		return Praat.INSTANCE.Matrix_yToLowRow(this, y);
+		return Praat.INSTANCE.Matrix_yToLowRow(this, y).longValue();
 	}
 
 	/* Return ceil (yToRow (me, y)). */
 	public long yToHighRow (double x) {
-		return Praat.INSTANCE.Matrix_yToHighRow(this, x);
+		return Praat.INSTANCE.Matrix_yToHighRow(this, x).longValue();
 	}
 
 	/* Return floor (yToRow (me, y) + 0.5). */
 	public long yToNearestRow (double y) {
-		return Praat.INSTANCE.Matrix_yToNearestRow(this, y);
+		return Praat.INSTANCE.Matrix_yToNearestRow(this, y).longValue();
 	}
 
 	public long getWindowSamplesY (double ymin, double ymax, 
@@ -110,7 +111,7 @@ public class Matrix extends SampledXY {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
 		
 		long retVal = Praat.INSTANCE.Matrix_getWindowSamplesY(this, ymin, ymax, 
-				minPtr, maxPtr);
+				minPtr, maxPtr).longValue();
 		
 		iymin.set(minPtr.getLong(0));
 		iymax.set(maxPtr.getLong(0));
@@ -133,8 +134,9 @@ public class Matrix extends SampledXY {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		long retVal = Praat.INSTANCE.Matrix_getWindowExtrema(this, ixmin, ixmax, iymin, iymax, 
-				minPtr, maxPtr);
+		long retVal = Praat.INSTANCE.Matrix_getWindowExtrema(this, new NativeLong(ixmin), new NativeLong(ixmax),
+				new NativeLong(iymin),  new NativeLong(iymax), 
+				minPtr, maxPtr).longValue();
 		
 		minimum.set(minPtr.getDouble(0));
 		maximum.set(maxPtr.getDouble(0));
@@ -160,7 +162,7 @@ public class Matrix extends SampledXY {
 	}
 	
 	public Matrix power (long power) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_power_wrapped (this, power);
+		Matrix retVal = Praat.INSTANCE.Matrix_power_wrapped (this, new NativeLong(power));
 		Praat.checkLastError();
 		return retVal;
 	}

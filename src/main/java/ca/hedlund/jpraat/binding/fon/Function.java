@@ -1,5 +1,6 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -56,32 +57,32 @@ public class Function extends Data {
 	 * starting from 0, which should be the default unit; e.g. for pitch: 0 = Hz, 1 = logHz, 2 = semitones, 3 = mel.
 	 */
 	public int getMinimumUnit (long ilevel) {
-		return Praat.INSTANCE.Function_getMinimumUnit(ilevel);
+		return Praat.INSTANCE.Function_getMinimumUnit(new NativeLong(ilevel));
 	}
 	
 	public int getMaximumUnit (long ilevel) {
-		return Praat.INSTANCE.Function_getMaximumUnit(ilevel);
+		return Praat.INSTANCE.Function_getMaximumUnit(new NativeLong(ilevel));
 	}
 	
 	public WString getUnitText (long ilevel, int unit, long flags) {
-		return Praat.INSTANCE.Function_getUnitText(this, ilevel, unit, flags);
+		return Praat.INSTANCE.Function_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
 	}
 
 	
 	public boolean isUnitLogarithmic (long ilevel, int unit) {
-		return Praat.INSTANCE.Function_isUnitLogarithmic(this, ilevel, unit);
+		return Praat.INSTANCE.Function_isUnitLogarithmic(this, new NativeLong(ilevel), unit);
 	}
 	
 	public double convertStandardToSpecialUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertStandardToSpecialUnit(this, value, ilevel, unit);
+		return Praat.INSTANCE.Function_convertStandardToSpecialUnit(this, value, new NativeLong(ilevel), unit);
 	}
 	
 	public double convertSpecialToStandardUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertSpecialToStandardUnit(this, value, ilevel, unit);
+		return Praat.INSTANCE.Function_convertSpecialToStandardUnit(this, value, new NativeLong(ilevel), unit);
 	}
 	
 	public double convertToNonlogarithmic (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertToNonlogarithmic(this, value, ilevel, unit);
+		return Praat.INSTANCE.Function_convertToNonlogarithmic(this, value, new NativeLong(ilevel), unit);
 	}
 	
 	/**

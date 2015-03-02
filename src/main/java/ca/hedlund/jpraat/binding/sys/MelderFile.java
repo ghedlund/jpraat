@@ -40,7 +40,7 @@ public class MelderFile extends PointerType {
 	}
 	
 	public long length () {
-		return Praat.INSTANCE.MelderFile_length(this);
+		return Praat.INSTANCE.MelderFile_length(this).longValue();
 	}
 	
 	public WString path() {

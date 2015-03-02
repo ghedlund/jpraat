@@ -1,5 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import com.sun.jna.NativeLong;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -7,7 +9,8 @@ public class Spectrogram extends Matrix {
 	
 	public static Spectrogram create (double tmin, double tmax, long nt, double dt, double t1,
 			double fmin, double fmax, long nf, double df, double f1) throws PraatException {
-		Spectrogram retVal = Praat.INSTANCE.Spectrogram_create_wrapped (tmin, tmax, nt, dt, t1, fmin, fmax, nf, df, f1);
+		Spectrogram retVal = Praat.INSTANCE.Spectrogram_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, fmin, fmax, 
+				new NativeLong(nf), df, f1);
 		Praat.checkLastError();
 		return retVal;
 	}

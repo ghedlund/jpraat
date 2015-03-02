@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -50,7 +51,7 @@ public class Pitch extends Sampled {
 	 */
 	public static Pitch create (double tmin, double tmax, long nt, double dt, double t1,
 			double ceiling, int maxnCandidates) throws PraatException {
-		Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped (tmin, tmax, nt, dt, t1, ceiling, maxnCandidates);
+		Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, ceiling, maxnCandidates);
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -63,7 +64,7 @@ public class Pitch extends Sampled {
 			index >= 1 && index <= my nx;
 	 */
 	public boolean isVoiced_i (long index) {
-		return Praat.INSTANCE.Pitch_isVoiced_i(this, index);
+		return Praat.INSTANCE.Pitch_isVoiced_i(this, new NativeLong(index));
 	}
 	
 	/**
@@ -83,7 +84,7 @@ public class Pitch extends Sampled {
 	}
 
 	public long countVoicedFrames () {
-		return Praat.INSTANCE.Pitch_countVoicedFrames(this);
+		return Praat.INSTANCE.Pitch_countVoicedFrames(this).longValue();
 	}
 
 	public double getMean (double tmin, double tmax, int unit) {
@@ -173,19 +174,19 @@ public class Pitch extends Sampled {
 	}
 
 	public long getMeanAbsSlope_hertz (Pointer slope) {
-		return Praat.INSTANCE.Pitch_getMeanAbsSlope_hertz(this, slope);
+		return Praat.INSTANCE.Pitch_getMeanAbsSlope_hertz(this, slope).longValue();
 	}
 	
 	public long getMeanAbsSlope_mel (Pointer slope) {
-		return Praat.INSTANCE.Pitch_getMeanAbsSlope_mel(this, slope);
+		return Praat.INSTANCE.Pitch_getMeanAbsSlope_mel(this, slope).longValue();
 	}
 	
 	public long getMeanAbsSlope_semitones (Pointer slope) {
-		return Praat.INSTANCE.Pitch_getMeanAbsSlope_semitones(this, slope);
+		return Praat.INSTANCE.Pitch_getMeanAbsSlope_semitones(this, slope).longValue();
 	}
 	
 	public long getMeanAbsSlope_erb (Pointer slope) {
-		return Praat.INSTANCE.Pitch_getMeanAbsSlope_erb(this, slope);
+		return Praat.INSTANCE.Pitch_getMeanAbsSlope_erb(this, slope).longValue();
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class Pitch extends Sampled {
 	   'minimum', 'maximum', 'mean', and 'variance' may be NULL.
 	 */
 	public long getMeanAbsSlope_noOctave (Pointer slope) {
-		return Praat.INSTANCE.Pitch_getMeanAbsSlope_noOctave(this, slope);
+		return Praat.INSTANCE.Pitch_getMeanAbsSlope_noOctave(this, slope).longValue();
 	}
 	
 	/**
@@ -269,36 +270,36 @@ public class Pitch extends Sampled {
 	
 	@Override
 	public int getMinimumUnit (long ilevel) {
-		return Praat.INSTANCE.Pitch_getMinimumUnit(this, ilevel);
+		return Praat.INSTANCE.Pitch_getMinimumUnit(this, new NativeLong(ilevel));
 	}
 	
 	@Override
 	public int getMaximumUnit (long ilevel) {
-		return Praat.INSTANCE.Pitch_getMaximumUnit(this, ilevel);
+		return Praat.INSTANCE.Pitch_getMaximumUnit(this, new NativeLong(ilevel));
 	}
 
 	public WString getUnitText (long ilevel, kPitch_unit unit, long flags) {
-		return Praat.INSTANCE.Pitch_getUnitText(this, ilevel, unit, flags);
+		return Praat.INSTANCE.Pitch_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
 	}
 	
 	@Override
 	public boolean isUnitLogarithmic (long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_isUnitLogarithmic(this, ilevel, unit);
+		return Praat.INSTANCE.Pitch_isUnitLogarithmic(this, new NativeLong(ilevel), unit);
 	}
 	
 	@Override
 	public double convertStandardToSpecialUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_convertStandardToSpecialUnit(this, value, ilevel, unit);
+		return Praat.INSTANCE.Pitch_convertStandardToSpecialUnit(this, value, new NativeLong(ilevel), unit);
 	}
 	
 	@Override
 	public double convertSpecialToStandardUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_convertSpecialToStandardUnit(this, value, ilevel, unit);
+		return Praat.INSTANCE.Pitch_convertSpecialToStandardUnit(this, value, new NativeLong(ilevel), unit);
 	}
 	
 	@Override
 	public double getValueAtSample (long isamp, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_getValueAtSample(this, isamp, ilevel, unit);
+		return Praat.INSTANCE.Pitch_getValueAtSample(this, new NativeLong(isamp), new NativeLong(ilevel), unit);
 	}
 	
 }

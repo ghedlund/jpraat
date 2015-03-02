@@ -1,5 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import com.sun.jna.NativeLong;
+
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
@@ -26,13 +28,13 @@ public class Sound extends Vector {
 	
 	public static Sound create(long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1)
 		throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_create_wrapped (numberOfChannels, xmin, xmax, nx, dx, x1);
+		Sound retVal = Praat.INSTANCE.Sound_create_wrapped (new NativeLong(numberOfChannels), xmin, xmax, new NativeLong(nx), dx, x1);
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public static Sound createSimple(long numberOfChannels, double duration, double samplingFrequency) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_createSimple_wrapped(numberOfChannels, duration, samplingFrequency);
+		Sound retVal = Praat.INSTANCE.Sound_createSimple_wrapped(new NativeLong(numberOfChannels), duration, samplingFrequency);
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -50,7 +52,7 @@ public class Sound extends Vector {
 	}
 	
 	public Sound  extractChannel (long ichannel) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_extractChannel_wrapped (this, ichannel);
+		Sound retVal = Praat.INSTANCE.Sound_extractChannel_wrapped (this, new NativeLong(ichannel));
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -62,7 +64,7 @@ public class Sound extends Vector {
 	}
 
 	public Sound resample (double samplingFrequency, long precision) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_resample_wrapped (this, samplingFrequency, precision);
+		Sound retVal = Praat.INSTANCE.Sound_resample_wrapped (this, samplingFrequency, new NativeLong(precision));
 		Praat.checkLastError();
 		return retVal;
 	}

@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
+import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
@@ -17,20 +18,20 @@ public class Table extends Data {
 
 	public static Table createWithColumnNames (long numberOfRows, WString columnNames)
 		throws PraatException {
-		Table retVal = Praat.INSTANCE.Table_createWithColumnNames_wrapped (numberOfRows, columnNames);
+		Table retVal = Praat.INSTANCE.Table_createWithColumnNames_wrapped (new NativeLong(numberOfRows), columnNames);
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public static Table createWithoutColumnNames (long numberOfRows, long numberOfColumns)
 		throws PraatException {
-		Table retVal = Praat.INSTANCE.Table_createWithoutColumnNames_wrapped (numberOfRows, numberOfColumns);
+		Table retVal = Praat.INSTANCE.Table_createWithoutColumnNames_wrapped (new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public double getMean (long column) throws PraatException {
-		double retVal = Praat.INSTANCE.Table_getMean_wrapped (this, column);
+		double retVal = Praat.INSTANCE.Table_getMean_wrapped (this, new NativeLong(column));
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -47,59 +48,59 @@ public class Table extends Data {
 	
 	public void appendSumColumn ( long column1, long column2, WString label) 
 		throws PraatException {
-		Praat.INSTANCE.Table_appendSumColumn_wrapped (this, column1, column2, label);
+		Praat.INSTANCE.Table_appendSumColumn_wrapped (this, new NativeLong(column1), new NativeLong(column2), label);
 		Praat.checkLastError();
 	}
 	
 	public void appendDifferenceColumn ( long column1, long column2, WString label)
 		throws PraatException {
-		Praat.INSTANCE.Table_appendDifferenceColumn_wrapped(this, column1, column2, label);
+		Praat.INSTANCE.Table_appendDifferenceColumn_wrapped(this, new NativeLong(column1), new NativeLong(column2), label);
 		Praat.checkLastError();
 	}
 	
 	public void appendProductColumn ( long column1, long column2, WString label)
 		throws PraatException {
-		Praat.INSTANCE.Table_appendProductColumn_wrapped (this, column1, column2, label);
+		Praat.INSTANCE.Table_appendProductColumn_wrapped (this, new NativeLong(column1), new NativeLong(column2), label);
 		Praat.checkLastError();
 	}
 	
 	public void appendQuotientColumn ( long column1, long column2, WString label) 
 		throws PraatException {
-		Praat.INSTANCE.Table_appendQuotientColumn_wrapped (this, column1, column2, label);
+		Praat.INSTANCE.Table_appendQuotientColumn_wrapped (this, new NativeLong(column1), new NativeLong(column2), label);
 		Praat.checkLastError();
 	}
 	
 	public void removeRow ( long row) throws PraatException {
-		Praat.INSTANCE.Table_removeRow_wrapped (this, row);
+		Praat.INSTANCE.Table_removeRow_wrapped (this, new NativeLong(row));
 		Praat.checkLastError();
 	}
 	
 	public void removeColumn ( long column) throws PraatException {
-		Praat.INSTANCE.Table_removeColumn_wrapped (this, column);
+		Praat.INSTANCE.Table_removeColumn_wrapped (this, new NativeLong(column));
 		Praat.checkLastError();
 	}
 	
 	public void insertRow ( long row) throws PraatException {
-		Praat.INSTANCE.Table_insertRow_wrapped (this, row);
+		Praat.INSTANCE.Table_insertRow_wrapped (this, new NativeLong(row));
 		Praat.checkLastError();
 	}
 	
 	public void insertColumn ( long column, WString label ) throws PraatException {
-		Praat.INSTANCE.Table_insertColumn_wrapped (this, column, label);
+		Praat.INSTANCE.Table_insertColumn_wrapped (this, new NativeLong(column), label);
 		Praat.checkLastError();
 	}
 	
 	public void setColumnLabel ( long column, WString label ) throws PraatException {
-		Praat.INSTANCE.Table_setColumnLabel_wrapped (this, column, label);
+		Praat.INSTANCE.Table_setColumnLabel_wrapped (this, new NativeLong(column), label);
 		Praat.checkLastError();
 	}
 	
 	public long findColumnIndexFromColumnLabel ( WString label ) {
-		return Praat.INSTANCE.Table_findColumnIndexFromColumnLabel(this, label);
+		return Praat.INSTANCE.Table_findColumnIndexFromColumnLabel(this, label).longValue();
 	}
 	
 	public long getColumnIndexFromColumnLabel ( WString label ) throws PraatException {
-		long retVal = Praat.INSTANCE.Table_getColumnIndexFromColumnLabel_wrapped (this, label);
+		long retVal = Praat.INSTANCE.Table_getColumnIndexFromColumnLabel_wrapped (this, label).longValue();
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -119,46 +120,46 @@ public class Table extends Data {
 	}
 	
 	public long searchColumn ( long column, WString value) {
-		return Praat.INSTANCE.Table_searchColumn(this, column, value);
+		return Praat.INSTANCE.Table_searchColumn(this, new NativeLong(column), value).longValue();
 	}
 
 	public void setStringValue (long row, long column, WString value) throws PraatException {
-		Praat.INSTANCE.Table_setStringValue_wrapped (this, row, column, value);
+		Praat.INSTANCE.Table_setStringValue_wrapped (this, new NativeLong(row), new NativeLong(column), value);
 		Praat.checkLastError();
 	}
 	
 	public void setNumericValue (long row, long column, double value) throws PraatException {
-		Praat.INSTANCE.Table_setNumericValue_wrapped(this, row, column, value);
+		Praat.INSTANCE.Table_setNumericValue_wrapped(this, new NativeLong(row), new NativeLong(column), value);
 		Praat.checkLastError();
 	}
 	
 	public double getMaximum (Table me, long icol) throws PraatException {
-		double retVal = Praat.INSTANCE.Table_getMaximum_wrapped (this, icol);
+		double retVal = Praat.INSTANCE.Table_getMaximum_wrapped (this, new NativeLong(icol));
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public double getMinimum (Table me, long icol) throws PraatException {
-		double retVal = Praat.INSTANCE.Table_getMinimum_wrapped (this, icol);
+		double retVal = Praat.INSTANCE.Table_getMinimum_wrapped (this, new NativeLong(icol));
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public double getGroupMean (Table me, long column, long groupColumn, WString group)
 		throws PraatException {
-		double retVal = Praat.INSTANCE.Table_getGroupMean_wrapped (this, column, groupColumn, group);
+		double retVal = Praat.INSTANCE.Table_getGroupMean_wrapped (this, new NativeLong(column), new NativeLong(groupColumn), group);
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public double getStdev (Table me, long column) throws PraatException {
-		double retVal = Praat.INSTANCE.Table_getStdev_wrapped (this, column);
+		double retVal = Praat.INSTANCE.Table_getStdev_wrapped (this, new NativeLong(column));
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public long drawRowFromDistribution (Table me, long column) throws PraatException {
-		long retVal = Praat.INSTANCE.Table_drawRowFromDistribution_wrapped (this, column);
+		long retVal = Praat.INSTANCE.Table_drawRowFromDistribution_wrapped (this, new NativeLong(column)).longValue();
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -170,7 +171,7 @@ public class Table extends Data {
 		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		double retVal = Praat.INSTANCE.Table_getCorrelation_pearsonR_wrapped (this, column1, column2, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getCorrelation_pearsonR_wrapped (this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
 				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
 		Praat.checkLastError();
 		
@@ -188,7 +189,7 @@ public class Table extends Data {
 		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		double retVal = Praat.INSTANCE.Table_getCorrelation_kendallTau_wrapped(this, column1, column2, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getCorrelation_kendallTau_wrapped(this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
 				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
 		Praat.checkLastError();
 		
@@ -205,7 +206,7 @@ public class Table extends Data {
 		throws PraatException {
 		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
 		
-		double retVal = Praat.INSTANCE.Table_getMean_studentT_wrapped (this, column, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getMean_studentT_wrapped (this, new NativeLong(column), significanceLevel, 
 				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
 				varPtr.getPointer(3), varPtr.getPointer(4));
 		Praat.checkLastError();
@@ -225,7 +226,7 @@ public class Table extends Data {
 		throws PraatException {
 		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
 		
-		double retVal = Praat.INSTANCE.Table_getDifference_studentT_wrapped (this, column1, column2, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getDifference_studentT_wrapped (this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
 				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
 				varPtr.getPointer(3), varPtr.getPointer(4));
 		Praat.checkLastError();
@@ -245,7 +246,8 @@ public class Table extends Data {
 		throws PraatException {
 		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
 		
-		double retVal = Praat.INSTANCE.Table_getGroupMean_studentT_wrapped (this, column, groupColumn, group1, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getGroupMean_studentT_wrapped (this, new NativeLong(column), new NativeLong(groupColumn),
+				group1, significanceLevel, 
 				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
 				varPtr.getPointer(3), varPtr.getPointer(4));
 		Praat.checkLastError();
@@ -265,7 +267,7 @@ public class Table extends Data {
 		throws PraatException {
 		final Pointer varPtr = new Memory(Native.getNativeSize(Double.TYPE) * 5);
 		
-		double retVal = Praat.INSTANCE.Table_getGroupDifference_studentT_wrapped (this, column, groupColumn, group1, group2, significanceLevel,
+		double retVal = Praat.INSTANCE.Table_getGroupDifference_studentT_wrapped (this, new NativeLong(column), new NativeLong(groupColumn), group1, group2, significanceLevel,
 				varPtr.getPointer(0), varPtr.getPointer(1), varPtr.getPointer(2), 
 				varPtr.getPointer(3), varPtr.getPointer(4));
 		Praat.checkLastError();
@@ -285,7 +287,7 @@ public class Table extends Data {
 		final Pointer rankSumPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer significanceFromZeroPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		double retVal = Praat.INSTANCE.Table_getGroupDifference_wilcoxonRankSum_wrapped (this, column, groupColumn, 
+		double retVal = Praat.INSTANCE.Table_getGroupDifference_wilcoxonRankSum_wrapped (this, new NativeLong(column), new NativeLong(groupColumn), 
 				group1, group2, rankSumPtr, significanceFromZeroPtr);
 		Praat.checkLastError();
 		
@@ -302,7 +304,7 @@ public class Table extends Data {
 		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		double retVal = Praat.INSTANCE.Table_getVarianceRatio_wrapped (this, column1, column2, significanceLevel, 
+		double retVal = Praat.INSTANCE.Table_getVarianceRatio_wrapped (this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
 				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
 		Praat.checkLastError();
 		
@@ -318,7 +320,7 @@ public class Table extends Data {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		boolean retVal = Praat.INSTANCE.Table_getExtrema_wrapped (this, icol, minPtr, maxPtr);
+		boolean retVal = Praat.INSTANCE.Table_getExtrema_wrapped (this, new NativeLong(icol), minPtr, maxPtr);
 		Praat.checkLastError();
 		
 		minimum.set(minPtr.getDouble(0));
@@ -329,7 +331,7 @@ public class Table extends Data {
 	
 	public void sortRows_Assert (Pointer columns, long numberOfColumns) 
 		throws PraatException {
-		Praat.INSTANCE.Table_sortRows_Assert_wrapped (this, columns, numberOfColumns);
+		Praat.INSTANCE.Table_sortRows_Assert_wrapped (this, columns, new NativeLong(numberOfColumns));
 		Praat.checkLastError();
 	}
 	
@@ -374,14 +376,14 @@ public class Table extends Data {
 	
 	public Table extractRowsWhereColumn_number (long column, int which_Melder_NUMBER, double criterion)
 		throws PraatException {
-		Table retVal = Praat.INSTANCE.Table_extractRowsWhereColumn_number_wrapped (this, column, which_Melder_NUMBER, criterion);
+		Table retVal = Praat.INSTANCE.Table_extractRowsWhereColumn_number_wrapped (this, new NativeLong(column), which_Melder_NUMBER, criterion);
 		Praat.checkLastError();
 		return retVal;
 	}
 	
 	public Table extractRowsWhereColumn_string (long column, int which_Melder_STRING, WString criterion) 
 		throws PraatException {
-		Table retVal = Praat.INSTANCE.Table_extractRowsWhereColumn_string_wrapped (this, column, which_Melder_STRING, criterion);
+		Table retVal = Praat.INSTANCE.Table_extractRowsWhereColumn_string_wrapped (this, new NativeLong(column), which_Melder_STRING, criterion);
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -398,7 +400,7 @@ public class Table extends Data {
 	
 	public Table rowsToColumns (WString factors_string, long columnToTranspose, WString columnsToExpand_string)
 		throws PraatException {
-		Table retVal = Praat.INSTANCE.Table_rowsToColumns_wrapped (this, factors_string, columnToTranspose, columnsToExpand_string);
+		Table retVal = Praat.INSTANCE.Table_rowsToColumns_wrapped (this, factors_string, new NativeLong(columnToTranspose), columnsToExpand_string);
 		Praat.checkLastError();
 		return retVal;
 	}
@@ -410,21 +412,21 @@ public class Table extends Data {
 	}
 
 	public void checkSpecifiedRowNumberWithinRange (long rowNumber) throws PraatException {
-		Praat.INSTANCE.Table_checkSpecifiedRowNumberWithinRange_wrapped (this, rowNumber);
+		Praat.INSTANCE.Table_checkSpecifiedRowNumberWithinRange_wrapped (this, new NativeLong(rowNumber));
 		Praat.checkLastError();
 	}
 	
 	public void checkSpecifiedColumnNumberWithinRange (long columnNumber) throws PraatException {
-		Praat.INSTANCE.Table_checkSpecifiedColumnNumberWithinRange_wrapped (this, columnNumber);
+		Praat.INSTANCE.Table_checkSpecifiedColumnNumberWithinRange_wrapped (this, new NativeLong(columnNumber));
 		Praat.checkLastError();
 	}
 	
 	public boolean isCellNumeric_ErrorFalse (long rowNumber, long columnNumber) {
-		return Praat.INSTANCE.Table_isCellNumeric_ErrorFalse(this, rowNumber, columnNumber);
+		return Praat.INSTANCE.Table_isCellNumeric_ErrorFalse(this, new NativeLong(rowNumber), new NativeLong(columnNumber));
 	}
 	
 	public boolean isColumnNumeric_ErrorFalse (long columnNumber) {
-		return Praat.INSTANCE.Table_isColumnNumeric_ErrorFalse(this, columnNumber);
+		return Praat.INSTANCE.Table_isColumnNumeric_ErrorFalse(this, new NativeLong(columnNumber));
 	}
 	
 	public double getNrow () {
@@ -436,15 +438,15 @@ public class Table extends Data {
 	}
 	
 	public WString  getColStr (long columnNumber) {
-		return Praat.INSTANCE.Table_getColStr(this, columnNumber);
+		return Praat.INSTANCE.Table_getColStr(this, new NativeLong(columnNumber));
 	}
 	
 	public double getMatrix (long rowNumber, long columnNumber) {
-		return Praat.INSTANCE.Table_getMatrix(this, rowNumber, columnNumber);
+		return Praat.INSTANCE.Table_getMatrix(this, new NativeLong(rowNumber), new NativeLong(columnNumber));
 	}
 	
 	public WString  getMatrixStr (long rowNumber, long columnNumber) {
-		return Praat.INSTANCE.Table_getMatrixStr(this, rowNumber, columnNumber);
+		return Praat.INSTANCE.Table_getMatrixStr(this, new NativeLong(rowNumber), new NativeLong(columnNumber));
 	}
 	
 	public double getColIndex  (WString columnLabel) {
