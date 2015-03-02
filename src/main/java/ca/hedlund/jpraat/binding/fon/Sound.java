@@ -18,48 +18,71 @@ public class Sound extends Vector {
 		return readFromSoundFile(MelderFile.fromPath(path));
 	}
 	
-	public static Sound readFromSoundFile(MelderFile file) {
-		return Praat.INSTANCE.Sound_readFromSoundFile(file);
+	public static Sound readFromSoundFile(MelderFile file) throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_readFromSoundFile_wrapped (file);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public static Sound create(long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1) {
-		return Praat.INSTANCE.Sound_create(numberOfChannels, xmin, xmax, nx, dx, x1);
+	public static Sound create(long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1)
+		throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_create_wrapped (numberOfChannels, xmin, xmax, nx, dx, x1);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public static Sound createSimple(long numberOfChannels, double duration, double samplingFrequency) {
-		return Praat.INSTANCE.Sound_createSimple(numberOfChannels, duration, samplingFrequency);
+	public static Sound createSimple(long numberOfChannels, double duration, double samplingFrequency) throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_createSimple_wrapped(numberOfChannels, duration, samplingFrequency);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Sound convertToMono () {
-		return Praat.INSTANCE.Sound_convertToMono(this);
+	public Sound convertToMono () throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_convertToMono_wrapped(this);
+		Praat.checkLastError();
+		return retVal;
 	}
 
-	public Sound convertToStereo () {
-		return Praat.INSTANCE.Sound_convertToStereo(this);
+	public Sound convertToStereo () throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_convertToStereo_wrapped (this);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Sound  extractChannel (long ichannel) {
-		return Praat.INSTANCE.Sound_extractChannel(this, ichannel);
+	public Sound  extractChannel (long ichannel) throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_extractChannel_wrapped (this, ichannel);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Sound upsample () {
-		return Praat.INSTANCE.Sound_upsample(this);
+	public Sound upsample () throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_upsample_wrapped(this);
+		Praat.checkLastError();
+		return retVal;
 	}
 
-	public Sound resample (double samplingFrequency, long precision) {
-		return Praat.INSTANCE.Sound_resample(this, samplingFrequency, precision);
+	public Sound resample (double samplingFrequency, long precision) throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_resample_wrapped (this, samplingFrequency, precision);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Sound autoCorrelate (kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain) {
-		return Praat.INSTANCE.Sound_autoCorrelate(this, scaling, signalOutsideTimeDomain);
+	public Sound autoCorrelate (kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain)
+		throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_autoCorrelate_wrapped (this, scaling, signalOutsideTimeDomain);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	public double getEnergyInAir () {
 		return Praat.INSTANCE.Sound_getEnergyInAir(this);
 	}
 	
-	public Sound extractPart (double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes) {
-		return Praat.INSTANCE.Sound_extractPart(this, t1, t2, windowShape, relativeWidth, preserveTimes);
+	public Sound extractPart (double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes)
+		throws PraatException {
+		Sound retVal = Praat.INSTANCE.Sound_extractPart_wrapped (this, t1, t2, windowShape, relativeWidth, preserveTimes);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/**

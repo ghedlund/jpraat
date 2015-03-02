@@ -752,10 +752,12 @@ public interface Praat extends Library {
 	 * @return
 	 */
 	@Declared("fon/Sound.h")
-	public Sound Sound_readFromSoundFile (MelderFile file);
+	@Wrapped
+	public Sound Sound_readFromSoundFile_wrapped (MelderFile file);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_create (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
+	@Wrapped
+	public Sound Sound_create_wrapped (long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1);
 	
 	/**
 	 * Create a sound object
@@ -766,31 +768,39 @@ public interface Praat extends Library {
 	 * @return
 	 */
 	@Declared("fon/Sound.h")
-	public Sound Sound_createSimple (long numberOfChannels, double duration, double samplingFrequency);
+	@Wrapped
+	public Sound Sound_createSimple_wrapped (long numberOfChannels, double duration, double samplingFrequency);
 	
 	@Declared("fon/Sound.h")
 	public double Sound_getEnergyInAir (Sound me);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_convertToMono (Sound me);
+	@Wrapped
+	public Sound Sound_convertToMono_wrapped (Sound me);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_convertToStereo (Sound me);
+	@Wrapped
+	public Sound Sound_convertToStereo_wrapped (Sound me);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_extractChannel (Sound me, long ichannel);
+	@Wrapped
+	public Sound Sound_extractChannel_wrapped (Sound me, long ichannel);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_upsample (Sound me);   /* By a factor 2. */
+	@Wrapped
+	public Sound Sound_upsample_wrapped (Sound me);   /* By a factor 2. */
 
 	@Declared("fon/Sound.h")
-	public Sound Sound_resample (Sound me, double samplingFrequency, long precision);
+	@Wrapped
+	public Sound Sound_resample_wrapped (Sound me, double samplingFrequency, long precision);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_autoCorrelate (Sound me, kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain);
+	@Wrapped
+	public Sound Sound_autoCorrelate_wrapped (Sound me, kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain);
 	
 	@Declared("fon/Sound.h")
-	public Sound Sound_extractPart (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes);
+	@Wrapped
+	public Sound Sound_extractPart_wrapped (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes);
 	
 	@Declared("fon/Spectrogram.h")
 	public Spectrogram Spectrogram_create (double tmin, double tmax, long nt, double dt, double t1,
