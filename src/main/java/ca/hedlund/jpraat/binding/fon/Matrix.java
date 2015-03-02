@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
@@ -15,12 +16,16 @@ public class Matrix extends SampledXY {
 	
 	public static Matrix create
 	(double xmin, double xmax, long nx, double dx, double x1,
-	 double ymin, double ymax, long ny, double dy, double y1) {
-		return Praat.INSTANCE.Matrix_create(xmin, xmax, nx, dx, x1, ymin, ymax, ny, dy, y1);
+	 double ymin, double ymax, long ny, double dy, double y1) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Matrix_create_wrapped (xmin, xmax, nx, dx, x1, ymin, ymax, ny, dy, y1);
+		Praat.checkLastError();
+		return retVal;
 	}
 
-	public static Matrix createSimple (long numberOfRows, long numberOfColumns) {
-		return Praat.INSTANCE.Matrix_createSimple(numberOfRows, numberOfColumns);
+	public static Matrix createSimple (long numberOfRows, long numberOfColumns) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Matrix_createSimple_wrapped (numberOfRows, numberOfColumns);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public long getWindowSamplesX (double xmin, double xmax, 
@@ -137,32 +142,42 @@ public class Matrix extends SampledXY {
 		return retVal;
 	}
 
-	public static Matrix readFromRawTextFile (MelderFile file) {
-		return Praat.INSTANCE.Matrix_readFromRawTextFile(file);
+	public static Matrix readFromRawTextFile (MelderFile file) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Matrix_readFromRawTextFile_wrapped (file);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public static Matrix readAP (MelderFile file) {
-		return Praat.INSTANCE.Matrix_readAP(file);
+	public static Matrix readAP (MelderFile file) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Matrix_readAP_wrapped (file);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public void eigen (Matrix eigenvectors, Matrix eigenvalues) {
-		Praat.INSTANCE.Matrix_eigen(this, eigenvectors, eigenvalues);
+	public void eigen (Matrix eigenvectors, Matrix eigenvalues) throws PraatException {
+		Praat.INSTANCE.Matrix_eigen_wrapped(this, eigenvectors, eigenvalues);
+		Praat.checkLastError();
 	}
 	
-	public Matrix power (long power) {
-		return Praat.INSTANCE.Matrix_power(this, power);
+	public Matrix power (long power) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Matrix_power_wrapped (this, power);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public void scaleAbsoluteExtremum (double scale) {
-		Praat.INSTANCE.Matrix_scaleAbsoluteExtremum(this, scale);
+	public void scaleAbsoluteExtremum (double scale) throws PraatException {
+		Praat.INSTANCE.Matrix_scaleAbsoluteExtremum_wrapped (this, scale);
+		Praat.checkLastError();
 	}
 
-	public void writeToMatrixTextFile (MelderFile file) {
-		Praat.INSTANCE.Matrix_writeToMatrixTextFile(this, file);
+	public void writeToMatrixTextFile (MelderFile file) throws PraatException {
+		Praat.INSTANCE.Matrix_writeToMatrixTextFile_wrapped (this, file);
+		Praat.checkLastError();
 	}
 	
-	public void writeToHeaderlessSpreadsheetFile (MelderFile file) {
-		Praat.INSTANCE.Matrix_writeToHeaderlessSpreadsheetFile(this, file);
+	public void writeToHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
+		Praat.INSTANCE.Matrix_writeToHeaderlessSpreadsheetFile_wrapped (this, file);
+		Praat.checkLastError();
 	}
 	
 }

@@ -1,6 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Intensity extends Vector {
 	
@@ -13,28 +14,40 @@ public class Intensity extends Vector {
 	public static final int AVERAGING_SONES = 2;
 	public static final int AVERAGING_DB = 3;
 	
-	public static Intensity create (double tmin, double tmax, long nt, double dt, double t1) {
-		return Praat.INSTANCE.Intensity_create(tmin, tmax, nt, dt, t1);
+	public static Intensity create (double tmin, double tmax, long nt, double dt, double t1) throws PraatException {
+		Intensity retVal = Praat.INSTANCE.Intensity_create_wrapped (tmin, tmax, nt, dt, t1);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public static Matrix Intensity_to_Matrix (Intensity me) {
-		return Praat.INSTANCE.Intensity_to_Matrix(me);
+	public static Matrix Intensity_to_Matrix (Intensity me) throws PraatException {
+		Matrix retVal = Praat.INSTANCE.Intensity_to_Matrix_wrapped(me);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public static Intensity Matrix_to_Intensity (Matrix me) {
-		return Praat.INSTANCE.Matrix_to_Intensity(me);
+	public static Intensity Matrix_to_Intensity (Matrix me) throws PraatException {
+		Intensity retVal = Praat.INSTANCE.Matrix_to_Intensity_wrapped (me);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public Matrix to_Matrix() {
-		return Intensity_to_Matrix(this);
+	public Matrix to_Matrix() throws PraatException {
+		Matrix retVal = Intensity_to_Matrix(this);
+		Praat.checkLastError();
+		return retVal;
 	}
 
-	public double getQuantile (double tmin, double tmax, double quantile) {
-		return Praat.INSTANCE.Intensity_getQuantile(this, tmin, tmax, quantile);
+	public double getQuantile (double tmin, double tmax, double quantile) throws PraatException {
+		double retVal = Praat.INSTANCE.Intensity_getQuantile_wrapped(this, tmin, tmax, quantile);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public double getAverage (double tmin, double tmax, int averagingMethod) {
-		return Praat.INSTANCE.Intensity_getAverage(this, tmin, tmax, averagingMethod);
+	public double getAverage (double tmin, double tmax, int averagingMethod) throws PraatException {
+		double retVal = Praat.INSTANCE.Intensity_getAverage_wrapped (this, tmin, tmax, averagingMethod);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 }

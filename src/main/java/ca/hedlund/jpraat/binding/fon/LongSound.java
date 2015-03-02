@@ -31,28 +31,33 @@ public class LongSound extends Sampled {
 	 * @throws IllegalArgumentException if (tmin, tmax) is outside of 
 	 * 	this sound's range
 	 */
-	public Sound extractPart (double tmin, double tmax, int preserveTimes) {
+	public Sound extractPart (double tmin, double tmax, int preserveTimes) throws PraatException {
 		final AtomicReference<Long> iminRef = new AtomicReference<Long>();
 		final AtomicReference<Long> imaxRef = new AtomicReference<Long>();
 		
 		long n = getWindowSamples(tmin, tmax, iminRef, imaxRef);
 		if(n < 1) {
-			throw new IllegalArgumentException("Window is outside of data range");
+			throw new PraatException("Window is outside of data range");
 		}
 		
-		return Praat.INSTANCE.LongSound_extractPart(this, tmin, tmax, preserveTimes);
+		Sound retVal = Praat.INSTANCE.LongSound_extractPart_wrapped(this, tmin, tmax, preserveTimes);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
-	public boolean haveWindow (double tmin, double tmax) {
-		return Praat.INSTANCE.LongSound_haveWindow(this, tmin, tmax);
+	public boolean haveWindow (double tmin, double tmax) throws PraatException {
+		boolean retVal = Praat.INSTANCE.LongSound_haveWindow_wrapped (this, tmin, tmax);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public void getWindowExtrema (double tmin, double tmax, int channel, 
-			AtomicReference<Double> minimum, AtomicReference<Double> maximum) {
+			AtomicReference<Double> minimum, AtomicReference<Double> maximum) throws PraatException {
 		final Pointer pmin = new Memory(Native.getNativeSize(Double.class)*2);
 		final Pointer pmax = pmin.getPointer(1);
 		
-		Praat.INSTANCE.LongSound_getWindowExtrema(this, tmin, tmax, channel, pmin, pmax);
+		Praat.INSTANCE.LongSound_getWindowExtrema_wrapped (this, tmin, tmax, channel, pmin, pmax);
+		Praat.checkLastError();
 		
 		minimum.set(pmin.getDouble(0));
 		minimum.set(pmax.getDouble(0));

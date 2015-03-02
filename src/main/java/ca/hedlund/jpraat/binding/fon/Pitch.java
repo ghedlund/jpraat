@@ -10,6 +10,7 @@ import com.sun.jna.WString;
 import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 @Header(value="fon/Pitch.h")
 public class Pitch extends Sampled {
@@ -48,8 +49,10 @@ public class Pitch extends Sampled {
 				my frame [1..nt]. intensity == 0.0; // silent
 	 */
 	public static Pitch create (double tmin, double tmax, long nt, double dt, double t1,
-			double ceiling, int maxnCandidates) {
-		return Praat.INSTANCE.Pitch_create(tmin, tmax, nt, dt, t1, ceiling, maxnCandidates);
+			double ceiling, int maxnCandidates) throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped (tmin, tmax, nt, dt, t1, ceiling, maxnCandidates);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	/**
@@ -156,9 +159,10 @@ public class Pitch extends Sampled {
 	
 	public void Pitch_pathFinder (double silenceThreshold, double voicingThreshold,
 			double octaveCost, double octaveJumpCost, double voicedUnvoicedCost,
-			double ceiling, int pullFormants) {
-		Praat.INSTANCE.Pitch_pathFinder(this, silenceThreshold, voicingThreshold,
+			double ceiling, int pullFormants) throws PraatException {
+		Praat.INSTANCE.Pitch_pathFinder_wrapped (this, silenceThreshold, voicingThreshold,
 			octaveCost, octaveJumpCost, voicedUnvoicedCost, ceiling, pullFormants);
+		Praat.checkLastError();
 	}
 	
 	/**
@@ -203,18 +207,24 @@ public class Pitch extends Sampled {
 	   Postcondition:
 	      result -> ceiling = my ceiling * 2;
 	 */
-	public Pitch killOctaveJumps () {
-		return Praat.INSTANCE.Pitch_killOctaveJumps(this);
+	public Pitch killOctaveJumps () throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Pitch_killOctaveJumps_wrapped (this);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/* Interpolate the pitch values of unvoiced frames. */
 	/* No extrapolation beyond first and last voiced frames. */
-	public Pitch interpolate () {
-		return Praat.INSTANCE.Pitch_interpolate(this);
+	public Pitch interpolate ()  throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Pitch_interpolate_wrapped (this);
+		Praat.checkLastError();
+		return retVal;
 	}
 
-	public Pitch subtractLinearFit (int unit) {
-		return Praat.INSTANCE.Pitch_subtractLinearFit(this, unit);
+	public Pitch subtractLinearFit (int unit) throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Pitch_subtractLinearFit_wrapped (this, unit);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/* Smoothing by convolution with Gaussian curve.
@@ -233,8 +243,10 @@ public class Pitch extends Sampled {
 	      Cut back to normal duration.
 	      Undo interpolation.
 	 */
-	public Pitch smooth (double bandWidth) {
-		return Praat.INSTANCE.Pitch_smooth(this, bandWidth);
+	public Pitch smooth (double bandWidth) throws PraatException {
+		Pitch retVal = Praat.INSTANCE.Pitch_smooth_wrapped (this, bandWidth);
+		Praat.checkLastError();
+		return retVal;
 	}
 
 	/*

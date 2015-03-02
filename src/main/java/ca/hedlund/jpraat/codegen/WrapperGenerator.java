@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -111,7 +110,6 @@ public class WrapperGenerator {
 		buffer.append("// ").append(methodName).append(" -> ").append(praatMethod).append("\n");
 		
 		buffer.append("PRAAT_LIB_EXPORT ");
-		
 		
 		final NativeType nativeType = method.getAnnotation(NativeType.class);
 		// return value

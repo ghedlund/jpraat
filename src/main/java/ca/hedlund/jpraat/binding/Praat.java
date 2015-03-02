@@ -240,13 +240,16 @@ public interface Praat extends Library {
 	public LongSound LongSound_open_wrapped (MelderFile fs);
 
 	@Declared("fon/LongSound.h")
-	public Sound LongSound_extractPart (LongSound me, double tmin, double tmax, int preserveTimes);
+	@Wrapped
+	public Sound LongSound_extractPart_wrapped (LongSound me, double tmin, double tmax, int preserveTimes);
 	
 	@Declared("fon/LongSound.h")
-	public boolean LongSound_haveWindow (LongSound me, double tmin, double tmax);
+	@Wrapped
+	public boolean LongSound_haveWindow_wrapped (LongSound me, double tmin, double tmax);
 	
 	@Declared("fon/LongSound.h")
-	public void LongSound_getWindowExtrema (LongSound me, double tmin, double tmax, int channel, 
+	@Wrapped
+	public void LongSound_getWindowExtrema_wrapped (LongSound me, double tmin, double tmax, int channel, 
 			Pointer minimum, Pointer maximum);
 	
 	/**
@@ -339,19 +342,24 @@ public interface Praat extends Library {
 	public void Vector_scale (Vector me, double scale);
 	
 	@Declared("fon/Intensity.h")
-	public Intensity Intensity_create (double tmin, double tmax, long nt, double dt, double t1);
+	@Wrapped
+	public Intensity Intensity_create_wrapped (double tmin, double tmax, long nt, double dt, double t1);
 	
 	@Declared("fon/Intensity.h")
-	public Matrix Intensity_to_Matrix (Intensity me);
+	@Wrapped
+	public Matrix Intensity_to_Matrix_wrapped (Intensity me);
 	
 	@Declared("fon/Intensity.h")
-	public Intensity Matrix_to_Intensity (Matrix me);
+	@Wrapped
+	public Intensity Matrix_to_Intensity_wrapped (Matrix me);
 
 	@Declared("fon/Intensity.h")
-	public double Intensity_getQuantile (Intensity me, double tmin, double tmax, double quantile);
+	@Wrapped
+	public double Intensity_getQuantile_wrapped (Intensity me, double tmin, double tmax, double quantile);
 	
 	@Declared("fon/Intensity.h")
-	public double Intensity_getAverage (Intensity me, double tmin, double tmax, int averagingMethod);
+	@Wrapped
+	public double Intensity_getAverage_wrapped (Intensity me, double tmin, double tmax, int averagingMethod);
 	
 	/*
 		Function:
@@ -413,7 +421,8 @@ public interface Praat extends Library {
 	public long Sampled_getWindowSamples (Sampled me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
 
 	@Declared("fon/Sampled.h")
-	public void Sampled_shortTermAnalysis (Sampled me, double windowDuration, double timeStep,
+	@Wrapped
+	public void Sampled_shortTermAnalysis_wrapped (Sampled me, double windowDuration, double timeStep,
 			Pointer numberOfFrames, Pointer firstTime);
 	
 	@Declared("fon/Sampled.h")
@@ -429,7 +438,8 @@ public interface Praat extends Library {
 	public Pointer Sampled_getSortedValues (Sampled me, long ilevel, int unit, Pointer numberOfValues);
 
 	@Declared("fon/Sampled.h")
-	public double Sampled_getQuantile
+	@Wrapped
+	public double Sampled_getQuantile_wrapped
 		(Sampled me, double xmin, double xmax, double quantile, long ilevel, int unit);
 	
 	@Declared("fon/Sampled.h")
@@ -507,12 +517,14 @@ public interface Praat extends Library {
 	public long SampledXY_yToNearestIndex (SampledXY me, double y);
 	
 	@Declared("fon/Matrix.h")
-	public Matrix Matrix_create
+	@Wrapped
+	public Matrix Matrix_create_wrapped
 		(double xmin, double xmax, long nx, double dx, double x1,
 		 double ymin, double ymax, long ny, double dy, double y1);
 	
 	@Declared("fon/Matrix.h")
-	public Matrix Matrix_createSimple (long numberOfRows, long numberOfColumns);
+	@Wrapped
+	public Matrix Matrix_createSimple_wrapped (long numberOfRows, long numberOfColumns);
 	
 	@Declared("fon/Matrix.h")
 	public long Matrix_getWindowSamplesX (Matrix me, double xmin, double xmax, Pointer ixmin, Pointer ixmax);
@@ -564,31 +576,39 @@ public interface Praat extends Library {
 		Pointer minimum, Pointer maximum);
 	
 	@Declared("fon/Matrix.h")
-	public Matrix Matrix_readFromRawTextFile (MelderFile file);
+	@Wrapped
+	public Matrix Matrix_readFromRawTextFile_wrapped (MelderFile file);
 	
 	@Declared("fon/Matrix.h")
-	public Matrix Matrix_readAP (MelderFile file);
+	@Wrapped
+	public Matrix Matrix_readAP_wrapped (MelderFile file);
 	
 	@Declared("fon/Matrix.h")
-	public void Matrix_eigen (Matrix me, Matrix eigenvectors, Matrix eigenvalues);
+	@Wrapped
+	public void Matrix_eigen_wrapped (Matrix me, Matrix eigenvectors, Matrix eigenvalues);
 	
 	@Declared("fon/Matrix.h")
-	public Matrix Matrix_power (Matrix me, long power);
+	@Wrapped
+	public Matrix Matrix_power_wrapped (Matrix me, long power);
 	
 	@Declared("fon/Matrix.h")
-	void Matrix_scaleAbsoluteExtremum (Matrix me, double scale);
+	@Wrapped
+	void Matrix_scaleAbsoluteExtremum_wrapped (Matrix me, double scale);
 	
 	@Declared("fon/Matrix.h")
-	public void Matrix_writeToMatrixTextFile (Matrix me, MelderFile file);
+	@Wrapped
+	public void Matrix_writeToMatrixTextFile_wrapped (Matrix me, MelderFile file);
 	
 	@Declared("fon/Matrix.h")
-	public void Matrix_writeToHeaderlessSpreadsheetFile (Matrix me, MelderFile file);
+	@Wrapped
+	public void Matrix_writeToHeaderlessSpreadsheetFile_wrapped (Matrix me, MelderFile file);
 	
 	/**
 	 * See {@link Pitch#create(double, double, long, double, double, double, int)}
 	 */
 	@Declared("fon/Pitch.h")
-	public Pitch Pitch_create (double tmin, double tmax, long nt, double dt, double t1,
+	@Wrapped
+	public Pitch Pitch_create_wrapped (double tmin, double tmax, long nt, double dt, double t1,
 			double ceiling, int maxnCandidates);
 	
 	/**
@@ -651,7 +671,8 @@ public interface Praat extends Library {
 	public void Pitch_setCeiling (Pitch me, double ceiling);
 	
 	@Declared("fon/Pitch.h")
-	public void Pitch_pathFinder (Pitch me, double silenceThreshold, double voicingThreshold,
+	@Wrapped
+	public void Pitch_pathFinder_wrapped (Pitch me, double silenceThreshold, double voicingThreshold,
 			double octaveCost, double octaveJumpCost, double voicedUnvoicedCost,
 			double ceiling, int pullFormants);
 	
@@ -674,16 +695,20 @@ public interface Praat extends Library {
 	public long Pitch_getMeanAbsSlope_noOctave (Pitch me, Pointer slope);
 	
 	@Declared("fon/Pitch.h")
-	public Pitch Pitch_killOctaveJumps (Pitch me);
+	@Wrapped
+	public Pitch Pitch_killOctaveJumps_wrapped (Pitch me);
 
 	@Declared("fon/Pitch.h")
-	public Pitch Pitch_interpolate (Pitch me);
+	@Wrapped
+	public Pitch Pitch_interpolate_wrapped (Pitch me);
 
 	@Declared("fon/Pitch.h")
-	public Pitch Pitch_subtractLinearFit (Pitch me, int unit);
+	@Wrapped
+	public Pitch Pitch_subtractLinearFit_wrapped (Pitch me, int unit);
 
 	@Declared("fon/Pitch.h")
-	public Pitch Pitch_smooth (Pitch me, double bandWidth);
+	@Wrapped
+	public Pitch Pitch_smooth_wrapped (Pitch me, double bandWidth);
 
 	@Declared("fon/Pitch.h")
 	public void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
@@ -994,57 +1019,125 @@ public interface Praat extends Library {
 	@Declared("stat/Table.h")
 	public double Table_getMean (Table me, long column);
 	
+	@Declared("stat/Table.h")
 	public double Table_getMaximum (Table me, long icol);
+
+	@Declared("stat/Table.h")
 	public double Table_getMinimum (Table me, long icol);
+	
+	@Declared("stat/Table.h")
 	public double Table_getGroupMean (Table me, long column, long groupColumn, WString group);
+	
+	@Declared("stat/Table.h")
 	public double Table_getStdev (Table me, long column);
+	
+	@Declared("stat/Table.h")
 	public long Table_drawRowFromDistribution (Table me, long column);
+	
+	@Declared("stat/Table.h")
 	public double Table_getCorrelation_pearsonR (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getCorrelation_kendallTau (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getMean_studentT (Table me, long column, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getDifference_studentT (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_t, Pointer out_numberOfDegreesOfFreedom, Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getGroupMean_studentT (Table me, long column, long groupColumn, WString group1, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getGroupDifference_studentT (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
 		Pointer out_tFromZero, Pointer out_numberOfDegreesOfFreedom, Pointer out_significanceFromZero, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public double Table_getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, WString group1, WString group2,
 		Pointer out_rankSum, Pointer out_significanceFromZero);
+	
+	@Declared("stat/Table.h")
 	public double Table_getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
 		Pointer out_significance, Pointer out_lowerLimit, Pointer out_upperLimit);
+	
+	@Declared("stat/Table.h")
 	public boolean Table_getExtrema (Table me, long icol, Pointer minimum, Pointer maximum);
 	
+	@Declared("stat/Table.h")
 	public void Table_sortRows_Assert (Table me, Pointer columns, long numberOfColumns);
+	
+	@Declared("stat/Table.h")
 	public void Table_sortRows_string (Table me, WString columns_string);
+	
+	@Declared("stat/Table.h")
 	public void Table_randomizeRows (Table me);
+	
+	@Declared("stat/Table.h")
 	public void Table_reflectRows (Table me);
 	
+	@Declared("stat/Table.h")
 	public void Table_writeToTabSeparatedFile (Table me, MelderFile file);
+	
+	@Declared("stat/Table.h")
 	public void Table_writeToCommaSeparatedFile (Table me, MelderFile file);
+	
+	@Declared("stat/Table.h")
 	public Table Table_readFromTableFile (MelderFile file);
+	
+	@Declared("stat/Table.h")
 	public Table Table_readFromCharacterSeparatedTextFile (MelderFile file, char separator);
 	
+	@Declared("stat/Table.h")
 	public Table Table_extractRowsWhereColumn_number (Table me, long column, int which_Melder_NUMBER, double criterion);
+	
+	@Declared("stat/Table.h")
 	public Table Table_extractRowsWhereColumn_string (Table me, long column, int which_Melder_STRING, WString criterion);
+	
+	@Declared("stat/Table.h")
 	public Table Table_collapseRows (Table me, WString factors_string, WString columnsToSum_string,
 		WString columnsToAverage_string, WString columnsToMedianize_string,
 		WString columnsToAverageLogarithmically_string, WString columnsToMedianizeLogarithmically_string);
+	
+	@Declared("stat/Table.h")
 	public Table Table_rowsToColumns (Table me, WString factors_string, long columnToTranspose, WString columnsToExpand_string);
+	
+	@Declared("stat/Table.h")
 	public Table Table_transpose (Table me);
 
+	@Declared("stat/Table.h")
 	public void Table_checkSpecifiedRowNumberWithinRange (Table me, long rowNumber);
+	
+	@Declared("stat/Table.h")
 	public void Table_checkSpecifiedColumnNumberWithinRange (Table me, long columnNumber);
+	
+	@Declared("stat/Table.h")
 	public boolean Table_isCellNumeric_ErrorFalse (Table me, long rowNumber, long columnNumber);
+	
+	@Declared("stat/Table.h")
 	public boolean Table_isColumnNumeric_ErrorFalse (Table me, long columnNumber);
 	
+	@Declared("stat/Table.h")
 	public double Table_getNrow (Table me);
+	
+	@Declared("stat/Table.h")
 	public double Table_getNcol (Table me);
+	
+	@Declared("stat/Table.h")
 	public WString  Table_getColStr (Table me, long columnNumber);
+	
+	@Declared("stat/Table.h")
 	public double Table_getMatrix (Table m, long rowNumber, long columnNumber);
+	
+	@Declared("stat/Table.h")
 	public WString  Table_getMatrixStr (Table me, long rowNumber, long columnNumber);
+	
+	@Declared("stat/Table.h")
 	public double Table_getColIndex  (Table me, WString columnLabel);
 	
 }

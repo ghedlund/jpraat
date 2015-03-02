@@ -8,6 +8,7 @@ import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Sampled extends Function {
 	
@@ -66,12 +67,13 @@ public class Sampled extends Function {
 	}
 
 	public void shortTermAnalysis (double windowDuration, double timeStep,
-			AtomicReference<Long> numberOfFrames, AtomicReference<Double> firstTime) {
+			AtomicReference<Long> numberOfFrames, AtomicReference<Double> firstTime) throws PraatException {
 		final Pointer numPtr = new Memory(Native.getNativeSize(Long.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Sampled_shortTermAnalysis(this, windowDuration, timeStep, 
+		Praat.INSTANCE.Sampled_shortTermAnalysis_wrapped(this, windowDuration, timeStep, 
 				numPtr, timePtr);
+		Praat.checkLastError();
 		
 		numberOfFrames.set(numPtr.getLong(0));
 		firstTime.set(timePtr.getDouble(0));
@@ -99,8 +101,10 @@ public class Sampled extends Function {
 	}
 
 	public double getQuantile
-		(double xmin, double xmax, double quantile, long ilevel, int unit) {
-		return Praat.INSTANCE.Sampled_getQuantile(this, xmin, xmax, quantile, ilevel, unit);
+		(double xmin, double xmax, double quantile, long ilevel, int unit) throws PraatException {
+		double retVal = Praat.INSTANCE.Sampled_getQuantile_wrapped (this, xmin, xmax, quantile, ilevel, unit);
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 	public double getMean
