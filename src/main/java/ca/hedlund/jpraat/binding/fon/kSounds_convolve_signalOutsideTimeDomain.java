@@ -7,13 +7,13 @@ import ca.hedlund.jpraat.binding.jna.NativeEnum;
  * kSound_convolve_signalOutsideTimeDomain
  */
 @Declared("fon/Sound_enums.h")
-public enum kSounds_convolveSignalOutsideTimeDomain implements NativeEnum {
+public enum kSounds_convolve_signalOutsideTimeDomain implements NativeEnum {
 	ZERO("zero"),
 	SIMILAR("similar");
 
 	private String name;
 	
-	private kSounds_convolveSignalOutsideTimeDomain(String name) {
+	private kSounds_convolve_signalOutsideTimeDomain(String name) {
 		this.name = name;
 	}
 	

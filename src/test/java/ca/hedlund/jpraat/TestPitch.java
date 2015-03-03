@@ -63,7 +63,7 @@ public class TestPitch {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
-		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath()+"adsafdsafdsaf");
+		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath());
 		final LongSound longSound = LongSound.open(melderFile);
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);

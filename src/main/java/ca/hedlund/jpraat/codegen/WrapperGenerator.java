@@ -178,6 +178,8 @@ public class WrapperGenerator {
 			retVal = "const char*";
 		} else if(clazz == NativeLong.class) {
 			retVal = "long";
+		} else if(clazz.isEnum()) {
+			retVal = "enum " + retVal;
 		}
 		
 		return retVal;

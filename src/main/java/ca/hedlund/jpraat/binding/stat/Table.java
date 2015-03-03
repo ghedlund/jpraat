@@ -309,23 +309,23 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public double getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
-			AtomicReference<Double> out_significance, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) 
-		throws PraatException {
-		final Pointer out_significancePtr = new Memory(Native.getNativeSize(Double.TYPE));
-		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
-		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
-		
-		double retVal = Praat.INSTANCE.Table_getVarianceRatio_wrapped (this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
-				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
-		Praat.checkLastError();
-		
-		out_significance.set(out_significancePtr.getDouble(0));
-		out_lowerLimit.set(out_lowerLimitPtr.getDouble(0));
-		out_upperLimit.set(out_upperLimitPtr.getDouble(0));
-		
-		return retVal;
-	}
+//	public double getVarianceRatio (Table me, long column1, long column2, double significanceLevel,
+//			AtomicReference<Double> out_significance, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) 
+//		throws PraatException {
+//		final Pointer out_significancePtr = new Memory(Native.getNativeSize(Double.TYPE));
+//		final Pointer out_lowerLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+//		final Pointer out_upperLimitPtr = new Memory(Native.getNativeSize(Double.TYPE));
+//		
+//		double retVal = Praat.INSTANCE.Table_getVarianceRatio_wrapped (this, new NativeLong(column1), new NativeLong(column2), significanceLevel, 
+//				out_significancePtr, out_lowerLimitPtr, out_upperLimitPtr);
+//		Praat.checkLastError();
+//		
+//		out_significance.set(out_significancePtr.getDouble(0));
+//		out_lowerLimit.set(out_lowerLimitPtr.getDouble(0));
+//		out_upperLimit.set(out_upperLimitPtr.getDouble(0));
+//		
+//		return retVal;
+//	}
 	
 	public boolean getExtrema (Table me, long icol, AtomicReference<Double> minimum, AtomicReference<Double> maximum) 
 		throws PraatException {

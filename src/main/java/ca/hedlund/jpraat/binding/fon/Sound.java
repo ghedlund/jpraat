@@ -69,7 +69,7 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public Sound autoCorrelate (kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain)
+	public Sound autoCorrelate (kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain)
 		throws PraatException {
 		Sound retVal = Praat.INSTANCE.Sound_autoCorrelate_wrapped (this, scaling, signalOutsideTimeDomain);
 		Praat.checkLastError();

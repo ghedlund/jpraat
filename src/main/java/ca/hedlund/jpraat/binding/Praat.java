@@ -18,8 +18,8 @@ import ca.hedlund.jpraat.binding.fon.Vector;
 import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
-import ca.hedlund.jpraat.binding.fon.kSounds_convolveScaling;
-import ca.hedlund.jpraat.binding.fon.kSounds_convolveSignalOutsideTimeDomain;
+import ca.hedlund.jpraat.binding.fon.kSounds_convolve_scaling;
+import ca.hedlund.jpraat.binding.fon.kSounds_convolve_signalOutsideTimeDomain;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
@@ -81,7 +81,7 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
-	public Object Thing_newFromClassName_wrapped (WString className);
+	public @NativeType("Any") Object Thing_newFromClassName_wrapped (WString className);
 	
 	/* Return a pointer to your internal name (which can be NULL). */
 	@Declared("sys/Thing.h")
@@ -587,7 +587,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
-	public void Matrix_eigen_wrapped (Matrix me, Matrix eigenvectors, Matrix eigenvalues);
+	public void Matrix_eigen_wrapped (Matrix me, @NativeType("Matrix*") Matrix eigenvectors, @NativeType("Matrix*") Matrix eigenvalues);
 	
 	@Declared("fon/Matrix.h")
 	@Wrapped
@@ -798,7 +798,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public Sound Sound_autoCorrelate_wrapped (Sound me, kSounds_convolveScaling scaling, kSounds_convolveSignalOutsideTimeDomain signalOutsideTimeDomain);
+	public Sound Sound_autoCorrelate_wrapped (Sound me, kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
@@ -1123,10 +1123,10 @@ public interface Praat extends Library {
 	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2,
 		@NativeType("double*") Pointer out_rankSum, @NativeType("double*") Pointer out_significanceFromZero);
 	
-	@Declared("stat/Table.h")
-	@Wrapped
-	public double Table_getVarianceRatio_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
-		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
+//	@Declared("stat/Table.h")
+//	@Wrapped
+//	public double Table_getVarianceRatio_wrapped (Table me, NativeLong column1, NativeLong column2, double significanceLevel,
+//		@NativeType("double*") Pointer out_significance, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped

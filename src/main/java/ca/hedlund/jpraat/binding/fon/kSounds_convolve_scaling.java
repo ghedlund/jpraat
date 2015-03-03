@@ -7,7 +7,7 @@ import ca.hedlund.jpraat.binding.jna.NativeEnum;
  * kSound_convolve_scaling
  */
 @Declared("fon/Sound_enums.h")
-public enum kSounds_convolveScaling implements NativeEnum {
+public enum kSounds_convolve_scaling implements NativeEnum {
 	INTEGRAL("integral"),
 	SUM("sum"),
 	NORMALIZE("normalize"),
@@ -15,7 +15,7 @@ public enum kSounds_convolveScaling implements NativeEnum {
 
 	private String name;
 	
-	private kSounds_convolveScaling(String name) {
+	private kSounds_convolve_scaling(String name) {
 		this.name = name;
 	}
 	
@@ -26,5 +26,4 @@ public enum kSounds_convolveScaling implements NativeEnum {
 	public int getNativeValue() {
 		return ordinal()+1;
 	}
-
 }
