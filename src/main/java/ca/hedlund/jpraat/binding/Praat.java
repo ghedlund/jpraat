@@ -22,10 +22,12 @@ import ca.hedlund.jpraat.binding.fon.kSounds_convolve_scaling;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolve_signalOutsideTimeDomain;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
 import ca.hedlund.jpraat.binding.stat.Table;
+import ca.hedlund.jpraat.binding.stat.TableOfReal;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.binding.sys.PraatVersion;
+import ca.hedlund.jpraat.binding.sys.Strings;
 import ca.hedlund.jpraat.binding.sys.Thing;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -36,7 +38,8 @@ import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
 /**
- * Main JNA interface class for praat library.
+ * Main JNA interface class for praat library.  These methods should not be used directly,
+ * use more specific binding classes for object creation and manipulation.
  * 
  */
 public interface Praat extends Library {
@@ -1217,5 +1220,109 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	public double Table_getColIndex  (Table me, WString columnLabel);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_init_wrapped (TableOfReal me, NativeLong numberOfRows, NativeLong numberOfColumns);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_create_wrapped (NativeLong numberOfRows, NativeLong numberOfColumns);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_removeRow_wrapped (TableOfReal me, NativeLong irow);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_removeColumn_wrapped (TableOfReal me, NativeLong icol);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_insertRow_wrapped (TableOfReal me, NativeLong irow);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_insertColumn_wrapped (TableOfReal me, NativeLong icol);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_setRowLabel_wrapped (TableOfReal me, NativeLong irow, WString label);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_setColumnLabel_wrapped (TableOfReal me, NativeLong icol, WString label);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public NativeLong TableOfReal_rowLabelToIndex_wrapped (TableOfReal me, WString label);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public NativeLong TableOfReal_columnLabelToIndex_wrapped (TableOfReal me, WString label);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public double TableOfReal_getColumnMean_wrapped (TableOfReal me, NativeLong icol);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public double TableOfReal_getColumnStdev_wrapped (TableOfReal me, NativeLong icol);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal Table_to_TableOfReal_wrapped (Table me, NativeLong labelColumn);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public Table TableOfReal_to_Table_wrapped (TableOfReal me, WString labelOfFirstColumn);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_sortByLabel_wrapped (TableOfReal me, NativeLong column1, NativeLong column2);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_sortByColumn_wrapped (TableOfReal me, NativeLong column1, NativeLong column2);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public void TableOfReal_writeToHeaderlessSpreadsheetFile_wrapped (TableOfReal me, MelderFile file);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_readFromHeaderlessSpreadsheetFile_wrapped (MelderFile file);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractRowRanges_wrapped (TableOfReal me, WString ranges);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractColumnRanges_wrapped (TableOfReal me, WString ranges);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractRowsWhereColumn_wrapped (TableOfReal me, NativeLong icol, int which_Melder_NUMBER, double criterion);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractColumnsWhereRow_wrapped (TableOfReal me, NativeLong icol, int which_Melder_NUMBER, double criterion);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractRowsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, WString criterion);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	public TableOfReal TableOfReal_extractColumnsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, WString criterion);
+
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	Strings TableOfReal_extractRowLabelsAsStrings_wrapped (TableOfReal me);
+	
+	@Declared("stat/TableOfReal.h")
+	@Wrapped
+	Strings TableOfReal_extractColumnLabelsAsStrings_wrapped (TableOfReal me);
 	
 }

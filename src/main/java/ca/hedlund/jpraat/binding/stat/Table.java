@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
@@ -463,6 +462,12 @@ public class Table extends Data {
 	
 	public double getColIndex  (WString columnLabel) {
 		return Praat.INSTANCE.Table_getColIndex(this, columnLabel);
+	}
+	
+	public TableOfReal to_TableOfReal (long labelColumn) throws PraatException {
+		TableOfReal retVal = Praat.INSTANCE.Table_to_TableOfReal_wrapped(this, new NativeLong(labelColumn));
+		Praat.checkLastError();
+		return retVal;
 	}
 	
 }
