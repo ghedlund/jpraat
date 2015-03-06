@@ -428,7 +428,7 @@ public interface Praat extends Library {
 	@Declared("fon/Sampled.h")
 	@Wrapped
 	public void Sampled_shortTermAnalysis_wrapped (Sampled me, double windowDuration, double timeStep,
-			@NativeType("long*") Pointer numberOfFrames, @NativeType("double*") Pointer firstTime);
+			@NativeType("NativeLong*") Pointer numberOfFrames, @NativeType("double*") Pointer firstTime);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getValueAtSample (Sampled me, NativeLong isamp, NativeLong ilevel, int unit);
@@ -1038,7 +1038,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public @NativeType("long*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("long*") Pointer numberOfTokens);
+	public @NativeType("NativeLong*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("NativeLong*") Pointer numberOfTokens);
 	
 	@Declared("stat/Table.h")
 	public NativeLong Table_searchColumn (Table me, NativeLong column, WString value);
@@ -1137,7 +1137,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("long*") Pointer columns, NativeLong numberOfColumns);
+	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("NativeLong*") Pointer columns, NativeLong numberOfColumns);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1324,5 +1324,45 @@ public interface Praat extends Library {
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
 	Strings TableOfReal_extractColumnLabelsAsStrings_wrapped (TableOfReal me);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public Strings Strings_createAsFileList_wrapped (WString path);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public Strings Strings_createAsDirectoryList_wrapped (WString path);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public Strings Strings_readFromRawTextFile_wrapped (MelderFile file);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public void Strings_writeToRawTextFile_wrapped (Strings me, MelderFile file);
+
+	@Declared("sys/Strings_.h")
+	public void Strings_randomize (Strings me);
+
+	@Declared("sys/Strings_.h")
+	public void Strings_genericize (Strings me);
+
+	@Declared("sys/Strings_.h")
+	public void Strings_nativize (Strings me);
+
+	@Declared("sys/Strings_.h")
+	public void Strings_sort (Strings me);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public void Strings_remove_wrapped (Strings me, NativeLong position);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public void Strings_replace_wrapped (Strings me, NativeLong position, WString text);
+	
+	@Declared("sys/Strings_.h")
+	@Wrapped
+	public void Strings_insert_wrapped (Strings me, NativeLong position, WString text);
 	
 }
