@@ -1365,4 +1365,81 @@ public interface Praat extends Library {
 	@Wrapped
 	public void Strings_insert_wrapped (Strings me, NativeLong position, WString text);
 	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public PointProcess PointProcess_create_wrapped (double startingTime, double finishingTime, NativeLong initialMaxnt);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public PointProcess PointProcess_createPoissonProcess_wrapped (double startingTime, double finishingTime, double density);
+	
+	@Declared("fon/PointProcess.h")
+	public void PointProcess_init (PointProcess me, double startingTime, double finishingTime, NativeLong initialMaxnt);
+	
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_getLowIndex (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_getHighIndex (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_getNearestIndex (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_getWindowPoints (PointProcess me, double tmin, double tmax, 
+			@NativeType("long*") Pointer imin, @NativeType("long*") Pointer imax);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public void PointProcess_addPoint_wrapped (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_findPoint (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public void PointProcess_removePoint (PointProcess me, NativeLong index);
+	
+	@Declared("fon/PointProcess.h")
+	public void PointProcess_removePointNear (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	public void PointProcess_removePoints (PointProcess me, NativeLong first, NativeLong last);
+	
+	@Declared("fon/PointProcess.h")
+	public void PointProcess_removePointsBetween (PointProcess me, double fromTime, double toTime);
+
+	@Declared("fon/PointProcess.h")
+	public double PointProcess_getInterval (PointProcess me, double t);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public PointProcess PointProcesses_union_wrapped (PointProcess me, PointProcess thee);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public PointProcess PointProcesses_intersection_wrapped (PointProcess me, PointProcess thee);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public PointProcess PointProcesses_difference_wrapped (PointProcess me, PointProcess thee);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public void PointProcess_fill_wrapped (PointProcess me, double tmin, double tmax, double period);
+	
+	@Declared("fon/PointProcess.h")
+	@Wrapped
+	public void PointProcess_voice_wrapped (PointProcess me, double period, double maxT);
+
+	@Declared("fon/PointProcess.h")
+	public NativeLong PointProcess_getNumberOfPeriods (PointProcess me, double tmin, double tmax,
+		double minimumPeriod, double maximumPeriod, double maximumPeriodFactor);
+	
+	@Declared("fon/PointProcess.h")
+	public double PointProcess_getMeanPeriod (PointProcess me, double tmin, double tmax,
+		double minimumPeriod, double maximumPeriod, double maximumPeriodFactor);
+
+	@Declared("fon/PointProcess.h")
+	public double PointProcess_getStdevPeriod (PointProcess me, double tmin, double tmax,
+		double minimumPeriod, double maximumPeriod, double maximumPeriodFactor);
 }
