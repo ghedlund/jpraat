@@ -10,10 +10,14 @@ import ca.hedlund.jpraat.binding.fon.Intensity;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Matrix;
 import ca.hedlund.jpraat.binding.fon.Pitch;
+import ca.hedlund.jpraat.binding.fon.PointProcess;
 import ca.hedlund.jpraat.binding.fon.Sampled;
 import ca.hedlund.jpraat.binding.fon.SampledXY;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
+import ca.hedlund.jpraat.binding.fon.TextInterval;
+import ca.hedlund.jpraat.binding.fon.TextPoint;
+import ca.hedlund.jpraat.binding.fon.TextTier;
 import ca.hedlund.jpraat.binding.fon.Vector;
 import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
@@ -1442,4 +1446,28 @@ public interface Praat extends Library {
 	@Declared("fon/PointProcess.h")
 	public double PointProcess_getStdevPeriod (PointProcess me, double tmin, double tmax,
 		double minimumPeriod, double maximumPeriod, double maximumPeriodFactor);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextPoint TextPoint_create_wrapped (double time, WString mark);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextPoint_setText_wrapped (TextPoint me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextInterval TextInterval_create_wrapped (double tmin, double tmax, WString text);
+
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextInterval_setText_wrapped (TextInterval me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextTier TextTier_create_wrapped (double tmin, double tmax);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextTier_addPoint_wrapped (TextTier me, double time, WString mark);
 }
