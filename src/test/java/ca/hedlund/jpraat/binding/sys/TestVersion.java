@@ -1,4 +1,4 @@
-package ca.hedlund.jpraat;
+package ca.hedlund.jpraat.binding.sys;
 
 import org.junit.Before;
 import org.junit.Test;

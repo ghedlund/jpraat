@@ -1,4 +1,4 @@
-package ca.hedlund.jpraat;
+package ca.hedlund.jpraat.binding.fon;
 
 import java.io.File;
 import java.net.URISyntaxException;
