@@ -4,6 +4,8 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
+import ca.hedlund.jpraat.annotations.Custom;
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
@@ -16,6 +18,14 @@ import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 		xmin, xmax are constant;
 */
 public class Function extends Data {
+	
+	public Function() {
+		super();
+	}
+	
+	public Function(Pointer p) {
+		super(p);
+	}
 	
 	public final static int UNIT_TEXT_SHORT = 0x00000001;
 	public final static int UNIT_TEXT_GRAPHICAL = 0x00000002;
@@ -160,4 +170,24 @@ public class Function extends Data {
 		Praat.INSTANCE.Function_scaleXTo(this, xminto, xmaxto);
 	}
 
+	public double getXmin () {
+		return Praat.INSTANCE.Function_getXmin(this);
+	}
+
+	public double getXmax () {
+		return Praat.INSTANCE.Function_getXmax(this);
+	}
+	
+	public MelderQuantity domainQuantity () {
+		return Praat.INSTANCE.Function_domainQuantity(this);
+	}
+	
+	public void shiftX ( double xfrom, double xto) {
+		Praat.INSTANCE.Function_shiftX(this, xfrom, xto);
+	}
+	
+	public void  scaleX (double xminfrom, double xmaxfrom, double xminto, double xmaxto) {
+		Praat.INSTANCE.Function_scaleX(this, xminfrom, xmaxfrom, xminto, xmaxto);
+	}
+	
 }

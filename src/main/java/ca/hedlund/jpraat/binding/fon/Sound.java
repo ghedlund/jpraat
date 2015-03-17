@@ -1,6 +1,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
@@ -11,6 +12,14 @@ import ca.hedlund.jpraat.exceptions.PraatException;
  * 
  */
 public class Sound extends Vector {
+	
+	public Sound() {
+		super();
+	}
+	
+	public Sound(Pointer p) {
+		super(p);
+	}
 	
 	public static final int LEVEL_MONO = 0;
 	public static final int LEVEL_LEFT = 1;

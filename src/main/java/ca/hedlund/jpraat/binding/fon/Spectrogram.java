@@ -1,11 +1,20 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Spectrogram extends Matrix {
+	
+	public Spectrogram() {
+		super();
+	}
+	
+	public Spectrogram(Pointer p) {
+		super(p);
+	}
 	
 	public static Spectrogram create (double tmin, double tmax, long nt, double dt, double t1,
 			double fmin, double fmax, long nf, double df, double f1) throws PraatException {

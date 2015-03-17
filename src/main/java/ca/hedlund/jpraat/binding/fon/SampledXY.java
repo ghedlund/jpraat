@@ -1,10 +1,19 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 
 public class SampledXY extends Sampled {
+	
+	public SampledXY() {
+		super();
+	}
+	
+	public SampledXY(Pointer p) {
+		super(p);
+	}
 	
 	public double getYMin() {
 		return Praat.INSTANCE.SampledXY_getYMin(this);

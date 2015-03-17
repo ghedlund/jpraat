@@ -4,9 +4,14 @@ import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
 public class Strings extends Data {
+	
+	public Strings(Pointer p) {
+		super(p);
+	}
 	
 	public static Strings createAsFileList (WString path) throws PraatException {
 		Strings retVal = Praat.INSTANCE.Strings_createAsFileList_wrapped(path);

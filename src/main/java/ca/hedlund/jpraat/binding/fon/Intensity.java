@@ -1,11 +1,20 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Intensity extends Vector {
+	
+	public Intensity() {
+		super();
+	}
+	
+	public Intensity(Pointer p) {
+		super(p);
+	}
 	
 	public static final int UNITS_ENERGY = 1;
 	public static final int UNITS_SONES = 2;

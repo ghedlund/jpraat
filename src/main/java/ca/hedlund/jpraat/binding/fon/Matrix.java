@@ -15,6 +15,14 @@ import com.sun.jna.PointerType;
 
 public class Matrix extends SampledXY {
 	
+	public Matrix( ){
+		super();
+	}
+	
+	public Matrix(Pointer p) {
+		super(p);
+	}
+	
 	public static Matrix create
 	(double xmin, double xmax, long nx, double dx, double x1,
 	 double ymin, double ymax, long ny, double dy, double y1) throws PraatException {

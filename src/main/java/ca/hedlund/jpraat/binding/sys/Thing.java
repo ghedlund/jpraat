@@ -8,7 +8,15 @@ import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 import com.sun.jna.WString;
 
-public class Thing extends PointerType {
+public abstract class Thing extends PointerType {
+	
+	protected Thing() {
+		super();
+	}
+	
+	protected Thing(Pointer p) {
+		super(p);
+	}
 
 	public static Object newFromClassName (WString className) throws PraatException {
 		Object retVal = Praat.INSTANCE.Thing_newFromClassName_wrapped (className);
@@ -51,6 +59,11 @@ public class Thing extends PointerType {
 
 	public void swap (Thing thee) {
 		Praat.INSTANCE.Thing_swap(this, thee);
+	}
+	
+	public ClassInfo getClassInfo() {
+		Pointer p = Praat.getNativeLibrary().getGlobalVariableAddress("class" + getClass().getSimpleName());
+		return new ClassInfo(p);
 	}
 	
 }

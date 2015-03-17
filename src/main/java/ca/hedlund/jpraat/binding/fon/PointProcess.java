@@ -15,6 +15,14 @@ import com.sun.jna.Pointer;
 
 public class PointProcess extends Function {
 	
+	public PointProcess() {
+		super();
+	}
+	
+	public PointProcess(Pointer p) {
+		super(p);
+	}
+	
 	public static PointProcess create (double startingTime, double finishingTime, long initialMaxnt)
 			throws PraatException {
 		PointProcess retVal = 

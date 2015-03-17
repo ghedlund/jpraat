@@ -14,6 +14,14 @@ import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Table extends Data {
+	
+	public Table() {
+		super();
+	}
+	
+	public Table(Pointer p) {
+		super(p);
+	}
 
 	public static Table createWithColumnNames (long numberOfRows, WString columnNames)
 		throws PraatException {

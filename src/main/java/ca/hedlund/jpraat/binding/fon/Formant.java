@@ -13,6 +13,14 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Formant extends Sampled {
 	
+	public Formant() {
+		super();
+	}
+	
+	public Formant(Pointer p) {
+		super(p);
+	}
+	
 	/**
 		Function:
 			return a new instance of Formant, or NULL if out of memory.

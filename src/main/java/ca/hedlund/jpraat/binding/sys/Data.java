@@ -1,29 +1,71 @@
 package ca.hedlund.jpraat.binding.sys;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
 
 @Declared("sys/Data.h")
 public class Data extends Thing {
 	
-	public static Pointer readFromTextFile (MelderFile file) throws PraatException {
-		Pointer retVal = Praat.INSTANCE.Data_readFromTextFile_wrapped(file);
+	public Data() {
+		super();
+	}
+	
+	public Data(Pointer p) {
+		super(p);
+	}
+	
+	public static <T extends Thing> T readFromTextFile (Class<T> type, MelderFile file) throws PraatException {
+		Pointer p = Praat.INSTANCE.Data_readFromTextFile_wrapped(file);
 		Praat.checkLastError();
+		
+		T retVal = null;
+		try {
+			final Constructor<T> constructor = type.getConstructor(Pointer.class);
+			retVal = constructor.newInstance(p);
+		} catch (NoSuchMethodException | InstantiationException | IllegalAccessException | 
+					IllegalArgumentException | InvocationTargetException e) {
+			throw new PraatException(e);
+		}
+	
 		return retVal;
 	}
 
-	public static Pointer readFromBinaryFile (MelderFile file) throws PraatException {
-		Pointer retVal = Praat.INSTANCE.Data_readFromBinaryFile_wrapped(file);
+	public static <T extends Thing> T readFromBinaryFile (Class<T> type, MelderFile file) throws PraatException {
+		Pointer p = Praat.INSTANCE.Data_readFromBinaryFile_wrapped(file);
 		Praat.checkLastError();
+		
+		T retVal = null;
+		try {
+			final Constructor<T> constructor = type.getConstructor(Pointer.class);
+			retVal = constructor.newInstance(p);
+		} catch (NoSuchMethodException | InstantiationException | IllegalAccessException | 
+					IllegalArgumentException | InvocationTargetException e) {
+			throw new PraatException(e);
+		}
+	
 		return retVal;
 	}
 
-	public static Pointer readFromFile (MelderFile file) throws PraatException {
-		Pointer retVal = Praat.INSTANCE.Data_readFromFile_wrapped (file);
+	public static <T extends Thing> T readFromFile (Class<T> type, MelderFile file) throws PraatException {
+		Pointer p = Praat.INSTANCE.Data_readFromFile_wrapped (file);
 		Praat.checkLastError();
+		
+		T retVal = null;
+		try {
+			final Constructor<T> constructor = type.getConstructor(Pointer.class);
+			retVal = constructor.newInstance(p);
+		} catch (NoSuchMethodException | InstantiationException | IllegalAccessException | 
+					IllegalArgumentException | InvocationTargetException e) {
+			throw new PraatException(e);
+		}
+	
 		return retVal;
 	}
 	

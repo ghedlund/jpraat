@@ -16,6 +16,14 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 @Header(value="fon/Pitch.h")
 public class Pitch extends Sampled {
 	
+	public Pitch() {
+		super();
+	}
+	
+	public Pitch(Pointer p) {
+		super(p);
+	}
+	
 	public static final int LEVEL_FREQUENCY = 1;
 	public static final int LEVEL_STRENGTH = 2;
 

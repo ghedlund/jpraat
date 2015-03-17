@@ -15,6 +15,14 @@ import ca.hedlund.jpraat.binding.Praat;
  */
 public class Vector extends Matrix {
 	
+	public Vector() {
+		super();
+	}
+	
+	public Vector(Pointer p) {
+		super(p);
+	}
+	
 	public static final int CHANNEL_AVERAGE = 0;
 	public static final int CHANNEL_1 = 1;
 	public static final int CHANNEL_2 = 2;

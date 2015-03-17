@@ -11,6 +11,14 @@ import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class LongSound extends Sampled {
+
+	public LongSound() {
+		super();
+	}
+	
+	public LongSound(Pointer p) {
+		super(p);
+	}
 	
 	public static LongSound open (MelderFile fs) throws PraatException {
 		LongSound retVal = Praat.INSTANCE.LongSound_open_wrapped(fs);

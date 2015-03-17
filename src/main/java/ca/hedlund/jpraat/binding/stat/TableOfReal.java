@@ -1,6 +1,7 @@
 package ca.hedlund.jpraat.binding.stat;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Declared;
@@ -12,6 +13,14 @@ import ca.hedlund.jpraat.binding.sys.Strings;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class TableOfReal extends Data {
+	
+	public TableOfReal() {
+		super();
+	}
+	
+	public TableOfReal(Pointer p) {
+		super(p);
+	}
 
 	public static TableOfReal create (long numberOfRows, long numberOfColumns) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_create_wrapped(new NativeLong(numberOfRows), new NativeLong(numberOfColumns));

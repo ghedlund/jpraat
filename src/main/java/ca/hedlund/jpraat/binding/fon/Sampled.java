@@ -13,6 +13,14 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Sampled extends Function {
 	
+	public Sampled() {
+		super();
+	}
+	
+	public Sampled(Pointer p) {
+		super(p);
+	}
+	
 	public double getXMin() {
 		return Praat.INSTANCE.Sampled_getXMin(this);
 	}
