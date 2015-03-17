@@ -36,6 +36,14 @@ public class TextPoint extends AnyPoint {
 		Praat.checkLastError();
 	}
 	
+	public String getText() {
+		return (getTextW() != null ? getTextW().toString() : "");
+	}
+	
+	public WString getTextW() {
+		return Praat.INSTANCE.TextPoint_getText(this);
+	}
+	
 	public long labelLength () {
 		return Praat.INSTANCE.TextPoint_labelLength(this).longValue();
 	}
@@ -44,5 +52,9 @@ public class TextPoint extends AnyPoint {
 		Praat.INSTANCE.TextPoint_removeText(this);
 	}
 
+	@Override
+	public String toString() {
+		return getText();
+	}
 
 }

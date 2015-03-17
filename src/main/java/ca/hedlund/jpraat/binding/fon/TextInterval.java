@@ -36,12 +36,25 @@ public class TextInterval extends Function {
 		Praat.checkLastError();
 	}
 	
+	public String getText() {
+		return (getTextW() != null ? getTextW().toString() : "");
+	}
+	
+	public WString getTextW() {
+		return Praat.INSTANCE.TextInterval_getText(this);
+	}
+	
 	public long labelLength () {
 		return Praat.INSTANCE.TextInterval_labelLength(this).longValue();
 	}
 
 	public void removeText () {
 		Praat.INSTANCE.TextInterval_removeText(this);
+	}
+	
+	@Override
+	public String toString() {
+		return getText();
 	}
 
 }

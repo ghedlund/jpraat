@@ -1816,4 +1816,12 @@ public interface Praat extends Library {
 	@Custom
 	public void TextGrid_scaleX (TextGrid me, double xminfrom, double xmaxfrom, double xminto, double xmaxto);
 	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public WString TextPoint_getText(TextPoint me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public WString TextInterval_getText(TextInterval me);
+	
 }
