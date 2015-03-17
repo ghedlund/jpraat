@@ -20,10 +20,6 @@ import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-
 @RunWith(JUnit4.class)
 public class TestPitch {
 
@@ -37,25 +33,9 @@ public class TestPitch {
 	
 	@Before
 	public void init() {
-		Native.setProtected(true);
 		Praat.INSTANCE.praat_lib_init();
 	}
 	
-
-//	@Test
-//	public void doTestPitch() throws URISyntaxException {
-//		final Runnable onBg = new Runnable() {
-//			public void run() {
-//				try {
-//					testPitch();
-//				} catch (Exception e) {}
-//			}
-//		};
-//
-//		new Thread(onBg).start();
-//
-//	}
-		
 	@Test
 	public void testPitch() throws URISyntaxException, PraatException {
 		final URL uri = 

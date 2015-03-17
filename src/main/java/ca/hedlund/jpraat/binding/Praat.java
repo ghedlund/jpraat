@@ -7,6 +7,7 @@ import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.Function;
 import ca.hedlund.jpraat.binding.fon.Intensity;
+import ca.hedlund.jpraat.binding.fon.IntervalTier;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Matrix;
 import ca.hedlund.jpraat.binding.fon.Pitch;
@@ -15,6 +16,7 @@ import ca.hedlund.jpraat.binding.fon.Sampled;
 import ca.hedlund.jpraat.binding.fon.SampledXY;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
+import ca.hedlund.jpraat.binding.fon.TextGrid;
 import ca.hedlund.jpraat.binding.fon.TextInterval;
 import ca.hedlund.jpraat.binding.fon.TextPoint;
 import ca.hedlund.jpraat.binding.fon.TextTier;
@@ -25,8 +27,11 @@ import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolve_scaling;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolve_signalOutsideTimeDomain;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
+import ca.hedlund.jpraat.binding.stat.SimpleDouble;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.stat.TableOfReal;
+import ca.hedlund.jpraat.binding.sys.ClassInfo;
+import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
@@ -37,6 +42,7 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
@@ -54,6 +60,16 @@ public interface Praat extends Library {
 	Praat INSTANCE = (Praat)
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
 	
+	public static NativeLibrary getNativeLibrary() {
+		return NativeLibrary.getInstance("praat");
+	}
+	
+	public static ClassInfo getClassInfo(Class<? extends Thing> clazz) {
+		Pointer p = getNativeLibrary().getGlobalVariableAddress("class" + clazz.getSimpleName());
+		return new ClassInfo(p);
+	}
+	
+	@Custom
 	public static void checkLastError() throws PraatException {
 		if(INSTANCE.jpraat_last_error() != null && INSTANCE.jpraat_last_error().length() > 0)
 			throw new PraatException(INSTANCE.jpraat_last_error());
@@ -69,6 +85,10 @@ public interface Praat extends Library {
 	@Declared("sys/praatlib.h")
 	@Custom
 	public void praat_lib_init();
+	
+	@Declared("fon/praat_Fon.cpp")
+	@Custom
+	public void praat_lib_uvafon_init();
 	
 	@Declared("sys/praat.h")
 	@Custom
@@ -162,6 +182,24 @@ public interface Praat extends Library {
 	@Wrapped
 	public @NativeType("Any") Pointer Data_readFromFile_wrapped (MelderFile file);
 	
+	@Declared("stat/Simple.h")
+	public SimpleDouble SimpleDouble_create(double number);
+	
+	@Declared("stat/Simple_def.h")
+	@Custom
+	public double SimpleDouble_getNumber(SimpleDouble me);
+	
+	@Declared("stat/Simple_def.h")
+	@Custom
+	public void SimpleDouble_setNumber(SimpleDouble me, double number);
+	
+	@Declared("sys/Collection.h")
+	public Collection Collection_create (ClassInfo itemClass, NativeLong initialCapacity);
+	
+	@Declared("sys/Collection.h")
+	@Wrapped
+	public void Collection_addItem_wrapped (Collection me, Thing item);
+	
 	@Declared("sys/melder.h")
 	@Custom
 	public MelderFile MelderFile_new();
@@ -243,6 +281,26 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Function.h")
 	public void Function_scaleXTo (Function me, double xminto, double xmaxto);
+	
+	@Declared("fon/Function_def.h")
+	@Custom
+	public double Function_getXmin (Function me);
+
+	@Declared("fon/Function_def.h")
+	@Custom
+	public double Function_getXmax (Function me);
+	
+	@Declared("fon/Function_def.h")
+	@Custom
+	public MelderQuantity Function_domainQuantity (Function me);
+	
+	@Declared("fon/Function_def.h")
+	@Custom
+	public void Function_shiftX (Function me, double xfrom, double xto);
+	
+	@Declared("fon/Function_def.h")
+	@Custom
+	public void Function_scaleX (Function me, double xminfrom, double xmaxfrom, double xminto, double xmaxto);
 	
 	@Declared("fon/LongSound.h")
 	@Wrapped
@@ -432,7 +490,7 @@ public interface Praat extends Library {
 	@Declared("fon/Sampled.h")
 	@Wrapped
 	public void Sampled_shortTermAnalysis_wrapped (Sampled me, double windowDuration, double timeStep,
-			@NativeType("NativeLong*") Pointer numberOfFrames, @NativeType("double*") Pointer firstTime);
+			@NativeType("long*") Pointer numberOfFrames, @NativeType("double*") Pointer firstTime);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getValueAtSample (Sampled me, NativeLong isamp, NativeLong ilevel, int unit);
@@ -1042,7 +1100,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public @NativeType("NativeLong*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("NativeLong*") Pointer numberOfTokens);
+	public @NativeType("long*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("long*") Pointer numberOfTokens);
 	
 	@Declared("stat/Table.h")
 	public NativeLong Table_searchColumn (Table me, NativeLong column, WString value);
@@ -1141,7 +1199,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("NativeLong*") Pointer columns, NativeLong numberOfColumns);
+	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("long*") Pointer columns, NativeLong numberOfColumns);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1470,4 +1528,292 @@ public interface Praat extends Library {
 	@Declared("fon/TextGrid.h")
 	@Wrapped
 	public void TextTier_addPoint_wrapped (TextTier me, double time, WString mark);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextTier TextTier_readFromXwaves_wrapped (MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextTier_getPoints_wrapped (TextTier me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextTier_removePoint_wrapped (TextTier me, NativeLong ipoint);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public IntervalTier IntervalTier_create_wrapped (double tmin, double tmax);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public IntervalTier IntervalTier_readFromXwaves_wrapped (MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void IntervalTier_writeToXwaves_wrapped (IntervalTier me, MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong IntervalTier_timeToLowIndex (IntervalTier me, double t);
+	
+	@Declared("fon/TextGrid.h")
+	@Deprecated
+	public NativeLong IntervalTier_timeToIndex (IntervalTier me, double t); 
+
+	@Declared("fon/TextGrid.h")
+	public NativeLong IntervalTier_timeToHighIndex (IntervalTier me, double t);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong IntervalTier_hasTime (IntervalTier me, double t);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong IntervalTier_hasBoundary (IntervalTier me, double t);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess IntervalTier_getStartingPoints_wrapped (IntervalTier me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess IntervalTier_getEndPoints_wrapped (IntervalTier me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess IntervalTier_getCentrePoints_wrapped (IntervalTier me, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess IntervalTier_PointProcess_startToCentre_wrapped (IntervalTier tier, PointProcess point, double phase);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess IntervalTier_PointProcess_endToCentre_wrapped (IntervalTier tier, PointProcess point, double phase);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void IntervalTier_removeLeftBoundary_wrapped (IntervalTier me, NativeLong iinterval);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_createWithoutTiers_wrapped (double tmin, double tmax);
+
+	/**
+	 * 
+	 * @param tmin
+	 * @param tmax
+	 * @param tierNames Tier names tokenized by space, max length for each tier name is 400 chars
+	 * @param pointTiers Tier names tokenized by space, max length for each tier name is 400 chars
+	 * @return
+	 */
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_create_wrapped (double tmin, double tmax, WString tierNames, WString pointTiers);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public NativeLong TextGrid_countLabels_wrapped (TextGrid me, NativeLong itier, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getStartingPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getEndPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getCentrePoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getPoints_preceded_wrapped (TextGrid me, NativeLong tierNumber,
+		int which_Melder_STRING, WString criterion,
+		int which_Melder_STRING_precededBy, WString criterion_precededBy);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public PointProcess TextGrid_getPoints_followed_wrapped (TextGrid me, NativeLong tierNumber,
+		int which_Melder_STRING, WString criterion,
+		int which_Melder_STRING_followedBy, WString criterion_followedBy);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public Function TextGrid_checkSpecifiedTierNumberWithinRange_wrapped (TextGrid me, NativeLong tierNumber);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public IntervalTier TextGrid_checkSpecifiedTierIsIntervalTier_wrapped (TextGrid me, NativeLong tierNumber);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextTier TextGrid_checkSpecifiedTierIsPointTier_wrapped (TextGrid me, NativeLong tierNumber);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_addTier_wrapped (TextGrid me, Function tier);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_merge_wrapped (Collection textGrids);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_extractPart_wrapped (TextGrid me, double tmin, double tmax, int preserveTimes);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong TextInterval_labelLength (TextInterval me);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong TextPoint_labelLength (TextPoint me);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong IntervalTier_maximumLabelLength (IntervalTier me);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong TextTier_maximumLabelLength (TextTier me);
+	
+	@Declared("fon/TextGrid.h")
+	public NativeLong TextGrid_maximumLabelLength (TextGrid me);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_genericize_wrapped (TextGrid me);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_nativize_wrapped (TextGrid me);
+	
+	@Declared("fon/TextGrid.h")
+	public void TextInterval_removeText (TextInterval me);
+	
+	@Declared("fon/TextGrid.h")
+	public void TextPoint_removeText (TextPoint me);
+	
+	@Declared("fon/TextGrid.h")
+	public void IntervalTier_removeText (IntervalTier me);
+	
+	@Declared("fon/TextGrid.h")
+	public void TextTier_removeText (TextTier me);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_insertBoundary_wrapped (TextGrid me, int itier, double t);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_removeBoundaryAtTime_wrapped (TextGrid me, int itier, double t);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_setIntervalText_wrapped (TextGrid me, int itier, NativeLong iinterval, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_insertPoint_wrapped (TextGrid me, int itier, double t, WString mark);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_setPointText_wrapped (TextGrid me, int itier, NativeLong ipoint, WString text);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public void TextGrid_writeToChronologicalTextFile_wrapped (TextGrid me, MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_readFromChronologicalTextFile_wrapped (MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public TextGrid TextGrid_readFromCgnSyntaxFile_wrapped (MelderFile file);
+	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	public Table TextGrid_downto_Table_wrapped (TextGrid me, boolean includeLineNumbers, int timeDecimals, boolean includeTierNames, boolean includeEmptyIntervals);
+
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public NativeLong TextTier_numberOfPoints (TextTier me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public TextPoint TextTier_point (TextTier me, NativeLong i);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextTier_removePoints (TextTier me, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public MelderQuantity TextTier_domainQuantity (TextTier me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextTier_shiftX (TextTier me, double xfrom, double xto);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextTier_scaleX (TextTier me, double xminfrom, double xmaxfrom, double xminto, double xmaxto);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public NativeLong IntervalTier_numberOfIntervals (IntervalTier me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public TextInterval IntervalTier_interval (IntervalTier me, NativeLong i);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public MelderQuantity IntervalTier_domainQuantity (IntervalTier me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void IntervalTier_shiftX (IntervalTier me, double xfrom, double xto);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void IntervalTier_scaleX (IntervalTier me, double xminfrom, double xmaxfrom, double xminto, double xmaxto);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void IntervalTier_addInterval (IntervalTier me, double tmin, double tmax, WString label);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void IntervalTier_removeInterval (IntervalTier me, NativeLong iinterval);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public NativeLong TextGrid_numberOfTiers (TextGrid me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public Function TextGrid_tier (TextGrid me, NativeLong i);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextGrid_removePoints (TextGrid me, NativeLong tierNumber, int which_Melder_STRING, WString criterion);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextGrid_repair (TextGrid me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public MelderQuantity TextGrid_domainQuantity (TextGrid me);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextGrid_shiftX (TextGrid me, double xfrom, double xto);
+	
+	@Declared("fon/TextGrid_def.h")
+	@Custom
+	public void TextGrid_scaleX (TextGrid me, double xminfrom, double xmaxfrom, double xminto, double xmaxto);
+	
 }

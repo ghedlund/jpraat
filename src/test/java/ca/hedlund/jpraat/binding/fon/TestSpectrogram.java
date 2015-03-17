@@ -12,14 +12,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.fon.LongSound;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
 import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
-import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -44,7 +42,6 @@ public class TestSpectrogram {
 	
 	@Before
 	public void init() {
-		Native.setProtected(true);
 		Praat.INSTANCE.praat_lib_init();
 	}
 	

@@ -11,8 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.sun.jna.Native;
-
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.fon.Formant;
 import ca.hedlund.jpraat.binding.fon.LongSound;
@@ -36,7 +34,6 @@ public class TestFormant {
 	
 	@Before
 	public void init() {
-		Native.setProtected(true);
 		Praat.INSTANCE.praat_lib_init();
 	}
 

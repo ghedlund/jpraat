@@ -13,7 +13,7 @@ import org.junit.runners.JUnit4;
 import ca.hedlund.jpraat.binding.Praat;
 
 @RunWith(JUnit4.class)
-public class CreateWrapper {
+public class TestCreateWrapper {
 
 	private final static String CODEGEN_FOLDER = "target/generated-sources/cpp/";
 	
