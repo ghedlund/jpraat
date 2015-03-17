@@ -1,6 +1,8 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import junit.framework.Assert;
 
@@ -30,10 +32,7 @@ public class TestTextGrid {
 	
 	@Test
 	public void testCreate() throws PraatException {
-		TextGrid tg = TextGrid.create(0.0, 10.0, "Hello World", "");
-		Assert.assertEquals(2, tg.numberOfTiers());
-		
-		TextGrid tg2 = TextGrid.createWithoutTiers(0.0, 10.0);
+		TextGrid tg = TextGrid.createWithoutTiers(0.0, 10.0);
 		
 		IntervalTier tier = IntervalTier.create(0.0, 10.0);
 		tier.setName(new WString("Hello World"));
@@ -43,12 +42,24 @@ public class TestTextGrid {
 		
 		Assert.assertEquals(2, tier.numberOfIntervals());
 		
-		tg2.addTier(tier);
+		tg.addTier(tier);
 		
-		Assert.assertEquals(1, tg2.numberOfTiers());
+		Assert.assertEquals(1, tg.numberOfTiers());
 		
 		// write file
-		tg2.writeToTextFile(MelderFile.fromPath("hello_world.TextGrid"));
+		tg.writeToTextFile(MelderFile.fromPath("target/hello_world.TextGrid"));
+		
+		final TextGrid tg2 = TextGrid.readFromFile(TextGrid.class, MelderFile.fromPath("target/hello_world.TextGrid"));
+		Assert.assertEquals(tg.numberOfTiers(), tg2.numberOfTiers());
+		Assert.assertEquals(tg.getXmin(), tg2.getXmin());
+		Assert.assertEquals(tg.getXmax(), tg2.getXmax());
+		
+		tg.writeToBinaryFile(MelderFile.fromPath("target/hello_world_bin.TextGrid"));
+		
+		final TextGrid tg3 = TextGrid.readFromFile(TextGrid.class, MelderFile.fromPath("target/hello_world_bin.TextGrid"));
+		Assert.assertEquals(tg.numberOfTiers(), tg3.numberOfTiers());
+		Assert.assertEquals(tg.getXmin(), tg3.getXmin());
+		Assert.assertEquals(tg.getXmax(), tg3.getXmax());
 	}
 	
 	@Test
