@@ -82,7 +82,7 @@ public class Sampled extends Function {
 		
 		Praat.INSTANCE.Sampled_shortTermAnalysis_wrapped(this, windowDuration, timeStep, 
 				numPtr, timePtr);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		
 		numberOfFrames.set(numPtr.getLong(0));
 		firstTime.set(timePtr.getDouble(0));
@@ -112,7 +112,7 @@ public class Sampled extends Function {
 	public double getQuantile
 		(double xmin, double xmax, double quantile, long ilevel, int unit) throws PraatException {
 		double retVal = Praat.INSTANCE.Sampled_getQuantile_wrapped (this, xmin, xmax, quantile, new NativeLong(ilevel), unit);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	

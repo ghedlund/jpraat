@@ -27,7 +27,7 @@ public class PointProcess extends Function {
 			throws PraatException {
 		PointProcess retVal = 
 				Praat.INSTANCE.PointProcess_create_wrapped(startingTime, finishingTime, new NativeLong(initialMaxnt));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -35,7 +35,7 @@ public class PointProcess extends Function {
 			throws PraatException {
 		PointProcess retVal = 
 				Praat.INSTANCE.PointProcess_createPoissonProcess_wrapped(startingTime, finishingTime, density);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -70,7 +70,7 @@ public class PointProcess extends Function {
 
 	public void addPoint (double t) throws PraatException {
 		Praat.INSTANCE.PointProcess_addPoint_wrapped(this, t);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public long findPoint (double t) {
@@ -99,51 +99,51 @@ public class PointProcess extends Function {
 	
 	public static PointProcess union(PointProcess p1, PointProcess p2) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_union_wrapped(p1, p2);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess union (PointProcess thee) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_union_wrapped(this, thee);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public static PointProcess intersection (PointProcess p1, PointProcess p2) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_intersection_wrapped(p1, p2);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess intersection (PointProcess thee) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_intersection_wrapped(this, thee);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public static PointProcess difference (PointProcess p1, PointProcess p2)
 		throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(p1, p2);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess difference (PointProcess thee) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(this, thee);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public void fill (double tmin, double tmax, double period) 
 		throws PraatException {
 		Praat.INSTANCE.PointProcess_fill_wrapped(this, tmin, tmax, period);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void voice (double period, double maxT) 
 		throws PraatException {
 		Praat.INSTANCE.PointProcess_voice_wrapped(this, period, maxT);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public long getNumberOfPeriods (double tmin, double tmax,

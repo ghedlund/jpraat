@@ -30,27 +30,39 @@ public class WrapperGenerator {
 	private List<String> included = new ArrayList<String>();
 	
 	private final static String errorFunctions = 
-			"#include <string.h>\n" + 
-			"#include <stdlib.h>\n" + 
-			"static char _lastError[256] = {'\\0'};\n" + 
-			"\n" + 
-			"PRAAT_LIB_EXPORT const char* jpraat_last_error() {\n" + 
-			"	return _lastError;\n" + 
-			"}\n" + 
-			"\n" + 
-			"PRAAT_LIB_EXPORT void jpraat_clear_error() {\n" + 
-			"	_lastError[0] = '\\0';\n" + 
-			"}\n" + 
-			"\n" + 
-			"PRAAT_LIB_EXPORT void jpraat_set_error(const char* err) {\n" + 
-			"	strncpy(_lastError, err, 255);\n" + 
-			"}\n" + 
-			"\n" + 
-			"PRAAT_LIB_EXPORT void jpraat_set_melder_error() {\n" + 
-			"	wchar_t* melderErr = Melder_getError();\n" + 
-			"	if(melderErr != NULL) {\n" + 
-			"		wcstombs(_lastError, melderErr, 255);\n" + 
-			"	}\n" + 
+			"#include <pthread.h>\r\n" + 
+			"#include <string.h>\r\n" + 
+			"#include <stdlib.h>\r\n" + 
+			"static char _lastError[256] = {'\\0'};\r\n" + 
+			"static pthread_mutex_t jpraat_mut = PTHREAD_MUTEX_INITIALIZER;\r\n" + 
+			"\r\n" + 
+			"PRAAT_LIB_EXPORT const char* jpraat_last_error() {\r\n" + 
+			"	static char retVal[256] = {'\\0'};\r\n" + 
+			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
+			"	strncpy(retVal, _lastError, 255);\r\n" + 
+			"	pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"	return retVal;\r\n" + 
+			"}\r\n" + 
+			"\r\n" + 
+			"PRAAT_LIB_EXPORT void jpraat_clear_error() {\r\n" + 
+			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
+			"	_lastError[0] = '\\0';\r\n" + 
+			"	pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"}\r\n" + 
+			"\r\n" + 
+			"PRAAT_LIB_EXPORT void jpraat_set_error(const char* err) {\r\n" + 
+			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
+			"	strncpy(_lastError, err, 255);\r\n" + 
+			"	pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"}\r\n" + 
+			"\r\n" + 
+			"PRAAT_LIB_EXPORT void jpraat_set_melder_error() {\r\n" + 
+			"	wchar_t* melderErr = Melder_getError();\r\n" + 
+			"	if(melderErr != NULL) {\r\n" + 
+			"		pthread_mutex_lock(&jpraat_mut);\r\n" + 
+			"		wcstombs(_lastError, melderErr, 255);\r\n" + 
+			"		pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"	}\r\n" + 
 			"}";
 	
 	public WrapperGenerator() {
@@ -114,11 +126,11 @@ public class WrapperGenerator {
 		
 		final NativeType nativeType = method.getAnnotation(NativeType.class);
 		// return value
+		String returnType = toNativeType(method.getReturnType());
 		if(nativeType != null) {
-			buffer.append(nativeType.value());
-		} else {
-			buffer.append(toNativeType(method.getReturnType()));
+			returnType = nativeType.value();
 		}
+		buffer.append(returnType);
 		buffer.append(" ");
 		buffer.append(methodName);
 		
@@ -137,7 +149,12 @@ public class WrapperGenerator {
 		}
 		buffer.append(") {").append("\n");
 		
-		buffer.append("\t").append("jpraat_clear_error();").append("\n");
+//		buffer.append("\t").append("jpraat_lock();").append("\n");
+//		buffer.append("\t").append("jpraat_clear_error();").append("\n");
+		
+		if(method.getReturnType() != void.class) {
+			buffer.append("\t").append(returnType).append(" retVal;").append("\n");
+		}
 		
 		buffer.append("\t").append("try {").append("\n");
 		buffer.append("\t\t");
@@ -158,7 +175,11 @@ public class WrapperGenerator {
 		buffer.append("\t\t").append("jpraat_set_error(e);").append("\n");
 		buffer.append("\t").append("}").append(" catch (MelderError) {").append("\n");
 		buffer.append("\t\t").append("jpraat_set_melder_error();").append("\n");
+		buffer.append("\t").append("}").append(" catch (...) {").append("\n");
+		buffer.append("\t\t").append("jpraat_set_error(\"Unknown error\");").append("\n");
 		buffer.append("\t").append("}").append("\n");
+		
+//		buffer.append("\t").append("jpraat_unlock();").append("\n");
 		
 		if(method.getReturnType() != void.class) {
 			buffer.append("\t").append("return NULL;\n");

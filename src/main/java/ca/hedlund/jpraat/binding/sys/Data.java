@@ -23,7 +23,7 @@ public class Data extends Thing {
 	
 	public static <T extends Thing> T readFromTextFile (Class<T> type, MelderFile file) throws PraatException {
 		Pointer p = Praat.INSTANCE.Data_readFromTextFile_wrapped(file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		
 		T retVal = null;
 		try {
@@ -39,7 +39,7 @@ public class Data extends Thing {
 
 	public static <T extends Thing> T readFromBinaryFile (Class<T> type, MelderFile file) throws PraatException {
 		Pointer p = Praat.INSTANCE.Data_readFromBinaryFile_wrapped(file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		
 		T retVal = null;
 		try {
@@ -55,7 +55,7 @@ public class Data extends Thing {
 
 	public static <T extends Thing> T readFromFile (Class<T> type, MelderFile file) throws PraatException {
 		Pointer p = Praat.INSTANCE.Data_readFromFile_wrapped (file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		
 		T retVal = null;
 		try {
@@ -83,23 +83,23 @@ public class Data extends Thing {
 
 	public MelderFile createTextFile (MelderFile file, boolean verbose) throws PraatException {
 		MelderFile retVal = Praat.INSTANCE.Data_createTextFile_wrapped(this, file, verbose);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
 	public void writeText (MelderFile openFile) throws PraatException {
 		Praat.INSTANCE.Data_writeText_wrapped(this, openFile);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	public void writeToTextFile (MelderFile file) throws PraatException {
 		Praat.INSTANCE.Data_writeToTextFile_wrapped (this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void Data_writeToShortTextFile (MelderFile file) throws PraatException {
 		Praat.INSTANCE.Data_writeToShortTextFile_wrapped(this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	public boolean canWriteBinary () {
@@ -108,7 +108,7 @@ public class Data extends Thing {
 
 	public void writeToBinaryFile (MelderFile file) throws PraatException {
 		Praat.INSTANCE.Data_writeToBinaryFile_wrapped (this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	public boolean canWriteLisp () {

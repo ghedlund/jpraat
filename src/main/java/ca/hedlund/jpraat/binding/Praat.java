@@ -70,10 +70,16 @@ public interface Praat extends Library {
 	}
 	
 	@Custom
-	public static void checkLastError() throws PraatException {
-		if(INSTANCE.jpraat_last_error() != null && INSTANCE.jpraat_last_error().length() > 0)
-			throw new PraatException(INSTANCE.jpraat_last_error());
+	public static void checkAndClearLastError() throws PraatException {
+		final String msg = INSTANCE.jpraat_last_error();
+		INSTANCE.jpraat_clear_error();
+		if(msg != null && msg.length() > 0) {
+			throw new PraatException(msg);
+		}
 	}
+	
+	@Custom
+	public void jpraat_clear_error();
 	
 	@Custom
 	public String jpraat_last_error();
@@ -98,7 +104,12 @@ public interface Praat extends Library {
 	WString Thing_className (Thing me);
 	
 	@Declared("sys/Thing.h")
-	public void _Thing_forget(Thing me);
+	@Wrapped
+	public void _Thing_forget_wrapped(Thing me);
+	
+	@Declared("sys/Thing.h")
+	@Wrapped
+	public void _Thing_forget_nozero_wrapped (Thing me);
 	
 	@Declared("sys/Thing.h")
 	public void Thing_info (Thing me);

@@ -24,33 +24,33 @@ public class TableOfReal extends Data {
 
 	public static TableOfReal create (long numberOfRows, long numberOfColumns) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_create_wrapped(new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public void removeRow (long irow) throws PraatException {
 		Praat.INSTANCE.TableOfReal_removeRow_wrapped(this, new NativeLong(irow));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void removeColumn (long icol) throws PraatException {
 		Praat.INSTANCE.TableOfReal_removeColumn_wrapped(this, new NativeLong(icol));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void insertRow (long irow) throws PraatException {
 		Praat.INSTANCE.TableOfReal_insertRow_wrapped(this, new NativeLong(irow));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void insertColumn (long icol) throws PraatException {
 		Praat.INSTANCE.TableOfReal_insertColumn_wrapped(this, new NativeLong(icol));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void setRowLabel (long irow, WString label) throws PraatException {
 		Praat.INSTANCE.TableOfReal_setRowLabel_wrapped(this, new NativeLong(irow), label);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void setColumnLabel (long icol, WString label) throws PraatException {
@@ -59,31 +59,31 @@ public class TableOfReal extends Data {
 	
 	public long rowLabelToIndex (WString label) throws PraatException {
 		long retVal = Praat.INSTANCE.TableOfReal_rowLabelToIndex_wrapped(this, label).longValue();
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public long columnLabelToIndex (WString label) throws PraatException {
 		long retVal = Praat.INSTANCE.TableOfReal_columnLabelToIndex_wrapped(this, label).longValue();
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public double getColumnMean (long icol) throws PraatException {
 		double retVal = Praat.INSTANCE.TableOfReal_getColumnMean_wrapped(this, new NativeLong(icol));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public double getColumnStdev (long icol) throws PraatException {
 		double retVal = Praat.INSTANCE.TableOfReal_getColumnStdev_wrapped(this, new NativeLong(icol));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public Table to_Table (WString labelOfFirstColumn) throws PraatException {
 		Table retVal = Praat.INSTANCE.TableOfReal_to_Table_wrapped(this, labelOfFirstColumn);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -91,28 +91,28 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public void sortByLabel (long column1, long column2) throws PraatException {
 		Praat.INSTANCE.TableOfReal_sortByLabel_wrapped(this, new NativeLong(column1), new NativeLong(column2));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
 	public void sortByColumn (long column1, long column2) throws PraatException {
 		Praat.INSTANCE.TableOfReal_sortByColumn_wrapped(this, new NativeLong(column1), new NativeLong(column2));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
 	public void writeToHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
 		Praat.INSTANCE.TableOfReal_writeToHeaderlessSpreadsheetFile_wrapped(this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
 	public TableOfReal readFromHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_readFromHeaderlessSpreadsheetFile_wrapped(file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -120,7 +120,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractRowRanges (WString ranges) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowRanges_wrapped(this, ranges);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -128,7 +128,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractColumnRanges (WString ranges) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractColumnRanges_wrapped(this, ranges);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -136,7 +136,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractRowsWhereColumn (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereColumn_wrapped(this, new NativeLong(icol), which_Melder_NUMBER, criterion);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -144,7 +144,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractColumnsWhereRow (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractColumnsWhereRow_wrapped(this, new NativeLong(icol), which_Melder_NUMBER, criterion);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -152,7 +152,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractRowsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereLabel_wrapped(this, which_Melder_STRING, criterion);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -160,7 +160,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	public TableOfReal extractColumnsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
 		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereLabel_wrapped(this, which_Melder_STRING, criterion);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -168,7 +168,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	Strings extractRowLabelsAsStrings () throws PraatException {
 		Strings retVal = Praat.INSTANCE.TableOfReal_extractRowLabelsAsStrings_wrapped(this);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -176,7 +176,7 @@ public class TableOfReal extends Data {
 	@Wrapped
 	Strings extractColumnLabelsAsStrings () throws PraatException {
 		Strings retVal = Praat.INSTANCE.TableOfReal_extractColumnLabelsAsStrings_wrapped(this);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	

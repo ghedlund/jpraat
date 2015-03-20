@@ -24,19 +24,19 @@ public class IntervalTier extends Function {
 	
 	public static IntervalTier create (double tmin, double tmax) throws PraatException {
 		IntervalTier retVal = Praat.INSTANCE.IntervalTier_create_wrapped(tmin, tmax);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public static IntervalTier readFromXwaves (MelderFile file) throws PraatException {
 		IntervalTier retVal = Praat.INSTANCE.IntervalTier_readFromXwaves_wrapped(file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public void writeToXwaves (MelderFile file) throws PraatException {
 		Praat.INSTANCE.IntervalTier_writeToXwaves_wrapped(this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public long timeToLowIndex (double t) {
@@ -62,38 +62,38 @@ public class IntervalTier extends Function {
 	
 	public PointProcess getStartingPoints (WString text) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.IntervalTier_getStartingPoints_wrapped(this, text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess getEndPoints (WString text) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.IntervalTier_getEndPoints_wrapped(this, text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess getCentrePoints (WString text) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.IntervalTier_getCentrePoints_wrapped(this, text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess PointProcess_startToCentre (PointProcess point, double phase) throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.IntervalTier_PointProcess_startToCentre_wrapped(this, point, phase);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public PointProcess PointProcess_endToCentre (PointProcess point, double phase)
 		throws PraatException {
 		PointProcess retVal = Praat.INSTANCE.IntervalTier_PointProcess_endToCentre_wrapped(this, point, phase);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public void removeLeftBoundary (long iinterval) throws PraatException {
 		Praat.INSTANCE.IntervalTier_removeLeftBoundary_wrapped(this, new NativeLong(iinterval));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	public long maximumLabelLength () {

@@ -20,19 +20,19 @@ public class Spectrogram extends Matrix {
 			double fmin, double fmax, long nf, double df, double f1) throws PraatException {
 		Spectrogram retVal = Praat.INSTANCE.Spectrogram_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, fmin, fmax, 
 				new NativeLong(nf), df, f1);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
 	public static Spectrogram fromMatrix (Matrix me) throws PraatException {
 		Spectrogram retVal = Praat.INSTANCE.Matrix_to_Spectrogram_wrapped (me);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public Matrix Spectrogram_to_Matrix () throws PraatException {
 		Matrix retVal = Praat.INSTANCE.Spectrogram_to_Matrix_wrapped (this);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	

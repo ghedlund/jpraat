@@ -22,7 +22,7 @@ public class LongSound extends Sampled {
 	
 	public static LongSound open (MelderFile fs) throws PraatException {
 		LongSound retVal = Praat.INSTANCE.LongSound_open_wrapped(fs);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -49,13 +49,13 @@ public class LongSound extends Sampled {
 		}
 		
 		Sound retVal = Praat.INSTANCE.LongSound_extractPart_wrapped(this, tmin, tmax, preserveTimes);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public boolean haveWindow (double tmin, double tmax) throws PraatException {
 		boolean retVal = Praat.INSTANCE.LongSound_haveWindow_wrapped (this, tmin, tmax);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -65,7 +65,7 @@ public class LongSound extends Sampled {
 		final Pointer pmax = pmin.getPointer(1);
 		
 		Praat.INSTANCE.LongSound_getWindowExtrema_wrapped (this, tmin, tmax, channel, pmin, pmax);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		
 		minimum.set(pmin.getDouble(0));
 		minimum.set(pmax.getDouble(0));

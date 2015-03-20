@@ -23,7 +23,7 @@ public class TextPoint extends AnyPoint {
 	
 	public static TextPoint create(double time, WString mark) throws PraatException {
 		TextPoint retVal = Praat.INSTANCE.TextPoint_create_wrapped(time, mark);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -33,7 +33,7 @@ public class TextPoint extends AnyPoint {
 	
 	public void setText (WString text) throws PraatException {
 		Praat.INSTANCE.TextPoint_setText_wrapped(this, text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public String getText() {

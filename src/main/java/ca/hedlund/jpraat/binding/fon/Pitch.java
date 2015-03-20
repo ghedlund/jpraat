@@ -60,7 +60,7 @@ public class Pitch extends Sampled {
 	public static Pitch create (double tmin, double tmax, long nt, double dt, double t1,
 			double ceiling, int maxnCandidates) throws PraatException {
 		Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, ceiling, maxnCandidates);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
@@ -171,7 +171,7 @@ public class Pitch extends Sampled {
 			double ceiling, int pullFormants) throws PraatException {
 		Praat.INSTANCE.Pitch_pathFinder_wrapped (this, silenceThreshold, voicingThreshold,
 			octaveCost, octaveJumpCost, voicedUnvoicedCost, ceiling, pullFormants);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	/**
@@ -218,7 +218,7 @@ public class Pitch extends Sampled {
 	 */
 	public Pitch killOctaveJumps () throws PraatException {
 		Pitch retVal = Praat.INSTANCE.Pitch_killOctaveJumps_wrapped (this);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -226,13 +226,13 @@ public class Pitch extends Sampled {
 	/* No extrapolation beyond first and last voiced frames. */
 	public Pitch interpolate ()  throws PraatException {
 		Pitch retVal = Praat.INSTANCE.Pitch_interpolate_wrapped (this);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
 	public Pitch subtractLinearFit (int unit) throws PraatException {
 		Pitch retVal = Praat.INSTANCE.Pitch_subtractLinearFit_wrapped (this, unit);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
@@ -254,7 +254,7 @@ public class Pitch extends Sampled {
 	 */
 	public Pitch smooth (double bandWidth) throws PraatException {
 		Pitch retVal = Praat.INSTANCE.Pitch_smooth_wrapped (this, bandWidth);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 

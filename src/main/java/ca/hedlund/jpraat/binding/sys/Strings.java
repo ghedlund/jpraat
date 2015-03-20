@@ -15,25 +15,25 @@ public class Strings extends Data {
 	
 	public static Strings createAsFileList (WString path) throws PraatException {
 		Strings retVal = Praat.INSTANCE.Strings_createAsFileList_wrapped(path);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public static Strings createAsDirectoryList (WString path) throws PraatException {
 		Strings retVal = Praat.INSTANCE.Strings_createAsDirectoryList_wrapped(path);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 	
 	public static Strings readFromRawTextFile (MelderFile file) throws PraatException {
 		Strings retVal = Praat.INSTANCE.Strings_readFromRawTextFile_wrapped(file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
 	public void writeToRawTextFile (MelderFile file) throws PraatException {
 		Praat.INSTANCE.Strings_writeToRawTextFile_wrapped(this, file);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 	public void randomize () {
@@ -54,17 +54,17 @@ public class Strings extends Data {
 	
 	public void remove (long position) throws PraatException {
 		Praat.INSTANCE.Strings_remove_wrapped(this, new NativeLong(position));
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void replace (long position, WString text) throws PraatException {
 		Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(position), text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 	
 	public void insert (long position, WString text) throws PraatException {
 		Praat.INSTANCE.Strings_insert_wrapped(this, new NativeLong(position), text);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 	}
 
 }

@@ -1,5 +1,8 @@
 package ca.hedlund.jpraat.binding.sys;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -9,6 +12,8 @@ import com.sun.jna.PointerType;
 import com.sun.jna.WString;
 
 public abstract class Thing extends PointerType {
+	
+	private final static Logger LOGGER = Logger.getLogger(Thing.class.getName());
 	
 	protected Thing() {
 		super();
@@ -20,19 +25,24 @@ public abstract class Thing extends PointerType {
 
 	public static Object newFromClassName (WString className) throws PraatException {
 		Object retVal = Praat.INSTANCE.Thing_newFromClassName_wrapped (className);
-		Praat.checkLastError();
+		Praat.checkAndClearLastError();
 		return retVal;
 	}
 
 	@Override
 	public void finalize() {
 		if(getPointer() != Pointer.NULL) {
-			forget();
+			try {
+				forget();
+			} catch (PraatException e) {
+				LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
 		}
 	}
 	
-	public void forget() {
-		Praat.INSTANCE._Thing_forget(this);
+	public void forget() throws PraatException {
+		Praat.INSTANCE._Thing_forget_wrapped(this);
+		Praat.checkAndClearLastError();
 	}
 	
 	public WString className () {
@@ -51,6 +61,10 @@ public abstract class Thing extends PointerType {
 	/* Return a pointer to your internal name (which can be NULL). */
 	public WString getName () {
 		return Praat.INSTANCE.Thing_getName(this);
+	}
+	
+	public void setName (String name) {
+		setName(new WString(name));
 	}
 	
 	public void setName (WString name) {
