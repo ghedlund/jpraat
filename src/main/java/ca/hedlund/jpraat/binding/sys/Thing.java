@@ -15,6 +15,15 @@ public abstract class Thing extends PointerType {
 	
 	private final static Logger LOGGER = Logger.getLogger(Thing.class.getName());
 	
+	/*
+	 * Should we 'forget' (delete object and all resources) the object
+	 * when the JVM finalizes this object.  By defualt, this is 'true'.
+	 * 
+	 * An example of a case where this is not desiriable is when creating
+	 * temporary java references to data in memory which needs to be retained.
+	 */
+	private boolean forgetOnFinalize = true;
+	
 	protected Thing() {
 		super();
 	}
@@ -28,10 +37,18 @@ public abstract class Thing extends PointerType {
 		Praat.checkAndClearLastError();
 		return retVal;
 	}
+	
+	public boolean isForgetOnFinalize() {
+		return this.forgetOnFinalize;
+	}
+	
+	public void setForgetOnFinalize(boolean forgetOnFinalize) {
+		this.forgetOnFinalize = forgetOnFinalize;
+	}
 
 	@Override
 	public void finalize() {
-		if(getPointer() != Pointer.NULL) {
+		if(isForgetOnFinalize() && getPointer() != Pointer.NULL) {
 			try {
 				forget();
 			} catch (PraatException e) {

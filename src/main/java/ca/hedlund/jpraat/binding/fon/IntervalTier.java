@@ -109,7 +109,9 @@ public class IntervalTier extends Function {
 	}
 	
 	public TextInterval interval (long i) {
-		return Praat.INSTANCE.IntervalTier_interval(this, new NativeLong(i));
+		TextInterval retVal = Praat.INSTANCE.IntervalTier_interval(this, new NativeLong(i));
+		retVal.setForgetOnFinalize(false);
+		return retVal;
 	}
 	
 	public MelderQuantity domainQuantity () {

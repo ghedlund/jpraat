@@ -246,7 +246,9 @@ public class TextGrid extends Function {
 	}
 	
 	public Function tier (long i) {
-		return Praat.INSTANCE.TextGrid_tier(this, new NativeLong(i));
+		Function tier = Praat.INSTANCE.TextGrid_tier(this, new NativeLong(i));
+		tier.setForgetOnFinalize(false);
+		return tier;
 	}
 	
 	public void removePoints (long tierNumber, int which_Melder_STRING, WString criterion) {

@@ -72,7 +72,9 @@ public class TextTier extends Function {
 	}
 	
 	public TextPoint point (long i) {
-		return Praat.INSTANCE.TextTier_point(this, new NativeLong(i));
+		TextPoint retVal = Praat.INSTANCE.TextTier_point(this, new NativeLong(i));
+		retVal.setForgetOnFinalize(false);
+		return retVal;
 	}
 	
 	public void removePoints (int which_Melder_STRING, String criterion) {
