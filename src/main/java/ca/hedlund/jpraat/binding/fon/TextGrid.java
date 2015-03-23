@@ -127,18 +127,21 @@ public class TextGrid extends Function {
 	public Function checkSpecifiedTierNumberWithinRange (long tierNumber) throws PraatException {
 		Function retVal = Praat.INSTANCE.TextGrid_checkSpecifiedTierNumberWithinRange_wrapped(this, new NativeLong(tierNumber));
 		Praat.checkAndClearLastError();
+		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	
 	public IntervalTier checkSpecifiedTierIsIntervalTier (long tierNumber) throws PraatException {
 		IntervalTier retVal = Praat.INSTANCE.TextGrid_checkSpecifiedTierIsIntervalTier_wrapped(this, new NativeLong(tierNumber));
 		Praat.checkAndClearLastError();
+		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	
 	public TextTier checkSpecifiedTierIsPointTier (long tierNumber) throws PraatException {
 		TextTier retVal = Praat.INSTANCE.TextGrid_checkSpecifiedTierIsPointTier_wrapped(this, new NativeLong(tierNumber));
 		Praat.checkAndClearLastError();
+		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	

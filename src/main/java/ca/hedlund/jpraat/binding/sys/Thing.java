@@ -50,6 +50,8 @@ public abstract class Thing extends PointerType {
 	public void finalize() {
 		if(isForgetOnFinalize() && getPointer() != Pointer.NULL) {
 			try {
+//				LOGGER.log(Level.INFO, "Forgetting object of type " + getClass().getSimpleName() + " with native pointer " + 
+//						Long.toHexString(Pointer.nativeValue(getPointer())));
 				forget();
 			} catch (PraatException e) {
 				LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
