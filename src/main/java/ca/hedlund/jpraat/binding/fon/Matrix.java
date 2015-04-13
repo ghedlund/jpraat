@@ -26,14 +26,33 @@ public class Matrix extends SampledXY {
 	public static Matrix create
 	(double xmin, double xmax, long nx, double dx, double x1,
 	 double ymin, double ymax, long ny, double dy, double y1) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_create_wrapped (xmin, xmax, new NativeLong(nx), dx, x1, ymin, ymax, new NativeLong(ny), dy, y1);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_create_wrapped(xmin, xmax,
+					new NativeLong(nx), dx, x1, ymin, ymax, new NativeLong(ny), dy,
+					y1);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public static Matrix createSimple (long numberOfRows, long numberOfColumns) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_createSimple_wrapped (new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_createSimple_wrapped(
+					new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -153,41 +172,95 @@ public class Matrix extends SampledXY {
 	}
 
 	public static Matrix readFromRawTextFile (MelderFile file) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_readFromRawTextFile_wrapped (file);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_readFromRawTextFile_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static Matrix readAP (MelderFile file) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_readAP_wrapped (file);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_readAP_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public void eigen (Matrix eigenvectors, Matrix eigenvalues) throws PraatException {
-		Praat.INSTANCE.Matrix_eigen_wrapped(this, eigenvectors, eigenvalues);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_eigen_wrapped(this, eigenvectors, eigenvalues);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public Matrix power (long power) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Matrix_power_wrapped (this, new NativeLong(power));
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_power_wrapped(this,
+					new NativeLong(power));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public void scaleAbsoluteExtremum (double scale) throws PraatException {
-		Praat.INSTANCE.Matrix_scaleAbsoluteExtremum_wrapped (this, scale);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_scaleAbsoluteExtremum_wrapped(this, scale);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public void writeToMatrixTextFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Matrix_writeToMatrixTextFile_wrapped (this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_writeToMatrixTextFile_wrapped(this, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void writeToHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Matrix_writeToHeaderlessSpreadsheetFile_wrapped (this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_writeToHeaderlessSpreadsheetFile_wrapped(this,
+					file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 }

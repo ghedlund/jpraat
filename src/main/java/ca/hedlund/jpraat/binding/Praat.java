@@ -1,5 +1,7 @@
 package ca.hedlund.jpraat.binding;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import ca.hedlund.jpraat.annotations.Custom;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
@@ -59,6 +61,14 @@ public interface Praat extends Library {
 	 */
 	Praat INSTANCE = (Praat)
 			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
+	
+	
+	/**
+	 * {@link Wrapped} methods need to use this lock before calling
+	 * the wrapped C++ function and unlock <em>after</em> calling
+	 * {@link #checkAndClearLastError}
+	 */
+	static ReentrantLock wrapperLock = new ReentrantLock();
 	
 	public static NativeLibrary getNativeLibrary() {
 		return NativeLibrary.getInstance("praat");

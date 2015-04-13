@@ -48,14 +48,33 @@ public class LongSound extends Sampled {
 			throw new PraatException("Window is outside of data range");
 		}
 		
-		Sound retVal = Praat.INSTANCE.LongSound_extractPart_wrapped(this, tmin, tmax, preserveTimes);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.LongSound_extractPart_wrapped(this, tmin,
+					tmax, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
 		return retVal;
 	}
 	
 	public boolean haveWindow (double tmin, double tmax) throws PraatException {
-		boolean retVal = Praat.INSTANCE.LongSound_haveWindow_wrapped (this, tmin, tmax);
-		Praat.checkAndClearLastError();
+		boolean retVal = false;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.LongSound_haveWindow_wrapped(this,
+					tmin, tmax);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -64,8 +83,16 @@ public class LongSound extends Sampled {
 		final Pointer pmin = new Memory(Native.getNativeSize(Double.class)*2);
 		final Pointer pmax = pmin.getPointer(1);
 		
-		Praat.INSTANCE.LongSound_getWindowExtrema_wrapped (this, tmin, tmax, channel, pmin, pmax);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.LongSound_getWindowExtrema_wrapped(this, tmin, tmax,
+					channel, pmin, pmax);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		
 		minimum.set(pmin.getDouble(0));
 		minimum.set(pmax.getDouble(0));

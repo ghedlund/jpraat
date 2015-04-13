@@ -33,8 +33,17 @@ public abstract class Thing extends PointerType {
 	}
 
 	public static Object newFromClassName (WString className) throws PraatException {
-		Object retVal = Praat.INSTANCE.Thing_newFromClassName_wrapped (className);
-		Praat.checkAndClearLastError();
+		Object retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.Thing_newFromClassName_wrapped(className);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -60,8 +69,15 @@ public abstract class Thing extends PointerType {
 	}
 	
 	public void forget() throws PraatException {
-		Praat.INSTANCE._Thing_forget_wrapped(this);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE._Thing_forget_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public WString className () {

@@ -21,8 +21,15 @@ public class Collection extends Data {
 	}
 
 	public void addItem (Thing item) throws PraatException {
-		Praat.INSTANCE.Collection_addItem_wrapped(this, item);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Collection_addItem_wrapped(this, item);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 }

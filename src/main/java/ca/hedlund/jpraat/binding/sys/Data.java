@@ -82,24 +82,54 @@ public class Data extends Thing {
 	}
 
 	public MelderFile createTextFile (MelderFile file, boolean verbose) throws PraatException {
-		MelderFile retVal = Praat.INSTANCE.Data_createTextFile_wrapped(this, file, verbose);
-		Praat.checkAndClearLastError();
+		MelderFile retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Data_createTextFile_wrapped(
+					this, file, verbose);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public void writeText (MelderFile openFile) throws PraatException {
-		Praat.INSTANCE.Data_writeText_wrapped(this, openFile);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Data_writeText_wrapped(this, openFile);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public void writeToTextFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Data_writeToTextFile_wrapped (this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Data_writeToTextFile_wrapped(this, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void Data_writeToShortTextFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Data_writeToShortTextFile_wrapped(this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Data_writeToShortTextFile_wrapped(this, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public boolean canWriteBinary () {
@@ -107,8 +137,15 @@ public class Data extends Thing {
 	}
 
 	public void writeToBinaryFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Data_writeToBinaryFile_wrapped (this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Data_writeToBinaryFile_wrapped(this, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public boolean canWriteLisp () {

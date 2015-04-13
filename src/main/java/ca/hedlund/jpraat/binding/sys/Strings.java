@@ -14,26 +14,60 @@ public class Strings extends Data {
 	}
 	
 	public static Strings createAsFileList (WString path) throws PraatException {
-		Strings retVal = Praat.INSTANCE.Strings_createAsFileList_wrapped(path);
-		Praat.checkAndClearLastError();
+		Strings retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.Strings_createAsFileList_wrapped(path);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static Strings createAsDirectoryList (WString path) throws PraatException {
-		Strings retVal = Praat.INSTANCE.Strings_createAsDirectoryList_wrapped(path);
-		Praat.checkAndClearLastError();
+		Strings retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.Strings_createAsDirectoryList_wrapped(path);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static Strings readFromRawTextFile (MelderFile file) throws PraatException {
-		Strings retVal = Praat.INSTANCE.Strings_readFromRawTextFile_wrapped(file);
-		Praat.checkAndClearLastError();
+		Strings retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.Strings_readFromRawTextFile_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public void writeToRawTextFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.Strings_writeToRawTextFile_wrapped(this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Strings_writeToRawTextFile_wrapped(this, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public void randomize () {
@@ -53,18 +87,42 @@ public class Strings extends Data {
 	}
 	
 	public void remove (long position) throws PraatException {
-		Praat.INSTANCE.Strings_remove_wrapped(this, new NativeLong(position));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Strings_remove_wrapped(this,
+					new NativeLong(position));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void replace (long position, WString text) throws PraatException {
-		Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(position), text);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(
+					position), text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void insert (long position, WString text) throws PraatException {
-		Praat.INSTANCE.Strings_insert_wrapped(this, new NativeLong(position), text);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Strings_insert_wrapped(this,
+					new NativeLong(position), text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 }

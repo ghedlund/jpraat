@@ -22,8 +22,17 @@ public class TextInterval extends Function {
 	}
 	
 	public static TextInterval create (double tmin, double tmax, WString text) throws PraatException {
-		TextInterval retVal = Praat.INSTANCE.TextInterval_create_wrapped(tmin, tmax, text);
-		Praat.checkAndClearLastError();
+		TextInterval retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TextInterval_create_wrapped(
+					tmin, tmax, text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -32,8 +41,15 @@ public class TextInterval extends Function {
 	}
 
 	public void setText(WString text) throws PraatException {
-		Praat.INSTANCE.TextInterval_setText_wrapped(this, text);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextInterval_setText_wrapped(this, text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public String getText() {

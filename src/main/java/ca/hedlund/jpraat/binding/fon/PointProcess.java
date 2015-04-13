@@ -25,17 +25,34 @@ public class PointProcess extends Function {
 	
 	public static PointProcess create (double startingTime, double finishingTime, long initialMaxnt)
 			throws PraatException {
-		PointProcess retVal = 
-				Praat.INSTANCE.PointProcess_create_wrapped(startingTime, finishingTime, new NativeLong(initialMaxnt));
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.PointProcess_create_wrapped(
+					startingTime, finishingTime, new NativeLong(initialMaxnt));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public static PointProcess createPoissonProcess (double startingTime, double finishingTime, double density) 
 			throws PraatException {
-		PointProcess retVal = 
-				Praat.INSTANCE.PointProcess_createPoissonProcess_wrapped(startingTime, finishingTime, density);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.PointProcess_createPoissonProcess_wrapped(startingTime,
+							finishingTime, density);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -69,8 +86,15 @@ public class PointProcess extends Function {
 	}
 
 	public void addPoint (double t) throws PraatException {
-		Praat.INSTANCE.PointProcess_addPoint_wrapped(this, t);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.PointProcess_addPoint_wrapped(this, t);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public long findPoint (double t) {
@@ -98,52 +122,120 @@ public class PointProcess extends Function {
 	}
 	
 	public static PointProcess union(PointProcess p1, PointProcess p2) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_union_wrapped(p1, p2);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.PointProcesses_union_wrapped(p1,
+					p2);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public PointProcess union (PointProcess thee) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_union_wrapped(this, thee);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.PointProcesses_union_wrapped(this,
+					thee);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static PointProcess intersection (PointProcess p1, PointProcess p2) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_intersection_wrapped(p1, p2);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.PointProcesses_intersection_wrapped(p1, p2);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public PointProcess intersection (PointProcess thee) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_intersection_wrapped(this, thee);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.PointProcesses_intersection_wrapped(this, thee);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static PointProcess difference (PointProcess p1, PointProcess p2)
 		throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(p1, p2);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(
+					p1, p2);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public PointProcess difference (PointProcess thee) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(this, thee);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.PointProcesses_difference_wrapped(
+					this, thee);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public void fill (double tmin, double tmax, double period) 
 		throws PraatException {
-		Praat.INSTANCE.PointProcess_fill_wrapped(this, tmin, tmax, period);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.PointProcess_fill_wrapped(this, tmin, tmax, period);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void voice (double period, double maxT) 
 		throws PraatException {
-		Praat.INSTANCE.PointProcess_voice_wrapped(this, period, maxT);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.PointProcess_voice_wrapped(this, period, maxT);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public long getNumberOfPeriods (double tmin, double tmax,

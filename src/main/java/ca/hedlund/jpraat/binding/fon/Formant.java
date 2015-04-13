@@ -42,8 +42,16 @@ public class Formant extends Sampled {
 	 */
 	public static Formant create (double tmin, double tmax, long nt, double dt, double t1, int maxnFormants)
 		throws PraatException {
-		Formant retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, maxnFormants);
-		Praat.checkAndClearLastError();
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, maxnFormants);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -135,14 +143,31 @@ public class Formant extends Sampled {
 	}
 
 	public Matrix to_Matrix (int iformant) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Formant_to_Matrix_wrapped (this, iformant);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Formant_to_Matrix_wrapped (this, iformant);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Matrix to_Matrix_bandwidths (int iformant) throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Formant_to_Matrix_bandwidths_wrapped(this, iformant);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Formant_to_Matrix_bandwidths_wrapped(
+					this, iformant);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -150,9 +175,20 @@ public class Formant extends Sampled {
 		double refF1, double refF2, double refF3, double refF4, double refF5,
 		double dfCost,   /* Per kHz. */
 		double bfCost, double octaveJumpCost) throws PraatException {
-		Formant retVal =
-				Praat.INSTANCE.Formant_tracker_wrapped(this, numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost, bfCost, octaveJumpCost);
-		Praat.checkAndClearLastError();
+		
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Formant_tracker_wrapped(this,
+					numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost,
+					bfCost, octaveJumpCost);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
 		return retVal;
 	}
 
@@ -161,15 +197,20 @@ public class Formant extends Sampled {
 			Boolean includeIntensity, int intensityDecimals,
 			Boolean includeNumberOfFormants, int frequencyDecimals,
 			Boolean includeBandwidths) throws PraatException {
-		Table retVal = Praat.INSTANCE.Formant_downto_Table_wrapped(this, 
-				(includeFrameNumbers ? 1 : 0), 
-				(includeTimes ? 1 : 0), 
-				timeDecimals,
-				(includeIntensity ? 1 :0), 
-				intensityDecimals,
-				(includeNumberOfFormants ? 1 : 0), frequencyDecimals,
-				(includeBandwidths ? 1: 0) );
-		Praat.checkAndClearLastError();
+		Table retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Formant_downto_Table_wrapped(this,
+					(includeFrameNumbers ? 1 : 0), (includeTimes ? 1 : 0),
+					timeDecimals, (includeIntensity ? 1 : 0), intensityDecimals,
+					(includeNumberOfFormants ? 1 : 0), frequencyDecimals,
+					(includeBandwidths ? 1 : 0));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

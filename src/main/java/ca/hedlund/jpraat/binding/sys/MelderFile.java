@@ -22,20 +22,43 @@ public class MelderFile extends PointerType {
 	
 	public static MelderFile fromPath(WString path) throws PraatException {
 		final MelderFile retVal = Praat.INSTANCE.MelderFile_new();
-		Praat.INSTANCE.Melder_pathToFile_wrapped(path, retVal);
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Melder_pathToFile_wrapped(path, retVal);
 		Praat.checkAndClearLastError(); 
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public MelderFile open() throws PraatException {
-		MelderFile retVal = Praat.INSTANCE.MelderFile_open_wrapped (this);
-		Praat.checkAndClearLastError();
+		MelderFile retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.MelderFile_open_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public MelderFile create() throws PraatException {
-		MelderFile retVal = Praat.INSTANCE.MelderFile_create_wrapped(this);
-		Praat.checkAndClearLastError();
+		MelderFile retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.MelderFile_create_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

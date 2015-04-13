@@ -80,9 +80,16 @@ public class Sampled extends Function {
 		final Pointer numPtr = new Memory(Native.getNativeSize(Long.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Sampled_shortTermAnalysis_wrapped(this, windowDuration, timeStep, 
-				numPtr, timePtr);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sampled_shortTermAnalysis_wrapped(this, windowDuration, timeStep, 
+					numPtr, timePtr);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		
 		numberOfFrames.set(numPtr.getLong(0));
 		firstTime.set(timePtr.getDouble(0));
@@ -111,8 +118,17 @@ public class Sampled extends Function {
 
 	public double getQuantile
 		(double xmin, double xmax, double quantile, long ilevel, int unit) throws PraatException {
-		double retVal = Praat.INSTANCE.Sampled_getQuantile_wrapped (this, xmin, xmax, quantile, new NativeLong(ilevel), unit);
-		Praat.checkAndClearLastError();
+		double retVal = 0.0;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sampled_getQuantile_wrapped(this,
+					xmin, xmax, quantile, new NativeLong(ilevel), unit);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

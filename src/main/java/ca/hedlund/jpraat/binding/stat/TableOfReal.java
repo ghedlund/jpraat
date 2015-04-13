@@ -23,160 +23,352 @@ public class TableOfReal extends Data {
 	}
 
 	public static TableOfReal create (long numberOfRows, long numberOfColumns) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_create_wrapped(new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_create_wrapped(
+					new NativeLong(numberOfRows), new NativeLong(
+							numberOfColumns));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public void removeRow (long irow) throws PraatException {
-		Praat.INSTANCE.TableOfReal_removeRow_wrapped(this, new NativeLong(irow));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_removeRow_wrapped(this, new NativeLong(
+					irow));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void removeColumn (long icol) throws PraatException {
-		Praat.INSTANCE.TableOfReal_removeColumn_wrapped(this, new NativeLong(icol));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_removeColumn_wrapped(this,
+					new NativeLong(icol));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void insertRow (long irow) throws PraatException {
-		Praat.INSTANCE.TableOfReal_insertRow_wrapped(this, new NativeLong(irow));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_insertRow_wrapped(this, new NativeLong(
+					irow));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void insertColumn (long icol) throws PraatException {
-		Praat.INSTANCE.TableOfReal_insertColumn_wrapped(this, new NativeLong(icol));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_insertColumn_wrapped(this,
+					new NativeLong(icol));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void setRowLabel (long irow, WString label) throws PraatException {
-		Praat.INSTANCE.TableOfReal_setRowLabel_wrapped(this, new NativeLong(irow), label);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_setRowLabel_wrapped(this,
+					new NativeLong(irow), label);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public void setColumnLabel (long icol, WString label) throws PraatException {
-		
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE
+					.TableOfReal_setColumnLabel_wrapped(this, new NativeLong(icol), label);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public long rowLabelToIndex (WString label) throws PraatException {
-		long retVal = Praat.INSTANCE.TableOfReal_rowLabelToIndex_wrapped(this, label).longValue();
-		Praat.checkAndClearLastError();
+		long retVal = 0L;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_rowLabelToIndex_wrapped(
+					this, label).longValue();
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public long columnLabelToIndex (WString label) throws PraatException {
-		long retVal = Praat.INSTANCE.TableOfReal_columnLabelToIndex_wrapped(this, label).longValue();
-		Praat.checkAndClearLastError();
+		long retVal = 0L;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_columnLabelToIndex_wrapped(this, label)
+					.longValue();
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public double getColumnMean (long icol) throws PraatException {
-		double retVal = Praat.INSTANCE.TableOfReal_getColumnMean_wrapped(this, new NativeLong(icol));
-		Praat.checkAndClearLastError();
+		double retVal = 0.0;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_getColumnMean_wrapped(
+					this, new NativeLong(icol));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public double getColumnStdev (long icol) throws PraatException {
-		double retVal = Praat.INSTANCE.TableOfReal_getColumnStdev_wrapped(this, new NativeLong(icol));
-		Praat.checkAndClearLastError();
+		double retVal = 0.0;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_getColumnStdev_wrapped(
+					this, new NativeLong(icol));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Table to_Table (WString labelOfFirstColumn) throws PraatException {
-		Table retVal = Praat.INSTANCE.TableOfReal_to_Table_wrapped(this, labelOfFirstColumn);
-		Praat.checkAndClearLastError();
+		Table retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_to_Table_wrapped(this,
+					labelOfFirstColumn);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public void sortByLabel (long column1, long column2) throws PraatException {
-		Praat.INSTANCE.TableOfReal_sortByLabel_wrapped(this, new NativeLong(column1), new NativeLong(column2));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_sortByLabel_wrapped(this,
+					new NativeLong(column1), new NativeLong(column2));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public void sortByColumn (long column1, long column2) throws PraatException {
-		Praat.INSTANCE.TableOfReal_sortByColumn_wrapped(this, new NativeLong(column1), new NativeLong(column2));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TableOfReal_sortByColumn_wrapped(this,
+					new NativeLong(column1), new NativeLong(column2));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public void writeToHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
-		Praat.INSTANCE.TableOfReal_writeToHeaderlessSpreadsheetFile_wrapped(this, file);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE
+					.TableOfReal_writeToHeaderlessSpreadsheetFile_wrapped(this,
+							file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal readFromHeaderlessSpreadsheetFile (MelderFile file) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_readFromHeaderlessSpreadsheetFile_wrapped(file);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_readFromHeaderlessSpreadsheetFile_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractRowRanges (WString ranges) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowRanges_wrapped(this, ranges);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowRanges_wrapped(this, ranges);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractColumnRanges (WString ranges) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractColumnRanges_wrapped(this, ranges);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractColumnRanges_wrapped(this, ranges);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractRowsWhereColumn (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereColumn_wrapped(this, new NativeLong(icol), which_Melder_NUMBER, criterion);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowsWhereColumn_wrapped(this,
+							new NativeLong(icol), which_Melder_NUMBER,
+							criterion);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractColumnsWhereRow (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractColumnsWhereRow_wrapped(this, new NativeLong(icol), which_Melder_NUMBER, criterion);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractColumnsWhereRow_wrapped(this,
+							new NativeLong(icol), which_Melder_NUMBER,
+							criterion);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractRowsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereLabel_wrapped(this, which_Melder_STRING, criterion);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowsWhereLabel_wrapped(this,
+							which_Melder_STRING, criterion);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	public TableOfReal extractColumnsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
-		TableOfReal retVal = Praat.INSTANCE.TableOfReal_extractRowsWhereLabel_wrapped(this, which_Melder_STRING, criterion);
-		Praat.checkAndClearLastError();
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowsWhereLabel_wrapped(this,
+							which_Melder_STRING, criterion);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	Strings extractRowLabelsAsStrings () throws PraatException {
-		Strings retVal = Praat.INSTANCE.TableOfReal_extractRowLabelsAsStrings_wrapped(this);
-		Praat.checkAndClearLastError();
+		Strings retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowLabelsAsStrings_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped
 	Strings extractColumnLabelsAsStrings () throws PraatException {
-		Strings retVal = Praat.INSTANCE.TableOfReal_extractColumnLabelsAsStrings_wrapped(this);
-		Praat.checkAndClearLastError();
+		Strings retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TableOfReal_extractColumnLabelsAsStrings_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

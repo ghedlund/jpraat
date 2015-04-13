@@ -18,21 +18,47 @@ public class Spectrogram extends Matrix {
 	
 	public static Spectrogram create (double tmin, double tmax, long nt, double dt, double t1,
 			double fmin, double fmax, long nf, double df, double f1) throws PraatException {
-		Spectrogram retVal = Praat.INSTANCE.Spectrogram_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, fmin, fmax, 
-				new NativeLong(nf), df, f1);
-		Praat.checkAndClearLastError();
+		Spectrogram retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrogram_create_wrapped(
+					tmin, tmax, new NativeLong(nt), dt, t1, fmin, fmax,
+					new NativeLong(nf), df, f1);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public static Spectrogram fromMatrix (Matrix me) throws PraatException {
-		Spectrogram retVal = Praat.INSTANCE.Matrix_to_Spectrogram_wrapped (me);
-		Praat.checkAndClearLastError();
+		Spectrogram retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.Matrix_to_Spectrogram_wrapped(me);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Matrix Spectrogram_to_Matrix () throws PraatException {
-		Matrix retVal = Praat.INSTANCE.Spectrogram_to_Matrix_wrapped (this);
-		Praat.checkAndClearLastError();
+		Matrix retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrogram_to_Matrix_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

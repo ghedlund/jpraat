@@ -30,58 +30,136 @@ public class Sound extends Vector {
 	}
 	
 	public static Sound readFromSoundFile(MelderFile file) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_readFromSoundFile_wrapped (file);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_readFromSoundFile_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static Sound create(long numberOfChannels, double xmin, double xmax, long nx, double dx, double x1)
 		throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_create_wrapped (new NativeLong(numberOfChannels), xmin, xmax, new NativeLong(nx), dx, x1);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_create_wrapped(new NativeLong(
+					numberOfChannels), xmin, xmax, new NativeLong(nx), dx, x1);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public static Sound createSimple(long numberOfChannels, double duration, double samplingFrequency) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_createSimple_wrapped(new NativeLong(numberOfChannels), duration, samplingFrequency);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_createSimple_wrapped(
+					new NativeLong(numberOfChannels), duration,
+					samplingFrequency);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Sound convertToMono () throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_convertToMono_wrapped(this);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_convertToMono_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public Sound convertToStereo () throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_convertToStereo_wrapped (this);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_convertToStereo_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Sound  extractChannel (long ichannel) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_extractChannel_wrapped (this, new NativeLong(ichannel));
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_extractChannel_wrapped(this,
+					new NativeLong(ichannel));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Sound upsample () throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_upsample_wrapped(this);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_upsample_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
 	public Sound resample (double samplingFrequency, long precision) throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_resample_wrapped (this, samplingFrequency, new NativeLong(precision));
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_resample_wrapped(this,
+					samplingFrequency, new NativeLong(precision));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Sound autoCorrelate (kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain)
 		throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_autoCorrelate_wrapped (this, scaling, signalOutsideTimeDomain);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_autoCorrelate_wrapped(this,
+					scaling, signalOutsideTimeDomain);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -91,8 +169,17 @@ public class Sound extends Vector {
 	
 	public Sound extractPart (double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes)
 		throws PraatException {
-		Sound retVal = Praat.INSTANCE.Sound_extractPart_wrapped (this, t1, t2, windowShape, relativeWidth, preserveTimes);
-		Praat.checkAndClearLastError();
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_extractPart_wrapped(this, t1,
+					t2, windowShape, relativeWidth, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -129,16 +216,35 @@ public class Sound extends Vector {
 			throw new IllegalArgumentException("Your sound is too short.");
 		}
 		
-		Spectrogram retVal = Praat.INSTANCE.Sound_to_Spectrogram_wrapped(this, effectiveAnalysisWidth, fmax, minimumTimeStep1, minimumFreqStep1, 
-				windowShape, maximumTimeOversampling, maximumFreqOversampling);
-		Praat.checkAndClearLastError();
+		Spectrogram retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Spectrogram_wrapped(
+					this, effectiveAnalysisWidth, fmax, minimumTimeStep1,
+					minimumFreqStep1, windowShape, maximumTimeOversampling,
+					maximumFreqOversampling);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public Pitch to_Pitch (double timeStep,
 			double minimumPitch, double maximumPitch) throws PraatException {
-		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_wrapped(this, timeStep, minimumPitch, maximumPitch);
-		Praat.checkAndClearLastError();
+		Pitch retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Pitch_wrapped(this,
+					timeStep, minimumPitch, maximumPitch);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -150,9 +256,19 @@ public class Sound extends Vector {
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
 		
-		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_ac_wrapped (this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate, 
-				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
-		Praat.checkAndClearLastError();
+		Pitch retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Pitch_ac_wrapped(this,
+					timeStep, minimumPitch, periodsPerWindow, maxnCandidates,
+					accurate, silenceThreshold, voicingThreshold, octaveCost,
+					octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -163,9 +279,19 @@ public class Sound extends Vector {
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) throws PraatException {
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
-		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_cc_wrapped(this, timeStep, minimumPitch, periodsPerWindow, maxnCandidates, accurate,
-				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
-		Praat.checkAndClearLastError();
+		Pitch retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Pitch_cc_wrapped(this,
+					timeStep, minimumPitch, periodsPerWindow, maxnCandidates,
+					accurate, silenceThreshold, voicingThreshold, octaveCost,
+					octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -220,9 +346,19 @@ public class Sound extends Vector {
 	{
 		checkMaxnCandidates(maxnCandidates);
 		checkMinPitchPeriodsPerWindow(minimumPitch, periodsPerWindow);
-		Pitch retVal = Praat.INSTANCE.Sound_to_Pitch_any_wrapped (this, dt, minimumPitch, periodsPerWindow, maxnCandidates, method, 
-				silenceThreshold, voicingThreshold, octaveCost, octaveJumpCost, voicedUnvoicedCost, maximumPitch);
-		Praat.checkAndClearLastError();
+		Pitch retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Pitch_any_wrapped(this, dt,
+					minimumPitch, periodsPerWindow, maxnCandidates, method,
+					silenceThreshold, voicingThreshold, octaveCost,
+					octaveJumpCost, voicedUnvoicedCost, maximumPitch);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -255,9 +391,18 @@ public class Sound extends Vector {
 	public Formant to_Formant_any (double timeStep, int numberOfPoles, double maximumFrequency,
 			double halfdt_window, int which, double preemphasisFrequency, double safetyMargin) throws PraatException {
 		checkFormantWindow(numberOfPoles, halfdt_window);
-		Formant retVal =
-				Praat.INSTANCE.Sound_to_Formant_any_wrapped(this, timeStep, numberOfPoles, maximumFrequency, halfdt_window, which, preemphasisFrequency, safetyMargin);
-		Praat.checkAndClearLastError();
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Formant_any_wrapped(this,
+					timeStep, numberOfPoles, maximumFrequency, halfdt_window,
+					which, preemphasisFrequency, safetyMargin);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -266,9 +411,18 @@ public class Sound extends Vector {
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) 
 		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		Formant retVal = 
-				Praat.INSTANCE.Sound_to_Formant_burg_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
-		Praat.checkAndClearLastError();
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Formant_burg_wrapped(this,
+					timeStep, numberOfFormants, maximumFormantFrequency,
+					windowLength, preemphasisFrequency);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -277,8 +431,18 @@ public class Sound extends Vector {
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency) 
 		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		Formant retVal = Praat.INSTANCE.Sound_to_Formant_keepAll_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
-		Praat.checkAndClearLastError();
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Formant_keepAll_wrapped(
+					this, timeStep, numberOfFormants, maximumFormantFrequency,
+					windowLength, preemphasisFrequency);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 
@@ -286,9 +450,18 @@ public class Sound extends Vector {
 		double maximumFormantFrequency, double windowLength, double preemphasisFrequency)
 		throws PraatException {
 		checkFormantWindow((int)(2*numberOfFormants), windowLength);
-		Formant retVal =
-				Praat.INSTANCE.Sound_to_Formant_willems_wrapped(this, timeStep, numberOfFormants, maximumFormantFrequency, windowLength, preemphasisFrequency);
-		Praat.checkAndClearLastError();
+		Formant retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Formant_willems_wrapped(
+					this, timeStep, numberOfFormants, maximumFormantFrequency,
+					windowLength, preemphasisFrequency);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	

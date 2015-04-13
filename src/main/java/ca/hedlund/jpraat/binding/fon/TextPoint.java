@@ -22,8 +22,17 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public static TextPoint create(double time, WString mark) throws PraatException {
-		TextPoint retVal = Praat.INSTANCE.TextPoint_create_wrapped(time, mark);
-		Praat.checkAndClearLastError();
+		TextPoint retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TextPoint_create_wrapped(time,
+					mark);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -32,8 +41,15 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public void setText (WString text) throws PraatException {
-		Praat.INSTANCE.TextPoint_setText_wrapped(this, text);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextPoint_setText_wrapped(this, text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public String getText() {

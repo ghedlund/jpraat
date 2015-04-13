@@ -23,8 +23,17 @@ public class TextTier extends Function {
 	}
 	
 	public static TextTier create (double tmin, double tmax) throws PraatException {
-		TextTier retVal = Praat.INSTANCE.TextTier_create_wrapped(tmin, tmax);
-		Praat.checkAndClearLastError();
+		TextTier retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TextTier_create_wrapped(tmin, tmax);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -33,14 +42,30 @@ public class TextTier extends Function {
 	}
 	
 	public void addPoint (double time, WString mark) throws PraatException {
-		Praat.INSTANCE.TextTier_addPoint_wrapped(this, time, mark);
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextTier_addPoint_wrapped(this, time, mark);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public static TextTier readFromXwaves (MelderFile file) 
 		throws PraatException {
-		TextTier retVal = Praat.INSTANCE.TextTier_readFromXwaves_wrapped(file);
-		Praat.checkAndClearLastError();
+		TextTier retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TextTier_readFromXwaves_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
@@ -49,14 +74,31 @@ public class TextTier extends Function {
 	}
 	
 	public PointProcess getPoints (WString text) throws PraatException {
-		PointProcess retVal = Praat.INSTANCE.TextTier_getPoints_wrapped(this, text);
-		Praat.checkAndClearLastError();
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TextTier_getPoints_wrapped(
+					this, text);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 		return retVal;
 	}
 	
 	public void removePoint (TextTier me, long ipoint) throws PraatException {
-		Praat.INSTANCE.TextTier_removePoint_wrapped(this, new NativeLong(ipoint));
-		Praat.checkAndClearLastError();
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextTier_removePoint_wrapped(this, new NativeLong(
+					ipoint));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public long maximumLabelLength () {
