@@ -1,9 +1,5 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -11,13 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.sun.jna.NativeMapped;
-import com.sun.jna.NativeMappedConverter;
-import com.sun.jna.Pointer;
-import com.sun.jna.WString;
-
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
@@ -35,7 +25,7 @@ public class TestTextGrid {
 		TextGrid tg = TextGrid.createWithoutTiers(0.0, 10.0);
 		
 		IntervalTier tier = IntervalTier.create(0.0, 10.0);
-		tier.setName(new WString("Hello World"));
+		tier.setName("Hello world");
 		tier.removeInterval(1);
 		tier.addInterval(1.0, 3.0, "Goodbye");
 		tier.addInterval(4.0, 6.0, "Sanity");
@@ -69,28 +59,6 @@ public class TestTextGrid {
 		
 		TextGrid tg = Data.readFromFile(TextGrid.class, f);
 		Assert.assertEquals(5, tg.numberOfTiers());
-		
-		Table tbl = tg.downto_Table(false, 2, true, false);
-		final StringBuilder sb = new StringBuilder();
-		
-		for(int col = 1; col < tbl.getNcol(); col++) {
-			if(col > 1) sb.append(',');
-			sb.append('\"');
-			sb.append(tbl.getColStr(col));
-			sb.append('\"');
-		}
-		System.out.println(sb.toString());
-		
-		for(int row = 1; row <= tbl.getNrow(); row++) {
-			sb.setLength(0);
-			for(int col = 1; col < tbl.getNcol(); col++) {
-				if(col > 1) sb.append(',');
-				sb.append('\"');
-				sb.append(tbl.getNumericValue(row, col));
-				sb.append('\"');
-			}
-			System.out.println(sb.toString());
-		}
 	}
 
 }

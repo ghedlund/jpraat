@@ -1,16 +1,13 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.WString;
-
-import ca.hedlund.jpraat.annotations.Custom;
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
+
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+import com.sun.jna.WString;
 
 public class TextTier extends Function {
 	
@@ -88,7 +85,7 @@ public class TextTier extends Function {
 		return retVal;
 	}
 	
-	public void removePoint (TextTier me, long ipoint) throws PraatException {
+	public void removePoint (long ipoint) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextTier_removePoint_wrapped(this, new NativeLong(

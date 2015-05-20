@@ -92,20 +92,23 @@ public abstract class Thing extends PointerType {
 		Praat.INSTANCE.Thing_infoWithId(this, new NativeLong(id));
 	}
 	
+	public String getName() {
+		return (getNameW() != null ? getNameW().toString() : "");
+	}
+	
+	public void setName(String name) {
+		setNameW((name == null ? null : new WString(name)));
+	}
 	
 	/* Return a pointer to your internal name (which can be NULL). */
-	public WString getName () {
+	public WString getNameW () {
 		return Praat.INSTANCE.Thing_getName(this);
 	}
 	
-	public void setName (String name) {
-		setName(new WString(name));
-	}
-	
-	public void setName (WString name) {
+	public void setNameW (WString name) {
 		Praat.INSTANCE.Thing_setName(this, name);
 	}
-
+	
 	public void swap (Thing thee) {
 		Praat.INSTANCE.Thing_swap(this, thee);
 	}

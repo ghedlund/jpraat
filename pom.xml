@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ca.hedlund</groupId>
   <artifactId>jpraat</artifactId>
-  <version>0.6</version>
+  <version>0.8</version>
   <name>jpraat</name>
   <description></description>
   <packaging>jar</packaging>
@@ -27,6 +27,10 @@
       <url>https://www.phon.ca/artifacts/libs-snapshot-local</url>
     </snapshotRepository>
   </distributionManagement>
+  
+  <properties>
+  	<ca.hedlund.libpraat.version>0.7</ca.hedlund.libpraat.version>
+  </properties>
   
   <repositories>
     <repository>
@@ -78,42 +82,42 @@
      <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>win32-x86</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>win32-x86-64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>win32-amd64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>darwin</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>linux-x86-64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libpraat</artifactId>
-      <version>${project.version}</version>
+      <version>${ca.hedlund.libpraat.version}</version>
       <classifier>linux-amd64</classifier>
       <scope>test</scope>
     </dependency>
