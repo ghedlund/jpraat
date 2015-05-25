@@ -17,11 +17,14 @@ public class TextGridUtils {
 	 * @param intervalTier
 	 * @param tolerence the amount of 'space' that is allowed to exist between intervals
 	 *  for them to be considered contiguous
+	 * @param the maximum length of a segment, if 0 unlimited
+	 * @param delim marker to delimit a segment, may be <code>null</code>
 	 * 
 	 * @return
 	 * @throws PraatException
 	 */
-	public static List<TextInterval> getContiguousIntervals(TextGrid textGrid, long intervalTier, double tolerence)
+	public static List<TextInterval> getContiguousIntervals(TextGrid textGrid, long intervalTier, double tolerence,
+			double maxLength, String delim)
 		throws PraatException {
 		final List<TextInterval> retVal = new ArrayList<TextInterval>();
 	
@@ -34,6 +37,20 @@ public class TextGridUtils {
 		for(long i = 1; i <= tier.numberOfIntervals(); i++) {
 			final TextInterval interval = tier.interval(i);
 			
+			// deal with delim
+			if(delim != null && interval.getText().equals(delim)) {
+				if(xmin >= 0) {
+					// add interval and skip to next
+					TextInterval newInterval = TextInterval.create(xmin, xmax, buffer.toString());
+					retVal.add(newInterval);
+				}
+				// reset
+				xmin = -1;
+				buffer.setLength(0);
+				
+				continue; // next interval
+			}
+			
 			if(xmin < 0) {
 				// first interval in set
 				xmin = interval.getXmin();
@@ -41,7 +58,9 @@ public class TextGridUtils {
 				buffer.append(interval.getText());
 			} else {
 				double distance = interval.getXmin() - xmax;
-				if(distance > tolerence) {
+				double totalLen = interval.getXmax() - xmin;
+				if( (distance > tolerence) 
+						|| (maxLength > 0 && totalLen > maxLength)) {
 					TextInterval newInterval = TextInterval.create(xmin, xmax, buffer.toString());
 					retVal.add(newInterval);
 					

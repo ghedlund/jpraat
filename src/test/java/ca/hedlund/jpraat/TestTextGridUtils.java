@@ -25,16 +25,18 @@ public class TestTextGridUtils {
 
 	@Test
 	public void textReadContiguousIntervals() throws Exception {
-		final long tierIdx = 1;
+		final long tierIdx = 2;
 		final double tolerence = 0.05;
+		final double maxLength = 2.0;
+		final String delim = "#";
 		
 		final String path = "src/test/resources/ca/hedlund/jpraat/binding/fon/test.TextGrid";
 		final MelderFile f = MelderFile.fromPath(path);
 		
 		TextGrid tg = Data.readFromFile(TextGrid.class, f);
 		
-		List<TextInterval> intervals = TextGridUtils.getContiguousIntervals(tg, tierIdx, tolerence);
-		Assert.assertEquals(8, intervals.size());
+		List<TextInterval> intervals = TextGridUtils.getContiguousIntervals(tg, tierIdx, tolerence, maxLength, delim);
+		Assert.assertEquals(13, intervals.size());
 		for(TextInterval interval:intervals) {
 			System.out.println(interval.getText() + " (xmin = " + interval.getXmin() + ", xmax = " + interval.getXmax() + ")");
 		}
