@@ -845,7 +845,22 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
+	public void Sound_writeToRawSoundFile_wrapped (Sound me, MelderFile file, int encoding);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
 	public Sound Sound_create_wrapped (NativeLong numberOfChannels, double xmin, double xmax, NativeLong nx, double dx, double x1);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_createAsPureTone_wrapped (long numberOfChannels, double startingTime, double endTime,
+		double sampleRate, double frequency, double amplitude, double fadeInDuration, double fadeOutDuration);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_createFromToneComplex_wrapped (double startingTime, double endTime,
+		double sampleRate, int phase, double frequencyStep,
+		double firstFrequency, double ceiling, long numberOfComponents);
 	
 	/**
 	 * Create a sound object
@@ -884,11 +899,96 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
+	public Sound Sounds_combineToStereo_wrapped(Collection me);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sounds_append_wrapped(Sound me, double silenceDuration, Sound thee);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sounds_convolve_wrapped (Sound me, Sound thee, 
+			kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sounds_crossCorrelate_wrapped (Sound me, Sound thee,
+			kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sounds_crossCorrelate_short_wrapped (Sound me, Sound thee, double tmin, double tmax, int normalize);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getRootMeanSquare (Sound me, double xmin, double xmax);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getEnergy (Sound me, double xmin, double xmax);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getPower (Sound me, double xmin, double xmax);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getPowerInAir (Sound me);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getIntensity_dB (Sound me);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
 	public Sound Sound_autoCorrelate_wrapped (Sound me, kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain);
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
 	public Sound Sound_extractPart_wrapped (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes);
+	
+	@Declared("fon/Sound.h")
+	public double Sound_getNearestZeroCrossing (Sound me, double position, long ichannel);
+	
+	@Declared("fon/Sound.h")
+	void Sound_setZero (Sound me, double tmin, double tmax, int roundTimesToNearestZeroCrossing);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sounds_concatenate_e_wrapped (Collection me, double overlapTime);
+	
+	@Declared("fon/Sound.h")
+	public void Sound_multiplyByWindow (Sound me, kSound_windowShape windowShape);
+	
+	@Declared("fon/Sound.h")
+	public void Sound_scaleIntensity (Sound me, double newAverageIntensity);
+	
+	@Declared("fon/Sound.h")
+	public void Sound_overrideSamplingFrequency (Sound me, double newSamplingFrequency);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_extractPartForOverlap_wrapped (Sound me, double t1, double t2, double overlap);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public void Sound_filterWithFormants_wrapped (Sound me, double tmin, double tmax,
+		int numberOfFormants, double formant [], double bandwidth []);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_filter_oneFormant_wrapped (Sound me, double frequency, double bandwidth);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public void Sound_filterWithOneFormantInline_wrapped (Sound me, double frequency, double bandwidth);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_filter_preemphasis_wrapped (Sound me, double frequency);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound Sound_filter_deemphasis_wrapped (Sound me, double frequency);
+
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public void Sound_reverse_wrapped (Sound me, double tmin, double tmax);
 	
 	@Declared("fon/Spectrogram.h")
 	@Wrapped

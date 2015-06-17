@@ -1,12 +1,14 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-
 import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
+
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 /**
  * 
@@ -24,6 +26,19 @@ public class Sound extends Vector {
 	public static final int LEVEL_MONO = 0;
 	public static final int LEVEL_LEFT = 1;
 	public static final int LEVEL_RIGHT = 2;
+	
+	public static final int TONE_COMPLEX_SINE = 0;
+	public static final int TONE_COMPLEX_COSINE = 1;
+	
+	/* Audio encodings. */
+	public static final int Melder_LINEAR_8_SIGNED = 1;
+	public static final int Melder_LINEAR_8_UNSIGNED = 2;
+	public static final int Melder_LINEAR_16_BIG_ENDIAN = 3;
+	public static final int Melder_LINEAR_16_LITTLE_ENDIAN = 4;
+	public static final int Melder_LINEAR_24_BIG_ENDIAN = 5;
+	public static final int Melder_LINEAR_24_LITTLE_ENDIAN = 6;
+	public static final int Melder_LINEAR_32_BIG_ENDIAN = 7;
+	public static final int Melder_LINEAR_32_LITTLE_ENDIAN = 8;
 
 	public static Sound readFromPath(String path) throws PraatException {
 		return readFromSoundFile(MelderFile.fromPath(path));
@@ -34,6 +49,41 @@ public class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_readFromSoundFile_wrapped(file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public static Sound createAsPureTone (long numberOfChannels, double startingTime, double endTime,
+			double sampleRate, double frequency, double amplitude, double fadeInDuration, double fadeOutDuration)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_createAsPureTone_wrapped(numberOfChannels, startingTime,
+					endTime, sampleRate, frequency, amplitude, fadeInDuration, fadeOutDuration);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+		
+	public static Sound createFromToneComplex (double startingTime, double endTime,
+			double sampleRate, int phase, double frequencyStep,
+			double firstFrequency, double ceiling, long numberOfComponents) 
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_createFromToneComplex_wrapped(startingTime, endTime,
+					sampleRate, phase, frequencyStep, firstFrequency, ceiling, numberOfComponents);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -103,12 +153,61 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public Sound  extractChannel (long ichannel) throws PraatException {
+	public Sound extractChannel (long ichannel) throws PraatException {
 		Sound retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_extractChannel_wrapped(this,
 					new NativeLong(ichannel));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public static Sound combineToStereo(Sound left, Sound right)
+		throws PraatException {
+		Collection sounds = Collection.create(left.getClassInfo(), 2);
+		sounds.addItem(left);
+		sounds.addItem(right);
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_combineToStereo_wrapped(sounds);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public static Sound convolve (Sound me, Sound thee, 
+			kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_convolve_wrapped(me, thee, scaling, signalOutsideTimeDomain);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public static Sound append(Sound me, double silenceDuration, Sound thee) 
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_append_wrapped(me, silenceDuration, thee);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -162,9 +261,60 @@ public class Sound extends Vector {
 		}
 		return retVal;
 	}
+	
+	public static Sound crossCorrelate (Sound me, Sound thee,
+			kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_crossCorrelate_wrapped(me, thee, scaling, signalOutsideTimeDomain);
+			Praat.checkAndClearLastError();
+		} catch(PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public static Sound crossCorrelate_short (Sound me, Sound thee, double tmin, double tmax, int normalize) 
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_crossCorrelate_short_wrapped(me, thee, tmin, tmax, normalize);
+			Praat.checkAndClearLastError();
+		} catch(PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
 
 	public double getEnergyInAir () {
 		return Praat.INSTANCE.Sound_getEnergyInAir(this);
+	}
+	
+	public double getRootMeanSquare ( double xmin, double xmax) {
+		return Praat.INSTANCE.Sound_getRootMeanSquare(this, xmin, xmax);
+	}
+	
+	public double getEnergy ( double xmin, double xmax) {
+		return Praat.INSTANCE.Sound_getEnergy(this, xmin, xmax);
+	}
+	
+	public double getPower ( double xmin, double xmax) {
+		return Praat.INSTANCE.Sound_getPower(this, xmin, xmax);
+	}
+	
+	public double getPowerInAir () {
+		return Praat.INSTANCE.Sound_getPowerInAir(this);
+	}
+	
+	public double getIntensity_dB () {
+		return Praat.INSTANCE.Sound_getIntensity_dB(this);
 	}
 	
 	public Sound extractPart (double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes)
@@ -174,6 +324,143 @@ public class Sound extends Vector {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_extractPart_wrapped(this, t1,
 					t2, windowShape, relativeWidth, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public Sound extractPartForOverlap (double t1, double t2, double overlap)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_extractPartForOverlap_wrapped(this, t1, t2, overlap);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public double getNearestZeroCrossing (double position, long ichannel) {
+		return Praat.INSTANCE.Sound_getNearestZeroCrossing(this, position, ichannel);
+	}
+	
+	public void setZero ( double tmin, double tmax, int roundTimesToNearestZeroCrossing) {
+		Praat.INSTANCE.Sound_setZero(this, tmin, tmax, roundTimesToNearestZeroCrossing);
+	}
+	
+	public static Sound concatenate_e (Collection me, double overlapTime) 
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sounds_concatenate_e_wrapped(me, overlapTime);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public void multiplyByWindow (kSound_windowShape windowShape) {
+		Praat.INSTANCE.Sound_multiplyByWindow(this, windowShape);
+	}
+	
+	public void scaleIntensity (double newAverageIntensity) {
+		Praat.INSTANCE.Sound_scaleIntensity(this, newAverageIntensity);
+	}
+	
+	public void overrideSamplingFrequency (double newSamplingFrequency) {
+		Praat.INSTANCE.Sound_overrideSamplingFrequency(this, newSamplingFrequency);
+	}
+	
+	public void reverse (double tmin, double tmax) 
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sound_reverse_wrapped(this, tmin, tmax);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void filterWithFormants (double tmin, double tmax,
+			int numberOfFormants, double formant [], double bandwidth []) 
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sound_filterWithFormants_wrapped(this, tmin, tmax, numberOfFormants, formant, bandwidth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public Sound filter_oneFormant (double frequency, double bandwidth)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_filter_oneFormant_wrapped(this, frequency, bandwidth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public void filterWithOneFormantInline_wrapped (double frequency, double bandwidth)
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sound_filterWithOneFormantInline_wrapped(this, frequency, bandwidth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public Sound filter_preemphasis (double frequency)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_filter_preemphasis_wrapped(this, frequency);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public Sound filter_deemphasis (double frequency) 
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_filter_deemphasis_wrapped(this, frequency);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -329,7 +616,7 @@ public class Sound extends Vector {
 			It is directly copied into the Pitch object as a hint for considering
 			pitches above a certain value "voiceless".
  	*/
-	public Pitch Sound_to_Pitch_any (Sound me,
+	public Pitch to_Pitch_any (Sound me,
 
 		double dt,                 /* time step (seconds); 0.0 = automatic = periodsPerWindow / minimumPitch / 4 */
 		double minimumPitch,       /* (Hz) */
@@ -494,4 +781,16 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
 	}
 	
+	public void  writeToRawSoundFile (MelderFile file, int encoding) 
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sound_writeToRawSoundFile_wrapped(this, file, encoding);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
 }
