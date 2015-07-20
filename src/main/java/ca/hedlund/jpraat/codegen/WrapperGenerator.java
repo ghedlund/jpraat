@@ -9,12 +9,12 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.jna.NativeLong;
-import com.sun.jna.WString;
-
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
 import ca.hedlund.jpraat.annotations.Wrapped;
+
+import com.sun.jna.NativeLong;
+import com.sun.jna.WString;
 
 /**
  * Class which uses reflection to create a set of C++ wrapper files for a 
@@ -140,12 +140,17 @@ public class WrapperGenerator {
 			if(argc++ > 0)
 				buffer.append(",");
 			final NativeType nativeParamType = param.getAnnotation(NativeType.class);
-			if(nativeParamType != null)
+			final Class<?> paramType = param.getType();
+			if(nativeParamType != null) {
 				buffer.append(nativeParamType.value());
-			else
-				buffer.append(toNativeType(param.getType()));
+			} else {
+				String paramPrefix = 
+						(paramType.isArray() ? toNativeType(paramType.getComponentType()) : toNativeType(paramType));
+				buffer.append(paramPrefix);
+			}
 			buffer.append(" ")
 				.append(param.getName());
+			if(paramType.isArray()) buffer.append("[]");
 		}
 		buffer.append(") {").append("\n");
 		
