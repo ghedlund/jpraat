@@ -1,10 +1,10 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
+
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 public class Spectrogram extends Matrix {
 	
@@ -53,6 +53,35 @@ public class Spectrogram extends Matrix {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Spectrogram_to_Matrix_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	/**
+	Function:
+		Create a time slice from the Spectrogram at the time nearest to 'time'.
+		Return NULL in case of failure (no memory).
+	Postconditions:
+		result -> xmin == my ymin;   // Lowest frequency; often 0.
+		result -> xmax == my ymax;   // Highest frequency.
+		result -> nx == my ny;   // Number of frequency bands.
+		result -> dx == my dy;   // Frequency step.
+		result -> x1 == my y1;   // Centre of first frequency band.
+		for (iy = 1; iy <= my ny; iy ++) {  
+			result -> z [1] [i] == sqrt (my z [i] ['time']);
+			result -> z [2] [i] == 0.0;
+		}
+	 */
+	public Spectrum to_Spectrum(double time) throws PraatException {
+		Spectrum retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrogram_to_Spectrum_wrapped(this, time);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

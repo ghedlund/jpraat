@@ -781,6 +781,71 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
 	}
 	
+	public Spectrum to_Spectrum_at (double tim, double windowDuration, int windowType) 
+		throws PraatException {
+		Spectrum retVal = null;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Spectrum_at_wrapped(this, tim, windowDuration, windowType);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+
+	public Spectrum Sound_to_Spectrum (Sound me, int fast) throws PraatException {
+		Spectrum retVal = null;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Spectrum_wrapped(this, fast);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+	
+	public Sound filter_passHannBand (double fmin, double fmax, double smooth) throws PraatException {
+		Sound retVal = this;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_filter_passHannBand_wrapped(this, fmin, fmax, smooth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+	
+	public Sound filter_stopHannBand (double fmin, double fmax, double smooth) throws PraatException {
+		Sound retVal = this;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_filter_stopHannBand_wrapped(this, fmin, fmax, smooth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+	
 	public void  writeToRawSoundFile (MelderFile file, int encoding) 
 		throws PraatException {
 		try {

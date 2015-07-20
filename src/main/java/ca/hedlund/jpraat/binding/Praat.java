@@ -18,6 +18,7 @@ import ca.hedlund.jpraat.binding.fon.Sampled;
 import ca.hedlund.jpraat.binding.fon.SampledXY;
 import ca.hedlund.jpraat.binding.fon.Sound;
 import ca.hedlund.jpraat.binding.fon.Spectrogram;
+import ca.hedlund.jpraat.binding.fon.Spectrum;
 import ca.hedlund.jpraat.binding.fon.TextGrid;
 import ca.hedlund.jpraat.binding.fon.TextInterval;
 import ca.hedlund.jpraat.binding.fon.TextPoint;
@@ -1048,6 +1049,110 @@ public interface Praat extends Library {
 		double octaveJumpCost,     /* default 0.35 */
 		double voicedUnvoicedCost, /* default 0.14 */
 		double maximumPitch);      /* (Hz) */
+	
+	@Declared("fon/Spectrum.h")
+	@Wrapped
+	public Spectrum Spectrum_create_wrapped (double fmax, long nf);
+	
+	@Declared("fon/Spectrum.h")
+	@Custom
+	public double Spectrum_getValueAtSample(Spectrum me, long isamp, long which, int units);
+	
+	@Declared("fon/Spectrum.h") 
+	public int Spectrum_getPowerDensityRange (Spectrum me, 
+			@NativeType("double*") Pointer minimum, @NativeType("double*") Pointer maximum);   /* Return 0 if all zeroes. */
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getBandDensity (Spectrum me, double fmin, double fmax);   /* Pa2 / Hz2 */
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getBandEnergy (Spectrum me, double fmin, double fmax);   /* Pa2 sec */
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getBandDensityDifference (Spectrum me,
+		double lowBandMin, double lowBandMax, double highBandMin, double HighBandMax);
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getBandEnergyDifference (Spectrum me,
+		double lowBandMin, double lowBandMax, double highBandMin, double highBandMax);
+	
+	/*
+	 Spectral moments.
+	*/
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getCentreOfGravity (Spectrum me, double power);
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getCentralMoment (Spectrum me, double moment, double power);
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getStandardDeviation (Spectrum me, double power);
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getSkewness (Spectrum me, double power);
+	
+	@Declared("fon/Spectrum.h") 
+	public double Spectrum_getKurtosis (Spectrum me, double power);
+	
+	@Declared("fon/Spectrum.h") 
+	@Wrapped
+	public Table Spectrum_downto_Table_wrapped (Spectrum me, boolean includeBinNumbers, boolean includeFrequency,
+			boolean includeRealPart, boolean includeImaginaryPart, boolean includeEnergyDensity, boolean includePowerDensity);
+
+	@Declared("fon/Spectrum.h")
+	@Wrapped
+	public Spectrum Matrix_to_Spectrum_wrapped (Matrix me);
+
+	@Declared("fon/Spectrum.h") 
+	@Wrapped
+	public Matrix Spectrum_to_Matrix_wrapped (Spectrum me);
+
+	@Declared("fon/Spectrum.h")
+	@Wrapped
+	public Spectrum Spectrum_cepstralSmoothing_wrapped (Spectrum me, double bandWidth);
+
+	@Declared("fon/Spectrum.h") 
+	public void Spectrum_passHannBand (Spectrum me, double fmin, double fmax, double smooth);
+	
+	@Declared("fon/Spectrum.h") 
+	public void Spectrum_stopHannBand (Spectrum me, double fmin, double fmax, double smooth);
+
+	@Declared("fon/Spectrum.h")
+	@Wrapped
+	public void Spectrum_getNearestMaximum_wrapped (Spectrum me, double frequency, 
+			@NativeType("double*") Pointer frequencyOfMaximum, @NativeType("double*") Pointer heightOfMaximum);
+	
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Spectrum Sound_to_Spectrum_at_wrapped (Sound me, double tim, double windowDuration, int windowType);
+
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Spectrum Sound_to_Spectrum_wrapped (Sound me, int fast);
+	
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Sound Spectrum_to_Sound_wrapped (Spectrum me);
+	
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Spectrum Spectrum_lpcSmoothing_wrapped (Spectrum me, int numberOfPeaks, double preemphasisFrequency);
+
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Sound Sound_filter_passHannBand_wrapped (Sound me, double fmin, double fmax, double smooth);
+	
+	@Declared("fon/Sound_and_Spectrum.h")
+	@Wrapped
+	public Sound Sound_filter_stopHannBand_wrapped (Sound me, double fmin, double fmax, double smooth);
+	
+	@Declared("fon/Spectrum_and_Spectrogram.h")
+	@Wrapped
+	public Spectrum Spectrogram_to_Spectrum_wrapped (Spectrogram me, double time);
+
+	@Declared("fon/Spectrum_and_Spectrogram.h")
+	@Wrapped
+	public Spectrogram Spectrum_to_Spectrogram_wrapped (Spectrum me);
 	
 	@Declared("fon/Formant.h")
 	@Wrapped
