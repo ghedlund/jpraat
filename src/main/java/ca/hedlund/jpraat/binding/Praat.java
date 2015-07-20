@@ -1124,10 +1124,6 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound_and_Spectrum.h")
 	@Wrapped
-	public Spectrum Sound_to_Spectrum_at_wrapped (Sound me, double tim, double windowDuration, int windowType);
-
-	@Declared("fon/Sound_and_Spectrum.h")
-	@Wrapped
 	public Spectrum Sound_to_Spectrum_wrapped (Sound me, int fast);
 	
 	@Declared("fon/Sound_and_Spectrum.h")

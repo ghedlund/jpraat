@@ -780,23 +780,6 @@ public class Sound extends Vector {
 		
 		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
 	}
-	
-	public Spectrum to_Spectrum_at (double tim, double windowDuration, int windowType) 
-		throws PraatException {
-		Spectrum retVal = null;
-		
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_to_Spectrum_at_wrapped(this, tim, windowDuration, windowType);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		
-		return retVal;
-	}
 
 	public Spectrum Sound_to_Spectrum (Sound me, int fast) throws PraatException {
 		Spectrum retVal = null;
