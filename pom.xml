@@ -29,7 +29,7 @@
   </distributionManagement>
   
   <properties>
-  	<ca.hedlund.libpraat.version>0.9</ca.hedlund.libpraat.version>
+  	<ca.hedlund.libpraat.version>0.10</ca.hedlund.libpraat.version>
   </properties>
   
   <repositories>
