@@ -1,11 +1,11 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 public class TextInterval extends Function {
 	
@@ -18,10 +18,10 @@ public class TextInterval extends Function {
 	}
 
 	public static TextInterval create (double tmin, double tmax, String text) throws PraatException {
-		return create(tmin, tmax, new WString(text));
+		return create(tmin, tmax, new Str32(text));
 	}
 	
-	public static TextInterval create (double tmin, double tmax, WString text) throws PraatException {
+	public static TextInterval create (double tmin, double tmax, Str32 text) throws PraatException {
 		TextInterval retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -37,10 +37,10 @@ public class TextInterval extends Function {
 	}
 	
 	public void setText(String text) throws PraatException {
-		setText(new WString(text));
+		setText(new Str32(text));
 	}
 
-	public void setText(WString text) throws PraatException {
+	public void setText(Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextInterval_setText_wrapped(this, text);
@@ -56,7 +56,7 @@ public class TextInterval extends Function {
 		return (getTextW() != null ? getTextW().toString() : "");
 	}
 	
-	public WString getTextW() {
+	public Str32 getTextW() {
 		return Praat.INSTANCE.TextInterval_getText(this);
 	}
 	

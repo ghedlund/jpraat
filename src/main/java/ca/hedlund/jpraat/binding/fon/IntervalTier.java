@@ -2,12 +2,12 @@ package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Custom;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
@@ -85,7 +85,7 @@ public class IntervalTier extends Function {
 		return Praat.INSTANCE.IntervalTier_hasBoundary(this, t).longValue();
 	}
 	
-	public PointProcess getStartingPoints (WString text) throws PraatException {
+	public PointProcess getStartingPoints (Str32 text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -100,7 +100,7 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
-	public PointProcess getEndPoints (WString text) throws PraatException {
+	public PointProcess getEndPoints (Str32 text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -115,7 +115,7 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
-	public PointProcess getCentrePoints (WString text) throws PraatException {
+	public PointProcess getCentrePoints (Str32 text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -207,7 +207,7 @@ public class IntervalTier extends Function {
 	}
 	
 	public void addInterval (double tmin, double tmax, String label) {
-		addInterval(tmin, tmax, new WString(label));
+		addInterval(tmin, tmax, new Str32(label));
 	}
 
 	/**
@@ -219,7 +219,7 @@ public class IntervalTier extends Function {
 	 * @param tmax
 	 * @param label
 	 */
-	public void addInterval (double tmin, double tmax, WString label) {
+	public void addInterval (double tmin, double tmax, Str32 label) {
 		Praat.INSTANCE.IntervalTier_addInterval(this, tmin, tmax, label);
 	}
 	

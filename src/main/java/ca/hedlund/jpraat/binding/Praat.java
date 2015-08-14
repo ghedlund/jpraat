@@ -30,6 +30,7 @@ import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolve_scaling;
 import ca.hedlund.jpraat.binding.fon.kSounds_convolve_signalOutsideTimeDomain;
 import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.SimpleDouble;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.stat.TableOfReal;
@@ -109,10 +110,10 @@ public interface Praat extends Library {
 	
 	@Declared("sys/praat.h")
 	@Custom
-	public WString praat_dir();
+	public Str32 praat_dir();
 	
 	@Declared("sys/Thing.h")
-	WString Thing_className (Thing me);
+	Str32 Thing_className (Thing me);
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
@@ -130,11 +131,11 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
-	public @NativeType("Any") Object Thing_newFromClassName_wrapped (WString className);
+	public @NativeType("Any") Object Thing_newFromClassName_wrapped (Str32 className);
 	
 	/* Return a pointer to your internal name (which can be NULL). */
 	@Declared("sys/Thing.h")
-	public WString Thing_getName (Thing me);
+	public Str32 Thing_getName (Thing me);
 
 	/*
 		Function:
@@ -143,7 +144,7 @@ public interface Praat extends Library {
 			my name *and* my name are copies of 'name'.
 	 */
 	@Declared("sys/Thing.h")
-	public void Thing_setName (Thing me, WString name);
+	public void Thing_setName (Thing me, Str32 name);
 
 	@Declared("sys/Thing.h")
 	public void Thing_swap (Thing me, Thing thee);
@@ -236,10 +237,10 @@ public interface Praat extends Library {
 	
 	@Declared("sys/melder.h")
 	@Wrapped
-	public void Melder_pathToFile_wrapped (WString path, MelderFile file);
+	public void Melder_pathToFile_wrapped (Str32 path, MelderFile file);
 	
 	@Declared("sys/melder.h")
-	public WString Melder_fileToPath (MelderFile file);
+	public Str32 Melder_fileToPath (MelderFile file);
 	
 	@Declared("sys/melder.h")
 	public NativeLong MelderFile_length (MelderFile file);
@@ -266,7 +267,7 @@ public interface Praat extends Library {
 	public int Function_getMaximumUnit (NativeLong ilevel);
 	
 	@Declared("fun/Function.h")
-	public WString Function_getUnitText(Function me, NativeLong ilevel, int unit, NativeLong flags);
+	public Str32 Function_getUnitText(Function me, NativeLong ilevel, int unit, NativeLong flags);
 	
 	@Declared("fon/Function.h")
 	public boolean Function_isUnitLogarithmic (Function me, NativeLong ilevel, int unit);
@@ -816,7 +817,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
-	public WString Pitch_getUnitText (Pitch me, NativeLong ilevel, kPitch_unit unit, NativeLong flags);
+	public Str32 Pitch_getUnitText (Pitch me, NativeLong ilevel, kPitch_unit unit, NativeLong flags);
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
@@ -1263,7 +1264,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_createWithColumnNames_wrapped (NativeLong numberOfRows, WString columnNames);
+	public Table Table_createWithColumnNames_wrapped (NativeLong numberOfRows, Str32 columnNames);
 
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1275,23 +1276,23 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendColumn_wrapped (Table me, WString label);
+	public void Table_appendColumn_wrapped (Table me, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendSumColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
+	public void Table_appendSumColumn_wrapped (Table me, NativeLong column1, NativeLong column2, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendDifferenceColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
+	public void Table_appendDifferenceColumn_wrapped (Table me, NativeLong column1, NativeLong column2, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendProductColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
+	public void Table_appendProductColumn_wrapped (Table me, NativeLong column1, NativeLong column2, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_appendQuotientColumn_wrapped (Table me, NativeLong column1, NativeLong column2, WString label);
+	public void Table_appendQuotientColumn_wrapped (Table me, NativeLong column1, NativeLong column2, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1307,29 +1308,29 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_insertColumn_wrapped (Table me, NativeLong column, WString label);
+	public void Table_insertColumn_wrapped (Table me, NativeLong column, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_setColumnLabel_wrapped (Table me, NativeLong column, WString label);
+	public void Table_setColumnLabel_wrapped (Table me, NativeLong column, Str32 label);
 	
 	@Declared("stat/Table.h")
-	public NativeLong Table_findColumnIndexFromColumnLabel (Table me, WString label);
-	
-	@Declared("stat/Table.h")
-	@Wrapped
-	public NativeLong Table_getColumnIndexFromColumnLabel_wrapped (Table me, WString columnLabel);
+	public NativeLong Table_findColumnIndexFromColumnLabel (Table me, Str32 label);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public @NativeType("long*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, WString string, @NativeType("long*") Pointer numberOfTokens);
-	
-	@Declared("stat/Table.h")
-	public NativeLong Table_searchColumn (Table me, NativeLong column, WString value);
+	public NativeLong Table_getColumnIndexFromColumnLabel_wrapped (Table me, Str32 columnLabel);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_setStringValue_wrapped (Table me, NativeLong row, NativeLong column, WString value);
+	public @NativeType("long*") Pointer Table_getColumnIndicesFromColumnLabelString_wrapped (Table me, Str32 string, @NativeType("long*") Pointer numberOfTokens);
+	
+	@Declared("stat/Table.h")
+	public NativeLong Table_searchColumn (Table me, NativeLong column, Str32 value);
+	
+	@Declared("stat/Table.h")
+	@Wrapped
+	public void Table_setStringValue_wrapped (Table me, NativeLong row, NativeLong column, Str32 value);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1337,7 +1338,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public WString Table_getStringValue_Assert_wrapped (Table me, NativeLong row, NativeLong column);
+	public Str32 Table_getStringValue_Assert_wrapped (Table me, NativeLong row, NativeLong column);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1361,7 +1362,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupMean_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group);
+	public double Table_getGroupMean_wrapped (Table me, NativeLong column, NativeLong groupColumn, Str32 group);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1395,19 +1396,19 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupMean_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, double significanceLevel,
+	public double Table_getGroupMean_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, Str32 group1, double significanceLevel,
 		@NativeType("double*") Pointer out_tFromZero, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom, 
 		@NativeType("double*") Pointer out_significanceFromZero, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupDifference_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2, double significanceLevel,
+	public double Table_getGroupDifference_studentT_wrapped (Table me, NativeLong column, NativeLong groupColumn, Str32 group1, Str32 group2, double significanceLevel,
 		@NativeType("double*") Pointer out_tFromZero, @NativeType("double*") Pointer out_numberOfDegreesOfFreedom,
 		@NativeType("double*") Pointer out_significanceFromZero, @NativeType("double*") Pointer out_lowerLimit, @NativeType("double*") Pointer out_upperLimit);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, NativeLong column, NativeLong groupColumn, WString group1, WString group2,
+	public double Table_getGroupDifference_wilcoxonRankSum_wrapped (Table me, NativeLong column, NativeLong groupColumn, Str32 group1, Str32 group2,
 		@NativeType("double*") Pointer out_rankSum, @NativeType("double*") Pointer out_significanceFromZero);
 	
 //	@Declared("stat/Table.h")
@@ -1425,7 +1426,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public void Table_sortRows_string_wrapped (Table me, WString columns_string);
+	public void Table_sortRows_string_wrapped (Table me, Str32 columns_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1457,17 +1458,17 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, NativeLong column, int which_Melder_STRING, WString criterion);
+	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, NativeLong column, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_collapseRows_wrapped (Table me, WString factors_string, WString columnsToSum_string,
-		WString columnsToAverage_string, WString columnsToMedianize_string,
-		WString columnsToAverageLogarithmically_string, WString columnsToMedianizeLogarithmically_string);
+	public Table Table_collapseRows_wrapped (Table me, Str32 factors_string, Str32 columnsToSum_string,
+		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
+		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
-	public Table Table_rowsToColumns_wrapped (Table me, WString factors_string, NativeLong columnToTranspose, WString columnsToExpand_string);
+	public Table Table_rowsToColumns_wrapped (Table me, Str32 factors_string, NativeLong columnToTranspose, Str32 columnsToExpand_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1494,16 +1495,16 @@ public interface Praat extends Library {
 	public double Table_getNcol (Table me);
 	
 	@Declared("stat/Table.h")
-	public WString  Table_getColStr (Table me, NativeLong columnNumber);
+	public Str32  Table_getColStr (Table me, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
 	public double Table_getMatrix (Table m, NativeLong rowNumber, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public WString  Table_getMatrixStr (Table me, NativeLong rowNumber, NativeLong columnNumber);
+	public Str32  Table_getMatrixStr (Table me, NativeLong rowNumber, NativeLong columnNumber);
 	
 	@Declared("stat/Table.h")
-	public double Table_getColIndex  (Table me, WString columnLabel);
+	public double Table_getColIndex  (Table me, Str32 columnLabel);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
@@ -1531,19 +1532,19 @@ public interface Praat extends Library {
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public void TableOfReal_setRowLabel_wrapped (TableOfReal me, NativeLong irow, WString label);
+	public void TableOfReal_setRowLabel_wrapped (TableOfReal me, NativeLong irow, Str32 label);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public void TableOfReal_setColumnLabel_wrapped (TableOfReal me, NativeLong icol, WString label);
+	public void TableOfReal_setColumnLabel_wrapped (TableOfReal me, NativeLong icol, Str32 label);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public NativeLong TableOfReal_rowLabelToIndex_wrapped (TableOfReal me, WString label);
+	public NativeLong TableOfReal_rowLabelToIndex_wrapped (TableOfReal me, Str32 label);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public NativeLong TableOfReal_columnLabelToIndex_wrapped (TableOfReal me, WString label);
+	public NativeLong TableOfReal_columnLabelToIndex_wrapped (TableOfReal me, Str32 label);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
@@ -1559,7 +1560,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public Table TableOfReal_to_Table_wrapped (TableOfReal me, WString labelOfFirstColumn);
+	public Table TableOfReal_to_Table_wrapped (TableOfReal me, Str32 labelOfFirstColumn);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
@@ -1579,11 +1580,11 @@ public interface Praat extends Library {
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public TableOfReal TableOfReal_extractRowRanges_wrapped (TableOfReal me, WString ranges);
+	public TableOfReal TableOfReal_extractRowRanges_wrapped (TableOfReal me, Str32 ranges);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public TableOfReal TableOfReal_extractColumnRanges_wrapped (TableOfReal me, WString ranges);
+	public TableOfReal TableOfReal_extractColumnRanges_wrapped (TableOfReal me, Str32 ranges);
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
@@ -1595,11 +1596,11 @@ public interface Praat extends Library {
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public TableOfReal TableOfReal_extractRowsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, WString criterion);
+	public TableOfReal TableOfReal_extractRowsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
-	public TableOfReal TableOfReal_extractColumnsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, WString criterion);
+	public TableOfReal TableOfReal_extractColumnsWhereLabel_wrapped (TableOfReal me, int which_Melder_STRING, Str32 criterion);
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped
@@ -1611,11 +1612,11 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped
-	public Strings Strings_createAsFileList_wrapped (WString path);
+	public Strings Strings_createAsFileList_wrapped (Str32 path);
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped
-	public Strings Strings_createAsDirectoryList_wrapped (WString path);
+	public Strings Strings_createAsDirectoryList_wrapped (Str32 path);
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped
@@ -1643,11 +1644,11 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped
-	public void Strings_replace_wrapped (Strings me, NativeLong position, WString text);
+	public void Strings_replace_wrapped (Strings me, NativeLong position, Str32 text);
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped
-	public void Strings_insert_wrapped (Strings me, NativeLong position, WString text);
+	public void Strings_insert_wrapped (Strings me, NativeLong position, Str32 text);
 	
 	@Declared("fon/PointProcess.h")
 	@Wrapped
@@ -1729,19 +1730,19 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public TextPoint TextPoint_create_wrapped (double time, WString mark);
+	public TextPoint TextPoint_create_wrapped (double time, Str32 mark);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextPoint_setText_wrapped (TextPoint me, WString text);
+	public void TextPoint_setText_wrapped (TextPoint me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public TextInterval TextInterval_create_wrapped (double tmin, double tmax, WString text);
+	public TextInterval TextInterval_create_wrapped (double tmin, double tmax, Str32 text);
 
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextInterval_setText_wrapped (TextInterval me, WString text);
+	public void TextInterval_setText_wrapped (TextInterval me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1749,7 +1750,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextTier_addPoint_wrapped (TextTier me, double time, WString mark);
+	public void TextTier_addPoint_wrapped (TextTier me, double time, Str32 mark);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1757,7 +1758,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess TextTier_getPoints_wrapped (TextTier me, WString text);
+	public PointProcess TextTier_getPoints_wrapped (TextTier me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1793,15 +1794,15 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess IntervalTier_getStartingPoints_wrapped (IntervalTier me, WString text);
+	public PointProcess IntervalTier_getStartingPoints_wrapped (IntervalTier me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess IntervalTier_getEndPoints_wrapped (IntervalTier me, WString text);
+	public PointProcess IntervalTier_getEndPoints_wrapped (IntervalTier me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess IntervalTier_getCentrePoints_wrapped (IntervalTier me, WString text);
+	public PointProcess IntervalTier_getCentrePoints_wrapped (IntervalTier me, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1829,39 +1830,39 @@ public interface Praat extends Library {
 	 */
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public TextGrid TextGrid_create_wrapped (double tmin, double tmax, WString tierNames, WString pointTiers);
+	public TextGrid TextGrid_create_wrapped (double tmin, double tmax, Str32 tierNames, Str32 pointTiers);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public NativeLong TextGrid_countLabels_wrapped (TextGrid me, NativeLong itier, WString text);
+	public NativeLong TextGrid_countLabels_wrapped (TextGrid me, NativeLong itier, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess TextGrid_getStartingPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	public PointProcess TextGrid_getStartingPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess TextGrid_getEndPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	public PointProcess TextGrid_getEndPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess TextGrid_getCentrePoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	public PointProcess TextGrid_getCentrePoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public PointProcess TextGrid_getPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, WString criterion);
+	public PointProcess TextGrid_getPoints_wrapped (TextGrid me, NativeLong itier, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
 	public PointProcess TextGrid_getPoints_preceded_wrapped (TextGrid me, NativeLong tierNumber,
-		int which_Melder_STRING, WString criterion,
-		int which_Melder_STRING_precededBy, WString criterion_precededBy);
+		int which_Melder_STRING, Str32 criterion,
+		int which_Melder_STRING_precededBy, Str32 criterion_precededBy);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
 	public PointProcess TextGrid_getPoints_followed_wrapped (TextGrid me, NativeLong tierNumber,
-		int which_Melder_STRING, WString criterion,
-		int which_Melder_STRING_followedBy, WString criterion_followedBy);
+		int which_Melder_STRING, Str32 criterion,
+		int which_Melder_STRING_followedBy, Str32 criterion_followedBy);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1932,15 +1933,15 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextGrid_setIntervalText_wrapped (TextGrid me, int itier, NativeLong iinterval, WString text);
+	public void TextGrid_setIntervalText_wrapped (TextGrid me, int itier, NativeLong iinterval, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextGrid_insertPoint_wrapped (TextGrid me, int itier, double t, WString mark);
+	public void TextGrid_insertPoint_wrapped (TextGrid me, int itier, double t, Str32 mark);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextGrid_setPointText_wrapped (TextGrid me, int itier, NativeLong ipoint, WString text);
+	public void TextGrid_setPointText_wrapped (TextGrid me, int itier, NativeLong ipoint, Str32 text);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
@@ -1968,7 +1969,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
-	public void TextTier_removePoints (TextTier me, int which_Melder_STRING, WString criterion);
+	public void TextTier_removePoints (TextTier me, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
@@ -2004,7 +2005,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
-	public void IntervalTier_addInterval (IntervalTier me, double tmin, double tmax, WString label);
+	public void IntervalTier_addInterval (IntervalTier me, double tmin, double tmax, Str32 label);
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
@@ -2020,7 +2021,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
-	public void TextGrid_removePoints (TextGrid me, NativeLong tierNumber, int which_Melder_STRING, WString criterion);
+	public void TextGrid_removePoints (TextGrid me, NativeLong tierNumber, int which_Melder_STRING, Str32 criterion);
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
@@ -2040,10 +2041,10 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
-	public WString TextPoint_getText(TextPoint me);
+	public Str32 TextPoint_getText(TextPoint me);
 	
 	@Declared("fon/TextGrid_def.h")
 	@Custom
-	public WString TextInterval_getText(TextInterval me);
+	public Str32 TextInterval_getText(TextInterval me);
 	
 }

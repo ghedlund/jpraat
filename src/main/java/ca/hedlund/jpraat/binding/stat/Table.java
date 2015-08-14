@@ -6,9 +6,9 @@ import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
@@ -23,7 +23,7 @@ public class Table extends Data {
 		super(p);
 	}
 
-	public static Table createWithColumnNames (long numberOfRows, WString columnNames)
+	public static Table createWithColumnNames (long numberOfRows, Str32 columnNames)
 		throws PraatException {
 		Table retVal = null;
 		try {
@@ -83,7 +83,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void appendColumn (WString label) throws PraatException {
+	public void appendColumn (Str32 label) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Table_appendColumn_wrapped(this, label);
@@ -95,7 +95,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void appendSumColumn ( long column1, long column2, WString label) 
+	public void appendSumColumn ( long column1, long column2, Str32 label) 
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -109,7 +109,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void appendDifferenceColumn ( long column1, long column2, WString label)
+	public void appendDifferenceColumn ( long column1, long column2, Str32 label)
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -123,7 +123,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void appendProductColumn ( long column1, long column2, WString label)
+	public void appendProductColumn ( long column1, long column2, Str32 label)
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -137,7 +137,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void appendQuotientColumn ( long column1, long column2, WString label) 
+	public void appendQuotientColumn ( long column1, long column2, Str32 label) 
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -188,7 +188,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void insertColumn ( long column, WString label ) throws PraatException {
+	public void insertColumn ( long column, Str32 label ) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Table_insertColumn_wrapped(this, new NativeLong(
@@ -201,7 +201,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void setColumnLabel ( long column, WString label ) throws PraatException {
+	public void setColumnLabel ( long column, Str32 label ) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Table_setColumnLabel_wrapped(this, new NativeLong(
@@ -214,11 +214,11 @@ public class Table extends Data {
 		}
 	}
 	
-	public long findColumnIndexFromColumnLabel ( WString label ) {
+	public long findColumnIndexFromColumnLabel ( Str32 label ) {
 		return Praat.INSTANCE.Table_findColumnIndexFromColumnLabel(this, label).longValue();
 	}
 	
-	public long getColumnIndexFromColumnLabel ( WString label ) throws PraatException {
+	public long getColumnIndexFromColumnLabel ( Str32 label ) throws PraatException {
 		long retVal = 0L;
 		try {
 			Praat.wrapperLock.lock();
@@ -234,7 +234,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public long[] getColumnIndicesFromColumnLabelString ( WString label ) throws PraatException {
+	public long[] getColumnIndicesFromColumnLabelString ( Str32 label ) throws PraatException {
 		long[] retVal = new long[0];
 		
 		final Pointer numberOfTokensPtr = new Memory(Native.getNativeSize(Long.TYPE));
@@ -255,12 +255,12 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public long searchColumn ( long column, WString value) {
+	public long searchColumn ( long column, Str32 value) {
 		return Praat.INSTANCE.Table_searchColumn(this, new NativeLong(column), value).longValue();
 	}
 	
-	public WString getStringValue(long row, long column) throws PraatException {
-		WString retVal = null;
+	public Str32 getStringValue(long row, long column) throws PraatException {
+		Str32 retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
@@ -291,7 +291,7 @@ public class Table extends Data {
 		return retVal;
 	}
 
-	public void setStringValue (long row, long column, WString value) throws PraatException {
+	public void setStringValue (long row, long column, Str32 value) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Table_setStringValue_wrapped(this, new NativeLong(
@@ -347,7 +347,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public double getGroupMean (Table me, long column, long groupColumn, WString group)
+	public double getGroupMean (Table me, long column, long groupColumn, Str32 group)
 		throws PraatException {
 		double retVal = 0.0;
 		try {
@@ -512,7 +512,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public double getGroupMean_studentT (Table me, long column, long groupColumn, WString group1, double significanceLevel,
+	public double getGroupMean_studentT (Table me, long column, long groupColumn, Str32 group1, double significanceLevel,
 			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
 			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit)
 		throws PraatException {
@@ -542,7 +542,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public double getGroupDifference_studentT (Table me, long column, long groupColumn, WString group1, WString group2, double significanceLevel,
+	public double getGroupDifference_studentT (Table me, long column, long groupColumn, Str32 group1, Str32 group2, double significanceLevel,
 			AtomicReference<Double> out_tFromZero, AtomicReference<Double> out_numberOfDegreesOfFreedom, 
 			AtomicReference<Double> out_significanceFromZero, AtomicReference<Double> out_lowerLimit, AtomicReference<Double> out_upperLimit) 
 		throws PraatException {
@@ -574,7 +574,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public double getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, WString group1, WString group2,
+	public double getGroupDifference_wilcoxonRankSum (Table me, long column, long groupColumn, Str32 group1, Str32 group2,
 			AtomicReference<Double> out_rankSum, AtomicReference<Double> out_significanceFromZero)
 		throws PraatException {
 		final Pointer rankSumPtr = new Memory(Native.getNativeSize(Double.TYPE));
@@ -638,7 +638,7 @@ public class Table extends Data {
 		}
 	}
 	
-	public void sortRows_string (WString columns_string) 
+	public void sortRows_string (Str32 columns_string) 
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -748,7 +748,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public Table extractRowsWhereColumn_string (long column, int which_Melder_STRING, WString criterion) 
+	public Table extractRowsWhereColumn_string (long column, int which_Melder_STRING, Str32 criterion) 
 		throws PraatException {
 		Table retVal = null;
 		try {
@@ -766,9 +766,9 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public Table collapseRows (WString factors_string, WString columnsToSum_string,
-		WString columnsToAverage_string, WString columnsToMedianize_string,
-		WString columnsToAverageLogarithmically_string, WString columnsToMedianizeLogarithmically_string)
+	public Table collapseRows (Str32 factors_string, Str32 columnsToSum_string,
+		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
+		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string)
 		throws PraatException {
 		Table retVal = null;
 		try {
@@ -787,7 +787,7 @@ public class Table extends Data {
 		return retVal;
 	}
 	
-	public Table rowsToColumns (WString factors_string, long columnToTranspose, WString columnsToExpand_string)
+	public Table rowsToColumns (Str32 factors_string, long columnToTranspose, Str32 columnsToExpand_string)
 		throws PraatException {
 		Table retVal = null;
 		try {
@@ -860,7 +860,7 @@ public class Table extends Data {
 		return Praat.INSTANCE.Table_getNcol(this);
 	}
 	
-	public WString  getColStr (long columnNumber) {
+	public Str32  getColStr (long columnNumber) {
 		return Praat.INSTANCE.Table_getColStr(this, new NativeLong(columnNumber));
 	}
 	
@@ -868,11 +868,11 @@ public class Table extends Data {
 		return Praat.INSTANCE.Table_getMatrix(this, new NativeLong(rowNumber), new NativeLong(columnNumber));
 	}
 	
-	public WString  getMatrixStr (long rowNumber, long columnNumber) {
+	public Str32  getMatrixStr (long rowNumber, long columnNumber) {
 		return Praat.INSTANCE.Table_getMatrixStr(this, new NativeLong(rowNumber), new NativeLong(columnNumber));
 	}
 	
-	public double getColIndex  (WString columnLabel) {
+	public double getColIndex  (Str32 columnLabel) {
 		return Praat.INSTANCE.Table_getColIndex(this, columnLabel);
 	}
 	

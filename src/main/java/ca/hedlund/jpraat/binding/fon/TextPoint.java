@@ -2,9 +2,9 @@ package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class TextPoint extends AnyPoint {
@@ -18,10 +18,10 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public static TextPoint create(double time, String mark) throws PraatException {
-		return create(time, new WString(mark));
+		return create(time, new Str32(mark));
 	}
 	
-	public static TextPoint create(double time, WString mark) throws PraatException {
+	public static TextPoint create(double time, Str32 mark) throws PraatException {
 		TextPoint retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -37,10 +37,10 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public void setText(String text) throws PraatException {
-		setText(new WString(text));
+		setText(new Str32(text));
 	}
 	
-	public void setText (WString text) throws PraatException {
+	public void setText (Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextPoint_setText_wrapped(this, text);
@@ -56,7 +56,7 @@ public class TextPoint extends AnyPoint {
 		return (getTextW() != null ? getTextW().toString() : "");
 	}
 	
-	public WString getTextW() {
+	public Str32 getTextW() {
 		return Praat.INSTANCE.TextPoint_getText(this);
 	}
 	

@@ -2,10 +2,10 @@ package ca.hedlund.jpraat.binding.sys;
 
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.PointerType;
-import com.sun.jna.WString;
 
 @Declared("sys/melder.h")
 public class MelderFile extends PointerType {
@@ -17,10 +17,10 @@ public class MelderFile extends PointerType {
 	 * @return file
 	 */
 	public static MelderFile fromPath(String path) throws PraatException {
-		return fromPath(new WString(path));
+		return fromPath(new Str32(path));
 	}
 	
-	public static MelderFile fromPath(WString path) throws PraatException {
+	public static MelderFile fromPath(Str32 path) throws PraatException {
 		final MelderFile retVal = Praat.INSTANCE.MelderFile_new();
 		try {
 			Praat.wrapperLock.lock();
@@ -66,7 +66,7 @@ public class MelderFile extends PointerType {
 		return Praat.INSTANCE.MelderFile_length(this).longValue();
 	}
 	
-	public WString path() {
+	public Str32 path() {
 		return Praat.INSTANCE.Melder_fileToPath(this);
 	}
 	

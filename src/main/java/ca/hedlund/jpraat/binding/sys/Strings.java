@@ -1,11 +1,11 @@
 package ca.hedlund.jpraat.binding.sys;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 public class Strings extends Data {
 	
@@ -13,7 +13,7 @@ public class Strings extends Data {
 		super(p);
 	}
 	
-	public static Strings createAsFileList (WString path) throws PraatException {
+	public static Strings createAsFileList (Str32 path) throws PraatException {
 		Strings retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -28,7 +28,7 @@ public class Strings extends Data {
 		return retVal;
 	}
 	
-	public static Strings createAsDirectoryList (WString path) throws PraatException {
+	public static Strings createAsDirectoryList (Str32 path) throws PraatException {
 		Strings retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -99,7 +99,7 @@ public class Strings extends Data {
 		}
 	}
 	
-	public void replace (long position, WString text) throws PraatException {
+	public void replace (long position, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(
@@ -112,7 +112,7 @@ public class Strings extends Data {
 		}
 	}
 	
-	public void insert (long position, WString text) throws PraatException {
+	public void insert (long position, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_insert_wrapped(this,

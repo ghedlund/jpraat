@@ -2,11 +2,11 @@ package ca.hedlund.jpraat.binding.stat;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.Strings;
@@ -90,7 +90,7 @@ public class TableOfReal extends Data {
 		}
 	}
 	
-	public void setRowLabel (long irow, WString label) throws PraatException {
+	public void setRowLabel (long irow, Str32 label) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_setRowLabel_wrapped(this,
@@ -103,7 +103,7 @@ public class TableOfReal extends Data {
 		}
 	}
 	
-	public void setColumnLabel (long icol, WString label) throws PraatException {
+	public void setColumnLabel (long icol, Str32 label) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE
@@ -116,7 +116,7 @@ public class TableOfReal extends Data {
 		}
 	}
 	
-	public long rowLabelToIndex (WString label) throws PraatException {
+	public long rowLabelToIndex (Str32 label) throws PraatException {
 		long retVal = 0L;
 		try {
 			Praat.wrapperLock.lock();
@@ -131,7 +131,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 	
-	public long columnLabelToIndex (WString label) throws PraatException {
+	public long columnLabelToIndex (Str32 label) throws PraatException {
 		long retVal = 0L;
 		try {
 			Praat.wrapperLock.lock();
@@ -177,7 +177,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 	
-	public Table to_Table (WString labelOfFirstColumn) throws PraatException {
+	public Table to_Table (Str32 labelOfFirstColumn) throws PraatException {
 		Table retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -247,7 +247,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 
-	public TableOfReal extractRowRanges (WString ranges) throws PraatException {
+	public TableOfReal extractRowRanges (Str32 ranges) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -262,7 +262,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 	
-	public TableOfReal extractColumnRanges (WString ranges) throws PraatException {
+	public TableOfReal extractColumnRanges (Str32 ranges) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -311,7 +311,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 
-	public TableOfReal extractRowsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
+	public TableOfReal extractRowsWhereLabel (int which_Melder_STRING, Str32 criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -327,7 +327,7 @@ public class TableOfReal extends Data {
 		return retVal;
 	}
 	
-	public TableOfReal extractColumnsWhereLabel (int which_Melder_STRING, WString criterion) throws PraatException {
+	public TableOfReal extractColumnsWhereLabel (int which_Melder_STRING, Str32 criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();

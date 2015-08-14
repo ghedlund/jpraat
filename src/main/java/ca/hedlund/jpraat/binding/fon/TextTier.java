@@ -1,13 +1,13 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 public class TextTier extends Function {
 	
@@ -35,10 +35,10 @@ public class TextTier extends Function {
 	}
 	
 	public void addPoint (double time, String mark) throws PraatException {
-		addPoint(time, new WString(mark));
+		addPoint(time, new Str32(mark));
 	}
 	
-	public void addPoint (double time, WString mark) throws PraatException {
+	public void addPoint (double time, Str32 mark) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextTier_addPoint_wrapped(this, time, mark);
@@ -67,10 +67,10 @@ public class TextTier extends Function {
 	}
 	
 	public PointProcess getPoints(String text) throws PraatException {
-		return getPoints(new WString(text));
+		return getPoints(new Str32(text));
 	}
 	
-	public PointProcess getPoints (WString text) throws PraatException {
+	public PointProcess getPoints (Str32 text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -117,10 +117,10 @@ public class TextTier extends Function {
 	}
 	
 	public void removePoints (int which_Melder_STRING, String criterion) {
-		removePoints(which_Melder_STRING, new WString(criterion));
+		removePoints(which_Melder_STRING, new Str32(criterion));
 	}
 	
-	public void removePoints (int which_Melder_STRING, WString criterion) {
+	public void removePoints (int which_Melder_STRING, Str32 criterion) {
 		Praat.INSTANCE.TextTier_removePoints(this, which_Melder_STRING, criterion);
 	}
 	

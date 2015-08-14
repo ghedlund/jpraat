@@ -2,11 +2,11 @@ package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Custom;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
@@ -74,7 +74,7 @@ public class Function extends Data {
 		return Praat.INSTANCE.Function_getMaximumUnit(new NativeLong(ilevel));
 	}
 	
-	public WString getUnitText (long ilevel, int unit, long flags) {
+	public Str32 getUnitText (long ilevel, int unit, long flags) {
 		return Praat.INSTANCE.Function_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
 	}
 

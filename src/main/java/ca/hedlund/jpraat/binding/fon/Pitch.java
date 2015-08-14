@@ -6,10 +6,10 @@ import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -330,7 +330,7 @@ public class Pitch extends Sampled {
 		return Praat.INSTANCE.Pitch_getMaximumUnit(this, new NativeLong(ilevel));
 	}
 
-	public WString getUnitText (long ilevel, kPitch_unit unit, long flags) {
+	public Str32 getUnitText (long ilevel, kPitch_unit unit, long flags) {
 		return Praat.INSTANCE.Pitch_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
 	}
 	

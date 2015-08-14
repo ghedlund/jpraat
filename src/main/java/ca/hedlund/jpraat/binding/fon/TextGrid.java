@@ -4,6 +4,7 @@ import ca.hedlund.jpraat.annotations.Custom;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
@@ -12,7 +13,6 @@ import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 public class TextGrid extends Function {
 	
@@ -42,10 +42,10 @@ public class TextGrid extends Function {
 
 	public static TextGrid create (double tmin, double tmax, String tierNames, String pointTiers)
 		throws PraatException {
-		return create(tmin, tmax, new WString(tierNames), new WString(pointTiers));
+		return create(tmin, tmax, new Str32(tierNames), new Str32(pointTiers));
 	}
 	
-	public static TextGrid create (double tmin, double tmax, WString tierNames, WString pointTiers)
+	public static TextGrid create (double tmin, double tmax, Str32 tierNames, Str32 pointTiers)
 		throws PraatException {
 		TextGrid retVal = null;
 		try {
@@ -62,10 +62,10 @@ public class TextGrid extends Function {
 	}
 
 	public long countLables (long itier, String text) throws PraatException {
-		return countLabels(itier, new WString(text));
+		return countLabels(itier, new Str32(text));
 	}
 	
-	public long countLabels (long itier, WString text) throws PraatException {
+	public long countLabels (long itier, Str32 text) throws PraatException {
 		long retVal = 0L;
 		try {
 			Praat.wrapperLock.lock();
@@ -81,10 +81,10 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getStartingPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getStartingPoints(itier, which_Melder_STRING, new WString(criterion));
+		return getStartingPoints(itier, which_Melder_STRING, new Str32(criterion));
 	}
 	
-	public PointProcess getStartingPoints (long itier, int which_Melder_STRING, WString criterion)throws PraatException {
+	public PointProcess getStartingPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -101,10 +101,10 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getEndPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getEndPoints(itier, which_Melder_STRING, new WString(criterion));
+		return getEndPoints(itier, which_Melder_STRING, new Str32(criterion));
 	}
 	
-	public PointProcess getEndPoints (long itier, int which_Melder_STRING, WString criterion)throws PraatException {
+	public PointProcess getEndPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -126,7 +126,7 @@ public class TextGrid extends Function {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getCentrePoints_wrapped(this, new NativeLong(
-							itier), which_Melder_STRING, new WString(criterion));
+							itier), which_Melder_STRING, new Str32(criterion));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -136,7 +136,7 @@ public class TextGrid extends Function {
 		return retVal;
 	}
 	
-	public PointProcess getCentrePoints (long itier, int which_Melder_STRING, WString criterion)throws PraatException {
+	public PointProcess getCentrePoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -153,10 +153,10 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getPoints(itier, which_Melder_STRING, new WString(criterion));
+		return getPoints(itier, which_Melder_STRING, new Str32(criterion));
 	}
 	
-	public PointProcess getPoints (long itier, int which_Melder_STRING, WString criterion)throws PraatException {
+	public PointProcess getPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -175,12 +175,12 @@ public class TextGrid extends Function {
 	public PointProcess getPoints_preceded (long tierNumber,
 			int which_Melder_STRING, String criterion,
 			int which_Melder_STRING_precededBy, String criterion_precededBy)throws PraatException {
-		return getPoints_preceded(tierNumber, which_Melder_STRING, new WString(criterion), which_Melder_STRING_precededBy, new WString(criterion_precededBy));
+		return getPoints_preceded(tierNumber, which_Melder_STRING, new Str32(criterion), which_Melder_STRING_precededBy, new Str32(criterion_precededBy));
 	}
 	
 	public PointProcess getPoints_preceded (long tierNumber,
-		int which_Melder_STRING, WString criterion,
-		int which_Melder_STRING_precededBy, WString criterion_precededBy)throws PraatException {
+		int which_Melder_STRING, Str32 criterion,
+		int which_Melder_STRING_precededBy, Str32 criterion_precededBy)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -201,12 +201,12 @@ public class TextGrid extends Function {
 	public PointProcess getPoints_followed (long tierNumber,
 			int which_Melder_STRING, String criterion,
 			int which_Melder_STRING_followedBy, String criterion_followedBy)throws PraatException {
-		return getPoints_followed(tierNumber, which_Melder_STRING, new WString(criterion), which_Melder_STRING_followedBy, new WString(criterion_followedBy));
+		return getPoints_followed(tierNumber, which_Melder_STRING, new Str32(criterion), which_Melder_STRING_followedBy, new Str32(criterion_followedBy));
 	}
 	
 	public PointProcess getPoints_followed (long tierNumber,
-		int which_Melder_STRING, WString criterion,
-		int which_Melder_STRING_followedBy, WString criterion_followedBy)throws PraatException {
+		int which_Melder_STRING, Str32 criterion,
+		int which_Melder_STRING_followedBy, Str32 criterion_followedBy)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -375,10 +375,10 @@ public class TextGrid extends Function {
 	}
 	
 	public void setIntervalText (int itier, long iinterval, String text) throws PraatException {
-		setIntervalText(itier, iinterval, new WString(text));
+		setIntervalText(itier, iinterval, new Str32(text));
 	}
 	
-	public void setIntervalText (int itier, long iinterval, WString text) throws PraatException {
+	public void setIntervalText (int itier, long iinterval, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextGrid_setIntervalText_wrapped(this, itier,
@@ -392,10 +392,10 @@ public class TextGrid extends Function {
 	}
 	
 	public void insertPoint (int itier, double t, String mark) throws PraatException {
-		insertPoint(itier, t, new WString(mark));
+		insertPoint(itier, t, new Str32(mark));
 	}
 
-	public void insertPoint (int itier, double t, WString mark) throws PraatException {
+	public void insertPoint (int itier, double t, Str32 mark) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextGrid_insertPoint_wrapped(this, itier, t, mark);
@@ -408,10 +408,10 @@ public class TextGrid extends Function {
 	}
 
 	public void setPointText (int itier, long ipoint, String text) throws PraatException {
-		setPointText(itier, ipoint, new WString(text));
+		setPointText(itier, ipoint, new Str32(text));
 	}
 
-	public void setPointText (int itier, long ipoint, WString text) throws PraatException {
+	public void setPointText (int itier, long ipoint, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextGrid_setPointText_wrapped(this, itier,
@@ -494,7 +494,7 @@ public class TextGrid extends Function {
 		return tier;
 	}
 	
-	public void removePoints (long tierNumber, int which_Melder_STRING, WString criterion) {
+	public void removePoints (long tierNumber, int which_Melder_STRING, Str32 criterion) {
 		Praat.INSTANCE.TextGrid_removePoints(this, new NativeLong(tierNumber), which_Melder_STRING, criterion);
 	}
 	

@@ -4,12 +4,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
-import com.sun.jna.WString;
 
 public abstract class Thing extends PointerType {
 	
@@ -32,7 +32,7 @@ public abstract class Thing extends PointerType {
 		super(p);
 	}
 
-	public static Object newFromClassName (WString className) throws PraatException {
+	public static Object newFromClassName (Str32 className) throws PraatException {
 		Object retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -80,7 +80,7 @@ public abstract class Thing extends PointerType {
 		}
 	}
 	
-	public WString className () {
+	public Str32 className () {
 		return Praat.INSTANCE.Thing_className(this);
 	}
 	
@@ -97,15 +97,15 @@ public abstract class Thing extends PointerType {
 	}
 	
 	public void setName(String name) {
-		setNameW((name == null ? null : new WString(name)));
+		setNameW((name == null ? null : new Str32(name)));
 	}
 	
 	/* Return a pointer to your internal name (which can be NULL). */
-	public WString getNameW () {
+	public Str32 getNameW () {
 		return Praat.INSTANCE.Thing_getName(this);
 	}
 	
-	public void setNameW (WString name) {
+	public void setNameW (Str32 name) {
 		Praat.INSTANCE.Thing_setName(this, name);
 	}
 	
