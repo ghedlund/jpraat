@@ -12,6 +12,7 @@ import java.util.List;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
 import ca.hedlund.jpraat.annotations.Wrapped;
+import ca.hedlund.jpraat.binding.jna.Str32;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.WString;
@@ -30,26 +31,26 @@ public class WrapperGenerator {
 	private List<String> included = new ArrayList<String>();
 	
 	private final static String errorFunctions = 
-			"#include <pthread.h>\r\n" + 
-			"#include <string.h>\r\n" + 
-			"#include <stdlib.h>\r\n" + 
-			"static char _lastError[256] = {'\\0'};\r\n" + 
-			"static pthread_mutex_t jpraat_mut = PTHREAD_MUTEX_INITIALIZER;\r\n" + 
+			"#include <pthread.h>\n" + 
+			"#include <string.h>\n" + 
+			"#include <stdlib.h>\n" + 
+			"static char32 _lastError[256] = {'\\0'};\n" + 
+			"static pthread_mutex_t jpraat_mut = PTHREAD_MUTEX_INITIALIZER;\n" + 
 			"\r\n" + 
-			"PRAAT_LIB_EXPORT const char* jpraat_last_error() {\r\n" + 
-			"	static char retVal[256] = {'\\0'};\r\n" + 
-			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
-			"	strncpy(retVal, _lastError, 255);\r\n" + 
-			"	pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"PRAAT_LIB_EXPORT const char32* jpraat_last_error() {\n" + 
+			"	static char retVal[256] = {'\\0'};\n" + 
+			"	pthread_mutex_lock(&jpraat_mut);\n" + 
+			"	strncpy(retVal, _lastError, 255);\n" + 
+			"	pthread_mutex_unlock(&jpraat_mut);\n" + 
 			"	return retVal;\r\n" + 
-			"}\r\n" + 
-			"\r\n" + 
-			"PRAAT_LIB_EXPORT void jpraat_clear_error() {\r\n" + 
-			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
-			"	_lastError[0] = '\\0';\r\n" + 
-			"	pthread_mutex_unlock(&jpraat_mut);\r\n" + 
-			"}\r\n" + 
-			"\r\n" + 
+			"}\n" + 
+			"\n" + 
+			"PRAAT_LIB_EXPORT void jpraat_clear_error() {\n" + 
+			"	pthread_mutex_lock(&jpraat_mut);\n" + 
+			"	_lastError[0] = '\\0';\n" + 
+			"	pthread_mutex_unlock(&jpraat_mut);\n" + 
+			"}\n" + 
+			"\n" + 
 			"PRAAT_LIB_EXPORT void jpraat_set_error(const char* err) {\r\n" + 
 			"	pthread_mutex_lock(&jpraat_mut);\r\n" + 
 			"	strncpy(_lastError, err, 255);\r\n" + 
@@ -57,11 +58,9 @@ public class WrapperGenerator {
 			"}\r\n" + 
 			"\r\n" + 
 			"PRAAT_LIB_EXPORT void jpraat_set_melder_error() {\r\n" + 
-			"	wchar_t* melderErr = Melder_getError();\r\n" + 
+			"	char32* melderErr = Melder_getError();\r\n" + 
 			"	if(melderErr != NULL) {\r\n" + 
-			"		pthread_mutex_lock(&jpraat_mut);\r\n" + 
-			"		wcstombs(_lastError, melderErr, 255);\r\n" + 
-			"		pthread_mutex_unlock(&jpraat_mut);\r\n" + 
+			"		jpraat_set_error(Melder_peek32to8(melderErr));\r\n" +
 			"	}\r\n" + 
 			"}";
 	
@@ -200,6 +199,8 @@ public class WrapperGenerator {
 			retVal = "bool";
 		} else if(clazz == WString.class) {
 			retVal = "const wchar_t*";
+		} else if(clazz == Str32.class) {
+			retVal = "const char32_t*";
 		} else if(clazz == String.class) {
 			retVal = "const char*";
 		} else if(clazz == NativeLong.class) {
