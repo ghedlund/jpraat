@@ -486,7 +486,7 @@ public class Sound extends Vector {
 	 * 
 	 * @throws IllegalArgumentException
 	 */
-	public Spectrogram toSpectrogram (double effectiveAnalysisWidth, double fmax,
+	public Spectrogram to_Spectrogram (double effectiveAnalysisWidth, double fmax,
 			double minimumTimeStep1, double minimumFreqStep1, kSound_to_Spectrogram_windowShape windowShape,
 			double maximumTimeOversampling, double maximumFreqOversampling) throws PraatException {
 		
@@ -761,6 +761,38 @@ public class Sound extends Vector {
 		}
 	}
 	
+	public Ltas to_Ltas (double bandwidth) throws PraatException {
+		Ltas retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Ltas_wrapped(this, bandwidth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public Ltas to_Ltas_pitchCorrected(double minimumPitch, double maximumPitch,
+		double maximumFrequency, double bandWidth,
+		double shortestPeriod, double longestPeriod, double maximumPeriodFactor) throws PraatException {
+		Ltas retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Ltas_pitchCorrected_wrapped(this, minimumPitch,
+					maximumPitch, maximumFrequency, bandWidth, shortestPeriod, longestPeriod, maximumPeriodFactor);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+
+	
 	public Intensity to_Intensity (double minimumPitch, double timeStep, int subtractMean) {
 
 		if(Double.isNaN(minimumPitch) || minimumPitch <= 0.0) {
@@ -781,7 +813,7 @@ public class Sound extends Vector {
 		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
 	}
 
-	public Spectrum Sound_to_Spectrum (Sound me, int fast) throws PraatException {
+	public Spectrum to_Spectrum (Sound me, int fast) throws PraatException {
 		Spectrum retVal = null;
 		
 		try {

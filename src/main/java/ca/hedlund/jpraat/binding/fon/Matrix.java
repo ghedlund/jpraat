@@ -263,4 +263,34 @@ public class Matrix extends SampledXY {
 		}
 	}
 	
+	public Spectrum to_Spectrum() throws PraatException {
+		Spectrum retVal = null;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_to_Spectrum_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+	
+	public Ltas to_Ltas() throws PraatException {
+		Ltas retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_to_Ltas_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
 }

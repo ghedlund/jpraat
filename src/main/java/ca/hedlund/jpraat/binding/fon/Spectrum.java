@@ -28,22 +28,6 @@ public class Spectrum extends Matrix {
 		return retVal;
 	}
 	
-	public static Spectrum Matrix_to_Spectrum(Matrix me) throws PraatException {
-		Spectrum retVal = null;
-		
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Matrix_to_Spectrum_wrapped(me);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		
-		return retVal;
-	}
-	
 	@Override
 	public double getValueAtSample(long isamp, long which, int units) {
 		return Praat.INSTANCE.Spectrum_getValueAtSample(this, isamp, which, units);
@@ -205,6 +189,33 @@ public class Spectrum extends Matrix {
 		
 		return retVal;
 	}
+	
+	public Ltas to_Ltas (double bandwidth) throws PraatException {
+		Ltas retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrum_to_Ltas_wrapped(this, bandwidth);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
 
+	public Ltas to_Ltas_1to1 () throws PraatException {
+		Ltas retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrum_to_Ltas_1to1_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
 	
 }

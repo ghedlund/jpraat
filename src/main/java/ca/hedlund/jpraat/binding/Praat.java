@@ -11,6 +11,7 @@ import ca.hedlund.jpraat.binding.fon.Function;
 import ca.hedlund.jpraat.binding.fon.Intensity;
 import ca.hedlund.jpraat.binding.fon.IntervalTier;
 import ca.hedlund.jpraat.binding.fon.LongSound;
+import ca.hedlund.jpraat.binding.fon.Ltas;
 import ca.hedlund.jpraat.binding.fon.Matrix;
 import ca.hedlund.jpraat.binding.fon.Pitch;
 import ca.hedlund.jpraat.binding.fon.PointProcess;
@@ -2046,5 +2047,82 @@ public interface Praat extends Library {
 	@Declared("fon/TextGrid_def.h")
 	@Custom
 	public Str32 TextInterval_getText(TextInterval me);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Ltas_create_wrapped(NativeLong nx, double dx);
+	
+	@Declared("fon/Ltas.h")
+	@Custom
+	public MelderQuantity Ltas_domainQuantity(Ltas me);
+	
+	@Declared("fon/Ltas.h")
+	@Custom
+	public double Ltas_convertSpecialToStandardUnit(Ltas me, double value, NativeLong ilevel, int unit);
+	
+	@Declared("fon/Ltas.h")
+	@Custom
+	public double Ltas_convertStandardToSpecialUnit(Ltas me, double value, NativeLong ilevel, int unit);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Matrix_to_Ltas_wrapped(Matrix me);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Matrix Ltas_to_Matrix_wrapped(Ltas me);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Ltases_merge_wrapped(Collection ltases);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Ltases_average_wrapped(Collection ltases);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Ltas_computeTrendLine_wrapped(Ltas me, double fmin, double fmax);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Ltas_subtractTrendLine_wrapped(Ltas me, double fmin, double fmax);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Spectrum_to_Ltas_wrapped(Spectrum me, double bandwidth);
+
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Spectrum_to_Ltas_1to1_wrapped (Spectrum me);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas PointProcess_Sound_to_Ltas_wrapped (PointProcess pulses, Sound sound,
+		double maximumFrequency, double bandWidth,
+		double shortestPeriod, double longestPeriod, double maximumPeriodFactor);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas PointProcess_Sound_to_Ltas_harmonics_wrapped (PointProcess pulses, Sound sound,
+		long maximumHarmonic,
+		double shortestPeriod, double longestPeriod, double maximumPeriodFactor);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Sound_to_Ltas_wrapped (Sound me, double bandwidth);
+	
+	@Declared("fon/Ltas.h")
+	@Wrapped
+	public Ltas Sound_to_Ltas_pitchCorrected_wrapped (Sound sound, double minimumPitch, double maximumPitch,
+		double maximumFrequency, double bandWidth,
+		double shortestPeriod, double longestPeriod, double maximumPeriodFactor);
+
+	@Declared("fon/Ltas.h")
+	public double Ltas_getSlope (Ltas me, double f1min, double f1max, double f2min, double f2max, int averagingUnits);
+	
+	@Declared("fon/Ltas.h")
+	public double Ltas_getLocalPeakHeight (Ltas me, double environmentMin, 
+			double environmentMax, double peakMin, double peakMax, int averagingUnits);
 	
 }
