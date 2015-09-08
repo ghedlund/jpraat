@@ -3,12 +3,11 @@ package ca.hedlund.jpraat.binding.sys;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import com.sun.jna.Pointer;
+
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
-
-import com.sun.jna.NativeLibrary;
-import com.sun.jna.Pointer;
 
 @Declared("sys/Data.h")
 public class Data extends Thing {

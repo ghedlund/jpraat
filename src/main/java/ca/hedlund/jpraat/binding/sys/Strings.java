@@ -1,11 +1,11 @@
 package ca.hedlund.jpraat.binding.sys;
 
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
-
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
 
 public class Strings extends Data {
 	

@@ -2,12 +2,10 @@ package ca.hedlund.jpraat.binding.sys;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.JUnit4;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.PraatDir;
-import ca.hedlund.jpraat.binding.sys.PraatVersion;
 
 @RunWith(JUnit4.class)
 public class TestVersion  {

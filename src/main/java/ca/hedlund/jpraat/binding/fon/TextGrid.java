@@ -1,8 +1,8 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.annotations.Custom;
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.annotations.Wrapped;
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.Table;
@@ -10,9 +10,6 @@ import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
-
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
 
 public class TextGrid extends Function {
 	

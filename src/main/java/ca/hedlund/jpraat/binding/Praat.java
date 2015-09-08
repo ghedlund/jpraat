@@ -2,6 +2,13 @@ package ca.hedlund.jpraat.binding;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+import com.sun.jna.WString;
+
 import ca.hedlund.jpraat.annotations.Custom;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
@@ -44,13 +51,6 @@ import ca.hedlund.jpraat.binding.sys.PraatVersion;
 import ca.hedlund.jpraat.binding.sys.Strings;
 import ca.hedlund.jpraat.binding.sys.Thing;
 import ca.hedlund.jpraat.exceptions.PraatException;
-
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.WString;
 
 /**
  * Main JNA interface class for praat library.  These methods should not be used directly,

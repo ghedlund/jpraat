@@ -9,13 +9,13 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.jna.NativeLong;
+import com.sun.jna.WString;
+
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.jna.Str32;
-
-import com.sun.jna.NativeLong;
-import com.sun.jna.WString;
 
 /**
  * Class which uses reflection to create a set of C++ wrapper files for a 

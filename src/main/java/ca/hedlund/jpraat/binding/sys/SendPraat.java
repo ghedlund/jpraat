@@ -1,10 +1,10 @@
 package ca.hedlund.jpraat.binding.sys;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.Praat;
-
 import com.sun.jna.NativeLong;
 import com.sun.jna.WString;
+
+import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.binding.Praat;
 
 public class SendPraat {
 

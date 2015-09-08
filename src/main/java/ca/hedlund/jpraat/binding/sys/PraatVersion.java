@@ -3,9 +3,9 @@ package ca.hedlund.jpraat.binding.sys;
 import java.util.Arrays;
 import java.util.List;
 
-import ca.hedlund.jpraat.binding.Praat;
-
 import com.sun.jna.Structure;
+
+import ca.hedlund.jpraat.binding.Praat;
 
 public class PraatVersion extends Structure {
 

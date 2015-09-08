@@ -1,6 +1,5 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;

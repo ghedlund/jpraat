@@ -2,16 +2,14 @@ package ca.hedlund.jpraat.binding.fon;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.exceptions.PraatException;
-
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import com.sun.jna.PointerType;
+
+import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Matrix extends SampledXY {
 	

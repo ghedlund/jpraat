@@ -5,20 +5,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicReference;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.fon.LongSound;
-import ca.hedlund.jpraat.binding.fon.Pitch;
-import ca.hedlund.jpraat.binding.fon.Sound;
-import ca.hedlund.jpraat.binding.fon.kPitch_unit;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
+import junit.framework.Assert;
 
 @RunWith(JUnit4.class)
 public class TestPitch {

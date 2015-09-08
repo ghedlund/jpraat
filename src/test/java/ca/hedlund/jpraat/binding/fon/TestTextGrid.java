@@ -1,7 +1,5 @@
 package ca.hedlund.jpraat.binding.fon;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +9,7 @@ import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.Data;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
+import junit.framework.Assert;
 
 @RunWith(JUnit4.class)
 public class TestTextGrid {
