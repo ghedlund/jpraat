@@ -58,7 +58,7 @@ public class TestSpectrogram {
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
 		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
 		final Spectrogram spectrogram = 
-				sound.toSpectrogram(TIMESTEP, YMAX, DX, FREQSTEP, 
+				sound.to_Spectrogram(TIMESTEP, YMAX, DX, FREQSTEP, 
 				kSound_to_Spectrogram_windowShape.GAUSSIAN, 8.0, 8.0);
 		
 		
