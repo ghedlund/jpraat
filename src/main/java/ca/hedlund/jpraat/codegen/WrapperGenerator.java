@@ -34,10 +34,10 @@ public class WrapperGenerator {
 			"#include <pthread.h>\n" + 
 			"#include <string.h>\n" + 
 			"#include <stdlib.h>\n" + 
-			"static char32 _lastError[256] = {'\\0'};\n" + 
+			"static char _lastError[256] = {'\\0'};\n" + 
 			"static pthread_mutex_t jpraat_mut = PTHREAD_MUTEX_INITIALIZER;\n" + 
 			"\r\n" + 
-			"PRAAT_LIB_EXPORT const char32* jpraat_last_error() {\n" + 
+			"PRAAT_LIB_EXPORT const char* jpraat_last_error() {\n" + 
 			"	static char retVal[256] = {'\\0'};\n" + 
 			"	pthread_mutex_lock(&jpraat_mut);\n" + 
 			"	strncpy(retVal, _lastError, 255);\n" + 
