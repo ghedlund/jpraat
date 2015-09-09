@@ -1820,6 +1820,93 @@ public interface Praat extends Library {
 	@Declared("fon/TextGrid.h")
 	@Wrapped
 	public TextGrid TextGrid_createWithoutTiers_wrapped (double tmin, double tmax);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public TextGrid TextGrids_merge_wrapped (TextGrid grid1, TextGrid grid2);
+
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrid_extendTime_wrapped (TextGrid me, double delta_time, int position);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrid_setTierName_wrapped (TextGrid me, NativeLong itier, Str32 newName);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextTier_changeLabels_wrapped (TextTier me, NativeLong from, NativeLong to, 
+			Str32 search, Str32 replace, int use_regexp, 
+			@NativeType("long*") Pointer nmatches, @NativeType("long*") Pointer nstringmatches);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_changeLabels_wrapped (IntervalTier me, NativeLong from, NativeLong to, 
+			Str32 search, Str32 replace, int use_regexp, 
+			@NativeType("long*") Pointer nmatches, @NativeType("long*") Pointer nstringmatches);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrid_changeLabels_wrapped (TextGrid me, int tier, NativeLong from, NativeLong to, 
+			Str32 search, Str32 replace, int use_regexp, 
+			@NativeType("long*") Pointer nmatches, @NativeType("long*") Pointer nstringmatches);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_removeBoundariesBetweenIdenticallyLabeledIntervals_wrapped (IntervalTier me, Str32 label);
+
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_cutIntervalsOnLabelMatch_wrapped (IntervalTier me, Str32 label);
+
+
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_cutIntervals_minimumDuration_wrapped (IntervalTier me, Str32 label, double minimumDuration);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_setLaterEndTime_wrapped (IntervalTier me, double xmax, Str32 mark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_setEarlierStartTime_wrapped (IntervalTier me, double xmin, Str32 mark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTier_moveBoundary_wrapped (IntervalTier me, NativeLong interval, boolean atStart, double newTime);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextTier_setLaterEndTime_wrapped (TextTier me, double xmax, Str32 mark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextTier_setEarlierStartTime_wrapped (TextTier me, double xmin, Str32 mark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrid_setEarlierStartTime_wrapped (TextGrid me, double xmin, Str32 imark, Str32 pmark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrid_setLaterEndTime_wrapped (TextGrid me, double xmax, Str32 imark, Str32 pmark);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void IntervalTiers_append_inline_wrapped (IntervalTier me, IntervalTier thee, boolean preserveTimes);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextTiers_append_inline_wrapped (TextTier me, TextTier thee, boolean preserveTimes);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public void TextGrids_append_inline_wrapped (TextGrid me, TextGrid thee, boolean preserveTimes);
+	
+	@Declared("dwtools/TextGrid_extensions.h")
+	@Wrapped
+	public TextGrid TextGrids_to_TextGrid_appendContinuous_wrapped (Collection me, boolean preserveTimes);
 
 	/**
 	 * 

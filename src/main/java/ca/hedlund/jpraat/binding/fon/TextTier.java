@@ -1,8 +1,14 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
@@ -98,6 +104,28 @@ public class TextTier extends Function {
 		}
 	}
 	
+	public void changeLabels (long from, long to, 
+			String search, String replace, int use_regexp, 
+			AtomicReference<Long> nmatches, AtomicReference<Long> nstringmatches) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			
+			Pointer nmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			
+			Praat.INSTANCE.TextTier_changeLabels_wrapped(this, new NativeLong(from), new NativeLong(to), 
+					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
+			Praat.checkAndClearLastError();
+			
+			nmatches.set(nmatchesPtr.getLong(0));
+			nstringmatches.set(nstringmatchesPtr.getLong(0));
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 	public long maximumLabelLength () {
 		return Praat.INSTANCE.TextTier_maximumLabelLength(this).longValue();
 	}
@@ -134,6 +162,58 @@ public class TextTier extends Function {
 	
 	public void scaleX (TextTier me, double xminfrom, double xmaxfrom, double xminto, double xmaxto) {
 		Praat.INSTANCE.TextTier_scaleX(this, xminfrom, xmaxfrom, xminto, xmaxto);
+	}
+	
+	/**
+	 * Set the end time to a larger value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setLaterEndTime(double xmax, String mark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextTier_setLaterEndTime_wrapped(this, xmax, 
+					(mark == null ? null : new Str32(mark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	/**
+	 * Set the start time to a smaller value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setEarlierStartTime(double xmin, String mark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextTier_setEarlierStartTime_wrapped(this, xmin,
+					(mark == null ? null : new Str32(mark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
+	public void append_inline(TextTier thee, boolean preserveTimes) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextTiers_append_inline_wrapped(this, thee, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 }

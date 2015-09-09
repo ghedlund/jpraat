@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
@@ -19,6 +23,28 @@ public class TextGrid extends Function {
 	
 	public TextGrid(Pointer p) {
 		super(p);
+	}
+	
+	/**
+	Merge two textGrids.
+	The new domain will be:
+	[min(grid1->xmin, grid2->xmin), max(grid1->xmax, grid2->xmax)].
+	This implies that for the resulting TextGrid each interval tier will have
+	one or two extra intervals if the domains of the two TextGrids are not equal,
+	*/
+	public static TextGrid merge (TextGrid tg1, TextGrid tg2)
+		throws PraatException {
+		TextGrid retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.TextGrids_merge_wrapped(tg1, tg2);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
 	}
 	
 	public static TextGrid createWithoutTiers (double tmin, double tmax) 
@@ -56,6 +82,23 @@ public class TextGrid extends Function {
 			Praat.wrapperLock.unlock();
 		}
 		return retVal;
+	}
+	
+	/**
+	Extend the begin-time (delta_time<0) or end-time (delta_time>0).
+	For Point-tiers only the domain will be extended.
+	Interval tiers will have a new (empty) interval at the start or the end.
+	*/
+	public void extendTime(double delta_time, int position) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrid_extendTime_wrapped(this, delta_time, position);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	public long countLables (long itier, String text) throws PraatException {
@@ -346,6 +389,28 @@ public class TextGrid extends Function {
 		}
 	}
 	
+	public void changeLabels(int tier, long from, long to, 
+			String search, String replace, int use_regexp, 
+			AtomicReference<Long> nmatches, AtomicReference<Long> nstringmatches) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			
+			Pointer nmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			
+			Praat.INSTANCE.TextGrid_changeLabels_wrapped(this, tier, new NativeLong(from), new NativeLong(to), 
+					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
+			Praat.checkAndClearLastError();
+			
+			nmatches.set(nmatchesPtr.getLong(0));
+			nstringmatches.set(nstringmatchesPtr.getLong(0));
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 	public void insertBoundary (int itier, double t) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -491,6 +556,18 @@ public class TextGrid extends Function {
 		return tier;
 	}
 	
+	public void setTierName(long itier, String newName) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrid_setTierName_wrapped(this, new NativeLong(itier), new Str32(newName));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 	public void removePoints (long tierNumber, int which_Melder_STRING, Str32 criterion) {
 		Praat.INSTANCE.TextGrid_removePoints(this, new NativeLong(tierNumber), which_Melder_STRING, criterion);
 	}
@@ -509,6 +586,80 @@ public class TextGrid extends Function {
 	
 	public void scaleX (double xminfrom, double xmaxfrom, double xminto, double xmaxto) {
 		Praat.INSTANCE.TextGrid_scaleX(this, xminfrom, xmaxfrom, xminto, xmaxto);
+	}
+
+	/**
+	 * Set the end time to a larger value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setLaterEndTime(double xmax, String imark, String pmark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrid_setLaterEndTime_wrapped(this, xmax, 
+					(imark == null ? null : new Str32(imark)),
+					(pmark == null ? null : new Str32(pmark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	/**
+	 * Set the start time to a smaller value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setEarlierStartTime(double xmin, String imark, String pmark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrid_setEarlierStartTime_wrapped(this, xmin,
+					(imark == null ? null : new Str32(imark)),
+					(pmark == null ? null : new Str32(pmark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void append_inline(TextGrid thee, boolean preserveTimes) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrids_append_inline_wrapped(this, thee, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
+	public static TextGrid TextGrids_to_TextGrid_appendContinuous (java.util.Collection<TextGrid> me, boolean preserveTimes)
+		throws PraatException {
+		TextGrid retVal = null;
+		
+		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), me.size());
+		for(TextGrid tg:me) col.addItem(tg);
+		
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrids_to_TextGrid_appendContinuous_wrapped(col, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
 	}
 
 }

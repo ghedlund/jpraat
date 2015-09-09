@@ -1,5 +1,9 @@
 package ca.hedlund.jpraat.binding.fon;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
@@ -191,6 +195,28 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
+	public void changeLabels(long from, long to, 
+			String search, String replace, int use_regexp, 
+			AtomicReference<Long> nmatches, AtomicReference<Long> nstringmatches) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			
+			Pointer nmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
+			
+			Praat.INSTANCE.IntervalTier_changeLabels_wrapped(this, new NativeLong(from), new NativeLong(to), 
+					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
+			Praat.checkAndClearLastError();
+			
+			nmatches.set(nmatchesPtr.getLong(0));
+			nstringmatches.set(nstringmatchesPtr.getLong(0));
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 	public MelderQuantity domainQuantity () {
 		return Praat.INSTANCE.IntervalTier_domainQuantity(this);
 	}
@@ -223,5 +249,106 @@ public class IntervalTier extends Function {
 	public void removeInterval (long iinterval) {
 		Praat.INSTANCE.IntervalTier_removeInterval(this, new NativeLong(iinterval));
 	}
+	
+	public void removeBoundariesBetweenIdenticallyLabeledIntervals (String label) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_removeBoundariesBetweenIdenticallyLabeledIntervals_wrapped(this, new Str32(label));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
+	public void cutIntervalsOnLabelMatch (String label) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_cutIntervalsOnLabelMatch_wrapped(this, new Str32(label));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
+	public void cutIntervals_minimumDuration (String label, double minimumDuration) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_cutIntervals_minimumDuration_wrapped(this, new Str32(label), minimumDuration);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	/**
+	 * Set the end time to a larger value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setLaterEndTime(double xmax, String mark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_setLaterEndTime_wrapped(this, xmax, 
+					(mark == null ? null : new Str32(mark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	/**
+	 * Set the start time to a smaller value.
+	 * If mark is NULL, only times are changed
+	 * If mark != NULL mark the previous start/end time
+	 *    For a TextTier this involves adding a point with the marker
+	 *    For an IntervalTier this involves adding a new interval
+	 */
+	public void setEarlierStartTime(double xmin, String mark) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_setEarlierStartTime_wrapped(this, xmin,
+					(mark == null ? null : new Str32(mark)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void moveBoundary(long interval, boolean atStart, double newTime) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTier_moveBoundary_wrapped(this, new NativeLong(interval), atStart, newTime);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void append_inline(IntervalTier thee, boolean preserveTimes) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.IntervalTiers_append_inline_wrapped(this, thee, preserveTimes);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
 
 }
