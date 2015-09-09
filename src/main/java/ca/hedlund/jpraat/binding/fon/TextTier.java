@@ -41,13 +41,9 @@ public class TextTier extends Function {
 	}
 	
 	public void addPoint (double time, String mark) throws PraatException {
-		addPoint(time, new Str32(mark));
-	}
-	
-	public void addPoint (double time, Str32 mark) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextTier_addPoint_wrapped(this, time, mark);
+			Praat.INSTANCE.TextTier_addPoint_wrapped(this, time, new Str32(mark));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -73,15 +69,11 @@ public class TextTier extends Function {
 	}
 	
 	public PointProcess getPoints(String text) throws PraatException {
-		return getPoints(new Str32(text));
-	}
-	
-	public PointProcess getPoints (Str32 text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextTier_getPoints_wrapped(
-					this, text);
+					this, (text == null ? null : new Str32(text)));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -145,11 +137,7 @@ public class TextTier extends Function {
 	}
 	
 	public void removePoints (int which_Melder_STRING, String criterion) {
-		removePoints(which_Melder_STRING, new Str32(criterion));
-	}
-	
-	public void removePoints (int which_Melder_STRING, Str32 criterion) {
-		Praat.INSTANCE.TextTier_removePoints(this, which_Melder_STRING, criterion);
+		Praat.INSTANCE.TextTier_removePoints(this, which_Melder_STRING, (criterion == null ? null : new Str32(criterion)));
 	}
 	
 	public MelderQuantity domainQuantity () {

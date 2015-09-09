@@ -72,8 +72,9 @@ public class Function extends Data {
 		return Praat.INSTANCE.Function_getMaximumUnit(new NativeLong(ilevel));
 	}
 	
-	public Str32 getUnitText (long ilevel, int unit, long flags) {
-		return Praat.INSTANCE.Function_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+	public String getUnitText (long ilevel, int unit, long flags) {
+		Str32 txt32 = Praat.INSTANCE.Function_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+		return (txt32 != null ? txt32.toString() : null);
 	}
 
 	

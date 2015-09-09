@@ -17,14 +17,10 @@ public class MelderFile extends PointerType {
 	 * @return file
 	 */
 	public static MelderFile fromPath(String path) throws PraatException {
-		return fromPath(new Str32(path));
-	}
-	
-	public static MelderFile fromPath(Str32 path) throws PraatException {
 		final MelderFile retVal = Praat.INSTANCE.MelderFile_new();
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Melder_pathToFile_wrapped(path, retVal);
+			Praat.INSTANCE.Melder_pathToFile_wrapped(new Str32(path), retVal);
 		Praat.checkAndClearLastError(); 
 		} catch (PraatException e) {
 			throw e;
@@ -66,8 +62,9 @@ public class MelderFile extends PointerType {
 		return Praat.INSTANCE.MelderFile_length(this).longValue();
 	}
 	
-	public Str32 path() {
-		return Praat.INSTANCE.Melder_fileToPath(this);
+	public String path() {
+		Str32 txt32 = Praat.INSTANCE.Melder_fileToPath(this);
+		return (txt32 == null ? null : txt32.toString());
 	}
 	
 }

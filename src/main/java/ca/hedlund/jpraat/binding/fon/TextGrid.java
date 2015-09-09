@@ -65,16 +65,11 @@ public class TextGrid extends Function {
 
 	public static TextGrid create (double tmin, double tmax, String tierNames, String pointTiers)
 		throws PraatException {
-		return create(tmin, tmax, new Str32(tierNames), new Str32(pointTiers));
-	}
-	
-	public static TextGrid create (double tmin, double tmax, Str32 tierNames, Str32 pointTiers)
-		throws PraatException {
 		TextGrid retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextGrid_create_wrapped(tmin,
-					tmax, tierNames, pointTiers);
+					tmax, new Str32(tierNames), new Str32(pointTiers));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -101,16 +96,12 @@ public class TextGrid extends Function {
 		}
 	}
 
-	public long countLables (long itier, String text) throws PraatException {
-		return countLabels(itier, new Str32(text));
-	}
-	
-	public long countLabels (long itier, Str32 text) throws PraatException {
+	public long countLabels (long itier, String text) throws PraatException {
 		long retVal = 0L;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextGrid_countLabels_wrapped(this,
-					new NativeLong(itier), text).longValue();
+					new NativeLong(itier), new Str32(text)).longValue();
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -121,16 +112,12 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getStartingPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getStartingPoints(itier, which_Melder_STRING, new Str32(criterion));
-	}
-	
-	public PointProcess getStartingPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getStartingPoints_wrapped(this, new NativeLong(
-							itier), which_Melder_STRING, criterion);
+							itier), which_Melder_STRING, (criterion != null ? new Str32(criterion) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -141,16 +128,12 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getEndPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getEndPoints(itier, which_Melder_STRING, new Str32(criterion));
-	}
-	
-	public PointProcess getEndPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getEndPoints_wrapped(this, new NativeLong(itier),
-							which_Melder_STRING, criterion);
+							which_Melder_STRING, (criterion != null ? new Str32(criterion) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -166,23 +149,7 @@ public class TextGrid extends Function {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getCentrePoints_wrapped(this, new NativeLong(
-							itier), which_Melder_STRING, new Str32(criterion));
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
-	
-	public PointProcess getCentrePoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
-		PointProcess retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE
-					.TextGrid_getCentrePoints_wrapped(this, new NativeLong(
-							itier), which_Melder_STRING, criterion);
+							itier), which_Melder_STRING, (criterion != null ? new Str32(criterion) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -193,16 +160,12 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getPoints (long itier, int which_Melder_STRING, String criterion)throws PraatException {
-		return getPoints(itier, which_Melder_STRING, new Str32(criterion));
-	}
-	
-	public PointProcess getPoints (long itier, int which_Melder_STRING, Str32 criterion)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getPoints_wrapped(this, new NativeLong(itier),
-							which_Melder_STRING, criterion);
+							which_Melder_STRING, (criterion != null ? new Str32(criterion) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -213,22 +176,16 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getPoints_preceded (long tierNumber,
-			int which_Melder_STRING, String criterion,
-			int which_Melder_STRING_precededBy, String criterion_precededBy)throws PraatException {
-		return getPoints_preceded(tierNumber, which_Melder_STRING, new Str32(criterion), which_Melder_STRING_precededBy, new Str32(criterion_precededBy));
-	}
-	
-	public PointProcess getPoints_preceded (long tierNumber,
-		int which_Melder_STRING, Str32 criterion,
-		int which_Melder_STRING_precededBy, Str32 criterion_precededBy)throws PraatException {
+		int which_Melder_STRING, String criterion,
+		int which_Melder_STRING_precededBy, String criterion_precededBy)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getPoints_preceded_wrapped(this, new NativeLong(
-							tierNumber), which_Melder_STRING, criterion,
+							tierNumber), which_Melder_STRING, (criterion != null ? new Str32(criterion) : null),
 							which_Melder_STRING_precededBy,
-							criterion_precededBy);
+							(criterion_precededBy != null ? new Str32(criterion_precededBy) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -239,22 +196,16 @@ public class TextGrid extends Function {
 	}
 	
 	public PointProcess getPoints_followed (long tierNumber,
-			int which_Melder_STRING, String criterion,
-			int which_Melder_STRING_followedBy, String criterion_followedBy)throws PraatException {
-		return getPoints_followed(tierNumber, which_Melder_STRING, new Str32(criterion), which_Melder_STRING_followedBy, new Str32(criterion_followedBy));
-	}
-	
-	public PointProcess getPoints_followed (long tierNumber,
-		int which_Melder_STRING, Str32 criterion,
-		int which_Melder_STRING_followedBy, Str32 criterion_followedBy)throws PraatException {
+		int which_Melder_STRING, String criterion,
+		int which_Melder_STRING_followedBy, String criterion_followedBy)throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TextGrid_getPoints_followed_wrapped(this, new NativeLong(
-							tierNumber), which_Melder_STRING, criterion,
+							tierNumber), which_Melder_STRING, (criterion != null ? new Str32(criterion) : null),
 							which_Melder_STRING_followedBy,
-							criterion_followedBy);
+							(criterion_followedBy != null ? new Str32(criterion_followedBy) : null));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -437,14 +388,10 @@ public class TextGrid extends Function {
 	}
 	
 	public void setIntervalText (int itier, long iinterval, String text) throws PraatException {
-		setIntervalText(itier, iinterval, new Str32(text));
-	}
-	
-	public void setIntervalText (int itier, long iinterval, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextGrid_setIntervalText_wrapped(this, itier,
-					new NativeLong(iinterval), text);
+					new NativeLong(iinterval), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -454,13 +401,9 @@ public class TextGrid extends Function {
 	}
 	
 	public void insertPoint (int itier, double t, String mark) throws PraatException {
-		insertPoint(itier, t, new Str32(mark));
-	}
-
-	public void insertPoint (int itier, double t, Str32 mark) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrid_insertPoint_wrapped(this, itier, t, mark);
+			Praat.INSTANCE.TextGrid_insertPoint_wrapped(this, itier, t, new Str32(mark));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -470,14 +413,10 @@ public class TextGrid extends Function {
 	}
 
 	public void setPointText (int itier, long ipoint, String text) throws PraatException {
-		setPointText(itier, ipoint, new Str32(text));
-	}
-
-	public void setPointText (int itier, long ipoint, Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TextGrid_setPointText_wrapped(this, itier,
-					new NativeLong(ipoint), text);
+					new NativeLong(ipoint), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -568,8 +507,9 @@ public class TextGrid extends Function {
 		}
 	}
 	
-	public void removePoints (long tierNumber, int which_Melder_STRING, Str32 criterion) {
-		Praat.INSTANCE.TextGrid_removePoints(this, new NativeLong(tierNumber), which_Melder_STRING, criterion);
+	public void removePoints (long tierNumber, int which_Melder_STRING, String criterion) {
+		Praat.INSTANCE.TextGrid_removePoints(this, new NativeLong(tierNumber), which_Melder_STRING, 
+				(criterion != null ? new Str32(criterion) : null));
 	}
 	
 	public void repair () {

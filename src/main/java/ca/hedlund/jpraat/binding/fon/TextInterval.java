@@ -17,15 +17,11 @@ public class TextInterval extends Function {
 	}
 
 	public static TextInterval create (double tmin, double tmax, String text) throws PraatException {
-		return create(tmin, tmax, new Str32(text));
-	}
-	
-	public static TextInterval create (double tmin, double tmax, Str32 text) throws PraatException {
 		TextInterval retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextInterval_create_wrapped(
-					tmin, tmax, text);
+					tmin, tmax, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -36,13 +32,9 @@ public class TextInterval extends Function {
 	}
 	
 	public void setText(String text) throws PraatException {
-		setText(new Str32(text));
-	}
-
-	public void setText(Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextInterval_setText_wrapped(this, text);
+			Praat.INSTANCE.TextInterval_setText_wrapped(this, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -52,11 +44,8 @@ public class TextInterval extends Function {
 	}
 	
 	public String getText() {
-		return (getTextW() != null ? getTextW().toString() : "");
-	}
-	
-	public Str32 getTextW() {
-		return Praat.INSTANCE.TextInterval_getText(this);
+		Str32 txt32 = Praat.INSTANCE.TextInterval_getText(this);
+		return (txt32 == null ? null : txt32.toString());
 	}
 	
 	public long labelLength () {

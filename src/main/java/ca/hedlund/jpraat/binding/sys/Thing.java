@@ -32,12 +32,12 @@ public abstract class Thing extends PointerType {
 		super(p);
 	}
 
-	public static Object newFromClassName (Str32 className) throws PraatException {
+	public static Object newFromClassName (String className) throws PraatException {
 		Object retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.Thing_newFromClassName_wrapped(className);
+					.Thing_newFromClassName_wrapped(new Str32(className));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -80,8 +80,8 @@ public abstract class Thing extends PointerType {
 		}
 	}
 	
-	public Str32 className () {
-		return Praat.INSTANCE.Thing_className(this);
+	public String className () {
+		return Praat.INSTANCE.Thing_className(this).toString();
 	}
 	
 	public void info () {
@@ -93,20 +93,11 @@ public abstract class Thing extends PointerType {
 	}
 	
 	public String getName() {
-		return (getNameW() != null ? getNameW().toString() : "");
+		return Praat.INSTANCE.Thing_getName(this).toString();
 	}
 	
 	public void setName(String name) {
-		setNameW((name == null ? null : new Str32(name)));
-	}
-	
-	/* Return a pointer to your internal name (which can be NULL). */
-	public Str32 getNameW () {
-		return Praat.INSTANCE.Thing_getName(this);
-	}
-	
-	public void setNameW (Str32 name) {
-		Praat.INSTANCE.Thing_setName(this, name);
+		Praat.INSTANCE.Thing_setName(this, (name == null ? null : new Str32(name)));
 	}
 	
 	public void swap (Thing thee) {

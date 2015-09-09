@@ -13,12 +13,12 @@ public class Strings extends Data {
 		super(p);
 	}
 	
-	public static Strings createAsFileList (Str32 path) throws PraatException {
+	public static Strings createAsFileList (String path) throws PraatException {
 		Strings retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.Strings_createAsFileList_wrapped(path);
+					.Strings_createAsFileList_wrapped(new Str32(path));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -28,12 +28,12 @@ public class Strings extends Data {
 		return retVal;
 	}
 	
-	public static Strings createAsDirectoryList (Str32 path) throws PraatException {
+	public static Strings createAsDirectoryList (String path) throws PraatException {
 		Strings retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.Strings_createAsDirectoryList_wrapped(path);
+					.Strings_createAsDirectoryList_wrapped(new Str32(path));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -99,11 +99,11 @@ public class Strings extends Data {
 		}
 	}
 	
-	public void replace (long position, Str32 text) throws PraatException {
+	public void replace (long position, String text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(
-					position), text);
+					position), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -112,11 +112,11 @@ public class Strings extends Data {
 		}
 	}
 	
-	public void insert (long position, Str32 text) throws PraatException {
+	public void insert (long position, String text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_insert_wrapped(this,
-					new NativeLong(position), text);
+					new NativeLong(position), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

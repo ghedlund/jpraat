@@ -17,15 +17,11 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public static TextPoint create(double time, String mark) throws PraatException {
-		return create(time, new Str32(mark));
-	}
-	
-	public static TextPoint create(double time, Str32 mark) throws PraatException {
 		TextPoint retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextPoint_create_wrapped(time,
-					mark);
+					new Str32(mark));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -36,13 +32,9 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public void setText(String text) throws PraatException {
-		setText(new Str32(text));
-	}
-	
-	public void setText (Str32 text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextPoint_setText_wrapped(this, text);
+			Praat.INSTANCE.TextPoint_setText_wrapped(this, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -52,11 +44,8 @@ public class TextPoint extends AnyPoint {
 	}
 	
 	public String getText() {
-		return (getTextW() != null ? getTextW().toString() : "");
-	}
-	
-	public Str32 getTextW() {
-		return Praat.INSTANCE.TextPoint_getText(this);
+		Str32 txt32 = Praat.INSTANCE.TextPoint_getText(this);
+		return (txt32 == null ? null : txt32.toString());
 	}
 	
 	public long labelLength () {

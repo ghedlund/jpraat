@@ -86,12 +86,12 @@ public class IntervalTier extends Function {
 		return Praat.INSTANCE.IntervalTier_hasBoundary(this, t).longValue();
 	}
 	
-	public PointProcess getStartingPoints (Str32 text) throws PraatException {
+	public PointProcess getStartingPoints (String text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.IntervalTier_getStartingPoints_wrapped(this, text);
+					.IntervalTier_getStartingPoints_wrapped(this, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -101,12 +101,12 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
-	public PointProcess getEndPoints (Str32 text) throws PraatException {
+	public PointProcess getEndPoints (String text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.IntervalTier_getEndPoints_wrapped(
-					this, text);
+					this, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -116,12 +116,12 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
-	public PointProcess getCentrePoints (Str32 text) throws PraatException {
+	public PointProcess getCentrePoints (String text) throws PraatException {
 		PointProcess retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.IntervalTier_getCentrePoints_wrapped(this, text);
+					.IntervalTier_getCentrePoints_wrapped(this, new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -229,10 +229,6 @@ public class IntervalTier extends Function {
 		Praat.INSTANCE.IntervalTier_scaleX(this, xminfrom, xmaxfrom, xminto, xmaxto);
 	}
 	
-	public void addInterval (double tmin, double tmax, String label) {
-		addInterval(tmin, tmax, new Str32(label));
-	}
-
 	/**
 	 * Unsafe add interval.  This method <b>does not</b> ensure proper ordering
 	 * of intervals.
@@ -242,8 +238,8 @@ public class IntervalTier extends Function {
 	 * @param tmax
 	 * @param label
 	 */
-	public void addInterval (double tmin, double tmax, Str32 label) {
-		Praat.INSTANCE.IntervalTier_addInterval(this, tmin, tmax, label);
+	public void addInterval (double tmin, double tmax, String label) {
+		Praat.INSTANCE.IntervalTier_addInterval(this, tmin, tmax, new Str32(label));
 	}
 	
 	public void removeInterval (long iinterval) {

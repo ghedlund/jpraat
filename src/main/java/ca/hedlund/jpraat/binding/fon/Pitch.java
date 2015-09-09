@@ -330,8 +330,9 @@ public class Pitch extends Sampled {
 		return Praat.INSTANCE.Pitch_getMaximumUnit(this, new NativeLong(ilevel));
 	}
 
-	public Str32 getUnitText (long ilevel, kPitch_unit unit, long flags) {
-		return Praat.INSTANCE.Pitch_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+	public String getUnitText (long ilevel, kPitch_unit unit, long flags) {
+		Str32 txt32 = Praat.INSTANCE.Pitch_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+		return (txt32 == null ? null : txt32.toString());
 	}
 	
 	@Override
