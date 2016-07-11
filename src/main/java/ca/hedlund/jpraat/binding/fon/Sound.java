@@ -6,7 +6,6 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -168,23 +167,23 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public static Sound combineToStereo(Sound left, Sound right)
-		throws PraatException {
-		Collection sounds = Collection.create(left.getClassInfo(), 2);
-		sounds.addItem(left);
-		sounds.addItem(right);
-		Sound retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sounds_combineToStereo_wrapped(sounds);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
+//	public static Sound combineToStereo(Sound left, Sound right)
+//		throws PraatException {
+//		Collection sounds = Collection.create(left.getClassInfo(), 2);
+//		sounds.addItem(left);
+//		sounds.addItem(right);
+//		Sound retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Sounds_combineToStereo_wrapped(sounds);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
 	
 	public static Sound convolve (Sound me, Sound thee, 
 			kSounds_convolve_scaling scaling, kSounds_convolve_signalOutsideTimeDomain signalOutsideTimeDomain)
@@ -356,20 +355,20 @@ public class Sound extends Vector {
 		Praat.INSTANCE.Sound_setZero(this, tmin, tmax, roundTimesToNearestZeroCrossing);
 	}
 	
-	public static Sound concatenate_e (Collection me, double overlapTime) 
-		throws PraatException {
-		Sound retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sounds_concatenate_e_wrapped(me, overlapTime);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
+//	public static Sound concatenate_e (Collection me, double overlapTime) 
+//		throws PraatException {
+//		Sound retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Sounds_concatenate_e_wrapped(me, overlapTime);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
 	
 	public void multiplyByWindow (kSound_windowShape windowShape) {
 		Praat.INSTANCE.Sound_multiplyByWindow(this, windowShape);
@@ -793,7 +792,8 @@ public class Sound extends Vector {
 	}
 
 	
-	public Intensity to_Intensity (double minimumPitch, double timeStep, int subtractMean) {
+	public Intensity to_Intensity (double minimumPitch, double timeStep, int subtractMean) 
+		throws PraatException {
 
 		if(Double.isNaN(minimumPitch) || minimumPitch <= 0.0) {
 			throw new IllegalArgumentException("Minimum pitch must be > 0.0");
@@ -810,7 +810,17 @@ public class Sound extends Vector {
 					+ "at least 6.4 divided by the minimum pitch.  i.e., at least " + minDuration + "s.");
 		}
 		
-		return Praat.INSTANCE.Sound_to_Intensity(this, minimumPitch, timeStep, subtractMean);
+		Intensity retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_to_Intensity_wrapped(this, minimumPitch, timeStep, subtractMean);
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
 	}
 
 	public Spectrum to_Spectrum (Sound me, int fast) throws PraatException {

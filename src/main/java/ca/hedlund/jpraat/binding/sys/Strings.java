@@ -7,7 +7,7 @@ import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Strings extends Data {
+public class Strings extends Daata {
 	
 	public Strings(Pointer p) {
 		super(p);

@@ -9,14 +9,14 @@ import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-@Declared("sys/Data.h")
-public class Data extends Thing {
+@Declared("sys/Daata.h")
+public class Daata extends Thing {
 	
-	public Data() {
+	public Daata() {
 		super();
 	}
 	
-	public Data(Pointer p) {
+	public Daata(Pointer p) {
 		super(p);
 	}
 	
@@ -68,7 +68,7 @@ public class Data extends Thing {
 		return retVal;
 	}
 	
-	public boolean equal (Data data2) {
+	public boolean equal (Daata data2) {
 		return Praat.INSTANCE.Data_equal(this, data2);
 	}
 	

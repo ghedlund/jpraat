@@ -10,7 +10,7 @@ import org.junit.runners.JUnit4;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.fon.TextGrid;
 import ca.hedlund.jpraat.binding.fon.TextInterval;
-import ca.hedlund.jpraat.binding.sys.Data;
+import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import junit.framework.Assert;
 
@@ -32,7 +32,7 @@ public class TestTextGridUtils {
 		final String path = "src/test/resources/ca/hedlund/jpraat/binding/fon/test.TextGrid";
 		final MelderFile f = MelderFile.fromPath(path);
 		
-		TextGrid tg = Data.readFromFile(TextGrid.class, f);
+		TextGrid tg = Daata.readFromFile(TextGrid.class, f);
 		
 		List<TextInterval> intervals = TextGridUtils.getContiguousIntervals(tg, tierIdx, tolerence, maxLength, delim);
 		Assert.assertEquals(13, intervals.size());

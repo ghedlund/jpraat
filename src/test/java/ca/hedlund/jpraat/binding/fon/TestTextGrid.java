@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Data;
+import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 import junit.framework.Assert;
@@ -29,7 +29,7 @@ public class TestTextGrid {
 		tier.addInterval(1.0, 3.0, "Goodbye");
 		tier.addInterval(4.0, 6.0, "Sanity");
 		
-		Assert.assertEquals(2, tier.numberOfIntervals());
+		Assert.assertEquals(3, tier.numberOfIntervals());
 		
 		tg.addTier(tier);
 		
@@ -56,7 +56,7 @@ public class TestTextGrid {
 		final String path = "src/test/resources/ca/hedlund/jpraat/binding/fon/test.TextGrid";
 		final MelderFile f = MelderFile.fromPath(path);
 		
-		TextGrid tg = Data.readFromFile(TextGrid.class, f);
+		TextGrid tg = Daata.readFromFile(TextGrid.class, f);
 		Assert.assertEquals(5, tg.numberOfTiers());
 	}
 

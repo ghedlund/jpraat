@@ -4,9 +4,10 @@ package ca.hedlund.jpraat.binding.stat;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Data;
+import ca.hedlund.jpraat.binding.sys.Daata;
+import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class SimpleDouble extends Data {
+public class SimpleDouble extends Daata {
 	
 	public SimpleDouble() {
 		super();
@@ -16,8 +17,8 @@ public class SimpleDouble extends Data {
 		super(p);
 	}
 	
-	public static SimpleDouble create (double number) {
-		return Praat.INSTANCE.SimpleDouble_create(number);
+	public static SimpleDouble create (double number) throws PraatException {
+		return Praat.INSTANCE.SimpleDouble_create_wrapped(number);
 	}
 	
 	public double getNumber() {

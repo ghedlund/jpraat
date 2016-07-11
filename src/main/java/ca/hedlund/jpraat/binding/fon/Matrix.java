@@ -197,17 +197,17 @@ public class Matrix extends SampledXY {
 		return retVal;
 	}
 	
-	public void eigen (Matrix eigenvectors, Matrix eigenvalues) throws PraatException {
-		try {
-			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Matrix_eigen_wrapped(this, eigenvectors, eigenvalues);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-	}
+//	public void eigen (Matrix eigenvectors, Matrix eigenvalues) throws PraatException {
+//		try {
+//			Praat.wrapperLock.lock();
+//			Praat.INSTANCE.Matrix_eigen_wrapped(this, eigenvectors, eigenvalues);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//	}
 	
 	public Matrix power (long power) throws PraatException {
 		Matrix retVal = null;

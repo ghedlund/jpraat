@@ -195,28 +195,6 @@ public class IntervalTier extends Function {
 		return retVal;
 	}
 	
-	public void changeLabels(long from, long to, 
-			String search, String replace, int use_regexp, 
-			AtomicReference<Long> nmatches, AtomicReference<Long> nstringmatches) throws PraatException {
-		try {
-			Praat.wrapperLock.lock();
-			
-			Pointer nmatchesPtr = new Memory(Native.getNativeSize(Long.class));
-			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
-			
-			Praat.INSTANCE.IntervalTier_changeLabels_wrapped(this, new NativeLong(from), new NativeLong(to), 
-					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
-			Praat.checkAndClearLastError();
-			
-			nmatches.set(nmatchesPtr.getLong(0));
-			nstringmatches.set(nstringmatchesPtr.getLong(0));
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-	}
-	
 	public MelderQuantity domainQuantity () {
 		return Praat.INSTANCE.IntervalTier_domainQuantity(this);
 	}

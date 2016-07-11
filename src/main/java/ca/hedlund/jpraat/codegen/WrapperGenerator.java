@@ -112,6 +112,7 @@ public class WrapperGenerator {
 	}
 	
 	public void processMethod(Method method) {
+		final Wrapped wrapped = method.getAnnotation(Wrapped.class);
 		String methodName = method.getName();
 		String praatMethod = methodName;
 		if(methodName.endsWith("_wrapped")) {
@@ -172,7 +173,11 @@ public class WrapperGenerator {
 				buffer.append(",");
 			buffer.append(param.getName());
 		}
-		buffer.append(");\n");
+		buffer.append(")");
+		if(method.getReturnType() != void.class && wrapped.autoPtrUnwrap()) {
+			buffer.append(".releaseToAmbiguousOwner()");
+		}
+		buffer.append(";\n");
 		
 		buffer.append("\t").append("}");
 		buffer.append(" catch (const char* e) {").append("\n");

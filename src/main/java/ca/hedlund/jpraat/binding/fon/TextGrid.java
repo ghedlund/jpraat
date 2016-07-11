@@ -10,7 +10,6 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.Table;
-import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
@@ -269,7 +268,7 @@ public class TextGrid extends Function {
 	public void addTier (Function tier) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrid_addTier_wrapped(this, tier);
+			Praat.INSTANCE.TextGrid_addTier_copy_wrapped(this, tier);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -278,24 +277,24 @@ public class TextGrid extends Function {
 		}
 	}
 	
-	public static TextGrid merge (java.util.Collection<TextGrid> textGrids) throws PraatException {
-		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), textGrids.size());
-		for(TextGrid tg:textGrids) {
-			col.addItem(tg);
-		}
-		
-		TextGrid retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.TextGrid_merge_wrapped(col);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
+//	public static TextGrid merge (java.util.Collection<TextGrid> textGrids) throws PraatException {
+//		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), textGrids.size());
+//		for(TextGrid tg:textGrids) {
+//			col.addItem(tg);
+//		}
+//		
+//		TextGrid retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.TextGrid_merge_wrapped(col);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
 	
 	public TextGrid extractPart (double tmin, double tmax, int preserveTimes) throws PraatException {
 		TextGrid retVal = null;
@@ -582,24 +581,24 @@ public class TextGrid extends Function {
 		}
 	}
 
-	public static TextGrid TextGrids_to_TextGrid_appendContinuous (java.util.Collection<TextGrid> me, boolean preserveTimes)
-		throws PraatException {
-		TextGrid retVal = null;
-		
-		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), me.size());
-		for(TextGrid tg:me) col.addItem(tg);
-		
-		try {
-			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrids_to_TextGrid_appendContinuous_wrapped(col, preserveTimes);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		
-		return retVal;
-	}
+//	public static TextGrid TextGrids_to_TextGrid_appendContinuous (java.util.Collection<TextGrid> me, boolean preserveTimes)
+//		throws PraatException {
+//		TextGrid retVal = null;
+//		
+//		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), me.size());
+//		for(TextGrid tg:me) col.addItem(tg);
+//		
+//		try {
+//			Praat.wrapperLock.lock();
+//			Praat.INSTANCE.TextGrids_to_TextGrid_appendContinuous_wrapped(col, preserveTimes);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		
+//		return retVal;
+//	}
 
 }

@@ -5,7 +5,7 @@ import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
-import ca.hedlund.jpraat.binding.sys.Data;
+import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 
 
@@ -15,7 +15,7 @@ import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 		xmax >= xmin;
 		xmin, xmax are constant;
 */
-public class Function extends Data {
+public class Function extends Daata {
 	
 	public Function() {
 		super();

@@ -3,7 +3,6 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.NativeLong;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Collection;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -47,39 +46,39 @@ public class Ltas extends Vector {
 		return Praat.INSTANCE.Ltas_getLocalPeakHeight(this, environmentMin, environmentMax, peakMin, peakMax, averagingUnits);
 	}
 	
-	public static Ltas merge(java.util.Collection<Ltas> ltases) throws PraatException {
-		Collection col = Collection.create(Praat.getClassInfo(Ltas.class), ltases.size());
-		for(Ltas ltas:ltases) col.addItem(ltas);
-		
-		Ltas retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Ltases_merge_wrapped(col);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
-	
-	public static Ltas average(java.util.Collection<Ltas> ltases) throws PraatException {
-		Collection col = Collection.create(Praat.getClassInfo(Ltas.class), ltases.size());
-		for(Ltas ltas:ltases) col.addItem(ltas);
-		
-		Ltas retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Ltases_average_wrapped(col);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
+//	public static Ltas merge(java.util.Collection<Ltas> ltases) throws PraatException {
+//		Collection col = Collection.create(Praat.getClassInfo(Ltas.class), ltases.size());
+//		for(Ltas ltas:ltases) col.addItem(ltas);
+//		
+//		Ltas retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Ltases_merge_wrapped(col);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
+//	
+//	public static Ltas average(java.util.Collection<Ltas> ltases) throws PraatException {
+//		Collection col = Collection.create(Praat.getClassInfo(Ltas.class), ltases.size());
+//		for(Ltas ltas:ltases) col.addItem(ltas);
+//		
+//		Ltas retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Ltases_average_wrapped(col);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
 	
 	public Ltas computeTrendLine(double fmin, double fmax) throws PraatException {
 		Ltas retVal = null;
