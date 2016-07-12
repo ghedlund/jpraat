@@ -29,7 +29,7 @@ public class TestTextGrid {
 		tier.addInterval(1.0, 3.0, "Goodbye");
 		tier.addInterval(4.0, 6.0, "Sanity");
 		
-		Assert.assertEquals(3, tier.numberOfIntervals());
+		Assert.assertEquals(2, tier.numberOfIntervals());
 		
 		tg.addTier(tier);
 		
