@@ -10,6 +10,7 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.jna.Str32;
+import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -353,6 +354,18 @@ public class Pitch extends Sampled {
 	@Override
 	public double getValueAtSample (long isamp, long ilevel, int unit) {
 		return Praat.INSTANCE.Pitch_getValueAtSample(this, new NativeLong(isamp), new NativeLong(ilevel), unit);
+	}
+	
+	public void formula(String formula, Interpreter interpreter)
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Pitch_formula_wrapped(this, new Str32(formula), interpreter);
+		} catch (PraatException pe) {
+			throw pe;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 }

@@ -7,7 +7,11 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
+import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -289,6 +293,30 @@ public class Matrix extends SampledXY {
 			Praat.wrapperLock.unlock();
 		}
 		return retVal;
+	}
+	
+	public void formula(String expression, Interpreter interpreter, Matrix target) 
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_formula_wrapped(this, new Str32(expression), interpreter, target);
+		} catch (PraatException pe) {
+			throw pe;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void formula_part(double xmin, double xmax, double ymin, double ymax,
+			String expression, Interpreter interpreter, Matrix target) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Matrix_formula_part_wrapped(this, xmin, xmax, ymin, ymax, new Str32(expression), interpreter, target);
+		} catch (PraatException pe) {
+			throw pe;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 }

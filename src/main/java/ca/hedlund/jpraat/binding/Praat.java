@@ -44,6 +44,7 @@ import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.stat.TableOfReal;
 import ca.hedlund.jpraat.binding.sys.ClassInfo;
 import ca.hedlund.jpraat.binding.sys.Daata;
+import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.binding.sys.PraatVersion;
@@ -193,18 +194,18 @@ public interface Praat extends Library {
 
 	@Declared("sys/Data.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Pointer Data_readFromTextFile_wrapped (MelderFile file);
+	public @NativeType("Thing") Pointer Data_readFromTextFile_wrapped (MelderFile file);
 
 	@Declared("sys/Data.h")
 	public boolean Data_canReadBinary (Daata me);
 
 	@Declared("sys/Data.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Pointer Data_readFromBinaryFile_wrapped (MelderFile file);
+	public @NativeType("Thing") Pointer Data_readFromBinaryFile_wrapped (MelderFile file);
 
 	@Declared("sys/Data.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Pointer Data_readFromFile_wrapped (MelderFile file);
+	public @NativeType("Thing") Pointer Data_readFromFile_wrapped (MelderFile file);
 	
 	@Declared("sys/Simple.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -694,6 +695,17 @@ public interface Praat extends Library {
 	@Wrapped
 	public void Matrix_writeToHeaderlessSpreadsheetFile_wrapped (Matrix me, MelderFile file);
 	
+	@Declared("fon/Matrix.h")
+	@Wrapped
+	public void Matrix_formula_wrapped(Matrix me, Str32 expression, Interpreter interpreter, Matrix target)
+		throws PraatException;
+	
+	@Declared("fon/Matrix.h")
+	@Wrapped
+	public void Matrix_formula_part_wrapped(Matrix me, double xmin, double xmax, double ymin, double ymax,
+			Str32 expression, Interpreter interpreter, Matrix target)
+		throws PraatException;
+	
 	/**
 	 * See {@link Pitch#create(double, double, NativeLong, double, double, double, int)}
 	 */
@@ -803,6 +815,11 @@ public interface Praat extends Library {
 
 	@Declared("fon/Pitch.h")
 	public void Pitch_step (Pitch me, double step, double precision, double tmin, double tmax);
+	
+	@Declared("fon/Pitch.h")
+	@Wrapped
+	public void Pitch_formula_wrapped (Pitch me, Str32 formula, Interpreter interpreter)
+		throws PraatException;
 	
 	@Declared("fon/Pitch_def.h")
 	@Custom
@@ -1216,6 +1233,15 @@ public interface Praat extends Library {
 	@Declared("fon/Formant.h")
 	@Wrapped(autoPtrUnwrap=true)
 	public Matrix Formant_to_Matrix_bandwidths_wrapped (Formant me, int iformant);
+	
+	@Declared("fon/Formant.h")
+	@Wrapped
+	public void Formant_formula_frequencies_wrapped(Formant me, Str32 formula, Interpreter interpreter)
+		throws PraatException;
+	
+	@Declared("fon/Formant.h")
+	public void Formant_formula_bandwidths_wrapped(Formant me, Str32 formula, Interpreter interpreter)
+		throws PraatException;
 
 	@Declared("fon/Formant.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -2212,4 +2238,9 @@ public interface Praat extends Library {
 	public double Ltas_getLocalPeakHeight (Ltas me, double environmentMin, 
 			double environmentMax, double peakMin, double peakMax, int averagingUnits);
 	
+	@Declared("sys/Interpreter.h")
+	@Wrapped(autoPtrUnwrap=true)
+	public Interpreter Interpreter_create_wrapped(@NativeType("char32*") Pointer environmentName, ClassInfo editorClass)
+		throws PraatException;
+
 }

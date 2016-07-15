@@ -7,8 +7,11 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.Table;
+import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Formant extends Sampled {
@@ -220,6 +223,30 @@ public class Formant extends Sampled {
 	
 	public double getIntensityAtSample(long iframe) {
 		return Praat.INSTANCE.Formant_getIntensityAtSample(this, new NativeLong(iframe));
+	}
+
+	public void formula_frequencies(String formula, Interpreter interpreter)
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Formant_formula_frequencies_wrapped(this, new Str32(formula), interpreter);
+		} catch (PraatException pe) {
+			throw pe;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	@Declared("fon/Formant.h")
+	public void formula_bandwidths(String formula, Interpreter interpreter) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Formant_formula_bandwidths_wrapped(this, new Str32(formula), interpreter);
+		} catch (PraatException pe) {
+			throw pe;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 }
