@@ -181,6 +181,14 @@ public class WrapperGenerator {
 		buffer.append("\t\t").append("jpraat_set_error(\"Unknown error\");").append("\n");
 		buffer.append("\t").append("}").append("\n");
 		
+		if(method.getReturnType() != void.class) {
+			if(method.getReturnType().isPrimitive()) {
+				buffer.append("return 0;\n");
+			} else {
+				buffer.append("\t").append("return NULL;\n");
+			}
+		}
+		
 		buffer.append("}").append("\n");
 	}
 	
