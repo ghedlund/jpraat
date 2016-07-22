@@ -230,6 +230,7 @@ public class Formant extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Formant_formula_frequencies_wrapped(this, new Str32(formula), interpreter);
+			Praat.checkAndClearLastError();
 		} catch (PraatException pe) {
 			throw pe;
 		} finally {
@@ -242,6 +243,7 @@ public class Formant extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Formant_formula_bandwidths_wrapped(this, new Str32(formula), interpreter);
+			Praat.checkAndClearLastError();
 		} catch (PraatException pe) {
 			throw pe;
 		} finally {

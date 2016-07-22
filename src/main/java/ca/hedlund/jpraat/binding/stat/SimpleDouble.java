@@ -18,7 +18,16 @@ public class SimpleDouble extends Daata {
 	}
 	
 	public static SimpleDouble create (double number) throws PraatException {
-		return Praat.INSTANCE.SimpleDouble_create_wrapped(number);
+		try {
+			Praat.wrapperLock.lock();
+			SimpleDouble retVal = Praat.INSTANCE.SimpleDouble_create_wrapped(number);
+			Praat.checkAndClearLastError();
+			return retVal;
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	public double getNumber() {

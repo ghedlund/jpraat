@@ -20,6 +20,7 @@ public class Interpreter extends Thing {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Interpreter_create_wrapped(null, null);
+			Praat.checkAndClearLastError();
 		} catch (PraatException pe) {
 			throw pe;
 		} finally {

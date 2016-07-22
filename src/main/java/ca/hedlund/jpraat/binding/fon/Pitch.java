@@ -60,12 +60,17 @@ public class Pitch extends Sampled {
 	 */
 	public static Pitch create (double tmin, double tmax, long nt, double dt, double t1,
 			double ceiling, int maxnCandidates) throws PraatException {
-		Praat.wrapperLock.lock();
-		Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped(tmin, tmax,
-				new NativeLong(nt), dt, t1, ceiling, maxnCandidates);
-		Praat.checkAndClearLastError();
-		Praat.wrapperLock.unlock();
-		return retVal;
+		try {
+			Praat.wrapperLock.lock();
+			Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped(tmin, tmax,
+					new NativeLong(nt), dt, t1, ceiling, maxnCandidates);
+			Praat.checkAndClearLastError();
+			return retVal;
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 	
 	/**

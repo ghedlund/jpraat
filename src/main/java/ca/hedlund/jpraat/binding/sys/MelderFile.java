@@ -21,7 +21,7 @@ public class MelderFile extends PointerType {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Melder_pathToFile_wrapped(new Str32(path), retVal);
-		Praat.checkAndClearLastError(); 
+			Praat.checkAndClearLastError(); 
 		} catch (PraatException e) {
 			throw e;
 		} finally {

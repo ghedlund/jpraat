@@ -300,6 +300,7 @@ public class Matrix extends SampledXY {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Matrix_formula_wrapped(this, new Str32(expression), interpreter, target);
+			Praat.checkAndClearLastError();
 		} catch (PraatException pe) {
 			throw pe;
 		} finally {
@@ -312,6 +313,7 @@ public class Matrix extends SampledXY {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Matrix_formula_part_wrapped(this, xmin, xmax, ymin, ymax, new Str32(expression), interpreter, target);
+			Praat.checkAndClearLastError();
 		} catch (PraatException pe) {
 			throw pe;
 		} finally {

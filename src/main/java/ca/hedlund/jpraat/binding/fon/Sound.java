@@ -823,7 +823,7 @@ public class Sound extends Vector {
 		return retVal;
 	}
 
-	public Spectrum to_Spectrum (Sound me, int fast) throws PraatException {
+	public Spectrum to_Spectrum (int fast) throws PraatException {
 		Spectrum retVal = null;
 		
 		try {

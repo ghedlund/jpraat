@@ -154,13 +154,6 @@ public class WrapperGenerator {
 		}
 		buffer.append(") {").append("\n");
 		
-//		buffer.append("\t").append("jpraat_lock();").append("\n");
-//		buffer.append("\t").append("jpraat_clear_error();").append("\n");
-		
-		if(method.getReturnType() != void.class) {
-			buffer.append("\t").append(returnType).append(" retVal;").append("\n");
-		}
-		
 		buffer.append("\t").append("try {").append("\n");
 		buffer.append("\t\t");
 		if(method.getReturnType() != void.class) {
@@ -187,12 +180,6 @@ public class WrapperGenerator {
 		buffer.append("\t").append("}").append(" catch (...) {").append("\n");
 		buffer.append("\t\t").append("jpraat_set_error(\"Unknown error\");").append("\n");
 		buffer.append("\t").append("}").append("\n");
-		
-//		buffer.append("\t").append("jpraat_unlock();").append("\n");
-		
-		if(method.getReturnType() != void.class) {
-			buffer.append("\t").append("return NULL;\n");
-		}
 		
 		buffer.append("}").append("\n");
 	}

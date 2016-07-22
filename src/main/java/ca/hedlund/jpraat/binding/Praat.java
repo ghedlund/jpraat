@@ -1992,6 +1992,11 @@ public interface Praat extends Library {
 	@Wrapped
 	public void TextGrid_addTier_copy_wrapped (TextGrid me, Function tier);
 	
+	@Declared("fon/TextGrid.h")
+	@Wrapped
+	@Custom
+	public void TextGrid_removeTier_wrapped (TextGrid me, NativeLong tierNumber);
+	
 	// XXX fix collections
 //	@Declared("fon/TextGrid.h")
 //	@Wrapped(autoPtrUnwrap=true)

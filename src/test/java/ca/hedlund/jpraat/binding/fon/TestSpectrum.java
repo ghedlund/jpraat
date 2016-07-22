@@ -75,7 +75,7 @@ public class TestSpectrum {
 		final Spectrum spectrum = sound.to_Spectrum();
 		
 		final Interpreter interpreter = Interpreter.create();
-		spectrum.formula("x >= 2500 then self*x else self fi", interpreter, null);
+		spectrum.formula("if x >= 2500 then self*x else self fi", interpreter, null);
 	}
 	
 }

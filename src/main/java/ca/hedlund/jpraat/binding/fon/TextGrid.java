@@ -277,6 +277,18 @@ public class TextGrid extends Function {
 		}
 	}
 	
+	public void removeTier (long tierNumber) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.TextGrid_removeTier_wrapped(this, new NativeLong(tierNumber));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 //	public static TextGrid merge (java.util.Collection<TextGrid> textGrids) throws PraatException {
 //		Collection col = Collection.create(Praat.getClassInfo(TextGrid.class), textGrids.size());
 //		for(TextGrid tg:textGrids) {

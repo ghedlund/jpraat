@@ -21,9 +21,16 @@ public class LongSound extends Sampled {
 	}
 	
 	public static LongSound open (MelderFile fs) throws PraatException {
-		LongSound retVal = Praat.INSTANCE.LongSound_open_wrapped(fs);
-		Praat.checkAndClearLastError();
-		return retVal;
+		try {
+			Praat.wrapperLock.lock();
+			LongSound retVal = Praat.INSTANCE.LongSound_open_wrapped(fs);
+			Praat.checkAndClearLastError();
+			return retVal;
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
 	}
 
 	/**

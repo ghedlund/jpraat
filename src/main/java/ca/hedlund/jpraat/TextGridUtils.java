@@ -3,12 +3,33 @@ package ca.hedlund.jpraat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.hedlund.jpraat.binding.fon.Function;
 import ca.hedlund.jpraat.binding.fon.IntervalTier;
 import ca.hedlund.jpraat.binding.fon.TextGrid;
 import ca.hedlund.jpraat.binding.fon.TextInterval;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class TextGridUtils {
+	
+	/**
+	 * Get tier number from name.
+	 * 
+	 * @param textGrid
+	 * @param tierName
+	 */
+	public static long tierNumberFromName(TextGrid textGrid, String tierName) {
+		long retVal = 0;
+		
+		for(long i = 1; i <= textGrid.numberOfTiers(); i++) {
+			Function tier = textGrid.tier(i);
+			if(tier.getName().equals(tierName)) {
+				retVal = i;
+				break;
+			}
+		}
+		
+		return retVal;
+	}
 	
 	/**
 	 * Get contiguous intervals for a specified interval tier.
