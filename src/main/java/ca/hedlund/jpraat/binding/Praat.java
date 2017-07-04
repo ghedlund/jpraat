@@ -63,7 +63,7 @@ public interface Praat extends Library {
 	 * Static instance of Praat native library
 	 */
 	Praat INSTANCE = (Praat)
-			Native.loadLibrary("praat", Praat.class, new NativeLibraryOptions());
+			Native.loadLibrary("jpraat", Praat.class, new NativeLibraryOptions());
 	
 	
 	/**
@@ -74,7 +74,7 @@ public interface Praat extends Library {
 	static ReentrantLock wrapperLock = new ReentrantLock();
 	
 	public static NativeLibrary getNativeLibrary() {
-		return NativeLibrary.getInstance("praat");
+		return NativeLibrary.getInstance("jpraat");
 	}
 	
 	public static ClassInfo getClassInfo(Class<? extends Thing> clazz) {

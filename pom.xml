@@ -29,7 +29,7 @@
   </distributionManagement>
   
   <properties>
-  	<ca.hedlund.libpraat.version>0.13.6</ca.hedlund.libpraat.version>
+  	<ca.hedlund.libjpraat.version>0.13.6</ca.hedlund.libjpraat.version>
   </properties>
   
   <repositories>
@@ -81,43 +81,43 @@
     
      <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>win32-x86</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>win32-x86-64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>win32-amd64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>darwin</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>linux-x86-64</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ca.hedlund</groupId>
-      <artifactId>libpraat</artifactId>
-      <version>${ca.hedlund.libpraat.version}</version>
+      <artifactId>libjpraat</artifactId>
+      <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>linux-amd64</classifier>
       <scope>test</scope>
     </dependency>
