@@ -29,7 +29,7 @@
   </distributionManagement>
   
   <properties>
-  	<ca.hedlund.libjpraat.version>0.13.6</ca.hedlund.libjpraat.version>
+  	<ca.hedlund.libjpraat.version>0.13</ca.hedlund.libjpraat.version>
   </properties>
   
   <repositories>
