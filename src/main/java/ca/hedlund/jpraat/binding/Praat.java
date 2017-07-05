@@ -875,7 +875,15 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped
-	public void Sound_writeToRawSoundFile_wrapped (Sound me, MelderFile file, int encoding);
+	public void Sound_saveAsAudioFile_wrapped(Sound me, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped(autoPtrUnwrap=true)
+	public Sound Sound_readFromRawSoundFile_wrapped (MelderFile file, int encoding, int numberOfChannels, double sampleRate);
+	
+	@Declared("fon/Sound.h")
+	@Wrapped
+	public void Sound_saveAsRawSoundFile_wrapped (Sound me, MelderFile file, int encoding);
 	
 	@Declared("fon/Sound.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -888,7 +896,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Sound Sound_createFromToneComplex_wrapped (double startingTime, double endTime,
+	public Sound Sound_createAsToneComplex_wrapped (double startingTime, double endTime,
 		double sampleRate, int phase, double frequencyStep,
 		double firstFrequency, double ceiling, long numberOfComponents);
 	

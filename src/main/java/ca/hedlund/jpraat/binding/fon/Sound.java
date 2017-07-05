@@ -57,6 +57,21 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
+	public static Sound readFromRawSoundFile(MelderFile file, int encoding, int numberOfChannels, double sampleRate)
+		throws PraatException {
+		Sound retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_readFromRawSoundFile_wrapped(file, encoding, numberOfChannels, sampleRate);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
 	public static Sound createAsPureTone (long numberOfChannels, double startingTime, double endTime,
 			double sampleRate, double frequency, double amplitude, double fadeInDuration, double fadeOutDuration)
 		throws PraatException {
@@ -74,14 +89,14 @@ public class Sound extends Vector {
 		return retVal;
 	}
 		
-	public static Sound createFromToneComplex (double startingTime, double endTime,
+	public static Sound createAsToneComplex (double startingTime, double endTime,
 			double sampleRate, int phase, double frequencyStep,
 			double firstFrequency, double ceiling, long numberOfComponents) 
 		throws PraatException {
 		Sound retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_createFromToneComplex_wrapped(startingTime, endTime,
+			retVal = Praat.INSTANCE.Sound_createAsToneComplex_wrapped(startingTime, endTime,
 					sampleRate, phase, frequencyStep, firstFrequency, ceiling, numberOfComponents);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -871,11 +886,24 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public void  writeToRawSoundFile (MelderFile file, int encoding) 
+	public void saveAsAudioFile(MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint) 
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Sound_writeToRawSoundFile_wrapped(this, file, encoding);
+			Praat.INSTANCE.Sound_saveAsAudioFile_wrapped(this, file, audioFileType, numberOfBitsPerSamplePoint);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
+	public void saveAsRawSoundFile (MelderFile file, int encoding) 
+		throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.Sound_saveAsRawSoundFile_wrapped(this, file, encoding);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
