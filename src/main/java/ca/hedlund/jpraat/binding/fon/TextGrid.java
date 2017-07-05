@@ -327,10 +327,10 @@ public class TextGrid extends Function {
 		return Praat.INSTANCE.TextGrid_maximumLabelLength(this).longValue();
 	}
 
-	public void genericize () throws PraatException {
+	public void convertToBackslashTrigraphs () throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrid_genericize_wrapped(this);
+			Praat.INSTANCE.TextGrid_convertToBackslashTrigraphs_wrapped(this);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -339,10 +339,10 @@ public class TextGrid extends Function {
 		}
 	}
 	
-	public void nativize () throws PraatException {
+	public void convertToUnicode () throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrid_nativize_wrapped(this);
+			Praat.INSTANCE.TextGrid_convertToUnicode_wrapped(this);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

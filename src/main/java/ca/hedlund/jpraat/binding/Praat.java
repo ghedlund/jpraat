@@ -2041,11 +2041,11 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextGrid_genericize_wrapped (TextGrid me);
+	public void TextGrid_convertToBackslashTrigraphs_wrapped (TextGrid me);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped
-	public void TextGrid_nativize_wrapped (TextGrid me);
+	public void TextGrid_convertToUnicode_wrapped (TextGrid me);
 	
 	@Declared("fon/TextGrid.h")
 	public void TextInterval_removeText (TextInterval me);
