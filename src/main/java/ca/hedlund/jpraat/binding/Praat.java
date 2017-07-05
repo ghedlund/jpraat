@@ -338,6 +338,16 @@ public interface Praat extends Library {
 	public void LongSound_getWindowExtrema_wrapped (LongSound me, double tmin, double tmax, int channel, 
 			@NativeType("double*") Pointer minimum, @NativeType("double*") Pointer maximum);
 	
+	@Declared("fon/LongSound.h")
+	@Wrapped
+	public void LongSound_savePartAsAudioFile_wrapped (LongSound me, int audioFileType, double tmin,
+			double tmax, MelderFile file, int numberOfBitsPerSamplePoint);
+
+	@Declared("fon/LongSound.h")
+	@Wrapped
+	public void LongSound_saveChannelAsAudioFile_wrapped (LongSound me, int audioFileType, int channel, 
+			MelderFile file);
+	
 	/**
 	 * Get value at given x position and channel using the specified
 	 * interpolation.

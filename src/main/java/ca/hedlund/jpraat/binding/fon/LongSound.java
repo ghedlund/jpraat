@@ -105,4 +105,32 @@ public class LongSound extends Sampled {
 		minimum.set(pmax.getDouble(0));
 	}
 	
+	public void savePartAsAudioFile(int audioFileType, double tmin,
+			double tmax, MelderFile file, int numberOfBitsPerSamplePoint)
+		throws PraatException {
+		
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.LongSound_savePartAsAudioFile_wrapped(this, audioFileType, tmin, tmax, file, numberOfBitsPerSamplePoint);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+
+	public void saveChannelAsAudioFile(int audioFileType, int channel, 
+			MelderFile file) throws PraatException {
+		try {
+			Praat.wrapperLock.lock();
+			Praat.INSTANCE.LongSound_saveChannelAsAudioFile_wrapped(this, audioFileType, channel, file);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+	}
+	
 }
