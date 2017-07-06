@@ -57,21 +57,6 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public static Sound readFromRawSoundFile(MelderFile file, int encoding, int numberOfChannels, double sampleRate)
-		throws PraatException {
-		Sound retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_readFromRawSoundFile_wrapped(file, encoding, numberOfChannels, sampleRate);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
-	
 	public static Sound createAsPureTone (long numberOfChannels, double startingTime, double endTime,
 			double sampleRate, double frequency, double amplitude, double fadeInDuration, double fadeOutDuration)
 		throws PraatException {

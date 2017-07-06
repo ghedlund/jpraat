@@ -878,10 +878,6 @@ public interface Praat extends Library {
 	public void Sound_saveAsAudioFile_wrapped(Sound me, MelderFile file, int audioFileType, int numberOfBitsPerSamplePoint);
 	
 	@Declared("fon/Sound.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public Sound Sound_readFromRawSoundFile_wrapped (MelderFile file, int encoding, int numberOfChannels, double sampleRate);
-	
-	@Declared("fon/Sound.h")
 	@Wrapped
 	public void Sound_saveAsRawSoundFile_wrapped (Sound me, MelderFile file, int encoding);
 	
