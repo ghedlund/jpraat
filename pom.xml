@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ca.hedlund</groupId>
   <artifactId>jpraat</artifactId>
-  <version>0.15</version>
+  <version>0.16</version>
   <name>jpraat</name>
   <description></description>
   <packaging>jar</packaging>
@@ -29,7 +29,7 @@
   </distributionManagement>
   
   <properties>
-  	<ca.hedlund.libjpraat.version>0.15</ca.hedlund.libjpraat.version>
+  	<ca.hedlund.libjpraat.version>0.16</ca.hedlund.libjpraat.version>
   </properties>
   
   <repositories>
@@ -107,7 +107,7 @@
       <classifier>darwin</classifier>
       <scope>test</scope>
     </dependency>
-    <!--    <dependency>
+    <dependency>
       <groupId>ca.hedlund</groupId>
       <artifactId>libjpraat</artifactId>
       <version>${ca.hedlund.libjpraat.version}</version>
@@ -120,7 +120,7 @@
       <version>${ca.hedlund.libjpraat.version}</version>
       <classifier>linux-amd64</classifier>
       <scope>test</scope>
-    </dependency> -->
+    </dependency>
     
   </dependencies>
   
