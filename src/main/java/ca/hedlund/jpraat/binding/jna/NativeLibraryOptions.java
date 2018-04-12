@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.sun.jna.Library;
 
-public class NativeLibraryOptions extends HashMap<Object, Object> {
+public class NativeLibraryOptions extends HashMap<String, Object> {
 	
 	private static final long serialVersionUID = 1L;
 	
