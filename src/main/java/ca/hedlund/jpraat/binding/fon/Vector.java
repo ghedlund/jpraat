@@ -23,6 +23,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 
 /**
  * Bindings for Praat Vector type
@@ -48,7 +49,7 @@ public class Vector extends Matrix {
 	
 	public double getValueAtX (double x, long channel, int interpolation) {
 		checkInterpolation(interpolation);
-		return Praat.INSTANCE.Vector_getValueAtX(this, x, new NativeLong(channel), interpolation);
+		return Praat.INSTANCE.Vector_getValueAtX(this, x, new NativeIntptr_t(channel), interpolation);
 	}
 	
 	public void getMinimumAndX (double xmin, double xmax, long channel, int interpolation,
@@ -57,7 +58,7 @@ public class Vector extends Matrix {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Vector_getMinimumAndX(this, xmin, xmax, new NativeLong(channel), interpolation,
+		Praat.INSTANCE.Vector_getMinimumAndX(this, xmin, xmax, new NativeIntptr_t(channel), interpolation,
 				minPtr, xPtr);
 		
 		return_minimum.set(minPtr.getDouble(0));
@@ -85,7 +86,7 @@ public class Vector extends Matrix {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Vector_getMaximumAndX(this, xmin, xmax, new NativeLong(channel), interpolation, 
+		Praat.INSTANCE.Vector_getMaximumAndX(this, xmin, xmax, new NativeIntptr_t(channel), interpolation, 
 				maxPtr, xPtr);
 		
 		return_maximum.set(maxPtr.getDouble(0));
@@ -138,11 +139,11 @@ public class Vector extends Matrix {
 	}
 
 	public double getMean (double xmin, double xmax, long channel) {
-		return Praat.INSTANCE.Vector_getMean(this, xmin, xmax, new NativeLong(channel));
+		return Praat.INSTANCE.Vector_getMean(this, xmin, xmax, new NativeIntptr_t(channel));
 	}
 	
 	public double getStandardDeviation (double xmin, double xmax, long channel) {
-		return Praat.INSTANCE.Vector_getStandardDeviation(this, xmin, xmax, new NativeLong(channel));
+		return Praat.INSTANCE.Vector_getStandardDeviation(this, xmin, xmax, new NativeIntptr_t(channel));
 	}
 
 	public void addScalar (double scalar) {

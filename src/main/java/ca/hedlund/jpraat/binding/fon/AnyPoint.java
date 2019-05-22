@@ -17,7 +17,7 @@ package ca.hedlund.jpraat.binding.fon;
 
 import com.sun.jna.Pointer;
 
-import ca.hedlund.jpraat.binding.stat.SimpleDouble;
+import ca.hedlund.jpraat.binding.sys.SimpleDouble;
 
 public class AnyPoint extends SimpleDouble {
 	

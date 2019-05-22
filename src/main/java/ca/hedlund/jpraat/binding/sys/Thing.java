@@ -25,6 +25,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -106,8 +107,8 @@ public class Thing extends PointerType {
 		Praat.INSTANCE.Thing_info(this);
 	}
 	
-	public void infoWithId (long id) {
-		Praat.INSTANCE.Thing_infoWithId(this, new NativeLong(id));
+	public void infoWithIdAndFile (long id, MelderFile file) {
+		Praat.INSTANCE.Thing_infoWithIdAndFile(this, new NativeIntptr_t(id), file);
 	}
 	
 	public String getName() {

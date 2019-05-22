@@ -23,13 +23,16 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Formant extends Sampled {
+@Header("fon/Formant.h")
+public final class Formant extends Sampled {
 	
 	public Formant() {
 		super();
@@ -63,7 +66,7 @@ public class Formant extends Sampled {
 		Formant retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, new NativeLong(nt), dt, t1, maxnFormants);
+			retVal = Praat.INSTANCE.Formant_create_wrapped (tmin, tmax, new NativeIntptr_t(nt), dt, t1, maxnFormants);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -81,90 +84,90 @@ public class Formant extends Sampled {
 		return Praat.INSTANCE.Formant_getMaxNumFormants(this).longValue();
 	}
 
-	public double getValueAtTime (int iformant, double time, int bark) {
-		return Praat.INSTANCE.Formant_getValueAtTime(this, iformant, time, bark);
+	public double getValueAtTime (long formantNumber, double time, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getValueAtTime(this, new NativeIntptr_t(formantNumber), time, unit);
 	}
 	
-	public double getBandwidthAtTime (int iformant, double time, int bark) {
-		return Praat.INSTANCE.Formant_getBandwidthAtTime(this, iformant, time, bark);
+	public double getBandwidthAtTime (long formantNumber, double time, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getBandwidthAtTime(this, new NativeIntptr_t(formantNumber), time, unit);
 	}
 
-	public void getExtrema (int iformant, double tmin, double tmax, 
+	public void getExtrema (long formantNumber, double tmin, double tmax, 
 			AtomicReference<Double> fmin, AtomicReference<Double> fmax) {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Formant_getExtrema(this, iformant, tmin, tmax, minPtr, maxPtr);
+		Praat.INSTANCE.Formant_getExtrema(this, new NativeIntptr_t(formantNumber), tmin, tmax, minPtr, maxPtr);
 		
 		fmin.set(minPtr.getDouble(0));
 		fmax.set(maxPtr.getDouble(0));
 	}
 	
-	public void getMinimumAndTime (int iformant, double tmin, double tmax, int bark, int interpolate,
+	public void getMinimumAndTime (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate,
 			AtomicReference<Double> return_minimum, AtomicReference<Double> return_timeOfMinimum) {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Formant_getMinimumAndTime(this, iformant, tmin, tmax, bark, interpolate,
+		Praat.INSTANCE.Formant_getMinimumAndTime(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate,
 				minPtr, timePtr);
 	
 		return_minimum.set(minPtr.getDouble(0));
 		return_timeOfMinimum.set(timePtr.getDouble(0));
 	}
 	
-	public void getMaximumAndTime (int iformant, double tmin, double tmax, int bark, int interpolate,
+	public void getMaximumAndTime (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate,
 			AtomicReference<Double> return_maximum, AtomicReference<Double> return_timeOfMaximum) {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Formant_getMaximumAndTime(this, iformant, tmin, tmax, bark, interpolate,
+		Praat.INSTANCE.Formant_getMaximumAndTime(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate,
 				maxPtr, timePtr);
 		
 		return_maximum.set(maxPtr.getDouble(0));
 		return_timeOfMaximum.set(timePtr.getDouble(0));
 	}
 	
-	public double getMinimum (int iformant, double tmin, double tmax, int bark, int interpolate) {
-		return Praat.INSTANCE.Formant_getMinimum(this, iformant, tmin, tmax, bark, interpolate);
+	public double getMinimum (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate) {
+		return Praat.INSTANCE.Formant_getMinimum(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate);
 	}
 	
-	public double getMaximum (int iformant, double tmin, double tmax, int bark, int interpolate) {
-		return Praat.INSTANCE.Formant_getMaximum(this, iformant, tmin, tmax, bark, interpolate);
+	public double getMaximum (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate) {
+		return Praat.INSTANCE.Formant_getMaximum(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate);
 	}
 	
-	public double getTimeOfMaximum (int iformant, double tmin, double tmax, int bark, int interpolate) {
-		return Praat.INSTANCE.Formant_getTimeOfMaximum(this, iformant, tmin, tmax, bark, interpolate);
+	public double getTimeOfMaximum (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate) {
+		return Praat.INSTANCE.Formant_getTimeOfMaximum(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate);
 	}
 	
-	public double getTimeOfMinimum (int iformant, double tmin, double tmax, int bark, int interpolate) {
-		return Praat.INSTANCE.Formant_getTimeOfMinimum(this, iformant, tmin, tmax, bark, interpolate);
+	public double getTimeOfMinimum (long formantNumber, double tmin, double tmax, kFormant_unit unit, int interpolate) {
+		return Praat.INSTANCE.Formant_getTimeOfMinimum(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit, interpolate);
 	}
 
-	public double getQuantile (int iformant, double quantile, double tmin, double tmax, int bark) {
-		return Praat.INSTANCE.Formant_getQuantile(this, iformant, quantile, tmin, tmax, bark);
+	public double getQuantile (long formantNumber, double quantile, double tmin, double tmax, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getQuantile(this, new NativeIntptr_t(formantNumber), quantile, tmin, tmax, unit);
 	}
 	
-	public double getQuantileOfBandwidth (int iformant, double quantile, double tmin, double tmax, int bark) {
-		return Praat.INSTANCE.Formant_getQuantileOfBandwidth(this, iformant, quantile, tmin, tmax, bark);
+	public double getQuantileOfBandwidth (long formantNumber, double quantile, double tmin, double tmax, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getQuantileOfBandwidth(this, new NativeIntptr_t(formantNumber), quantile, tmin, tmax, unit);
 	}
 	
-	public double getMean (int iformant, double tmin, double tmax, int bark) {
-		return Praat.INSTANCE.Formant_getMean(this, iformant, tmin, tmax, bark);
+	public double getMean (long formantNumber, double tmin, double tmax, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getMean(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit);
 	}
 	
-	public double getStandardDeviation (int iformant, double tmin, double tmax, int bark) {
-		return Praat.INSTANCE.Formant_getStandardDeviation(this, iformant, tmin, tmax, bark);
+	public double getStandardDeviation (long formantNumber, double tmin, double tmax, kFormant_unit unit) {
+		return Praat.INSTANCE.Formant_getStandardDeviation(this, new NativeIntptr_t(formantNumber), tmin, tmax, unit);
 	}
 
 	public void sort () {
 		Praat.INSTANCE.Formant_sort(this);
 	}
 
-	public Matrix to_Matrix (int iformant) throws PraatException {
+	public Matrix to_Matrix (long formantNumber) throws PraatException {
 		Matrix retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Formant_to_Matrix_wrapped (this, iformant);
+			retVal = Praat.INSTANCE.Formant_to_Matrix_wrapped (this, new NativeIntptr_t(formantNumber));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -174,12 +177,12 @@ public class Formant extends Sampled {
 		return retVal;
 	}
 	
-	public Matrix to_Matrix_bandwidths (int iformant) throws PraatException {
+	public Matrix to_Matrix_bandwidths (long formantNumber) throws PraatException {
 		Matrix retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Formant_to_Matrix_bandwidths_wrapped(
-					this, iformant);
+					this, new NativeIntptr_t(formantNumber));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -198,7 +201,7 @@ public class Formant extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Formant_tracker_wrapped(this,
-					numberOfTracks, refF1, refF2, refF3, refF4, refF5, dfCost,
+					new NativeIntptr_t(numberOfTracks), refF1, refF2, refF3, refF4, refF5, dfCost,
 					bfCost, octaveJumpCost);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -211,18 +214,18 @@ public class Formant extends Sampled {
 	}
 
 	public Table downto_Table (Boolean includeFrameNumbers,
-			Boolean includeTimes, int timeDecimals,
-			Boolean includeIntensity, int intensityDecimals,
-			Boolean includeNumberOfFormants, int frequencyDecimals,
+			Boolean includeTimes, long timeDecimals,
+			Boolean includeIntensity, long intensityDecimals,
+			Boolean includeNumberOfFormants, long frequencyDecimals,
 			Boolean includeBandwidths) throws PraatException {
 		Table retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Formant_downto_Table_wrapped(this,
-					(includeFrameNumbers ? 1 : 0), (includeTimes ? 1 : 0),
-					timeDecimals, (includeIntensity ? 1 : 0), intensityDecimals,
-					(includeNumberOfFormants ? 1 : 0), frequencyDecimals,
-					(includeBandwidths ? 1 : 0));
+					(includeFrameNumbers ? true : false), (includeTimes ? true : false),
+					new NativeIntptr_t(timeDecimals), (includeIntensity ? true : false), new NativeIntptr_t(intensityDecimals),
+					(includeNumberOfFormants ? true : false), new NativeIntptr_t(frequencyDecimals),
+					(includeBandwidths ? true : false));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -233,11 +236,11 @@ public class Formant extends Sampled {
 	}
 	
 	public double getValueAtSample(long iframe, long which, int units) {
-		return Praat.INSTANCE.Formant_getValueAtSample(this, new NativeLong(iframe), new NativeLong(which), units);
+		return Praat.INSTANCE.Formant_getValueAtSample(this, new NativeIntptr_t(iframe), new NativeLong(which), units);
 	}
 	
 	public double getIntensityAtSample(long iframe) {
-		return Praat.INSTANCE.Formant_getIntensityAtSample(this, new NativeLong(iframe));
+		return Praat.INSTANCE.Formant_getIntensityAtSample(this, new NativeIntptr_t(iframe));
 	}
 
 	public void formula_frequencies(String formula, Interpreter interpreter)

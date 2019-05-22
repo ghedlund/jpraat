@@ -18,16 +18,17 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.NativeLong;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Ltas extends Vector {
+public final class Ltas extends Vector {
 	
 	public static Ltas create (long nx, double dx) throws PraatException {
 		Ltas retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Ltas_create_wrapped(new NativeLong(nx), dx);
+			retVal = Praat.INSTANCE.Ltas_create_wrapped(new NativeIntptr_t(nx), dx);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -44,12 +45,12 @@ public class Ltas extends Vector {
 	
 	@Override
 	public double convertSpecialToStandardUnit(double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Ltas_convertSpecialToStandardUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Ltas_convertSpecialToStandardUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	@Override
 	public double convertStandardToSpecialUnit(double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Ltas_convertStandardToSpecialUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Ltas_convertStandardToSpecialUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public double Ltas_getSlope (double f1min, double f1max, double f2min, double f2max, int averagingUnits) {
@@ -147,7 +148,7 @@ public class Ltas extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.PointProcess_Sound_to_Ltas_harmonics_wrapped(pulses, sound,
-					maximumHarmonic, shortestPeriod, longestPeriod, maximumPeriodFactor);
+					new NativeIntptr_t(maximumHarmonic), shortestPeriod, longestPeriod, maximumPeriodFactor);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

@@ -30,6 +30,7 @@ import com.sun.jna.WString;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.NativeType;
 import ca.hedlund.jpraat.annotations.Wrapped;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 
 /**
@@ -73,7 +74,7 @@ public class WrapperGenerator {
 			"}\r\n" + 
 			"\r\n" + 
 			"PRAAT_LIB_EXPORT void jpraat_set_melder_error() {\r\n" + 
-			"	char32* melderErr = Melder_getError();\r\n" + 
+			"	conststring32 melderErr = Melder_getError();\r\n" + 
 			"	if(melderErr != NULL) {\r\n" + 
 			"		jpraat_set_error(Melder_peek32to8(melderErr));\r\n" +
 			"	}\r\n" + 
@@ -215,11 +216,13 @@ public class WrapperGenerator {
 		} else if(clazz == WString.class) {
 			retVal = "const wchar_t*";
 		} else if(clazz == Str32.class) {
-			retVal = "const char32_t*";
+			retVal = "conststring32";
 		} else if(clazz == String.class) {
 			retVal = "const char*";
 		} else if(clazz == NativeLong.class) {
 			retVal = "long";
+		} else if(clazz == NativeIntptr_t.class) {
+			retVal = "integer";
 		} else if(clazz.isEnum()) {
 			retVal = "enum " + retVal;
 		}

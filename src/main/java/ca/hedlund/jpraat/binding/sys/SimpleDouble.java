@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ca.hedlund.jpraat.binding.stat;
+package ca.hedlund.jpraat.binding.sys;
 
 
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class SimpleDouble extends Daata {

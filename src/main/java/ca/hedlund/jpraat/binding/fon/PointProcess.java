@@ -23,9 +23,10 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class PointProcess extends Function {
+public final class PointProcess extends Function {
 	
 	public PointProcess() {
 		super();
@@ -41,7 +42,7 @@ public class PointProcess extends Function {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.PointProcess_create_wrapped(
-					startingTime, finishingTime, new NativeLong(initialMaxnt));
+					startingTime, finishingTime, new NativeIntptr_t(initialMaxnt));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -114,7 +115,7 @@ public class PointProcess extends Function {
 	}
 	
 	public void removePoint (long index) {
-		Praat.INSTANCE.PointProcess_removePoint(this, new NativeLong(index));
+		Praat.INSTANCE.PointProcess_removePoint(this, new NativeIntptr_t(index));
 	}
 	
 	public void removePointNear (double t) {
@@ -122,7 +123,7 @@ public class PointProcess extends Function {
 	}
 	
 	public void removePoints (long first, long last) {
-		Praat.INSTANCE.PointProcess_removePoints(this, new NativeLong(first), new NativeLong(last));
+		Praat.INSTANCE.PointProcess_removePoints(this, new NativeIntptr_t(first), new NativeIntptr_t(last));
 	}
 	
 	public void removePointsBetween (double fromTime, double toTime) {

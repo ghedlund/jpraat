@@ -58,9 +58,9 @@ public class TestIntensity {
 		
 		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath());
 		final LongSound longSound = LongSound.open(melderFile);
-		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
+		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		
-		final Intensity intensity = sound.to_Intensity(50.0, 0.0, 1);
+		final Intensity intensity = sound.to_Intensity(50.0, 0.0, true);
 		final AtomicReference<Long> ixminRef = new AtomicReference<Long>();
 		final AtomicReference<Long> ixmaxRef = new AtomicReference<Long>();
 		

@@ -56,7 +56,7 @@ public class TestFormant {
 		Assert.assertEquals(true, f.exists());
 		
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
+		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS);
 		
 		final Table formantTable = formant.downto_Table(false, true, 3, true, 6, true, 6, true);

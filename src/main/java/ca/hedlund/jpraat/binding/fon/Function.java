@@ -18,7 +18,10 @@ package ca.hedlund.jpraat.binding.fon;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
+import ca.hedlund.jpraat.binding.jna.NativeUint32;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
@@ -30,15 +33,8 @@ import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 		xmax >= xmin;
 		xmin, xmax are constant;
 */
+@Header("fon/Function.h")
 public class Function extends Daata {
-	
-	public Function() {
-		super();
-	}
-	
-	public Function(Pointer p) {
-		super(p);
-	}
 	
 	public final static int UNIT_TEXT_SHORT = 0x00000001;
 	public final static int UNIT_TEXT_GRAPHICAL = 0x00000002;
@@ -55,6 +51,14 @@ public class Function extends Daata {
 	public final static int KAISER12 = 6;
 	public final static int KAISER20 = 7;
 	public final static int GAUSSIAN = 8;
+
+	public Function() {
+		super();
+	}
+	
+	public Function(Pointer p) {
+		super(p);
+	}
 	
 	/**
 		Preconditions:
@@ -80,33 +84,32 @@ public class Function extends Daata {
 	 * starting from 0, which should be the default unit; e.g. for pitch: 0 = Hz, 1 = logHz, 2 = semitones, 3 = mel.
 	 */
 	public int getMinimumUnit (long ilevel) {
-		return Praat.INSTANCE.Function_getMinimumUnit(new NativeLong(ilevel));
+		return Praat.INSTANCE.Function_getMinimumUnit(new NativeIntptr_t(ilevel));
 	}
 	
 	public int getMaximumUnit (long ilevel) {
-		return Praat.INSTANCE.Function_getMaximumUnit(new NativeLong(ilevel));
+		return Praat.INSTANCE.Function_getMaximumUnit(new NativeIntptr_t(ilevel));
 	}
 	
-	public String getUnitText (long ilevel, int unit, long flags) {
-		Str32 txt32 = Praat.INSTANCE.Function_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+	public String getUnitText (long ilevel, int unit, int flags) {
+		Str32 txt32 = Praat.INSTANCE.Function_getUnitText(this, new NativeIntptr_t(ilevel), unit, new NativeUint32(flags));
 		return (txt32 != null ? txt32.toString() : null);
 	}
-
 	
 	public boolean isUnitLogarithmic (long ilevel, int unit) {
-		return Praat.INSTANCE.Function_isUnitLogarithmic(this, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Function_isUnitLogarithmic(this, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public double convertStandardToSpecialUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertStandardToSpecialUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Function_convertStandardToSpecialUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public double convertSpecialToStandardUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertSpecialToStandardUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Function_convertSpecialToStandardUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public double convertToNonlogarithmic (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Function_convertToNonlogarithmic(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Function_convertToNonlogarithmic(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	/**

@@ -23,12 +23,13 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class IntervalTier extends Function {
+public final class IntervalTier extends Function {
 	
 	public IntervalTier() {
 		super();
@@ -183,7 +184,7 @@ public class IntervalTier extends Function {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.IntervalTier_removeLeftBoundary_wrapped(this,
-					new NativeLong(iinterval));
+					new NativeIntptr_t(iinterval));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -205,7 +206,7 @@ public class IntervalTier extends Function {
 	}
 	
 	public TextInterval interval (long i) {
-		TextInterval retVal = Praat.INSTANCE.IntervalTier_interval(this, new NativeLong(i));
+		TextInterval retVal = Praat.INSTANCE.IntervalTier_interval(this, new NativeIntptr_t(i));
 		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
@@ -236,7 +237,7 @@ public class IntervalTier extends Function {
 	}
 	
 	public void removeInterval (long iinterval) {
-		Praat.INSTANCE.IntervalTier_removeInterval(this, new NativeLong(iinterval));
+		Praat.INSTANCE.IntervalTier_removeInterval(this, new NativeIntptr_t(iinterval));
 	}
 	
 	public void removeBoundariesBetweenIdenticallyLabeledIntervals (String label) throws PraatException {
@@ -327,10 +328,10 @@ public class IntervalTier extends Function {
 		}
 	}
 	
-	public void append_inline(IntervalTier thee, boolean preserveTimes) throws PraatException {
+	public void append_inplace(IntervalTier thee, boolean preserveTimes) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.IntervalTiers_append_inline_wrapped(this, thee, preserveTimes);
+			Praat.INSTANCE.IntervalTiers_append_inplace_wrapped(this, thee, preserveTimes);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

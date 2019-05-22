@@ -15,10 +15,10 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 
 public class SampledXY extends Sampled {
 	
@@ -51,7 +51,7 @@ public class SampledXY extends Sampled {
 	}
 	
 	public double indexToY (long   index) {
-		return Praat.INSTANCE.SampledXY_indexToY(this, new NativeLong(index));
+		return Praat.INSTANCE.SampledXY_indexToY(this, new NativeIntptr_t(index));
 	}
 	
 	public double yToIndex (double y) {

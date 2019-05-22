@@ -23,6 +23,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 public class Sampled extends Function {
@@ -56,7 +57,7 @@ public class Sampled extends Function {
 	}
 	
 	public double indexToX (long i) {
-		return Praat.INSTANCE.Sampled_indexToX(this, new NativeLong(i));
+		return Praat.INSTANCE.Sampled_indexToX(this, new NativeIntptr_t(i));
 	}
 
 	public double xToIndex (double x) {
@@ -110,21 +111,21 @@ public class Sampled extends Function {
 	}
 	
 	public double getValueAtSample (long isamp, long ilevel, int unit) {
-		return Praat.INSTANCE.Sampled_getValueAtSample(this, new NativeLong(isamp), new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Sampled_getValueAtSample(this, new NativeIntptr_t(isamp), new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public double getValueAtX (double x, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getValueAtX(this, x, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getValueAtX(this, x, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public long countDefinedSamples (long ilevel, int unit) {
-		return Praat.INSTANCE.Sampled_countDefinedSamples(this, new NativeLong(ilevel), unit).longValue();
+		return Praat.INSTANCE.Sampled_countDefinedSamples(this, new NativeIntptr_t(ilevel), unit).longValue();
 	}
 	
 	public double[] getSortedValues (long ilevel, int unit) {
 		final Pointer numPtr = new Memory(Native.getNativeSize(Long.TYPE));
 		
-		final Pointer ret = Praat.INSTANCE.Sampled_getSortedValues(this, new NativeLong(ilevel), unit, numPtr);
+		final Pointer ret = Praat.INSTANCE.Sampled_getSortedValues(this, new NativeIntptr_t(ilevel), unit, numPtr);
 		
 		double[] retVal = ret.getDoubleArray(0, (int)numPtr.getLong(0));
 		return retVal;
@@ -136,7 +137,7 @@ public class Sampled extends Function {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sampled_getQuantile_wrapped(this,
-					xmin, xmax, quantile, new NativeLong(ilevel), unit);
+					xmin, xmax, quantile, new NativeIntptr_t(ilevel), unit);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -148,35 +149,35 @@ public class Sampled extends Function {
 	
 	public double getMean
 		(double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getMean(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getMean(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public double getMean_standardUnit
 		(double xmin, double xmax, long ilevel, int averagingUnit, boolean interpolate) {
 		return Praat.INSTANCE.Sampled_getMean_standardUnit(this, xmin, xmax, 
-				new NativeLong(ilevel), averagingUnit, interpolate);
+				new NativeIntptr_t(ilevel), averagingUnit, interpolate);
 	}
 	
 	public double getIntegral
 		(double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getIntegral(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getIntegral(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public double getIntegral_standardUnit
 		(double xmin, double xmax, long ilevel, int averagingUnit, boolean interpolate) {
 		return Praat.INSTANCE.Sampled_getIntegral_standardUnit(this, xmin, xmax, 
-				new NativeLong(ilevel), averagingUnit, interpolate);
+				new NativeIntptr_t(ilevel), averagingUnit, interpolate);
 	}
 	
 	public double getStandardDeviation
 		(double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getStandardDeviation(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getStandardDeviation(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public double getStandardDeviation_standardUnit
 		(double xmin, double xmax, long ilevel, int averagingUnit, boolean interpolate) {
 		return Praat.INSTANCE.Sampled_getStandardDeviation_standardUnit(this, xmin, xmax, 
-				new NativeLong(ilevel), averagingUnit, interpolate);
+				new NativeIntptr_t(ilevel), averagingUnit, interpolate);
 	}
 
 	public void getMinimumAndX (double xmin, double xmax, long ilevel, int unit, boolean interpolate,
@@ -184,7 +185,7 @@ public class Sampled extends Function {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Sampled_getMinimumAndX(this, xmin, xmax, new NativeLong(ilevel), unit, 
+		Praat.INSTANCE.Sampled_getMinimumAndX(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, 
 				interpolate, minPtr, xPtr);
 		
 		return_minimum.set(minPtr.getDouble(0));
@@ -193,11 +194,11 @@ public class Sampled extends Function {
 	
 	
 	public double getMinimum (double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getMinimum(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getMinimum(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public double getXOfMinimum (double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getXOfMinimum(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getXOfMinimum(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public void getMaximumAndX (double xmin, double xmax, long ilevel, int unit, boolean interpolate,
@@ -205,7 +206,7 @@ public class Sampled extends Function {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Sampled_getMaximumAndX(this, xmin, xmax, new NativeLong(ilevel), unit,
+		Praat.INSTANCE.Sampled_getMaximumAndX(this, xmin, xmax, new NativeIntptr_t(ilevel), unit,
 				interpolate, maxPtr, xPtr);
 		
 		return_maximum.set(maxPtr.getDouble(0));
@@ -213,11 +214,11 @@ public class Sampled extends Function {
 	}
 	
 	public double getMaximum (double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getMaximum(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getMaximum(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 	
 	public double getXOfMaximum (double xmin, double xmax, long ilevel, int unit, boolean interpolate) {
-		return Praat.INSTANCE.Sampled_getXOfMaximum(this, xmin, xmax, new NativeLong(ilevel), unit, interpolate);
+		return Praat.INSTANCE.Sampled_getXOfMaximum(this, xmin, xmax, new NativeIntptr_t(ilevel), unit, interpolate);
 	}
 
 }

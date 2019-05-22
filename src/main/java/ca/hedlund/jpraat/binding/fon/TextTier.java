@@ -25,12 +25,14 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
+import ca.hedlund.jpraat.binding.melder.kMelder_string;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class TextTier extends Function {
+public final class TextTier extends Function {
 	
 	public TextTier() {
 		super();
@@ -101,7 +103,7 @@ public class TextTier extends Function {
 	public void removePoint (long ipoint) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextTier_removePoint_wrapped(this, new NativeLong(
+			Praat.INSTANCE.TextTier_removePoint_wrapped(this, new NativeIntptr_t(
 					ipoint));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -112,7 +114,7 @@ public class TextTier extends Function {
 	}
 	
 	public void changeLabels (long from, long to, 
-			String search, String replace, int use_regexp, 
+			String search, String replace, boolean use_regexp, 
 			AtomicReference<Long> nmatches, AtomicReference<Long> nstringmatches) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -120,7 +122,7 @@ public class TextTier extends Function {
 			Pointer nmatchesPtr = new Memory(Native.getNativeSize(Long.class));
 			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
 			
-			Praat.INSTANCE.TextTier_changeLabels_wrapped(this, new NativeLong(from), new NativeLong(to), 
+			Praat.INSTANCE.TextTier_changeLabels_wrapped(this, new NativeIntptr_t(from), new NativeIntptr_t(to), 
 					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
 			Praat.checkAndClearLastError();
 			
@@ -146,13 +148,13 @@ public class TextTier extends Function {
 	}
 	
 	public TextPoint point (long i) {
-		TextPoint retVal = Praat.INSTANCE.TextTier_point(this, new NativeLong(i));
+		TextPoint retVal = Praat.INSTANCE.TextTier_point(this, new NativeIntptr_t(i));
 		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	
-	public void removePoints (int which_Melder_STRING, String criterion) {
-		Praat.INSTANCE.TextTier_removePoints(this, which_Melder_STRING, (criterion == null ? null : new Str32(criterion)));
+	public void removePoints (kMelder_string which, String criterion) {
+		Praat.INSTANCE.TextTier_removePoints(this, which, (criterion == null ? null : new Str32(criterion)));
 	}
 	
 	public MelderQuantity domainQuantity () {
@@ -207,10 +209,10 @@ public class TextTier extends Function {
 		}
 	}
 
-	public void append_inline(TextTier thee, boolean preserveTimes) throws PraatException {
+	public void append_inplace(TextTier thee, boolean preserveTimes) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextTiers_append_inline_wrapped(this, thee, preserveTimes);
+			Praat.INSTANCE.TextTiers_append_inplace_wrapped(this, thee, preserveTimes);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

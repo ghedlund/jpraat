@@ -25,7 +25,7 @@ import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class LongSound extends Sampled {
+public final class LongSound extends Sampled {
 
 	public LongSound() {
 		super();
@@ -61,7 +61,7 @@ public class LongSound extends Sampled {
 	 * @throws IllegalArgumentException if (tmin, tmax) is outside of 
 	 * 	this sound's range
 	 */
-	public Sound extractPart (double tmin, double tmax, int preserveTimes) throws PraatException {
+	public Sound extractPart (double tmin, double tmax, boolean preserveTimes) throws PraatException {
 		final AtomicReference<Long> iminRef = new AtomicReference<Long>();
 		final AtomicReference<Long> imaxRef = new AtomicReference<Long>();
 		

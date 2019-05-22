@@ -22,17 +22,18 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.stat.Table;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Spectrum extends Matrix {
+public final class Spectrum extends Matrix {
 	
 	public static Spectrum create(double fmax, long nf) throws PraatException {
 		Spectrum retVal = null;
 		
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Spectrum_create_wrapped(fmax, nf);
+			retVal = Praat.INSTANCE.Spectrum_create_wrapped(fmax, new NativeIntptr_t(nf));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -45,7 +46,7 @@ public class Spectrum extends Matrix {
 	
 	@Override
 	public double getValueAtSample(long isamp, long which, int units) {
-		return Praat.INSTANCE.Spectrum_getValueAtSample(this, isamp, which, units);
+		return Praat.INSTANCE.Spectrum_getValueAtSample(this, new NativeIntptr_t(isamp), new NativeIntptr_t(which), units);
 	}
 	
 	public int getPowerDensityRange (AtomicReference<Double> minimum, AtomicReference<Double> maximum) {

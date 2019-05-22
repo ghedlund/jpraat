@@ -21,13 +21,14 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 /**
  * 
  */
-public class Sound extends Vector {
+public final class Sound extends Vector {
 	
 	public Sound() {
 		super();
@@ -78,7 +79,7 @@ public class Sound extends Vector {
 		Sound retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_createAsPureTone_wrapped(numberOfChannels, startingTime,
+			retVal = Praat.INSTANCE.Sound_createAsPureTone_wrapped(new NativeIntptr_t(numberOfChannels), startingTime,
 					endTime, sampleRate, frequency, amplitude, fadeInDuration, fadeOutDuration);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -112,8 +113,8 @@ public class Sound extends Vector {
 		Sound retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_create_wrapped(new NativeLong(
-					numberOfChannels), xmin, xmax, new NativeLong(nx), dx, x1);
+			retVal = Praat.INSTANCE.Sound_create_wrapped(new NativeIntptr_t(numberOfChannels), 
+					xmin, xmax, new NativeIntptr_t(nx), dx, x1);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -128,7 +129,7 @@ public class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_createSimple_wrapped(
-					new NativeLong(numberOfChannels), duration,
+					new NativeIntptr_t(numberOfChannels), duration,
 					samplingFrequency);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -172,7 +173,7 @@ public class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_extractChannel_wrapped(this,
-					new NativeLong(ichannel));
+					new NativeIntptr_t(ichannel));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -250,7 +251,7 @@ public class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_resample_wrapped(this,
-					samplingFrequency, new NativeLong(precision));
+					samplingFrequency, new NativeIntptr_t(precision));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -363,10 +364,10 @@ public class Sound extends Vector {
 	}
 	
 	public double getNearestZeroCrossing (double position, long ichannel) {
-		return Praat.INSTANCE.Sound_getNearestZeroCrossing(this, position, ichannel);
+		return Praat.INSTANCE.Sound_getNearestZeroCrossing(this, position, new NativeIntptr_t(ichannel));
 	}
 	
-	public void setZero ( double tmin, double tmax, int roundTimesToNearestZeroCrossing) {
+	public void setZero (double tmin, double tmax, boolean roundTimesToNearestZeroCrossing) {
 		Praat.INSTANCE.Sound_setZero(this, tmin, tmax, roundTimesToNearestZeroCrossing);
 	}
 	
@@ -439,11 +440,11 @@ public class Sound extends Vector {
 		return retVal;
 	}
 	
-	public void filterWithOneFormantInline_wrapped (double frequency, double bandwidth)
+	public void filterWithOneFormantInplace_wrapped (double frequency, double bandwidth)
 		throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Sound_filterWithOneFormantInline_wrapped(this, frequency, bandwidth);
+			Praat.INSTANCE.Sound_filterWithOneFormantInplace_wrapped(this, frequency, bandwidth);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -807,7 +808,7 @@ public class Sound extends Vector {
 	}
 
 	
-	public Intensity to_Intensity (double minimumPitch, double timeStep, int subtractMean) 
+	public Intensity to_Intensity (double minimumPitch, double timeStep, boolean subtractMean) 
 		throws PraatException {
 
 		if(Double.isNaN(minimumPitch) || minimumPitch <= 0.0) {
@@ -838,7 +839,7 @@ public class Sound extends Vector {
 		return retVal;
 	}
 
-	public Spectrum to_Spectrum (int fast) throws PraatException {
+	public Spectrum to_Spectrum (boolean fast) throws PraatException {
 		Spectrum retVal = null;
 		
 		try {
@@ -853,6 +854,22 @@ public class Sound extends Vector {
 		
 		return retVal;
 	}
+	
+//	public Spectrum to_Spectrum_at (double time, double windowDuration, int windowType) throws PraatException {
+//		Spectrum retVal = null;
+//		
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Sound_to_Spectrum_at_wrapped(this, time, windowDuration, windowType);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		
+//		return retVal;
+//	}
 	
 	public Sound filter_passHannBand (double fmin, double fmax, double smooth) throws PraatException {
 		Sound retVal = this;

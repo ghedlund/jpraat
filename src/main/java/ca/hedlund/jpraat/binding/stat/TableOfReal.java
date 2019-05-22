@@ -18,9 +18,15 @@ package ca.hedlund.jpraat.binding.stat;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
+import ca.hedlund.jpraat.annotations.Declared;
+import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
+import ca.hedlund.jpraat.binding.melder.kMelder_number;
+import ca.hedlund.jpraat.binding.melder.kMelder_string;
 import ca.hedlund.jpraat.binding.sys.Daata;
+import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
 import ca.hedlund.jpraat.binding.sys.Strings;
 import ca.hedlund.jpraat.exceptions.PraatException;
@@ -40,7 +46,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TableOfReal_create_wrapped(
-					new NativeLong(numberOfRows), new NativeLong(
+					new NativeIntptr_t(numberOfRows), new NativeIntptr_t(
 							numberOfColumns));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -54,7 +60,7 @@ public class TableOfReal extends Daata {
 	public void removeRow (long irow) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TableOfReal_removeRow_wrapped(this, new NativeLong(
+			Praat.INSTANCE.TableOfReal_removeRow_wrapped(this, new NativeIntptr_t(
 					irow));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -68,7 +74,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_removeColumn_wrapped(this,
-					new NativeLong(icol));
+					new NativeIntptr_t(icol));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -80,7 +86,7 @@ public class TableOfReal extends Daata {
 	public void insertRow (long irow) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TableOfReal_insertRow_wrapped(this, new NativeLong(
+			Praat.INSTANCE.TableOfReal_insertRow_wrapped(this, new NativeIntptr_t(
 					irow));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -94,7 +100,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_insertColumn_wrapped(this,
-					new NativeLong(icol));
+					new NativeIntptr_t(icol));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -107,7 +113,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_setRowLabel_wrapped(this,
-					new NativeLong(irow), new Str32(label));
+					new NativeIntptr_t(irow), new Str32(label));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -120,7 +126,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE
-					.TableOfReal_setColumnLabel_wrapped(this, new NativeLong(icol), new Str32(label));
+					.TableOfReal_setColumnLabel_wrapped(this, new NativeIntptr_t(icol), new Str32(label));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -165,7 +171,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TableOfReal_getColumnMean_wrapped(
-					this, new NativeLong(icol));
+					this, new NativeIntptr_t(icol));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -180,7 +186,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TableOfReal_getColumnStdev_wrapped(
-					this, new NativeLong(icol));
+					this, new NativeIntptr_t(icol));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -209,7 +215,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_sortByLabel_wrapped(this,
-					new NativeLong(column1), new NativeLong(column2));
+					new NativeIntptr_t(column1), new NativeIntptr_t(column2));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -222,7 +228,7 @@ public class TableOfReal extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.TableOfReal_sortByColumn_wrapped(this,
-					new NativeLong(column1), new NativeLong(column2));
+					new NativeIntptr_t(column1), new NativeIntptr_t(column2));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -290,13 +296,13 @@ public class TableOfReal extends Daata {
 		return retVal;
 	}
 
-	public TableOfReal extractRowsWhereColumn (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
+	public TableOfReal extractRowsWhereColumn (long icol, kMelder_number which, double criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TableOfReal_extractRowsWhereColumn_wrapped(this,
-							new NativeLong(icol), which_Melder_NUMBER,
+							new NativeIntptr_t(icol), which,
 							criterion);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -307,13 +313,13 @@ public class TableOfReal extends Daata {
 		return retVal;
 	}
 	
-	public TableOfReal extractColumnsWhereRow (long icol, int which_Melder_NUMBER, double criterion) throws PraatException {
+	public TableOfReal extractColumnsWhereRow (long icol, kMelder_number which, double criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TableOfReal_extractColumnsWhereRow_wrapped(this,
-							new NativeLong(icol), which_Melder_NUMBER,
+							new NativeIntptr_t(icol), which,
 							criterion);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -324,13 +330,13 @@ public class TableOfReal extends Daata {
 		return retVal;
 	}
 
-	public TableOfReal extractRowsWhereLabel (int which_Melder_STRING, String criterion) throws PraatException {
+	public TableOfReal extractRowsWhereLabel (kMelder_string which, String criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TableOfReal_extractRowsWhereLabel_wrapped(this,
-							which_Melder_STRING, (criterion == null ? null : new Str32(criterion)));
+							which, (criterion == null ? null : new Str32(criterion)));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -340,13 +346,45 @@ public class TableOfReal extends Daata {
 		return retVal;
 	}
 	
-	public TableOfReal extractColumnsWhereLabel (int which_Melder_STRING, String criterion) throws PraatException {
+	public TableOfReal extractColumnsWhereLabel (kMelder_string which, String criterion) throws PraatException {
 		TableOfReal retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.TableOfReal_extractRowsWhereLabel_wrapped(this,
-							which_Melder_STRING, (criterion == null ? null : new Str32(criterion)));
+							which, (criterion == null ? null : new Str32(criterion)));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public TableOfReal extractRowsWhere (TableOfReal me, Str32 condition, Interpreter interpreter)
+		throws PraatException {
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractRowsWhere_wrapped(this, condition, interpreter);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public TableOfReal extractColumnsWhere (TableOfReal me, Str32 condition, Interpreter interpreter) 
+		throws PraatException {
+		TableOfReal retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE
+					.TableOfReal_extractColumnsWhere_wrapped(this, condition, interpreter);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

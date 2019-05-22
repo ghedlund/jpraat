@@ -55,7 +55,7 @@ public class TestPitch {
 		
 		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath());
 		final LongSound longSound = LongSound.open(melderFile);
-		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
+		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		final Pitch pitch = sound.to_Pitch(TIMESTEP, PITCHFLOOR, PITCHCEIL);
 		
 		final AtomicReference<Long> ixminRef = new AtomicReference<Long>();

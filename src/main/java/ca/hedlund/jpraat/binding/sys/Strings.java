@@ -19,6 +19,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
@@ -105,7 +106,7 @@ public class Strings extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_remove_wrapped(this,
-					new NativeLong(position));
+					new NativeIntptr_t(position));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -117,7 +118,7 @@ public class Strings extends Daata {
 	public void replace (long position, String text) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Strings_replace_wrapped(this, new NativeLong(
+			Praat.INSTANCE.Strings_replace_wrapped(this, new NativeIntptr_t(
 					position), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -131,7 +132,7 @@ public class Strings extends Daata {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.Strings_insert_wrapped(this,
-					new NativeLong(position), new Str32(text));
+					new NativeIntptr_t(position), new Str32(text));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

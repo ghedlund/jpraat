@@ -25,6 +25,7 @@ import com.sun.jna.Pointer;
 import ca.hedlund.jpraat.annotations.Declared;
 import ca.hedlund.jpraat.annotations.Wrapped;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
@@ -47,7 +48,7 @@ public class Matrix extends SampledXY {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Matrix_create_wrapped(xmin, xmax,
-					new NativeLong(nx), dx, x1, ymin, ymax, new NativeLong(ny), dy,
+					new NativeIntptr_t(nx), dx, x1, ymin, ymax, new NativeIntptr_t(ny), dy,
 					y1);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -63,7 +64,7 @@ public class Matrix extends SampledXY {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Matrix_createSimple_wrapped(
-					new NativeLong(numberOfRows), new NativeLong(numberOfColumns));
+					new NativeIntptr_t(numberOfRows), new NativeIntptr_t(numberOfColumns));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -178,8 +179,8 @@ public class Matrix extends SampledXY {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		long retVal = Praat.INSTANCE.Matrix_getWindowExtrema(this, new NativeLong(ixmin), new NativeLong(ixmax),
-				new NativeLong(iymin),  new NativeLong(iymax), 
+		long retVal = Praat.INSTANCE.Matrix_getWindowExtrema(this, new NativeIntptr_t(ixmin), new NativeIntptr_t(ixmax),
+				new NativeIntptr_t(iymin),  new NativeIntptr_t(iymax), 
 				minPtr, maxPtr).longValue();
 		
 		minimum.set(minPtr.getDouble(0));
@@ -233,7 +234,7 @@ public class Matrix extends SampledXY {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Matrix_power_wrapped(this,
-					new NativeLong(power));
+					new NativeIntptr_t(power));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -278,6 +279,38 @@ public class Matrix extends SampledXY {
 		} finally {
 			Praat.wrapperLock.unlock();
 		}
+	}
+	
+	public Sound to_Sound() throws PraatException {
+		Sound retVal = null;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_to_Sound_wrapped (this);
+			Praat.checkAndClearLastError();
+		} catch(PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
+	}
+	
+	public Sound to_Sound_mono(long row) throws PraatException {
+		Sound retVal = null;
+		
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Matrix_to_Sound_mono_wrapped (this, new NativeIntptr_t(row));
+			Praat.checkAndClearLastError();
+		} catch(PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		
+		return retVal;
 	}
 	
 	public Spectrum to_Spectrum() throws PraatException {

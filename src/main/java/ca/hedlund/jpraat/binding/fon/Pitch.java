@@ -24,13 +24,15 @@ import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.annotations.Header;
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
+import ca.hedlund.jpraat.binding.jna.NativeUint32;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.binding.sys.Interpreter;
 import ca.hedlund.jpraat.binding.sys.MelderQuantity;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
 @Header(value="fon/Pitch.h")
-public class Pitch extends Sampled {
+public final class Pitch extends Sampled {
 	
 	public Pitch() {
 		super();
@@ -74,11 +76,11 @@ public class Pitch extends Sampled {
 				my frame [1..nt]. intensity == 0.0; // silent
 	 */
 	public static Pitch create (double tmin, double tmax, long nt, double dt, double t1,
-			double ceiling, int maxnCandidates) throws PraatException {
+			double ceiling, long maxnCandidates) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
 			Pitch retVal = Praat.INSTANCE.Pitch_create_wrapped(tmin, tmax,
-					new NativeLong(nt), dt, t1, ceiling, maxnCandidates);
+					new NativeIntptr_t(nt), dt, t1, ceiling, new NativeIntptr_t(maxnCandidates));
 			Praat.checkAndClearLastError();
 			return retVal;
 		} catch (PraatException e) {
@@ -96,7 +98,7 @@ public class Pitch extends Sampled {
 			index >= 1 && index <= my nx;
 	 */
 	public boolean isVoiced_i (long index) {
-		return Praat.INSTANCE.Pitch_isVoiced_i(this, new NativeLong(index));
+		return Praat.INSTANCE.Pitch_isVoiced_i(this, new NativeIntptr_t(index));
 	}
 	
 	/**
@@ -107,11 +109,11 @@ public class Pitch extends Sampled {
 		return Praat.INSTANCE.Pitch_isVoiced_t(this, t);
 	}
 	
-	public double getValueAtTime (double time, int unit, boolean interpolate) {
+	public double getValueAtTime (double time, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getValueAtTime(this, time, unit, interpolate);
 	}
 	
-	public double getStrengthAtTime (double time, int unit, boolean interpolate) {
+	public double getStrengthAtTime (double time, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getStrengthAtTime(this, time, unit, interpolate);
 	}
 
@@ -119,23 +121,23 @@ public class Pitch extends Sampled {
 		return Praat.INSTANCE.Pitch_countVoicedFrames(this).longValue();
 	}
 
-	public double getMean (double tmin, double tmax, int unit) {
+	public double getMean (double tmin, double tmax, kPitch_unit unit) {
 		return Praat.INSTANCE.Pitch_getMean(this, tmin, tmax, unit);
 	}
 	
-	public double getMeanStrength (double tmin, double tmax, int unit) {
+	public double getMeanStrength (double tmin, double tmax, kPitch_unit unit) {
 		return Praat.INSTANCE.Pitch_getMeanStrength(this, tmin, tmax, unit);
 	}
 	
-	public double getQuantile (double tmin, double tmax, double quantile, int unit) {
+	public double getQuantile (double tmin, double tmax, double quantile, kPitch_unit unit) {
 		return Praat.INSTANCE.Pitch_getQuantile(this, tmin, tmax, quantile, unit);
 	}
 	
-	public double getStandardDeviation (double tmin, double tmax, int unit) {
+	public double getStandardDeviation (double tmin, double tmax, kPitch_unit unit) {
 		return Praat.INSTANCE.Pitch_getStandardDeviation(this, tmin, tmax, unit);
 	}
 	
-	public void getMaximumAndTime (double tmin, double tmax, int unit, boolean interpolate,
+	public void getMaximumAndTime (double tmin, double tmax, kPitch_unit unit, boolean interpolate,
 		AtomicReference<Double> return_maximum, AtomicReference<Double> return_timeOfMaximum) {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
@@ -147,15 +149,15 @@ public class Pitch extends Sampled {
 		return_timeOfMaximum.set(timePtr.getDouble(0));
 	}
 	
-	public double getMaximum (double tmin, double tmax, int unit, boolean interpolate) {
+	public double getMaximum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getMaximum(this, tmin, tmax, unit, interpolate);
 	}
 	
-	public double getTimeOfMaximum (double tmin, double tmax, int unit, boolean interpolate) {
+	public double getTimeOfMaximum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getTimeOfMaximum(this, tmin, tmax, unit, interpolate);
 	}
 	
-	public void getMinimumAndTime (double tmin, double tmax, int unit, boolean interpolate,
+	public void getMinimumAndTime (double tmin, double tmax, kPitch_unit unit, boolean interpolate,
 			AtomicReference<Double> return_minimum, AtomicReference<Double> return_timeOfMinimum) {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
@@ -167,19 +169,19 @@ public class Pitch extends Sampled {
 		return_timeOfMinimum.set(timePtr.getDouble(0));
 	}
 	
-	public double getMinimum (double tmin, double tmax, int unit, boolean interpolate) {
+	public double getMinimum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getMinimum(this, tmin, tmax, unit, interpolate);
 	}
 	
-	public double getTimeOfMinimum (double tmin, double tmax, int unit, boolean interpolate) {
+	public double getTimeOfMinimum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
 		return Praat.INSTANCE.Pitch_getTimeOfMinimum(this, tmin, tmax, unit, interpolate);
 	}
 	
 	/**
 		Returns the largest number of candidates actually attested in a frame.
 	 */
-	public int getMaxnCandidates () {
-		return Praat.INSTANCE.Pitch_getMaxnCandidates(this);
+	public long getMaxnCandidates () {
+		return Praat.INSTANCE.Pitch_getMaxnCandidates(this).longValue();
 	}
 
 	/**
@@ -278,7 +280,7 @@ public class Pitch extends Sampled {
 		return retVal;
 	}
 
-	public Pitch subtractLinearFit (int unit) throws PraatException {
+	public Pitch subtractLinearFit (kPitch_unit unit) throws PraatException {
 		Pitch retVal = null;
 		try {
 			Praat.wrapperLock.lock();
@@ -343,37 +345,37 @@ public class Pitch extends Sampled {
 	
 	@Override
 	public int getMinimumUnit (long ilevel) {
-		return Praat.INSTANCE.Pitch_getMinimumUnit(this, new NativeLong(ilevel));
+		return Praat.INSTANCE.Pitch_getMinimumUnit(this, new NativeIntptr_t(ilevel));
 	}
 	
 	@Override
 	public int getMaximumUnit (long ilevel) {
-		return Praat.INSTANCE.Pitch_getMaximumUnit(this, new NativeLong(ilevel));
+		return Praat.INSTANCE.Pitch_getMaximumUnit(this, new NativeIntptr_t(ilevel));
 	}
 
-	public String getUnitText (long ilevel, kPitch_unit unit, long flags) {
-		Str32 txt32 = Praat.INSTANCE.Pitch_getUnitText(this, new NativeLong(ilevel), unit, new NativeLong(flags));
+	public String getUnitText (long ilevel, int unit, int flags) {
+		Str32 txt32 = Praat.INSTANCE.Pitch_getUnitText(this, new NativeIntptr_t(ilevel), unit, new NativeUint32(flags));
 		return (txt32 == null ? null : txt32.toString());
 	}
 	
 	@Override
 	public boolean isUnitLogarithmic (long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_isUnitLogarithmic(this, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Pitch_isUnitLogarithmic(this, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	@Override
 	public double convertStandardToSpecialUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_convertStandardToSpecialUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Pitch_convertStandardToSpecialUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	@Override
 	public double convertSpecialToStandardUnit (double value, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_convertSpecialToStandardUnit(this, value, new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Pitch_convertSpecialToStandardUnit(this, value, new NativeIntptr_t(ilevel), unit);
 	}
 	
 	@Override
 	public double getValueAtSample (long isamp, long ilevel, int unit) {
-		return Praat.INSTANCE.Pitch_getValueAtSample(this, new NativeLong(isamp), new NativeLong(ilevel), unit);
+		return Praat.INSTANCE.Pitch_getValueAtSample(this, new NativeIntptr_t(isamp), new NativeIntptr_t(ilevel), unit);
 	}
 	
 	public void formula(String formula, Interpreter interpreter)

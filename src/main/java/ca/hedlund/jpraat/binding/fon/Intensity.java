@@ -19,9 +19,10 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Intensity extends Vector {
+public final class Intensity extends Vector {
 	
 	public Intensity() {
 		super();
@@ -45,7 +46,7 @@ public class Intensity extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Intensity_create_wrapped(tmin, tmax,
-					new NativeLong(nt), dt, t1);
+					new NativeIntptr_t(nt), dt, t1);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

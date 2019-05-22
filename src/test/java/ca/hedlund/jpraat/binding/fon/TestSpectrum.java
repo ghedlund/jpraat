@@ -52,7 +52,7 @@ public class TestSpectrum {
 		Assert.assertEquals(true, f.exists());
 		
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
+		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		final Spectrum spectrum = sound.to_Spectrum();
 
 		final Table table = spectrum.downto_Table(true, true, true, true, true, true);
@@ -86,7 +86,7 @@ public class TestSpectrum {
 		Assert.assertEquals(true, f.exists());
 		
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, 1);
+		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		final Spectrum spectrum = sound.to_Spectrum();
 		
 		final Interpreter interpreter = Interpreter.create();
