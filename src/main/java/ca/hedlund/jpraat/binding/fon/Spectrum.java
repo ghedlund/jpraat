@@ -155,24 +155,24 @@ public final class Spectrum extends Matrix {
 		Praat.INSTANCE.Spectrum_stopHannBand(this, fmin, fmax, smooth);
 	}
 
-	public void Spectrum_getNearestMaximum (double frequency, 
-			AtomicReference<Double> frequencyOfMaximum, AtomicReference<Double> heightOfMaximum) throws PraatException {
-		final Pointer freqPtr = new Memory(Native.getNativeSize(Double.TYPE));
-		final Pointer heightPtr = new Memory(Native.getNativeSize(Double.TYPE));
-		
-		try {
-			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Spectrum_getNearestMaximum_wrapped(this, frequency, freqPtr, heightPtr);
-			Praat.checkAndClearLastError();
-			
-			frequencyOfMaximum.set(freqPtr.getDouble(0));
-			heightOfMaximum.set(heightPtr.getDouble(0));
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-	}
+//	public void Spectrum_getNearestMaximum (double frequency, 
+//			AtomicReference<Double> frequencyOfMaximum, AtomicReference<Double> heightOfMaximum) throws PraatException {
+//		final Pointer freqPtr = new Memory(Native.getNativeSize(Double.TYPE));
+//		final Pointer heightPtr = new Memory(Native.getNativeSize(Double.TYPE));
+//		
+//		try {
+//			Praat.wrapperLock.lock();
+//			Praat.INSTANCE.Spectrum_getNearestMaximum_wrapped(this, frequency, freqPtr, heightPtr);
+//			Praat.checkAndClearLastError();
+//			
+//			frequencyOfMaximum.set(freqPtr.getDouble(0));
+//			heightOfMaximum.set(heightPtr.getDouble(0));
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//	}
 	
 	public Sound to_Sound () throws PraatException {
 		Sound retVal = null;

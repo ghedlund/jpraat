@@ -16,6 +16,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -54,7 +55,7 @@ public class TestFormant {
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
-		
+				
 		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
 		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
 		final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS);

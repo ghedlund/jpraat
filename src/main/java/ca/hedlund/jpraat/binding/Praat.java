@@ -1114,16 +1114,16 @@ public interface Praat extends Library {
 	@Declared("fon/Sound_to_Pitch.h")
 	@Wrapped(autoPtrUnwrap=true)
 	public Pitch Sound_to_Pitch_ac_wrapped (Sound me, double timeStep, double minimumPitch,
-		double periodsPerWindow, int maxnCandidates, int accurate,
-		double silenceThreshold, double voicingThreshold, double octaveCost,
-		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
+	        double periodsPerWindow, NativeIntptr_t maxnCandidates, int accurate,
+	        double silenceThreshold, double voicingThreshold, double octaveCost,
+	        double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 
 	@Declared("fon/Sound_to_Pitch.h")
 	@Wrapped(autoPtrUnwrap=true)
 	public Pitch Sound_to_Pitch_cc_wrapped (Sound me, double timeStep, double minimumPitch,
-		double periodsPerWindow, int maxnCandidates, int accurate,
-		double silenceThreshold, double voicingThreshold, double octaveCost,
-		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
+	        double periodsPerWindow, NativeIntptr_t maxnCandidates, int accurate,
+	        double silenceThreshold, double voicingThreshold, double octaveCost,
+	        double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch);
 	
 	@Declared("fon/Sound_to_Pitch.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1209,10 +1209,10 @@ public interface Praat extends Library {
 	@Declared("fon/Spectrum.h") 
 	public void Spectrum_stopHannBand (Spectrum me, double fmin, double fmax, double smooth);
 
-	@Declared("fon/Spectrum.h")
-	@Wrapped
-	public void Spectrum_getNearestMaximum_wrapped (Spectrum me, double frequency, 
-			@NativeType("double*") Pointer frequencyOfMaximum, @NativeType("double*") Pointer heightOfMaximum);
+//	@Declared("fon/Spectrum.h")
+//	@Wrapped
+//	public void Spectrum_getNearestMaximum_wrapped (Spectrum me, double frequency, 
+//			@NativeType("double*") Pointer frequencyOfMaximum, @NativeType("double*") Pointer heightOfMaximum);
 	
 //	@Declared("fon/Sound_and_Spectrum.h")
 //	@Wrapped(autoPtrUnwrap=true)
@@ -1343,7 +1343,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound_to_Formant.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Formant Sound_to_Formant_any_wrapped (Sound me, double timeStep, int numberOfPoles, double maximumFrequency,
+	public Formant Sound_to_Formant_any_wrapped (Sound me, double timeStep, NativeIntptr_t numberOfPoles, double maximumFrequency,
 		double halfdt_window, int which, double preemphasisFrequency, double safetyMargin);
 
 	@Declared("fon/Sound_to_Formant.h")

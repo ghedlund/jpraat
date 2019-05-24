@@ -552,7 +552,7 @@ public final class Sound extends Vector {
 
 	/* Calls Sound_to_Pitch_any with AC method. */
 	public Pitch to_Pitch_ac (double timeStep, double minimumPitch,
-		double periodsPerWindow, int maxnCandidates, int accurate,
+		double periodsPerWindow, long maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) throws PraatException {
 		checkMaxnCandidates(maxnCandidates);
@@ -562,7 +562,7 @@ public final class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_to_Pitch_ac_wrapped(this,
-					timeStep, minimumPitch, periodsPerWindow, maxnCandidates,
+					timeStep, minimumPitch, periodsPerWindow, new NativeIntptr_t(maxnCandidates),
 					accurate, silenceThreshold, voicingThreshold, octaveCost,
 					octaveJumpCost, voicedUnvoicedCost, maximumPitch);
 			Praat.checkAndClearLastError();
@@ -576,7 +576,7 @@ public final class Sound extends Vector {
 
 	/* Calls Sound_to_Pitch_any with FCC method. */
 	public Pitch to_Pitch_cc (double timeStep, double minimumPitch,
-		double periodsPerWindow, int maxnCandidates, int accurate,
+		double periodsPerWindow, long maxnCandidates, int accurate,
 		double silenceThreshold, double voicingThreshold, double octaveCost,
 		double octaveJumpCost, double voicedUnvoicedCost, double maximumPitch) throws PraatException {
 		checkMaxnCandidates(maxnCandidates);
@@ -585,7 +585,7 @@ public final class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_to_Pitch_cc_wrapped(this,
-					timeStep, minimumPitch, periodsPerWindow, maxnCandidates,
+					timeStep, minimumPitch, periodsPerWindow, new NativeIntptr_t(maxnCandidates),
 					accurate, silenceThreshold, voicingThreshold, octaveCost,
 					octaveJumpCost, voicedUnvoicedCost, maximumPitch);
 			Praat.checkAndClearLastError();
@@ -664,7 +664,7 @@ public final class Sound extends Vector {
 		return retVal;
 	}
 	
-	private void checkMaxnCandidates(int maxnCandidates) {
+	private void checkMaxnCandidates(long maxnCandidates) {
 		if(maxnCandidates < 2)
 			throw new IllegalArgumentException("Max candidates must be >= 2");
 	}
@@ -690,14 +690,14 @@ public final class Sound extends Vector {
 		Which = 1: Burg.
 		Which = 2: Split-Levinson
 	*/
-	public Formant to_Formant_any (double timeStep, int numberOfPoles, double maximumFrequency,
+	public Formant to_Formant_any (double timeStep, long numberOfPoles, double maximumFrequency,
 			double halfdt_window, int which, double preemphasisFrequency, double safetyMargin) throws PraatException {
 		checkFormantWindow(numberOfPoles, halfdt_window);
 		Formant retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_to_Formant_any_wrapped(this,
-					timeStep, numberOfPoles, maximumFrequency, halfdt_window,
+					timeStep, new NativeIntptr_t(numberOfPoles), maximumFrequency, halfdt_window,
 					which, preemphasisFrequency, safetyMargin);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -767,7 +767,7 @@ public final class Sound extends Vector {
 		return retVal;
 	}
 	
-	private void checkFormantWindow(int numberOfPoles, double windowLength) {
+	private void checkFormantWindow(long numberOfPoles, double windowLength) {
 		double dt_window = 2.0 * windowLength;
 		long nsamp_window = (long)Math.floor(dt_window/getDx());
 		

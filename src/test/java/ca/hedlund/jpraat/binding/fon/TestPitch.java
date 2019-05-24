@@ -16,6 +16,7 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicReference;
@@ -53,6 +54,7 @@ public class TestPitch {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
+
 		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath());
 		final LongSound longSound = LongSound.open(melderFile);
 		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
