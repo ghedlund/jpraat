@@ -52,8 +52,8 @@ public class Thing extends PointerType implements AutoCloseable {
 		}
 		
 		public void run() {
-			if(thingPtr != null && thingPtr != Pointer.NULL) {
-				LOGGER.log(Level.INFO, "Forgetting " + thingClazz.getName() + " (" + thingPtr.toString() + ")" );
+			if(thingPtr != Pointer.NULL) {
+				LOGGER.log(Level.FINE, "Forgetting " + thingClazz.getName() + " (" + thingPtr.toString() + ")" );
 				PointerType pt;
 				try {
 					pt = thingClazz.newInstance();
