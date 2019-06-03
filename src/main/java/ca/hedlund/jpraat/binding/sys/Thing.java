@@ -15,9 +15,14 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
+import java.lang.ref.WeakReference;
+import java.lang.ref.Cleaner;
+import java.lang.ref.Cleaner.Cleanable;
+import java.lang.ref.PhantomReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sun.jna.FromNativeContext;
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
@@ -29,18 +34,40 @@ import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
-public class Thing extends PointerType {
+public class Thing extends PointerType implements AutoCloseable {
 	
 	private final static Logger LOGGER = Logger.getLogger(Thing.class.getName());
 	
-	/*
-	 * Should we 'forget' (delete object and all resources) the object
-	 * when the JVM finalizes this object.  By defualt, this is 'true'.
-	 * 
-	 * An example of a case where this is not desiriable is when creating
-	 * temporary java references to data in memory which needs to be retained.
-	 */
-	private boolean forgetOnFinalize = true;
+	static final Cleaner cleaner = Cleaner.create();
+	
+	static class ThingCleaner implements Runnable {
+
+		private Class<? extends Thing> thingClazz;
+		
+		private Pointer thingPtr;
+		
+		private ThingCleaner(Thing th) {
+			this.thingClazz = th.getClass();
+			this.thingPtr = th.getPointer();
+		}
+		
+		public void run() {
+			if(thingPtr != null && thingPtr != Pointer.NULL) {
+				LOGGER.log(Level.INFO, "Forgetting " + thingClazz.getName() + " (" + thingPtr.toString() + ")" );
+				PointerType pt;
+				try {
+					pt = thingClazz.newInstance();
+					pt.setPointer(thingPtr);
+					Praat.INSTANCE._Thing_forget_wrapped(pt);
+				} catch (InstantiationException | IllegalAccessException e) {
+					LOGGER.severe(e.getLocalizedMessage());;
+				}
+			}
+		}
+		
+	}
+
+	private Cleanable cleanable;
 	
 	public Thing() {
 		super();
@@ -48,6 +75,11 @@ public class Thing extends PointerType {
 	
 	public Thing(Pointer p) {
 		super(p);
+	}
+	
+	@Override
+	public void setPointer(Pointer p) {
+		super.setPointer(p);
 	}
 
 	public static Object newFromClassName (String className) throws PraatException {
@@ -63,30 +95,10 @@ public class Thing extends PointerType {
 		} finally {
 			Praat.wrapperLock.unlock();
 		}
+		
 		return retVal;
 	}
-	
-	public boolean isForgetOnFinalize() {
-		return this.forgetOnFinalize;
-	}
-	
-	public void setForgetOnFinalize(boolean forgetOnFinalize) {
-		this.forgetOnFinalize = forgetOnFinalize;
-	}
 
-	@Override
-	public void finalize() {
-		if(isForgetOnFinalize() && getPointer() != Pointer.NULL) {
-			try {
-//				LOGGER.log(Level.INFO, "Forgetting object of type " + getClass().getSimpleName() + " with native pointer " + 
-//						Long.toHexString(Pointer.nativeValue(getPointer())));
-				forget();
-			} catch (PraatException e) {
-				LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			}
-		}
-	}
-	
 	public void forget() throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
@@ -126,6 +138,34 @@ public class Thing extends PointerType {
 	public ClassInfo getClassInfo() {
 		Pointer p = Praat.getNativeLibrary().getGlobalVariableAddress("class" + getClass().getSimpleName());
 		return new ClassInfo(p);
+	}
+	
+	@Override
+	public Object fromNative(Object nativeValue, FromNativeContext context) {
+		// Always pass along null pointer values
+        if (nativeValue == null) {
+            return null;
+        }
+        try {
+            Thing pt = getClass().newInstance();
+            pt.setPointer((Pointer)nativeValue);
+            
+            pt.cleanable = cleaner.register(pt, new ThingCleaner(this.getClass().cast(pt)));
+            return pt;
+        }
+        catch (InstantiationException e) {
+            throw new IllegalArgumentException("Can't instantiate " + getClass());
+        }
+        catch (IllegalAccessException e) {
+            throw new IllegalArgumentException("Not allowed to instantiate " + getClass());
+        }
+	}
+
+	@Override
+	public void close() throws Exception {
+		if(cleanable != null) {
+			cleanable.clean();
+		}
 	}
 	
 }

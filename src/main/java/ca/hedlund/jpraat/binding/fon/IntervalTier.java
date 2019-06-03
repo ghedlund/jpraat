@@ -207,7 +207,6 @@ public final class IntervalTier extends Function {
 	
 	public TextInterval interval (long i) {
 		TextInterval retVal = Praat.INSTANCE.IntervalTier_interval(this, new NativeIntptr_t(i));
-		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	

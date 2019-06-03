@@ -149,7 +149,6 @@ public final class TextTier extends Function {
 	
 	public TextPoint point (long i) {
 		TextPoint retVal = Praat.INSTANCE.TextTier_point(this, new NativeIntptr_t(i));
-		retVal.setForgetOnFinalize(false);
 		return retVal;
 	}
 	

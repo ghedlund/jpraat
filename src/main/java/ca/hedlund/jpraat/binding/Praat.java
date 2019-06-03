@@ -22,6 +22,7 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
+import com.sun.jna.PointerType;
 import com.sun.jna.WString;
 
 import ca.hedlund.jpraat.annotations.Custom;
@@ -140,7 +141,7 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
-	public void _Thing_forget_wrapped(Thing me);
+	public void _Thing_forget_wrapped(PointerType me);
 	
 	@Declared("sys/Thing.h")
 	@Wrapped

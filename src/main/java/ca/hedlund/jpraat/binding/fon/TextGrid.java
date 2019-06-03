@@ -239,7 +239,6 @@ public final class TextGrid extends Function {
 					.TextGrid_checkSpecifiedTierNumberWithinRange_wrapped(this,
 							new NativeIntptr_t(tierNumber));
 			Praat.checkAndClearLastError();
-			retVal.setForgetOnFinalize(false);
 		} catch (PraatException e) {
 			throw e;
 		} finally {
@@ -256,7 +255,6 @@ public final class TextGrid extends Function {
 					.TextGrid_checkSpecifiedTierIsIntervalTier_wrapped(this,
 							new NativeIntptr_t(tierNumber));
 			Praat.checkAndClearLastError();
-			retVal.setForgetOnFinalize(false);
 		} catch (PraatException e) {
 			throw e;
 		} finally {
@@ -273,7 +271,6 @@ public final class TextGrid extends Function {
 					.TextGrid_checkSpecifiedTierIsPointTier_wrapped(this,
 							new NativeIntptr_t(tierNumber));
 			Praat.checkAndClearLastError();
-			retVal.setForgetOnFinalize(false);
 		} catch (PraatException e) {
 			throw e;
 		} finally {
@@ -519,7 +516,6 @@ public final class TextGrid extends Function {
 	
 	public Function tier (long i) {
 		Function tier = Praat.INSTANCE.TextGrid_tier(this, new NativeIntptr_t(i));
-		tier.setForgetOnFinalize(false);
 		return tier;
 	}
 	
