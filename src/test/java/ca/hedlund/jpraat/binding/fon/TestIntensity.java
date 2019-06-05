@@ -56,46 +56,45 @@ public class TestIntensity {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
-		final MelderFile melderFile = MelderFile.fromPath(f.getAbsolutePath());
-		final LongSound longSound = LongSound.open(melderFile);
-		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
-		
-		final Intensity intensity = sound.to_Intensity(50.0, 0.0, true);
-		final AtomicReference<Long> ixminRef = new AtomicReference<Long>();
-		final AtomicReference<Long> ixmaxRef = new AtomicReference<Long>();
-		
-		intensity.getWindowSamples(XMIN, XMAX, ixminRef, ixmaxRef);
-		
-		final int ixmin = ixminRef.get().intValue();
-		final int ixmax = ixmaxRef.get().intValue();
-		final NumberFormat format = NumberFormat.getNumberInstance();
-		format.setMaximumFractionDigits(6);
-		
-		try {
-			final PrintWriter out = 
-					new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
-			final char qc = '\"';
-			final char sc = ',';
-			
-			final StringBuilder sb = new StringBuilder();
-			sb.append(qc).append("Time(s)").append(qc).append(sc);
-			sb.append(qc).append("Intensity(dB)").append(qc);
-			out.println(sb.toString());
-			sb.setLength(0);
-			
-			for(int i = ixmin; i < ixmax; i++) {
-				final double time = intensity.indexToX(i);
-				final double val = intensity.getValueAtSample(i, 1, Intensity.UNITS_DB);
-				
-				sb.append(qc).append(format.format(time)).append(qc).append(sc);
-				sb.append(qc).append(format.format(val)).append(qc);
-				out.println(sb.toString());
-				sb.setLength(0);
+		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
+			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
+				try(final Intensity intensity = sound.to_Intensity(50.0, 0.0, true)) {
+					final AtomicReference<Long> ixminRef = new AtomicReference<Long>();
+					final AtomicReference<Long> ixmaxRef = new AtomicReference<Long>();
+					
+					intensity.getWindowSamples(XMIN, XMAX, ixminRef, ixmaxRef);
+					
+					final int ixmin = ixminRef.get().intValue();
+					final int ixmax = ixmaxRef.get().intValue();
+					final NumberFormat format = NumberFormat.getNumberInstance();
+					format.setMaximumFractionDigits(6);
+					
+					final PrintWriter out = 
+							new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
+					final char qc = '\"';
+					final char sc = ',';
+					
+					final StringBuilder sb = new StringBuilder();
+					sb.append(qc).append("Time(s)").append(qc).append(sc);
+					sb.append(qc).append("Intensity(dB)").append(qc);
+					out.println(sb.toString());
+					sb.setLength(0);
+					
+					for(int i = ixmin; i < ixmax; i++) {
+						final double time = intensity.indexToX(i);
+						final double val = intensity.getValueAtSample(i, 1, Intensity.UNITS_DB);
+						
+						sb.append(qc).append(format.format(time)).append(qc).append(sc);
+						sb.append(qc).append(format.format(val)).append(qc);
+						out.println(sb.toString());
+						sb.setLength(0);
+					}
+					
+					out.flush();
+					out.close();
+				}
 			}
-			
-			out.flush();
-			out.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

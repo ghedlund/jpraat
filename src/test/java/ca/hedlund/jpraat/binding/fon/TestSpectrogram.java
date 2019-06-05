@@ -26,6 +26,7 @@ import org.junit.runners.JUnit4;
 
 import ca.hedlund.jpraat.binding.Praat;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.binding.sys.Thing;
 import ca.hedlund.jpraat.exceptions.PraatException;
 import junit.framework.Assert;
 
@@ -63,20 +64,23 @@ public class TestSpectrogram {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
-		final Spectrogram spectrogram = 
-				sound.to_Spectrogram(TIMESTEP, YMAX, DX, FREQSTEP, 
-				kSound_to_Spectrogram_windowShape.GAUSSIAN, 8.0, 8.0);
-		
-		
-		Assert.assertEquals(X1, spectrogram.getX1());
-		Assert.assertEquals(NX, spectrogram.getNx());
-		Assert.assertEquals(DY, spectrogram.getDy());
-		Assert.assertEquals(NY, spectrogram.getNy());
-		
-		final MelderFile textFile = MelderFile.fromPath(System.getProperty("user.home") + "/Desktop/test.txt");
-		spectrogram.writeToTextFile(textFile);
+		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
+			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
+				try(final Spectrogram spectrogram = 
+						sound.to_Spectrogram(TIMESTEP, YMAX, DX, FREQSTEP, 
+						kSound_to_Spectrogram_windowShape.GAUSSIAN, 8.0, 8.0)) {
+					Assert.assertEquals(X1, spectrogram.getX1());
+					Assert.assertEquals(NX, spectrogram.getNx());
+					Assert.assertEquals(DY, spectrogram.getDy());
+					Assert.assertEquals(NY, spectrogram.getNy());
+					
+					final MelderFile textFile = MelderFile.fromPath(System.getProperty("user.home") + "/Desktop/test.txt");
+					spectrogram.writeToTextFile(textFile);
+				}
+			}
+		} catch (Exception e) {
+			throw new PraatException(e);
+		}
 	}
 	
 }

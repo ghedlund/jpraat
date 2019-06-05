@@ -15,17 +15,8 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import java.lang.ref.WeakReference;
-import java.lang.ref.Cleaner;
-import java.lang.ref.Cleaner.Cleanable;
-import java.lang.ref.PhantomReference;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.sun.jna.FromNativeContext;
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 
@@ -34,40 +25,10 @@ import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import ca.hedlund.jpraat.binding.jna.Str32;
 import ca.hedlund.jpraat.exceptions.PraatException;
 
+/**
+ * 
+ */
 public class Thing extends PointerType implements AutoCloseable {
-	
-	private final static Logger LOGGER = Logger.getLogger(Thing.class.getName());
-	
-	static final Cleaner cleaner = Cleaner.create();
-	
-	static class ThingCleaner implements Runnable {
-
-		private Class<? extends Thing> thingClazz;
-		
-		private Pointer thingPtr;
-		
-		private ThingCleaner(Thing th) {
-			this.thingClazz = th.getClass();
-			this.thingPtr = th.getPointer();
-		}
-		
-		public void run() {
-			if(thingPtr != Pointer.NULL) {
-				LOGGER.log(Level.FINE, "Forgetting " + thingClazz.getName() + " (" + thingPtr.toString() + ")" );
-				PointerType pt;
-				try {
-					pt = thingClazz.newInstance();
-					pt.setPointer(thingPtr);
-					Praat.INSTANCE._Thing_forget_wrapped(pt);
-				} catch (InstantiationException | IllegalAccessException e) {
-					LOGGER.severe(e.getLocalizedMessage());;
-				}
-			}
-		}
-		
-	}
-
-	private Cleanable cleanable;
 	
 	public Thing() {
 		super();
@@ -141,30 +102,10 @@ public class Thing extends PointerType implements AutoCloseable {
 	}
 	
 	@Override
-	public Object fromNative(Object nativeValue, FromNativeContext context) {
-		// Always pass along null pointer values
-        if (nativeValue == null) {
-            return null;
-        }
-        try {
-            Thing pt = getClass().newInstance();
-            pt.setPointer((Pointer)nativeValue);
-            
-            pt.cleanable = cleaner.register(pt, new ThingCleaner(this.getClass().cast(pt)));
-            return pt;
-        }
-        catch (InstantiationException e) {
-            throw new IllegalArgumentException("Can't instantiate " + getClass());
-        }
-        catch (IllegalAccessException e) {
-            throw new IllegalArgumentException("Not allowed to instantiate " + getClass());
-        }
-	}
-
-	@Override
 	public void close() throws Exception {
-		if(cleanable != null) {
-			cleanable.clean();
+		if(this.getPointer() != Pointer.NULL) {
+			this.forget();
+			this.setPointer(Pointer.NULL);
 		}
 	}
 	

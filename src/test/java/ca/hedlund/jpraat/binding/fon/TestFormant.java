@@ -56,31 +56,36 @@ public class TestFormant {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 				
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
-		final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS);
-		
-		final Table formantTable = formant.downto_Table(false, true, 3, true, 6, true, 6, true);
-		// do formant table listing
-		final StringBuilder sb = new StringBuilder();
-		
-		for(int col = 1; col < formantTable.getNcol(); col++) {
-			if(col > 1) sb.append(',');
-			sb.append('\"');
-			sb.append(formantTable.getColStr(col));
-			sb.append('\"');
-		}
-		System.out.println(sb.toString());
-		
-		for(int row = 1; row <= formantTable.getNrow(); row++) {
-			sb.setLength(0);
-			for(int col = 1; col < formantTable.getNcol(); col++) {
-				if(col > 1) sb.append(',');
-				sb.append('\"');
-				sb.append(formantTable.getNumericValue(row, col));
-				sb.append('\"');
+		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {			
+			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
+				try(final Formant formant = sound.to_Formant_burg(TIMESTEP, MAXFORMANTS, MAXFREQ, WINDOWLENGTH, PREEMPHASIS)) {
+					try(final Table formantTable = formant.downto_Table(false, true, 3, true, 6, true, 6, true)) {
+						// do formant table listing
+						final StringBuilder sb = new StringBuilder();
+						
+						for(int col = 1; col < formantTable.getNcol(); col++) {
+							if(col > 1) sb.append(',');
+							sb.append('\"');
+							sb.append(formantTable.getColStr(col));
+							sb.append('\"');
+						}
+						System.out.println(sb.toString());
+						
+						for(int row = 1; row <= formantTable.getNrow(); row++) {
+							sb.setLength(0);
+							for(int col = 1; col < formantTable.getNcol(); col++) {
+								if(col > 1) sb.append(',');
+								sb.append('\"');
+								sb.append(formantTable.getNumericValue(row, col));
+								sb.append('\"');
+							}
+							System.out.println(sb.toString());
+						}
+					}
+				}
 			}
-			System.out.println(sb.toString());
+		} catch(Exception e) {
+			throw new PraatException(e);
 		}
 	}
 	

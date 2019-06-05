@@ -52,32 +52,30 @@ public class TestSpectrum {
 		Assert.assertEquals(true, f.exists());
 		
 		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
-			final Sound sound = longSound.extractPart(XMIN, XMAX, true);
-			
-			try(final Spectrum spectrum = sound.to_Spectrum()) {
-				final Table table = spectrum.downto_Table(true, true, true, true, true, true);
-				final StringBuilder sb = new StringBuilder();
-				
-				for(int col = 1; col < 7; col++) {
-					if(col > 1) sb.append(',');
-					sb.append('\"');
-					sb.append(table.getColStr(col));
-					sb.append('\"');
-				}
-				System.out.println(sb.toString());
-				
-				for(int row = 1; row <= 100; row++) {
-					sb.setLength(0);
+			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
+				try(final Spectrum spectrum = sound.to_Spectrum()) {
+					final Table table = spectrum.downto_Table(true, true, true, true, true, true);
+					final StringBuilder sb = new StringBuilder();
+					
 					for(int col = 1; col < 7; col++) {
 						if(col > 1) sb.append(',');
 						sb.append('\"');
-						sb.append(table.getNumericValue(row, col));
+						sb.append(table.getColStr(col));
 						sb.append('\"');
 					}
 					System.out.println(sb.toString());
+					
+					for(int row = 1; row <= 100; row++) {
+						sb.setLength(0);
+						for(int col = 1; col < 7; col++) {
+							if(col > 1) sb.append(',');
+							sb.append('\"');
+							sb.append(table.getNumericValue(row, col));
+							sb.append('\"');
+						}
+						System.out.println(sb.toString());
+					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,12 +89,17 @@ public class TestSpectrum {
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
 		
-		final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()));
-		final Sound sound = longSound.extractPart(XMIN, XMAX, true);
-		final Spectrum spectrum = sound.to_Spectrum();
-		
-		final Interpreter interpreter = Interpreter.create();
-		spectrum.formula("if x >= 2500 then self*x else self fi", interpreter, null);
+		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
+			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
+				try(final Spectrum spectrum = sound.to_Spectrum()) {
+					try(final Interpreter interpreter = Interpreter.create()) {
+						spectrum.formula("if x >= 2500 then self*x else self fi", interpreter, null);
+					}
+				}
+			}
+		} catch (Exception e) {
+			throw new PraatException(e);
+		}
 	}
 	
 }

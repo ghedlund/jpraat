@@ -27,6 +27,7 @@ import ca.hedlund.jpraat.binding.fon.TextGrid;
 import ca.hedlund.jpraat.binding.fon.TextInterval;
 import ca.hedlund.jpraat.binding.sys.Daata;
 import ca.hedlund.jpraat.binding.sys.MelderFile;
+import ca.hedlund.jpraat.exceptions.PraatException;
 import junit.framework.Assert;
 
 @RunWith(JUnit4.class)
@@ -47,12 +48,21 @@ public class TestTextGridUtils {
 		final String path = "src/test/resources/ca/hedlund/jpraat/binding/fon/test.TextGrid";
 		final MelderFile f = MelderFile.fromPath(path);
 		
-		TextGrid tg = Daata.readFromFile(TextGrid.class, f);
-		
-		List<TextInterval> intervals = TextGridUtils.getContiguousIntervals(tg, tierIdx, tolerence, maxLength, delim);
-		Assert.assertEquals(13, intervals.size());
-		for(TextInterval interval:intervals) {
-			System.out.println(interval.getText() + " (xmin = " + interval.getXmin() + ", xmax = " + interval.getXmax() + ")");
+		try(TextGrid tg = Daata.readFromFile(TextGrid.class, f)) {
+			List<TextInterval> intervals = TextGridUtils.getContiguousIntervals(tg, tierIdx, tolerence, maxLength, delim);
+			Assert.assertEquals(13, intervals.size());
+			for(TextInterval interval:intervals) {
+				System.out.println(interval.getText() + " (xmin = " + interval.getXmin() + ", xmax = " + interval.getXmax() + ")");
+			}
+			
+			// delete intervals
+			intervals.forEach(t -> {
+				try {
+					t.forget();
+				} catch (PraatException e) {
+					e.printStackTrace();
+				}
+			});
 		}
 	}
 	

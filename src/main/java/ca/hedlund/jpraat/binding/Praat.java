@@ -141,7 +141,7 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
-	public void _Thing_forget_wrapped(PointerType me);
+	public void _Thing_forget_wrapped(Thing me);
 	
 	@Declared("sys/Thing.h")
 	@Wrapped
