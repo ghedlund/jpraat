@@ -338,6 +338,48 @@ public final class Pitch extends Sampled {
 		Praat.INSTANCE.Pitch_step(this, step, precision, tmin, tmax);
 	}
 	
+	public PointProcess to_PointProcess() throws PraatException {
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Pitch_to_PointProcess_wrapped (this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public PointProcess to_PointProcess_cc ( Sound sound ) throws PraatException {
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_Pitch_to_PointProcess_cc_wrapped ( sound, this );
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
+	public PointProcess to_PointProcess_peaks ( Sound sound, int includeMaxima, int includeMinima ) throws PraatException {
+		PointProcess retVal = null;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Sound_Pitch_to_PointProcess_peaks_wrapped ( sound, this, includeMaxima, includeMinima );
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
+	
 	@Override
 	public MelderQuantity getDomainQuantity () {
 		return Praat.INSTANCE.Pitch_domainQuantity(this);

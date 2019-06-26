@@ -911,6 +911,18 @@ public interface Praat extends Library {
 	@Custom
 	public double Pitch_getValueAtSample (Pitch me, NativeIntptr_t isamp, NativeIntptr_t ilevel, int unit);
 	
+	@Declared("fon/Pitch_to_PointProcess.h")
+	@Wrapped(autoPtrUnwrap=true)
+	PointProcess Pitch_to_PointProcess_wrapped ( Pitch pitch );
+	
+	@Declared("fon/Pitch_to_PointProcess.h")
+	@Wrapped(autoPtrUnwrap=true)
+	PointProcess Sound_Pitch_to_PointProcess_cc_wrapped ( Sound sound, Pitch pitch );
+	
+	@Declared("fon/Pitch_to_PointProcess.h")
+	@Wrapped(autoPtrUnwrap=true)
+	PointProcess Sound_Pitch_to_PointProcess_peaks_wrapped ( Sound sound, Pitch pitch, int includeMaxima, int includeMinima );
+	
 	/**
 	 * Read sound from file
 	 * 
@@ -1847,6 +1859,10 @@ public interface Praat extends Library {
 	@Declared("fon/PointProcess.h")
 	public double PointProcess_getStdevPeriod (PointProcess me, double tmin, double tmax,
 		double minimumPeriod, double maximumPeriod, double maximumPeriodFactor);
+	
+	@Declared("fon/PointProcess.h")
+	@Custom
+	public double PointProcess_getValueAtIndex (PointProcess me, NativeIntptr_t index);
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped(autoPtrUnwrap=true)

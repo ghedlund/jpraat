@@ -85,6 +85,10 @@ public final class PointProcess extends Function {
 		return Praat.INSTANCE.PointProcess_getNearestIndex(this, t).longValue();
 	}
 	
+	public double getValueAtIndex (long idx) {
+		return Praat.INSTANCE.PointProcess_getValueAtIndex(this, new NativeIntptr_t(idx));
+	}
+	
 	public long getWindowPoints (double tmin, double tmax, 
 			AtomicReference<Long> imin, AtomicReference<Long> imax) {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Long.TYPE));
