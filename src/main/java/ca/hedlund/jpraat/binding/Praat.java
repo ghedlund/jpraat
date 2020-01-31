@@ -86,7 +86,7 @@ public interface Praat extends Library {
 	 * Static instance of Praat native library
 	 */
 	Praat INSTANCE = (Praat)
-			Native.loadLibrary("jpraat", Praat.class, new NativeLibraryOptions());
+			Native.load("jpraat", Praat.class, new NativeLibraryOptions());
 	
 	
 	/**
