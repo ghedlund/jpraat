@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2018 Gregory Hedlund
+ * Copyright (C) 2005-2020 Gregory Hedlund
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,25 +15,19 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.text.NumberFormat;
-import java.time.temporal.JulianFields;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Level;
+import java.io.*;
+import java.net.*;
+import java.text.*;
+import java.util.concurrent.atomic.*;
 
-import org.junit.Before;
+import org.junit.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runner.*;
+import org.junit.runners.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 import junit.framework.Assert;
 
 @RunWith(JUnit4.class)

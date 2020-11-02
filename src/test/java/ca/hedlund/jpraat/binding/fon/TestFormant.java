@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2018 Gregory Hedlund
+ * Copyright (C) 2005-2020 Gregory Hedlund
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package ca.hedlund.jpraat.binding.fon;
 
 import java.io.File;
-import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.net.URL;
 
