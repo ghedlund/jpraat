@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module ca.hedlund.praat {
+module ca.hedlund.jpraat {
 	requires com.sun.jna;
 	
 	exports ca.hedlund.jpraat;
