@@ -15,8 +15,8 @@
  */
 package ca.hedlund.jpraat.binding.melder;
 
-import ca.hedlund.jpraat.annotations.Header;
-import ca.hedlund.jpraat.binding.jna.NativeEnum;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.jna.*;
 
 @Header("melder/melder_enums.h")
 public enum kMelder_number implements NativeEnum {

@@ -15,7 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
 public class AnyTier extends Function {
 	

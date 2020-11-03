@@ -15,7 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import com.sun.jna.IntegerType;
+import com.sun.jna.*;
 
 public class NativeUint32 extends IntegerType {
 	

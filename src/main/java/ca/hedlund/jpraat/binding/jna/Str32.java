@@ -15,13 +15,11 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.CharBuffer;
-import java.util.Arrays;
+import java.io.*;
+import java.nio.*;
+import java.util.*;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Pointer;
-import com.sun.jna.PointerType;
+import com.sun.jna.*;
 
 /**
  * Wrapper type for c++ (<code>char32_t</code>) strings.  Use this class for

@@ -15,7 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.*;
 
 /**
  * Utility class for obtaining the praat prefs folder.

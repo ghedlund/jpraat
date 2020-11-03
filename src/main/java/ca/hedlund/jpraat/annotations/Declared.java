@@ -15,9 +15,7 @@
  */
 package ca.hedlund.jpraat.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.*;
 
 /**
  * The c/cpp file which declares this element

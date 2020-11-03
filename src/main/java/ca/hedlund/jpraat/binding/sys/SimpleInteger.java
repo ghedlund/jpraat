@@ -15,11 +15,11 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 public class SimpleInteger extends Daata {
 	

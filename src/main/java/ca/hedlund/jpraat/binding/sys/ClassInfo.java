@@ -16,8 +16,7 @@
 package ca.hedlund.jpraat.binding.sys;
 
 
-import com.sun.jna.Pointer;
-import com.sun.jna.PointerType;
+import com.sun.jna.*;
 
 /**
  * Holder class for class info objects needed for some functions.

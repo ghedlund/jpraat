@@ -15,9 +15,9 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import java.util.HashMap;
+import java.util.*;
 
-import com.sun.jna.Library;
+import com.sun.jna.*;
 
 public class NativeLibraryOptions extends HashMap<String, Object> {
 	

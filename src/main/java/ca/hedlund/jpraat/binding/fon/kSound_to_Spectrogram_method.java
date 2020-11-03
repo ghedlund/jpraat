@@ -15,8 +15,8 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.jna.NativeEnum;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.jna.*;
 
 @Declared("fon/Sound_to_Spectrogram_enums.h")
 public enum kSound_to_Spectrogram_method implements NativeEnum {

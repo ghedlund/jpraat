@@ -15,10 +15,7 @@
  */
 package ca.hedlund.jpraat.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Interface used to denote a wrapped C++ method.  It's required that a method 

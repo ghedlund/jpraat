@@ -15,19 +15,17 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 
-import org.junit.Before;
+import org.junit.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runner.*;
+import org.junit.runners.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.binding.sys.Thing;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 import junit.framework.Assert;
 
 @RunWith(JUnit4.class)

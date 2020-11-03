@@ -15,14 +15,10 @@
  */
 package ca.hedlund.jpraat;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import ca.hedlund.jpraat.binding.fon.Function;
-import ca.hedlund.jpraat.binding.fon.IntervalTier;
-import ca.hedlund.jpraat.binding.fon.TextGrid;
-import ca.hedlund.jpraat.binding.fon.TextInterval;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.fon.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 public class TextGridUtils {
 	

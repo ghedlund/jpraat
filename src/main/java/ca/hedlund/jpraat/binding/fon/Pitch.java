@@ -15,21 +15,15 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.*;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.annotations.Header;
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
-import ca.hedlund.jpraat.binding.jna.NativeUint32;
-import ca.hedlund.jpraat.binding.jna.Str32;
-import ca.hedlund.jpraat.binding.sys.Interpreter;
-import ca.hedlund.jpraat.binding.sys.MelderQuantity;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 @Header(value="fon/Pitch.h")
 public final class Pitch extends Sampled {

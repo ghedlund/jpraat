@@ -15,7 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import com.sun.jna.DefaultTypeMapper;
+import com.sun.jna.*;
 
 public class NativeTypeMapper extends DefaultTypeMapper {
 

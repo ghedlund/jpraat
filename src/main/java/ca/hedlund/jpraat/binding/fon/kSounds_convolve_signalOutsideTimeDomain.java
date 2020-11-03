@@ -15,8 +15,8 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.jna.NativeEnum;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.jna.*;
 
 /**
  * kSound_convolve_signalOutsideTimeDomain

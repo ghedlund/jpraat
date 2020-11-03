@@ -15,14 +15,13 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 @Declared("sys/Daata.h")
 public class Daata extends Thing {

@@ -15,9 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import com.sun.jna.FromNativeContext;
-import com.sun.jna.ToNativeContext;
-import com.sun.jna.TypeConverter;
+import com.sun.jna.*;
 
 /**
  * Converter for {@link NativeEnum}s

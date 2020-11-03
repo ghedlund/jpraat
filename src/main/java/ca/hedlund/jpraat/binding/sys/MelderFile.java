@@ -15,12 +15,12 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import com.sun.jna.PointerType;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.Str32;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 @Declared("sys/melder.h")
 public class MelderFile extends PointerType {

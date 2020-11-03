@@ -15,10 +15,10 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
 
 public class SampledXY extends Sampled {
 	

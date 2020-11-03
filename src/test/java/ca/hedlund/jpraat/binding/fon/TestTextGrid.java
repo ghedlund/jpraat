@@ -15,15 +15,14 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import org.junit.Before;
+import org.junit.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runner.*;
+import org.junit.runners.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.Daata;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 import junit.framework.Assert;
 
 @RunWith(JUnit4.class)

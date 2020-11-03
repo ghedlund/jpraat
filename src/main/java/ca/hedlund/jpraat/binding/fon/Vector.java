@@ -15,15 +15,12 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.*;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
 
 /**
  * Bindings for Praat Vector type

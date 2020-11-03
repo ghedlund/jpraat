@@ -15,12 +15,10 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import com.sun.jna.NativeLong;
-
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
-import ca.hedlund.jpraat.binding.sys.MelderQuantity;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.jna.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 public final class Ltas extends Vector {
 	

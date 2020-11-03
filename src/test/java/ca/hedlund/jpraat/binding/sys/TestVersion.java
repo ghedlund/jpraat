@@ -15,12 +15,11 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.*;
+import org.junit.runner.*;
+import org.junit.runners.*;
 
-import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.*;
 
 @RunWith(JUnit4.class)
 public class TestVersion  {

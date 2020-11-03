@@ -15,15 +15,13 @@
  */
 package ca.hedlund.jpraat.binding.fon;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.*;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.binding.Praat;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 public final class LongSound extends Sampled {
 

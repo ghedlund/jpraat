@@ -15,8 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.jna;
 
-import com.sun.jna.IntegerType;
-import com.sun.jna.Native;
+import com.sun.jna.*;
 
 /**
  * Wrapper for the type intptr_t

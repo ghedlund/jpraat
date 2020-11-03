@@ -15,65 +15,18 @@
  */
 package ca.hedlund.jpraat.binding;
 
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.*;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.PointerType;
-import com.sun.jna.WString;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.annotations.Custom;
-import ca.hedlund.jpraat.annotations.Declared;
-import ca.hedlund.jpraat.annotations.NativeType;
-import ca.hedlund.jpraat.annotations.Wrapped;
-import ca.hedlund.jpraat.binding.fon.Formant;
+import ca.hedlund.jpraat.annotations.*;
+import ca.hedlund.jpraat.binding.fon.*;
 import ca.hedlund.jpraat.binding.fon.Function;
-import ca.hedlund.jpraat.binding.fon.Intensity;
-import ca.hedlund.jpraat.binding.fon.IntervalTier;
-import ca.hedlund.jpraat.binding.fon.LongSound;
-import ca.hedlund.jpraat.binding.fon.Ltas;
-import ca.hedlund.jpraat.binding.fon.Matrix;
-import ca.hedlund.jpraat.binding.fon.Pitch;
-import ca.hedlund.jpraat.binding.fon.PointProcess;
-import ca.hedlund.jpraat.binding.fon.Sampled;
-import ca.hedlund.jpraat.binding.fon.SampledXY;
-import ca.hedlund.jpraat.binding.fon.Sound;
-import ca.hedlund.jpraat.binding.fon.Spectrogram;
-import ca.hedlund.jpraat.binding.fon.Spectrum;
-import ca.hedlund.jpraat.binding.fon.TextGrid;
-import ca.hedlund.jpraat.binding.fon.TextInterval;
-import ca.hedlund.jpraat.binding.fon.TextPoint;
-import ca.hedlund.jpraat.binding.fon.TextTier;
-import ca.hedlund.jpraat.binding.fon.Vector;
-import ca.hedlund.jpraat.binding.fon.kFormant_unit;
-import ca.hedlund.jpraat.binding.fon.kPitch_unit;
-import ca.hedlund.jpraat.binding.fon.kSound_to_Spectrogram_windowShape;
-import ca.hedlund.jpraat.binding.fon.kSound_windowShape;
-import ca.hedlund.jpraat.binding.fon.kSounds_convolve_scaling;
-import ca.hedlund.jpraat.binding.fon.kSounds_convolve_signalOutsideTimeDomain;
-import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
-import ca.hedlund.jpraat.binding.jna.NativeLibraryOptions;
-import ca.hedlund.jpraat.binding.jna.NativeUint32;
-import ca.hedlund.jpraat.binding.jna.Str32;
-import ca.hedlund.jpraat.binding.melder.kMelder_number;
-import ca.hedlund.jpraat.binding.melder.kMelder_string;
-import ca.hedlund.jpraat.binding.stat.Table;
-import ca.hedlund.jpraat.binding.stat.TableOfReal;
-import ca.hedlund.jpraat.binding.sys.ClassInfo;
-import ca.hedlund.jpraat.binding.sys.Daata;
-import ca.hedlund.jpraat.binding.sys.Interpreter;
-import ca.hedlund.jpraat.binding.sys.MelderFile;
-import ca.hedlund.jpraat.binding.sys.MelderQuantity;
-import ca.hedlund.jpraat.binding.sys.PraatVersion;
-import ca.hedlund.jpraat.binding.sys.SimpleDouble;
-import ca.hedlund.jpraat.binding.sys.SimpleInteger;
-import ca.hedlund.jpraat.binding.sys.SimpleString;
-import ca.hedlund.jpraat.binding.sys.Strings;
-import ca.hedlund.jpraat.binding.sys.Thing;
-import ca.hedlund.jpraat.exceptions.PraatException;
+import ca.hedlund.jpraat.binding.jna.*;
+import ca.hedlund.jpraat.binding.melder.*;
+import ca.hedlund.jpraat.binding.stat.*;
+import ca.hedlund.jpraat.binding.sys.*;
+import ca.hedlund.jpraat.exceptions.*;
 
 /**
  * Main JNA interface class for praat library.  These methods should not be used directly,

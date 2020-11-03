@@ -15,12 +15,11 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import com.sun.jna.Structure;
+import com.sun.jna.*;
 
-import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.*;
 
 public class PraatVersion extends Structure {
 

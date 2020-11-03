@@ -15,17 +15,13 @@
  */
 package ca.hedlund.jpraat.codegen;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.*;
+import org.junit.runner.*;
+import org.junit.runners.*;
 
-import ca.hedlund.jpraat.binding.Praat;
+import ca.hedlund.jpraat.binding.*;
 
 @RunWith(JUnit4.class)
 public class TestCreateWrapper {

@@ -15,7 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
-import ca.hedlund.jpraat.binding.jna.NativeEnum;
+import ca.hedlund.jpraat.binding.jna.*;
 
 public enum MelderQuantity implements NativeEnum {
 	NONE("", "", "", ""),

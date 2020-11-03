@@ -15,9 +15,7 @@
  */
 package ca.hedlund.jpraat.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.*;
 
 /**
  * Annotation for declaring the c/cpp header(s)
