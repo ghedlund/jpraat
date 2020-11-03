@@ -30,7 +30,7 @@ public class PraatVersion extends Structure {
 	public int day;
 
 	@Override
-	protected List getFieldOrder() {
+	protected List<String> getFieldOrder() {
 		return Arrays.asList(new String[]{
 				"versionStr", 
 				"version",

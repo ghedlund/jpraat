@@ -852,24 +852,9 @@ public final class Sound extends Vector {
 		
 		return retVal;
 	}
-	
-//	public Spectrum to_Spectrum_at (double time, double windowDuration, int windowType) throws PraatException {
-//		Spectrum retVal = null;
-//		
-//		try {
-//			Praat.wrapperLock.lock();
-//			retVal = Praat.INSTANCE.Sound_to_Spectrum_at_wrapped(this, time, windowDuration, windowType);
-//			Praat.checkAndClearLastError();
-//		} catch (PraatException e) {
-//			throw e;
-//		} finally {
-//			Praat.wrapperLock.unlock();
-//		}
-//		
-//		return retVal;
-//	}
-	
+		
 	public Sound filter_passHannBand (double fmin, double fmax, double smooth) throws PraatException {
+		@SuppressWarnings("resource")
 		Sound retVal = this;
 		
 		try {
@@ -886,6 +871,7 @@ public final class Sound extends Vector {
 	}
 	
 	public Sound filter_stopHannBand (double fmin, double fmax, double smooth) throws PraatException {
+		@SuppressWarnings("resource")
 		Sound retVal = this;
 		
 		try {
