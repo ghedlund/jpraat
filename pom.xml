@@ -4,7 +4,7 @@
 <modelVersion>4.0.0</modelVersion>
 <groupId>ca.hedlund</groupId>
 <artifactId>jpraat</artifactId>
-<version>1.0.0</version>
+<version>1.0.1</version>
 <name>jpraat</name>
 <description></description>
 <packaging>jar</packaging>
@@ -24,8 +24,8 @@
 
 <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<project.build.sourceVersion>15</project.build.sourceVersion>
-	<project.build.targetVersion>15</project.build.targetVersion>
+	<project.build.sourceVersion>11</project.build.sourceVersion>
+	<project.build.targetVersion>11</project.build.targetVersion>
 
 	<ca.hedlund.libjpraat.version>6.0.52</ca.hedlund.libjpraat.version>
 </properties>
