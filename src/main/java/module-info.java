@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 module ca.hedlund.jpraat {
-	requires com.sun.jna;
+	requires transitive com.sun.jna;
 	
 	exports ca.hedlund.jpraat;
 	exports ca.hedlund.jpraat.annotations;
@@ -23,5 +23,6 @@ module ca.hedlund.jpraat {
 	exports ca.hedlund.jpraat.binding.jna;
 	exports ca.hedlund.jpraat.binding.melder;
 	exports ca.hedlund.jpraat.binding.sys;
+	exports ca.hedlund.jpraat.binding.stat;
 	exports ca.hedlund.jpraat.exceptions;
 }
