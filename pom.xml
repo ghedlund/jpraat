@@ -82,35 +82,35 @@
 		<artifactId>libjpraat</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
 		<classifier>win32-x86-64</classifier>
-		<scope>test</scope>
+		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
 		<artifactId>libjpraat</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
 		<classifier>win32-amd64</classifier>
-		<scope>test</scope>
+		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
 		<artifactId>libjpraat</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
 		<classifier>darwin</classifier>
-		<scope>test</scope>
+		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
 		<artifactId>libjpraat</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
 		<classifier>linux-x86-64</classifier>
-		<scope>test</scope>
+		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
 		<artifactId>libjpraat</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
 		<classifier>linux-amd64</classifier>
-		<scope>test</scope>
+		<scope>runtime</scope>
 	</dependency>
 
 </dependencies>
