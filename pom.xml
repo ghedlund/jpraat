@@ -9,7 +9,6 @@
 <description></description>
 <packaging>jar</packaging>
 
-
 <distributionManagement>
   <repository>
     <id>github</id>
@@ -17,15 +16,6 @@
     <url>https://maven.pkg.github.com/ghedlund/jpraat</url>
   </repository>
 </distributionManagement>
-  <repositories>
-    <repository>
-       <id>github</id>
-       <url>https://maven.pkg.github.com/ghedlund/libjpraat</url>
-       <snapshots>
-         <enabled>true</enabled>
-       </snapshots>
-    </repository>
-  </repositories>
 
 <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
