@@ -9,18 +9,23 @@
 <description></description>
 <packaging>jar</packaging>
 
+
 <distributionManagement>
-	<repository>
-		<id>phon.ca-release</id>
-		<name>Phon Release</name>
-		<url>http://phon.ucs.mun.ca/artifacts/libs-release-local</url>
-	</repository>
-	<snapshotRepository>
-		<id>phon.ca-snapshot</id>
-		<name>Phon Snapshot</name>
-		<url>http://phon.ucs.mun.ca/artifacts/libs-snapshot-local</url>
-	</snapshotRepository>
+  <repository>
+    <id>github</id>
+    <name>GitHub ghedlund Apache Maven Packages</name>
+    <url>https://maven.pkg.github.com/ghedlund/jpraat</url>
+  </repository>
 </distributionManagement>
+  <repositories>
+    <repository>
+       <id>github</id>
+       <url>https://maven.pkg.github.com/ghedlund/libjpraat</url>
+       <snapshots>
+         <enabled>true</enabled>
+       </snapshots>
+    </repository>
+  </repositories>
 
 <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,39 +34,6 @@
 
 	<ca.hedlund.libjpraat.version>6.0.52</ca.hedlund.libjpraat.version>
 </properties>
-
-<repositories>
-	<repository>
-		<snapshots>
-			<enabled>false</enabled>
-		</snapshots>
-		<id>central</id>
-		<name>libs-release</name>
-		<url>http://phon.ucs.mun.ca/artifacts/libs-release</url>
-	</repository>
-	<repository>
-		<snapshots />
-		<id>snapshots</id>
-		<name>libs-snapshot</name>
-		<url>http://phon.ucs.mun.ca/artifacts/libs-snapshot</url>
-	</repository>
-</repositories>
-<pluginRepositories>
-	<pluginRepository>
-		<snapshots>
-			<enabled>false</enabled>
-		</snapshots>
-		<id>central</id>
-		<name>plugins-release</name>
-		<url>http://phon.ucs.mun.ca/artifacts/plugins-release</url>
-	</pluginRepository>
-	<pluginRepository>
-		<snapshots />
-		<id>snapshots</id>
-		<name>plugins-snapshot</name>
-		<url>http://phon.ucs.mun.ca/artifacts/plugins-snapshot</url>
-	</pluginRepository>
-</pluginRepositories>
 
 <dependencies>
 	<dependency>
@@ -79,37 +51,20 @@
 
 	<dependency>
 		<groupId>ca.hedlund</groupId>
-		<artifactId>libjpraat</artifactId>
+		<artifactId>libjpraat-win64</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
-		<classifier>win32-x86-64</classifier>
 		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
-		<artifactId>libjpraat</artifactId>
+		<artifactId>libjpraat-darwin</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
-		<classifier>win32-amd64</classifier>
 		<scope>runtime</scope>
 	</dependency>
 	<dependency>
 		<groupId>ca.hedlund</groupId>
-		<artifactId>libjpraat</artifactId>
+		<artifactId>libjpraat-linux-x86-64</artifactId>
 		<version>${ca.hedlund.libjpraat.version}</version>
-		<classifier>darwin</classifier>
-		<scope>runtime</scope>
-	</dependency>
-	<dependency>
-		<groupId>ca.hedlund</groupId>
-		<artifactId>libjpraat</artifactId>
-		<version>${ca.hedlund.libjpraat.version}</version>
-		<classifier>linux-x86-64</classifier>
-		<scope>runtime</scope>
-	</dependency>
-	<dependency>
-		<groupId>ca.hedlund</groupId>
-		<artifactId>libjpraat</artifactId>
-		<version>${ca.hedlund.libjpraat.version}</version>
-		<classifier>linux-amd64</classifier>
 		<scope>runtime</scope>
 	</dependency>
 
