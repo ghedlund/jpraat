@@ -40,7 +40,14 @@ public interface Praat extends Library {
 	 */
 	Praat INSTANCE = (Praat)
 			Native.load("jpraat", Praat.class, new NativeLibraryOptions());
-	
+
+	/**
+	 * Init library and required classes
+	 */
+	public static void initLibrary() {
+		Praat.INSTANCE.libjpraat_init();
+		Praat.INSTANCE.praat_lib_uvafon_init();
+	}
 	
 	/**
 	 * {@link Wrapped} methods need to use this lock before calling
@@ -77,9 +84,9 @@ public interface Praat extends Library {
 	@Custom
 	public PraatVersion praat_version();
 	
-	@Declared("sys/praatlib.h")
+	@Declared("sys/praat.h")
 	@Custom
-	public void praat_lib_init();
+	public void libjpraat_init();
 	
 	@Declared("fon/praat_Fon.cpp")
 	@Custom
@@ -88,7 +95,11 @@ public interface Praat extends Library {
 	@Declared("sys/praat.h")
 	@Custom
 	public Str32 praat_dir();
-	
+
+	@Declared("sys/praat.h")
+	@Custom
+	public Str32 praatlib_dir();
+
 	@Declared("sys/Thing.h")
 	Str32 Thing_className (Thing me);
 	
@@ -335,7 +346,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/LongSound.h")
 	@Wrapped
-	public void LongSound_getWindowExtrema_wrapped (LongSound me, double tmin, double tmax, int channel, 
+	public void LongSound_getWindowExtrema_wrapped (LongSound me, double tmin, double tmax, NativeIntptr_t channel,
 			@NativeType("double*") Pointer minimum, @NativeType("double*") Pointer maximum);
 	
 	@Declared("fon/LongSound.h")
@@ -345,7 +356,7 @@ public interface Praat extends Library {
 
 	@Declared("fon/LongSound.h")
 	@Wrapped
-	public void LongSound_saveChannelAsAudioFile_wrapped (LongSound me, int audioFileType, int channel, 
+	public void LongSound_saveChannelAsAudioFile_wrapped (LongSound me, int audioFileType, NativeIntptr_t channel,
 			MelderFile file);
 	
 	/**
@@ -359,7 +370,7 @@ public interface Praat extends Library {
 	 * @return
 	 */
 	@Declared("fon/Vector.h")
-	public double Vector_getValueAtX (Vector me, double x, NativeIntptr_t channel, int interpolation);
+	public double Vector_getValueAtX (Vector me, double x, NativeIntptr_t channel, kVector_valueInterpolation interpolation);
 	
 	/**
 	 * Find the minimum value and x location for the minmum.
@@ -376,7 +387,7 @@ public interface Praat extends Library {
 	 * @param return_xOfMinimum (pointer to double)
 	 */
 	@Declared("fon/Vector.h")
-	public void Vector_getMinimumAndX (Vector me, double xmin, double xmax, NativeIntptr_t channel, int interpolation,
+	public void Vector_getMinimumAndX (Vector me, double xmin, double xmax, NativeIntptr_t channel, kVector_peakInterpolation interpolation,
 			@NativeType("double*") Pointer return_minimum, @NativeType("double*") Pointer return_xOfMinimum);
 	
 	/**
@@ -390,34 +401,34 @@ public interface Praat extends Library {
 	 * @param return_channelOfMinimum (pointer to NativeLong)
 	 */
 	@Declared("fon/Vector.h")
-	public void Vector_getMinimumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
+	public void Vector_getMinimumAndXAndChannel (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation,
 			@NativeType("double*") Pointer return_minimum, @NativeType("double*") Pointer return_xOfMinimum, @NativeType("intptr_t*") Pointer return_channelOfMinimum);
 	
 	@Declared("fon/Vector.h")
-	public void Vector_getMaximumAndX (Vector me, double xmin, double xmax, NativeIntptr_t channel, int interpolation,
+	public void Vector_getMaximumAndX (Vector me, double xmin, double xmax, NativeIntptr_t channel, kVector_peakInterpolation interpolation,
 			@NativeType("double*") Pointer return_maximum, @NativeType("double*") Pointer return_xOfMaximum);
 	
 	@Declared("fon/Vector.h")
-	public void Vector_getMaximumAndXAndChannel (Vector me, double xmin, double xmax, int interpolation,
+	public void Vector_getMaximumAndXAndChannel (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation,
 			@NativeType("double*") Pointer return_maximum, @NativeType("double*") Pointer return_xOfMaximum, @NativeType("intptr_t*") Pointer return_channelOfMaximum);
 	
 	@Declared("fon/Vector.h")
-	public double Vector_getMinimum (Vector me, double xmin, double xmax, int interpolation);
+	public double Vector_getMinimum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 	
 	@Declared("fon/Vector.h")
-	public double Vector_getAbsoluteExtremum (Vector me, double xmin, double xmax, int interpolation);
+	public double Vector_getAbsoluteExtremum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 	
 	@Declared("fon/Vector.h")
-	public double Vector_getXOfMinimum (Vector me, double xmin, double xmax, int interpolation);
+	public double Vector_getXOfMinimum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 	
 	@Declared("fon/Vector.h")
-	public double Vector_getXOfMaximum (Vector me, double xmin, double xmax, int interpolation);
+	public double Vector_getXOfMaximum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 	
 	@Declared("fon/Vector.h")
-	public NativeIntptr_t Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, int interpolation);
+	public NativeIntptr_t Vector_getChannelOfMinimum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 	
 	@Declared("fon/Vector.h")
-	public NativeIntptr_t Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, int interpolation);
+	public NativeIntptr_t Vector_getChannelOfMaximum (Vector me, double xmin, double xmax, kVector_peakInterpolation interpolation);
 
 	@Declared("fon/Vector.h")
 	public double Vector_getMean (Vector me, double xmin, double xmax, NativeIntptr_t channel);
@@ -1154,8 +1165,12 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Spectrum.h") 
 	@Wrapped(autoPtrUnwrap=true)
-	public Table Spectrum_downto_Table_wrapped (Spectrum me, boolean includeBinNumbers, boolean includeFrequency,
+	public Table Spectrum_tabulate_wrapped (Spectrum me, boolean includeBinNumbers, boolean includeFrequency,
 			boolean includeRealPart, boolean includeImaginaryPart, boolean includeEnergyDensity, boolean includePowerDensity);
+
+	@Declared("fon/Spectrum.h")
+	@Wrapped(autoPtrUnwrap=true)
+	public Table Spectrum_tabulate_verbose_wrapped (Spectrum me);
 
 	@Declared("fon/Spectrum.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1174,15 +1189,6 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Spectrum.h") 
 	public void Spectrum_stopHannBand (Spectrum me, double fmin, double fmax, double smooth);
-
-//	@Declared("fon/Spectrum.h")
-//	@Wrapped
-//	public void Spectrum_getNearestMaximum_wrapped (Spectrum me, double frequency, 
-//			@NativeType("double*") Pointer frequencyOfMaximum, @NativeType("double*") Pointer heightOfMaximum);
-	
-//	@Declared("fon/Sound_and_Spectrum.h")
-//	@Wrapped(autoPtrUnwrap=true)
-//	public Spectrum Sound_to_Spectrum_at_wrapped (Sound me, double tim, double windowDuration, int windowType);
 	
 	@Declared("fon/Sound_and_Spectrum.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1332,10 +1338,6 @@ public interface Praat extends Library {
 	
 	@Declared("sys/sendpraat.c")
 	public WString sendpraatW (Object display, String programName, NativeLong timeOut, WString text);
-	
-	@Declared("stat/Table.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public Table Table_createWithColumnNames_wrapped (NativeIntptr_t numberOfRows, Str32 columnNames);
 
 	@Declared("stat/Table.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1498,9 +1500,9 @@ public interface Praat extends Library {
 //	@Wrapped
 //	public void Table_sortRows_Assert_wrapped (Table me, @NativeType("long*") Pointer columns, NativeLong numberOfColumns);
 	
-	@Declared("stat/Table.h")
-	@Wrapped
-	public void Table_sortRows_string_wrapped (Table me, Str32 columns_string);
+//	@Declared("stat/Table.h")
+//	@Wrapped
+//	public void Table_sortRows_string_wrapped (Table me, Str32 columns_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped
@@ -1534,15 +1536,15 @@ public interface Praat extends Library {
 	@Wrapped(autoPtrUnwrap=true)
 	public Table Table_extractRowsWhereColumn_string_wrapped (Table me, NativeIntptr_t column, kMelder_string which, Str32 criterion);
 	
-	@Declared("stat/Table.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public Table Table_collapseRows_wrapped (Table me, Str32 factors_string, Str32 columnsToSum_string,
-		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
-		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string);
-	
-	@Declared("stat/Table.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public Table Table_rowsToColumns_wrapped (Table me, Str32 factors_string, NativeIntptr_t columnToTranspose, Str32 columnsToExpand_string);
+//	@Declared("stat/Table.h")
+//	@Wrapped(autoPtrUnwrap=true)
+//	public Table Table_collapseRows_wrapped (Table me, Str32 factors_string, Str32 columnsToSum_string,
+//		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
+//		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string);
+//
+//	@Declared("stat/Table.h")
+//	@Wrapped(autoPtrUnwrap=true)
+//	public Table Table_rowsToColumns_wrapped (Table me, Str32 factors_string, NativeIntptr_t columnToTranspose, Str32 columnsToExpand_string);
 	
 	@Declared("stat/Table.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1655,13 +1657,13 @@ public interface Praat extends Library {
 	@Wrapped(autoPtrUnwrap=true)
 	public TableOfReal TableOfReal_readFromHeaderlessSpreadsheetFile_wrapped (MelderFile file);
 
-	@Declared("stat/TableOfReal.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public TableOfReal TableOfReal_extractRowRanges_wrapped (TableOfReal me, Str32 ranges);
-	
-	@Declared("stat/TableOfReal.h")
-	@Wrapped(autoPtrUnwrap=true)
-	public TableOfReal TableOfReal_extractColumnRanges_wrapped (TableOfReal me, Str32 ranges);
+//	@Declared("stat/TableOfReal.h")
+//	@Wrapped(autoPtrUnwrap=true)
+//	public TableOfReal TableOfReal_extractRowRanges_wrapped (TableOfReal me, Str32 ranges);
+//
+//	@Declared("stat/TableOfReal.h")
+//	@Wrapped(autoPtrUnwrap=true)
+//	public TableOfReal TableOfReal_extractColumnRanges_wrapped (TableOfReal me, Str32 ranges);
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1673,11 +1675,11 @@ public interface Praat extends Library {
 
 	@Declared("stat/TableOfReal.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public TableOfReal TableOfReal_extractRowsWhereLabel_wrapped (TableOfReal me, kMelder_string which, Str32 criterion);
+	public TableOfReal TableOfReal_extractRowsWhoseLabel_wrapped (TableOfReal me, kMelder_string which, Str32 criterion);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public TableOfReal TableOfReal_extractColumnsWhereLabel_wrapped (TableOfReal me, kMelder_string which, Str32 criterion);
+	public TableOfReal TableOfReal_extractColumnsWhoseLabel_wrapped (TableOfReal me, kMelder_string which, Str32 criterion);
 	
 	@Declared("stat/TableOfReal.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1701,7 +1703,7 @@ public interface Praat extends Library {
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Strings Strings_createAsDirectoryList_wrapped (Str32 path);
+	public Strings Strings_createAsFolderList_wrapped (Str32 path);
 	
 	@Declared("sys/Strings_.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1744,20 +1746,19 @@ public interface Praat extends Library {
 	public PointProcess PointProcess_createPoissonProcess_wrapped (double startingTime, double finishingTime, double density);
 	
 	@Declared("fon/PointProcess.h")
-	public void PointProcess_init (PointProcess me, double startingTime, double finishingTime, NativeLong initialMaxnt);
+	public void PointProcess_init (PointProcess me, double startingTime, double finishingTime, NativeIntptr_t initialMaxnt);
 	
 	@Declared("fon/PointProcess.h")
-	public NativeLong PointProcess_getLowIndex (PointProcess me, double t);
+	public NativeIntptr_t PointProcess_getLowIndex (PointProcess me, double t);
 	
 	@Declared("fon/PointProcess.h")
-	public NativeLong PointProcess_getHighIndex (PointProcess me, double t);
+	public NativeIntptr_t PointProcess_getHighIndex (PointProcess me, double t);
 	
 	@Declared("fon/PointProcess.h")
-	public NativeLong PointProcess_getNearestIndex (PointProcess me, double t);
+	public NativeIntptr_t PointProcess_getNearestIndex (PointProcess me, double t);
 	
 	@Declared("fon/PointProcess.h")
-	public NativeLong PointProcess_getWindowPoints (PointProcess me, double tmin, double tmax, 
-			@NativeType("intptr_t*") Pointer imin, @NativeType("intptr_t*") Pointer imax);
+	public MelderIntegerRange.ByValue PointProcess_getWindowPoints (PointProcess me, double tmin, double tmax);
 	
 	@Declared("fon/PointProcess.h")
 	@Wrapped
@@ -1939,8 +1940,7 @@ public interface Praat extends Library {
 
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
-	public void IntervalTier_cutIntervalsOnLabelMatch_wrapped (IntervalTier me, Str32 label);
-
+	public void IntervalTier_combineIntervalsOnLabelMatch_wrapped (IntervalTier me, Str32 label);
 
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped

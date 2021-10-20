@@ -17,6 +17,7 @@ package ca.hedlund.jpraat.binding.fon;
 
 import java.util.concurrent.atomic.*;
 
+import ca.hedlund.jpraat.binding.jna.NativeIntptr_t;
 import com.sun.jna.*;
 
 import ca.hedlund.jpraat.binding.*;
@@ -98,7 +99,7 @@ public final class LongSound extends Sampled {
 		return retVal;
 	}
 	
-	public void getWindowExtrema (double tmin, double tmax, int channel, 
+	public void getWindowExtrema (double tmin, double tmax, long channel,
 			AtomicReference<Double> minimum, AtomicReference<Double> maximum) throws PraatException {
 		final Pointer pmin = new Memory(Native.getNativeSize(Double.class)*2);
 		final Pointer pmax = pmin.getPointer(1);
@@ -106,7 +107,7 @@ public final class LongSound extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			Praat.INSTANCE.LongSound_getWindowExtrema_wrapped(this, tmin, tmax,
-					channel, pmin, pmax);
+					new NativeIntptr_t(channel), pmin, pmax);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -133,11 +134,11 @@ public final class LongSound extends Sampled {
 		}
 	}
 
-	public void saveChannelAsAudioFile(int audioFileType, int channel, 
+	public void saveChannelAsAudioFile(int audioFileType, long channel,
 			MelderFile file) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.LongSound_saveChannelAsAudioFile_wrapped(this, audioFileType, channel, file);
+			Praat.INSTANCE.LongSound_saveChannelAsAudioFile_wrapped(this, audioFileType, new NativeIntptr_t(channel), file);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

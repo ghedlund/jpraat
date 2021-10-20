@@ -42,7 +42,7 @@ public class TestPitch {
 	
 	@Before
 	public void init() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 	
 	@Test

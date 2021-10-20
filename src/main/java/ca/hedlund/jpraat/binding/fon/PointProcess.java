@@ -17,6 +17,7 @@ package ca.hedlund.jpraat.binding.fon;
 
 import java.util.concurrent.atomic.*;
 
+import ca.hedlund.jpraat.binding.melder.MelderIntegerRange;
 import com.sun.jna.*;
 
 import ca.hedlund.jpraat.binding.*;
@@ -67,7 +68,7 @@ public final class PointProcess extends Function {
 	}
 	
 	public void init (double startingTime, double finishingTime, long initialMaxnt) {
-		Praat.INSTANCE.PointProcess_init(this, startingTime, finishingTime, new NativeLong(initialMaxnt));
+		Praat.INSTANCE.PointProcess_init(this, startingTime, finishingTime, new NativeIntptr_t(initialMaxnt));
 	}
 	
 	public long getLowIndex (double t) {
@@ -86,17 +87,8 @@ public final class PointProcess extends Function {
 		return Praat.INSTANCE.PointProcess_getValueAtIndex(this, new NativeIntptr_t(idx));
 	}
 	
-	public long getWindowPoints (double tmin, double tmax, 
-			AtomicReference<Long> imin, AtomicReference<Long> imax) {
-		final Pointer minPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		final Pointer maxPtr = new Memory(Native.getNativeSize(Long.TYPE));
-		
-		long retVal = Praat.INSTANCE.PointProcess_getWindowPoints(this, tmin, tmax, minPtr, maxPtr).longValue();
-		
-		imin.set(minPtr.getLong(0));
-		imax.set(maxPtr.getLong(0));
-		
-		return retVal;
+	public MelderIntegerRange getWindowPoints (double tmin, double tmax) {
+		return Praat.INSTANCE.PointProcess_getWindowPoints(this, tmin, tmax);
 	}
 
 	public void addPoint (double t) throws PraatException {

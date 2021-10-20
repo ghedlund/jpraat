@@ -38,20 +38,13 @@ public class Vector extends Matrix {
 	public static final int CHANNEL_AVERAGE = 0;
 	public static final int CHANNEL_1 = 1;
 	public static final int CHANNEL_2 = 2;
-	public static final int VALUE_INTERPOLATION_NEAREST = 0;
-	public static final int VALUE_INTERPOLATION_LINEAR = 1;
-	public static final int VALUE_INTERPOLATION_CUBIC = 2;
-	public static final int VALUE_INTERPOLATION_SINC70 = 3;
-	public static final int VALUE_INTERPOLATION_SINC700 = 4;
 	
-	public double getValueAtX (double x, long channel, int interpolation) {
-		checkInterpolation(interpolation);
+	public double getValueAtX (double x, long channel, kVector_valueInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getValueAtX(this, x, new NativeIntptr_t(channel), interpolation);
 	}
 	
-	public void getMinimumAndX (double xmin, double xmax, long channel, int interpolation,
+	public void getMinimumAndX (double xmin, double xmax, long channel, kVector_peakInterpolation interpolation,
 			 AtomicReference<Double> return_minimum, AtomicReference<Double> return_xOfMinimum) {
-		checkInterpolation(interpolation);
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
@@ -62,9 +55,8 @@ public class Vector extends Matrix {
 		return_xOfMinimum.set(xPtr.getDouble(0));
 	}
 	
-	public void getMinimumAndXAndChannel (double xmin, double xmax, int interpolation,
+	public void getMinimumAndXAndChannel (double xmin, double xmax, kVector_peakInterpolation interpolation,
 			AtomicReference<Double> return_minimum, AtomicReference<Double> return_xOfMinimum, AtomicReference<Long> return_channelOfMinimum) {
-		checkInterpolation(interpolation);
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer chPtr = new Memory(Native.getNativeSize(Long.TYPE));
@@ -77,9 +69,8 @@ public class Vector extends Matrix {
 		return_channelOfMinimum.set(chPtr.getLong(0));
 	}
 	
-	public void getMaximumAndX (double xmin, double xmax, long channel, int interpolation,
+	public void getMaximumAndX (double xmin, double xmax, long channel, kVector_peakInterpolation interpolation,
 			AtomicReference<Double> return_maximum, AtomicReference<Double> return_xOfMaximum) {
-		checkInterpolation(interpolation);
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
@@ -90,9 +81,8 @@ public class Vector extends Matrix {
 		return_xOfMaximum.set(xPtr.getDouble(0));
 	}
 
-	public void getMaximumAndXAndChannel (double xmin, double xmax, int interpolation,
+	public void getMaximumAndXAndChannel (double xmin, double xmax, kVector_peakInterpolation interpolation,
 			AtomicReference<Double> return_maximum, AtomicReference<Double> return_xOfMaximum, AtomicReference<Long> return_channelOfMaximum) {
-		checkInterpolation(interpolation);
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer xPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer chPtr = new Memory(Native.getNativeSize(Long.TYPE));
@@ -105,33 +95,27 @@ public class Vector extends Matrix {
 		return_channelOfMaximum.set(chPtr.getLong(0));
 	}
 	
-	public double getMinimum (double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public double getMinimum (double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getMinimum(this, xmin, xmax, interpolation);
 	}
 	
-	public double getAbsoluteExtremum (double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public double getAbsoluteExtremum (double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getAbsoluteExtremum(this, xmin, xmax, interpolation);
 	}
 	
-	public double getXOfMinimum ( double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public double getXOfMinimum ( double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getXOfMinimum(this, xmin, xmax, interpolation);
 	}
 	
-	public double getXOfMaximum (double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public double getXOfMaximum (double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getXOfMaximum(this, xmin, xmax, interpolation);
 	}
 	
-	public long getChannelOfMinimum (double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public long getChannelOfMinimum (double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getChannelOfMinimum(this, xmin, xmax, interpolation).longValue();
 	}
 	
-	public long getChannelOfMaximum (double xmin, double xmax, int interpolation) {
-		checkInterpolation(interpolation);
+	public long getChannelOfMaximum (double xmin, double xmax, kVector_peakInterpolation interpolation) {
 		return Praat.INSTANCE.Vector_getChannelOfMaximum(this, xmin, xmax, interpolation).longValue();
 	}
 
@@ -157,19 +141,6 @@ public class Vector extends Matrix {
 	
 	public void scale (double scale) {
 		Praat.INSTANCE.Vector_scale(this, scale);
-	}
-	
-	private void checkInterpolation(int interpolation) {
-		switch(interpolation) {
-		case VALUE_INTERPOLATION_NEAREST:
-		case VALUE_INTERPOLATION_LINEAR:
-		case VALUE_INTERPOLATION_CUBIC:
-		case VALUE_INTERPOLATION_SINC70:
-		case VALUE_INTERPOLATION_SINC700:
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown interpolation: " + interpolation);
-		}
 	}
 	
 }

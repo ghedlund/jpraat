@@ -244,10 +244,10 @@ public final class IntervalTier extends Function {
 		}
 	}
 
-	public void cutIntervalsOnLabelMatch (String label) throws PraatException {
+	public void combineIntervalsOnLabelMatch (String label) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.IntervalTier_cutIntervalsOnLabelMatch_wrapped(this, new Str32(label));
+			Praat.INSTANCE.IntervalTier_combineIntervalsOnLabelMatch_wrapped(this, new Str32(label));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -255,6 +255,7 @@ public final class IntervalTier extends Function {
 			Praat.wrapperLock.unlock();
 		}
 	}
+
 
 	public void cutIntervals_minimumDuration (String label, double minimumDuration) throws PraatException {
 		try {

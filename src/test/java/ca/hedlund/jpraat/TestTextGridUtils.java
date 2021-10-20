@@ -33,7 +33,7 @@ public class TestTextGridUtils {
 	
 	@Before
 	public void loadPraat() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 
 	@Test

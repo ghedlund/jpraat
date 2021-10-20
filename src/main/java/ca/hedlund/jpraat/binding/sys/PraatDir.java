@@ -26,4 +26,6 @@ public class PraatDir {
 		return Praat.INSTANCE.praat_dir().toString();
 	}
 
+	public static String getLibPath() { return Praat.INSTANCE.praatlib_dir().toString(); }
+
 }

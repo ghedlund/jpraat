@@ -49,7 +49,7 @@ public class TestSpectrogram {
 	
 	@Before
 	public void init() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 	
 	/**

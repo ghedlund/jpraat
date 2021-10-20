@@ -95,13 +95,13 @@ public final class Spectrum extends Matrix {
 		return Praat.INSTANCE.Spectrum_getKurtosis(this, power);
 	}
 
-	public Table downto_Table (boolean includeBinNumbers, boolean includeFrequency,
+	public Table tabulate (boolean includeBinNumbers, boolean includeFrequency,
 			boolean includeRealPart, boolean includeImaginaryPart, boolean includeEnergyDensity, boolean includePowerDensity) throws PraatException {
 		Table retVal = null;
 		
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Spectrum_downto_Table_wrapped(this, includeBinNumbers, 
+			retVal = Praat.INSTANCE.Spectrum_tabulate_wrapped(this, includeBinNumbers,
 					includeFrequency, includeRealPart, includeImaginaryPart, includeEnergyDensity, includePowerDensity);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
@@ -110,6 +110,22 @@ public final class Spectrum extends Matrix {
 			Praat.wrapperLock.unlock();
 		}
 		
+		return retVal;
+	}
+
+	public Table tabulate_verbose () throws PraatException {
+		Table retVal = null;
+
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Spectrum_tabulate_verbose_wrapped(this);
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+
 		return retVal;
 	}
 

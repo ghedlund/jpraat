@@ -26,7 +26,7 @@ public class TestVersion  {
 	
 	@Before
 	public void initPraat() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 
 	@Test
@@ -35,6 +35,7 @@ public class TestVersion  {
 		System.out.println(version.versionStr);
 		System.out.println(version.year + " " + version.month + " " + version.day);
 		System.out.println("Praat pref path: " + PraatDir.getPath());
+		System.out.println("libjpraat pref path: " + PraatDir.getLibPath());
 	}
 	
 }

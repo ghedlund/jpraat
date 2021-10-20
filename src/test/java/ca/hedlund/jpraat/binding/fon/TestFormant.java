@@ -44,7 +44,7 @@ public class TestFormant {
 	
 	@Before
 	public void init() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 
 	@Test

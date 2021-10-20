@@ -39,7 +39,7 @@ public class TestSpectrum {
 	
 	@Before
 	public void init() {
-		Praat.INSTANCE.praat_lib_init();
+		Praat.initLibrary();
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class TestSpectrum {
 		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
 			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
 				try(final Spectrum spectrum = sound.to_Spectrum()) {
-					final Table table = spectrum.downto_Table(true, true, true, true, true, true);
+					final Table table = spectrum.tabulate(true, true, true, true, true, true);
 					final StringBuilder sb = new StringBuilder();
 					
 					for(int col = 1; col < 7; col++) {

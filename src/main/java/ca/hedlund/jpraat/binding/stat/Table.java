@@ -35,22 +35,6 @@ public class Table extends Daata {
 		super(p);
 	}
 
-	public static Table createWithColumnNames (long numberOfRows, Str32 columnNames)
-		throws PraatException {
-		Table retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Table_createWithColumnNames_wrapped(
-					new NativeIntptr_t(numberOfRows), columnNames);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
-	
 	public static Table createWithoutColumnNames (long numberOfRows, long numberOfColumns)
 		throws PraatException {
 		Table retVal = null;
@@ -650,18 +634,18 @@ public class Table extends Daata {
 //		}
 //	}
 	
-	public void sortRows_string (Str32 columns_string) 
-		throws PraatException {
-		try {
-			Praat.wrapperLock.lock();
-			Praat.INSTANCE.Table_sortRows_string_wrapped(this, columns_string);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-	}
+//	public void sortRows_string (Str32 columns_string)
+//		throws PraatException {
+//		try {
+//			Praat.wrapperLock.lock();
+//			Praat.INSTANCE.Table_sortRows_string_wrapped(this, columns_string);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//	}
 	
 	public void randomizeRows () throws PraatException {
 		try {
@@ -778,43 +762,43 @@ public class Table extends Daata {
 		return retVal;
 	}
 	
-	public Table collapseRows (Str32 factors_string, Str32 columnsToSum_string,
-		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
-		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string)
-		throws PraatException {
-		Table retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Table_collapseRows_wrapped(this,
-					factors_string, columnsToSum_string,
-					columnsToAverage_string, columnsToMedianize_string,
-					columnsToAverageLogarithmically_string,
-					columnsToMedianizeLogarithmically_string);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
-	
-	public Table rowsToColumns (Str32 factors_string, long columnToTranspose, Str32 columnsToExpand_string)
-		throws PraatException {
-		Table retVal = null;
-		try {
-			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Table_rowsToColumns_wrapped(this,
-					factors_string, new NativeIntptr_t(columnToTranspose),
-					columnsToExpand_string);
-			Praat.checkAndClearLastError();
-		} catch (PraatException e) {
-			throw e;
-		} finally {
-			Praat.wrapperLock.unlock();
-		}
-		return retVal;
-	}
+//	public Table collapseRows (Str32 factors_string, Str32 columnsToSum_string,
+//		Str32 columnsToAverage_string, Str32 columnsToMedianize_string,
+//		Str32 columnsToAverageLogarithmically_string, Str32 columnsToMedianizeLogarithmically_string)
+//		throws PraatException {
+//		Table retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Table_collapseRows_wrapped(this,
+//					factors_string, columnsToSum_string,
+//					columnsToAverage_string, columnsToMedianize_string,
+//					columnsToAverageLogarithmically_string,
+//					columnsToMedianizeLogarithmically_string);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
+//
+//	public Table rowsToColumns (Str32 factors_string, long columnToTranspose, Str32 columnsToExpand_string)
+//		throws PraatException {
+//		Table retVal = null;
+//		try {
+//			Praat.wrapperLock.lock();
+//			retVal = Praat.INSTANCE.Table_rowsToColumns_wrapped(this,
+//					factors_string, new NativeIntptr_t(columnToTranspose),
+//					columnsToExpand_string);
+//			Praat.checkAndClearLastError();
+//		} catch (PraatException e) {
+//			throw e;
+//		} finally {
+//			Praat.wrapperLock.unlock();
+//		}
+//		return retVal;
+//	}
 	
 	public Table transpose (Table me) throws PraatException {
 		Table retVal = null;

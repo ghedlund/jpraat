@@ -42,12 +42,12 @@ public class Strings extends Daata {
 		return retVal;
 	}
 	
-	public static Strings createAsDirectoryList (String path) throws PraatException {
+	public static Strings createAsFolderList (String path) throws PraatException {
 		Strings retVal = null;
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
-					.Strings_createAsDirectoryList_wrapped(new Str32(path));
+					.Strings_createAsFolderList_wrapped(new Str32(path));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
