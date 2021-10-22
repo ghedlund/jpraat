@@ -48,14 +48,14 @@ public class TestSpectrum {
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
-		
+
 		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
 			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {
 				try(final Spectrum spectrum = sound.to_Spectrum()) {
 					final Table table = spectrum.tabulate(true, true, true, true, true, true);
 					final StringBuilder sb = new StringBuilder();
-					
-					for(int col = 1; col < 7; col++) {
+
+					for(int col = 1; col <= table.getNcol(); col++) {
 						if(col > 1) sb.append(',');
 						sb.append('\"');
 						sb.append(table.getColStr(col));
@@ -65,7 +65,7 @@ public class TestSpectrum {
 					
 					for(int row = 1; row <= 100; row++) {
 						sb.setLength(0);
-						for(int col = 1; col < 7; col++) {
+						for(int col = 1; col <= table.getNcol(); col++) {
 							if(col > 1) sb.append(',');
 							sb.append('\"');
 							sb.append(table.getNumericValue(row, col));

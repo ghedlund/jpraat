@@ -61,7 +61,7 @@ public class TestFormant {
 						// do formant table listing
 						final StringBuilder sb = new StringBuilder();
 						
-						for(int col = 1; col < formantTable.getNcol(); col++) {
+						for(int col = 1; col <= formantTable.getNcol(); col++) {
 							if(col > 1) sb.append(',');
 							sb.append('\"');
 							sb.append(formantTable.getColStr(col));
@@ -71,7 +71,7 @@ public class TestFormant {
 						
 						for(int row = 1; row <= formantTable.getNrow(); row++) {
 							sb.setLength(0);
-							for(int col = 1; col < formantTable.getNcol(); col++) {
+							for(int col = 1; col <= formantTable.getNcol(); col++) {
 								if(col > 1) sb.append(',');
 								sb.append('\"');
 								sb.append(formantTable.getNumericValue(row, col));
