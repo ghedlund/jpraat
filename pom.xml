@@ -41,25 +41,25 @@
             <scope>test</scope>
         </dependency>
 
-       <!-- <dependency>
+       <dependency>
             <groupId>ca.hedlund</groupId>
             <artifactId>libjpraat-win64</artifactId>
             <version>${ca.hedlund.libjpraat.version}</version>
             <scope>runtime</scope>
-       </dependency> -->
+       </dependency>
         <dependency>
             <groupId>ca.hedlund</groupId>
             <artifactId>libjpraat-darwin</artifactId>
             <version>${ca.hedlund.libjpraat.version}</version>
             <scope>runtime</scope>
     	</dependency>
-    <!--
+    
         <dependency>
             <groupId>ca.hedlund</groupId>
             <artifactId>libjpraat-linux-x86-64</artifactId>
             <version>${ca.hedlund.libjpraat.version}</version>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
 
