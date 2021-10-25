@@ -322,7 +322,7 @@ public final class TextGrid extends Function {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextGrid_extractPart_wrapped(this,
-					tmin, tmax, preserveTimes);
+					tmin, tmax, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -370,7 +370,7 @@ public final class TextGrid extends Function {
 			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
 			
 			Praat.INSTANCE.TextGrid_changeLabels_wrapped(this, new NativeIntptr_t(tier), new NativeIntptr_t(from), new NativeIntptr_t(to), 
-					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
+					new Str32(search), new Str32(replace), (use_regexp ? 1 : 0), nmatchesPtr, nstringmatchesPtr);
 			Praat.checkAndClearLastError();
 			
 			nmatches.set(nmatchesPtr.getLong(0));
@@ -494,8 +494,8 @@ public final class TextGrid extends Function {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.TextGrid_downto_Table_wrapped(this,
-					includeLineNumbers, timeDecimals, includeTierNames,
-					includeEmptyIntervals);
+					(includeLineNumbers ? 1 : 0), timeDecimals, (includeTierNames ? 1 : 0),
+					(includeEmptyIntervals ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -592,7 +592,7 @@ public final class TextGrid extends Function {
 	public void append_inplace(TextGrid thee, boolean preserveTimes) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextGrids_append_inplace_wrapped(this, thee, preserveTimes);
+			Praat.INSTANCE.TextGrids_append_inplace_wrapped(this, thee, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

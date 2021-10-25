@@ -101,8 +101,9 @@ public final class Spectrum extends Matrix {
 		
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Spectrum_tabulate_wrapped(this, includeBinNumbers,
-					includeFrequency, includeRealPart, includeImaginaryPart, includeEnergyDensity, includePowerDensity);
+			retVal = Praat.INSTANCE.Spectrum_tabulate_wrapped(this, (includeBinNumbers ? 1 : 0),
+					(includeFrequency ? 1 : 0), (includeRealPart ? 1 : 0), (includeImaginaryPart ? 1 : 0),
+					(includeEnergyDensity ? 1 : 0), (includePowerDensity ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

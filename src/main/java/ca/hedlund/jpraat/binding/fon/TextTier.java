@@ -116,7 +116,7 @@ public final class TextTier extends Function {
 			Pointer nstringmatchesPtr = new Memory(Native.getNativeSize(Long.class));
 			
 			Praat.INSTANCE.TextTier_changeLabels_wrapped(this, new NativeIntptr_t(from), new NativeIntptr_t(to), 
-					new Str32(search), new Str32(replace), use_regexp, nmatchesPtr, nstringmatchesPtr);
+					new Str32(search), new Str32(replace), (use_regexp ? 1 : 0), nmatchesPtr, nstringmatchesPtr);
 			Praat.checkAndClearLastError();
 			
 			nmatches.set(nmatchesPtr.getLong(0));
@@ -204,7 +204,7 @@ public final class TextTier extends Function {
 	public void append_inplace(TextTier thee, boolean preserveTimes) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.TextTiers_append_inplace_wrapped(this, thee, preserveTimes);
+			Praat.INSTANCE.TextTiers_append_inplace_wrapped(this, thee, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

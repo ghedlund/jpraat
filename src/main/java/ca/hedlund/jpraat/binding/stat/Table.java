@@ -716,7 +716,7 @@ public class Table extends Daata {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE
 					.Table_readFromCharacterSeparatedTextFile_wrapped(file,
-							separator, interpretQuotes);
+							separator, (interpretQuotes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

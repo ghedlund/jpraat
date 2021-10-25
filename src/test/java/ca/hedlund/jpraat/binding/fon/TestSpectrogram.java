@@ -61,6 +61,8 @@ public class TestSpectrogram {
 				getClass().getResource(DEMO_SOUND);
 		final File f = new File(uri.toURI());
 		Assert.assertEquals(true, f.exists());
+
+		System.out.println(ProcessHandle.current().pid());
 		
 		try(final LongSound longSound = LongSound.open(MelderFile.fromPath(f.getAbsolutePath()))) {
 			try(final Sound sound = longSound.extractPart(XMIN, XMAX, true)) {

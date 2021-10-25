@@ -336,7 +336,7 @@ public final class Sound extends Vector {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Sound_extractPart_wrapped(this, t1,
-					t2, windowShape, relativeWidth, preserveTimes);
+					t2, windowShape, relativeWidth, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -366,7 +366,7 @@ public final class Sound extends Vector {
 	}
 	
 	public void setZero (double tmin, double tmax, boolean roundTimesToNearestZeroCrossing) {
-		Praat.INSTANCE.Sound_setZero(this, tmin, tmax, roundTimesToNearestZeroCrossing);
+		Praat.INSTANCE.Sound_setZero(this, tmin, tmax, (roundTimesToNearestZeroCrossing ? 1 : 0));
 	}
 	
 //	public static Sound concatenate_e (Collection me, double overlapTime) 
@@ -827,7 +827,7 @@ public final class Sound extends Vector {
 		Intensity retVal = null;
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_to_Intensity_wrapped(this, minimumPitch, timeStep, subtractMean);
+			retVal = Praat.INSTANCE.Sound_to_Intensity_wrapped(this, minimumPitch, timeStep, (subtractMean ? 1 : 0));
 		} catch (PraatException e) {
 			throw e;
 		} finally {
@@ -842,7 +842,7 @@ public final class Sound extends Vector {
 		
 		try {
 			Praat.wrapperLock.lock();
-			retVal = Praat.INSTANCE.Sound_to_Spectrum_wrapped(this, fast);
+			retVal = Praat.INSTANCE.Sound_to_Spectrum_wrapped(this, (fast ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

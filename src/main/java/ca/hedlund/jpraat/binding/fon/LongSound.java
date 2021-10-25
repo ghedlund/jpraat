@@ -73,7 +73,7 @@ public final class LongSound extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.LongSound_extractPart_wrapped(this, tmin,
-					tmax, preserveTimes);
+					tmax, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

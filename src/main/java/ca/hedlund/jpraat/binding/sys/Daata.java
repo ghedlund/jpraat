@@ -99,7 +99,7 @@ public class Daata extends Thing {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Data_createTextFile_wrapped(
-					this, file, verbose);
+					this, file, (verbose ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

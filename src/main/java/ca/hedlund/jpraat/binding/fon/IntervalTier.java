@@ -218,8 +218,7 @@ public final class IntervalTier extends Function {
 	/**
 	 * Unsafe add interval.  This method <b>does not</b> ensure proper ordering
 	 * of intervals.
-	 * 
-	 * @param me
+	 *
 	 * @param tmin
 	 * @param tmax
 	 * @param label
@@ -312,7 +311,7 @@ public final class IntervalTier extends Function {
 	public void moveBoundary(long interval, boolean atStart, double newTime) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.IntervalTier_moveBoundary_wrapped(this, new NativeLong(interval), atStart, newTime);
+			Praat.INSTANCE.IntervalTier_moveBoundary_wrapped(this, new NativeLong(interval), (atStart ? 1 : 0), newTime);
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;
@@ -324,7 +323,7 @@ public final class IntervalTier extends Function {
 	public void append_inplace(IntervalTier thee, boolean preserveTimes) throws PraatException {
 		try {
 			Praat.wrapperLock.lock();
-			Praat.INSTANCE.IntervalTiers_append_inplace_wrapped(this, thee, preserveTimes);
+			Praat.INSTANCE.IntervalTiers_append_inplace_wrapped(this, thee, (preserveTimes ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

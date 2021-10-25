@@ -217,10 +217,10 @@ public final class Formant extends Sampled {
 		try {
 			Praat.wrapperLock.lock();
 			retVal = Praat.INSTANCE.Formant_downto_Table_wrapped(this,
-					(includeFrameNumbers ? true : false), (includeTimes ? true : false),
-					new NativeIntptr_t(timeDecimals), (includeIntensity ? true : false), new NativeIntptr_t(intensityDecimals),
-					(includeNumberOfFormants ? true : false), new NativeIntptr_t(frequencyDecimals),
-					(includeBandwidths ? true : false));
+					(includeFrameNumbers ? 1 : 0), (includeTimes ? 1 : 0),
+					new NativeIntptr_t(timeDecimals), (includeIntensity ? 1 : 0), new NativeIntptr_t(intensityDecimals),
+					(includeNumberOfFormants ? 1 : 0), new NativeIntptr_t(frequencyDecimals),
+					(includeBandwidths ? 1 : 0));
 			Praat.checkAndClearLastError();
 		} catch (PraatException e) {
 			throw e;

@@ -149,7 +149,7 @@ public interface Praat extends Library {
 
 	@Declared("sys/Data.h")
 	@Wrapped
-	public MelderFile Data_createTextFile_wrapped (Daata me, MelderFile file, boolean verbose);
+	public MelderFile Data_createTextFile_wrapped (Daata me, MelderFile file, int verbose);
 
 	@Declared("sys/Data.h")
 	@Wrapped
@@ -338,7 +338,7 @@ public interface Praat extends Library {
 
 	@Declared("fon/LongSound.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Sound LongSound_extractPart_wrapped (LongSound me, double tmin, double tmax, boolean preserveTimes);
+	public Sound LongSound_extractPart_wrapped (LongSound me, double tmin, double tmax, int preserveTimes);
 	
 	@Declared("fon/LongSound.h")
 	@Wrapped
@@ -493,7 +493,7 @@ public interface Praat extends Library {
 	 */
 	@Declared("fon/Sound_to_Intensity.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Intensity Sound_to_Intensity_wrapped (Sound me, double minimumPitch, double timeStep, boolean subtractMean)
+	public Intensity Sound_to_Intensity_wrapped (Sound me, double minimumPitch, double timeStep, int subtractMean)
 		throws PraatException;
 	
 	@Declared("fon/Sampled.h")
@@ -539,7 +539,7 @@ public interface Praat extends Library {
 	public double Sampled_getValueAtSample (Sampled me, NativeIntptr_t isamp, NativeIntptr_t ilevel, int unit);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getValueAtX (Sampled me, double x, NativeIntptr_t ilevel, int unit, boolean interpolate);
+	public double Sampled_getValueAtX (Sampled me, double x, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public NativeLong Sampled_countDefinedSamples (Sampled me, NativeIntptr_t ilevel, int unit);
@@ -554,47 +554,47 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getMean
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getMean_standardUnit
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getIntegral
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getIntegral_standardUnit
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getStandardDeviation
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
 	public double Sampled_getStandardDeviation_standardUnit
-		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, boolean interpolate);
+		(Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int averagingUnit, int interpolate);
 
 	@Declared("fon/Sampled.h")
-	public void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate,
+	public void Sampled_getMinimumAndX (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate,
 		@NativeType("double*") Pointer return_minimum, @NativeType("double*") Pointer return_xOfMinimum);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getMinimum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+	public double Sampled_getMinimum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+	public double Sampled_getXOfMinimum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate,
+	public void Sampled_getMaximumAndX (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate,
 		Pointer return_maximum, Pointer return_xOfMaximum);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getMaximum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+	public double Sampled_getMaximum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 	
 	@Declared("fon/Sampled.h")
-	public double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, boolean interpolate);
+	public double Sampled_getXOfMaximum (Sampled me, double xmin, double xmax, NativeIntptr_t ilevel, int unit, int interpolate);
 
 	@Declared("fon/SampledXY.h")
 	public double SampledXY_getYMin(SampledXY me);
@@ -729,7 +729,6 @@ public interface Praat extends Library {
 		throws PraatException;
 	
 	/**
-	 * See {@link Pitch#create(double, double, NativeLong, double, double, double, int)}
 	 */
 	@Declared("fon/Pitch.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -737,7 +736,6 @@ public interface Praat extends Library {
 			double ceiling, NativeIntptr_t maxnCandidates);
 	
 	/**
-	 * See {@link Pitch#isVoiced_i(NativeLong)}
 	 */
 	@Declared("fon/Pitch.h")
 	public boolean Pitch_isVoiced_i (Pitch me, NativeIntptr_t index);
@@ -749,10 +747,10 @@ public interface Praat extends Library {
 	public boolean Pitch_isVoiced_t (Pitch me, double t);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getValueAtTime (Pitch me, double time, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getValueAtTime (Pitch me, double time, kPitch_unit unit, int interpolate);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getStrengthAtTime (Pitch me, double time, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getStrengthAtTime (Pitch me, double time, kPitch_unit unit, int interpolate);
 
 	@Declared("fon/Pitch.h")
 	public NativeIntptr_t Pitch_countVoicedFrames (Pitch me);
@@ -770,24 +768,24 @@ public interface Praat extends Library {
 	public double Pitch_getStandardDeviation (Pitch me, double tmin, double tmax, kPitch_unit unit);
 	
 	@Declared("fon/Pitch.h")
-	public void Pitch_getMaximumAndTime (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate,
+	public void Pitch_getMaximumAndTime (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate,
 		@NativeType("double*") Pointer return_maximum, @NativeType("double*") Pointer return_timeOfMaximum);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getMaximum (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getMaximum (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getTimeOfMaximum (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getTimeOfMaximum (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate);
 	
 	@Declared("fon/Pitch.h")
-	public void Pitch_getMinimumAndTime (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate,
+	public void Pitch_getMinimumAndTime (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate,
 		@NativeType("double*") Pointer return_minimum, @NativeType("double*") Pointer return_timeOfMinimum);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getMinimum (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getMinimum (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate);
 	
 	@Declared("fon/Pitch.h")
-	public double Pitch_getTimeOfMinimum (Pitch me, double tmin, double tmax, kPitch_unit unit, boolean interpolate);
+	public double Pitch_getTimeOfMinimum (Pitch me, double tmin, double tmax, kPitch_unit unit, int interpolate);
 	
 	@Declared("fon/Pitch.h")
 	public NativeIntptr_t Pitch_getMaxnCandidates (Pitch me);
@@ -999,13 +997,13 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Sound Sound_extractPart_wrapped (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, boolean preserveTimes);
+	public Sound Sound_extractPart_wrapped (Sound me, double t1, double t2, kSound_windowShape windowShape, double relativeWidth, int preserveTimes);
 	
 	@Declared("fon/Sound.h")
 	public double Sound_getNearestZeroCrossing (Sound me, double position, NativeIntptr_t ichannel);
 	
 	@Declared("fon/Sound.h")
-	void Sound_setZero (Sound me, double tmin, double tmax, boolean roundTimesToNearestZeroCrossing);
+	void Sound_setZero (Sound me, double tmin, double tmax, int roundTimesToNearestZeroCrossing);
 	
 	/// Fix collections
 //	@Declared("fon/Sound.h")
@@ -1165,8 +1163,8 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Spectrum.h") 
 	@Wrapped(autoPtrUnwrap=true)
-	public Table Spectrum_tabulate_wrapped (Spectrum me, boolean includeBinNumbers, boolean includeFrequency,
-			boolean includeRealPart, boolean includeImaginaryPart, boolean includeEnergyDensity, boolean includePowerDensity);
+	public Table Spectrum_tabulate_wrapped (Spectrum me, int includeBinNumbers, int includeFrequency,
+			int includeRealPart, int includeImaginaryPart, int includeEnergyDensity, int includePowerDensity);
 
 	@Declared("fon/Spectrum.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1192,7 +1190,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/Sound_and_Spectrum.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Spectrum Sound_to_Spectrum_wrapped (Sound me, boolean fast);
+	public Spectrum Sound_to_Spectrum_wrapped (Sound me, int fast);
 	
 	@Declared("fon/Sound_and_Spectrum.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1299,11 +1297,11 @@ public interface Praat extends Library {
 
 	@Declared("fon/Formant.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Table Formant_downto_Table_wrapped (Formant me, boolean includeFrameNumbers,
-			boolean includeTimes, NativeIntptr_t timeDecimals,
-			boolean includeIntensity, NativeIntptr_t intensityDecimals,
-			boolean includeNumberOfFormants, NativeIntptr_t frequencyDecimals,
-			boolean includeBandwidths);
+	public Table Formant_downto_Table_wrapped (Formant me, int includeFrameNumbers,
+			int includeTimes, NativeIntptr_t timeDecimals,
+			int includeIntensity, NativeIntptr_t intensityDecimals,
+			int includeNumberOfFormants, NativeIntptr_t frequencyDecimals,
+			int includeBandwidths);
 	
 	@Declared("fon/Formant.h")
 	@Custom
@@ -1526,7 +1524,7 @@ public interface Praat extends Library {
 	
 	@Declared("stat/Table.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Table Table_readFromCharacterSeparatedTextFile_wrapped (MelderFile file, char separator, boolean interpretQuotes);
+	public Table Table_readFromCharacterSeparatedTextFile_wrapped (MelderFile file, char separator, int interpretQuotes);
 	
 	@Declared("stat/Table.h")
 	@Wrapped(autoPtrUnwrap=true)
@@ -1925,13 +1923,13 @@ public interface Praat extends Library {
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
 	public void TextTier_changeLabels_wrapped (TextTier me, NativeIntptr_t from, NativeIntptr_t to, 
-			Str32 search, Str32 replace, boolean use_regexp, 
+			Str32 search, Str32 replace, int use_regexp,
 			@NativeType("intptr_t*") Pointer nmatches, @NativeType("intptr_t*") Pointer nstringmatches);
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
 	public void TextGrid_changeLabels_wrapped (TextGrid me, NativeIntptr_t tier, NativeIntptr_t from, NativeIntptr_t to, 
-			Str32 search, Str32 replace, boolean use_regexp, 
+			Str32 search, Str32 replace, int use_regexp,
 			@NativeType("intptr_t*") Pointer nmatches, @NativeType("intptr_t*") Pointer nstringmatches);
 	
 	@Declared("dwtools/TextGrid_extensions.h")
@@ -1956,7 +1954,7 @@ public interface Praat extends Library {
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
-	public void IntervalTier_moveBoundary_wrapped (IntervalTier me, NativeLong interval, boolean atStart, double newTime);
+	public void IntervalTier_moveBoundary_wrapped (IntervalTier me, NativeLong interval, int atStart, double newTime);
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
@@ -1976,15 +1974,15 @@ public interface Praat extends Library {
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
-	public void IntervalTiers_append_inplace_wrapped (IntervalTier me, IntervalTier thee, boolean preserveTimes);
+	public void IntervalTiers_append_inplace_wrapped (IntervalTier me, IntervalTier thee, int preserveTimes);
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
-	public void TextTiers_append_inplace_wrapped (TextTier me, TextTier thee, boolean preserveTimes);
+	public void TextTiers_append_inplace_wrapped (TextTier me, TextTier thee, int preserveTimes);
 	
 	@Declared("dwtools/TextGrid_extensions.h")
 	@Wrapped
-	public void TextGrids_append_inplace_wrapped (TextGrid me, TextGrid thee, boolean preserveTimes);
+	public void TextGrids_append_inplace_wrapped (TextGrid me, TextGrid thee, int preserveTimes);
 	
 	// XXX fix collections
 //	@Declared("dwtools/TextGrid_extensions.h")
@@ -2063,7 +2061,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public TextGrid TextGrid_extractPart_wrapped (TextGrid me, double tmin, double tmax, boolean preserveTimes);
+	public TextGrid TextGrid_extractPart_wrapped (TextGrid me, double tmin, double tmax, int preserveTimes);
 	
 	@Declared("fon/TextGrid.h")
 	public NativeIntptr_t TextInterval_labelLength (TextInterval me);
@@ -2134,7 +2132,7 @@ public interface Praat extends Library {
 	
 	@Declared("fon/TextGrid.h")
 	@Wrapped(autoPtrUnwrap=true)
-	public Table TextGrid_downto_Table_wrapped (TextGrid me, boolean includeLineNumbers, int timeDecimals, boolean includeTierNames, boolean includeEmptyIntervals);
+	public Table TextGrid_downto_Table_wrapped (TextGrid me, int includeLineNumbers, int timeDecimals, int includeTierNames, int includeEmptyIntervals);
 
 	@Declared("fon/TextGrid_def.h")
 	@Custom

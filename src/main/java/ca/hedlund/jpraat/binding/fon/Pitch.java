@@ -104,11 +104,11 @@ public final class Pitch extends Sampled {
 	}
 	
 	public double getValueAtTime (double time, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getValueAtTime(this, time, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getValueAtTime(this, time, unit, (interpolate ? 1 : 0));
 	}
 	
 	public double getStrengthAtTime (double time, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getStrengthAtTime(this, time, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getStrengthAtTime(this, time, unit, (interpolate ? 1 : 0));
 	}
 
 	public long countVoicedFrames () {
@@ -136,7 +136,7 @@ public final class Pitch extends Sampled {
 		final Pointer maxPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Pitch_getMaximumAndTime(this, tmin, tmax, unit, interpolate, 
+		Praat.INSTANCE.Pitch_getMaximumAndTime(this, tmin, tmax, unit, (interpolate ? 1 : 0),
 				maxPtr, timePtr);
 	
 		return_maximum.set(maxPtr.getDouble(0));
@@ -144,11 +144,11 @@ public final class Pitch extends Sampled {
 	}
 	
 	public double getMaximum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getMaximum(this, tmin, tmax, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getMaximum(this, tmin, tmax, unit, (interpolate ? 1 : 0));
 	}
 	
 	public double getTimeOfMaximum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getTimeOfMaximum(this, tmin, tmax, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getTimeOfMaximum(this, tmin, tmax, unit, (interpolate ? 1 : 0));
 	}
 	
 	public void getMinimumAndTime (double tmin, double tmax, kPitch_unit unit, boolean interpolate,
@@ -156,7 +156,7 @@ public final class Pitch extends Sampled {
 		final Pointer minPtr = new Memory(Native.getNativeSize(Double.TYPE));
 		final Pointer timePtr = new Memory(Native.getNativeSize(Double.TYPE));
 		
-		Praat.INSTANCE.Pitch_getMinimumAndTime(this, tmin, tmax, unit, interpolate, 
+		Praat.INSTANCE.Pitch_getMinimumAndTime(this, tmin, tmax, unit, (interpolate ? 1 : 0),
 				minPtr, timePtr);
 	
 		return_minimum.set(minPtr.getDouble(0));
@@ -164,11 +164,11 @@ public final class Pitch extends Sampled {
 	}
 	
 	public double getMinimum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getMinimum(this, tmin, tmax, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getMinimum(this, tmin, tmax, unit, (interpolate ? 1 : 0));
 	}
 	
 	public double getTimeOfMinimum (double tmin, double tmax, kPitch_unit unit, boolean interpolate) {
-		return Praat.INSTANCE.Pitch_getTimeOfMinimum(this, tmin, tmax, unit, interpolate);
+		return Praat.INSTANCE.Pitch_getTimeOfMinimum(this, tmin, tmax, unit, (interpolate ? 1 : 0));
 	}
 	
 	/**
