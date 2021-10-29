@@ -1333,9 +1333,6 @@ public interface Praat extends Library {
 	
 	@Declared("sys/sendpraat.c")
 	public String sendpraat (Object display, String programName, NativeLong timeOut,  String text);
-	
-	@Declared("sys/sendpraat.c")
-	public WString sendpraatW (Object display, String programName, NativeLong timeOut, WString text);
 
 	@Declared("stat/Table.h")
 	@Wrapped(autoPtrUnwrap=true)
