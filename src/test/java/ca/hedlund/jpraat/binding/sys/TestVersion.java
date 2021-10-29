@@ -35,7 +35,6 @@ public class TestVersion  {
 		System.out.println(version.versionStr);
 		System.out.println(version.year + " " + version.month + " " + version.day);
 		System.out.println("Praat pref path: " + PraatDir.getPath());
-		System.out.println("libjpraat pref path: " + PraatDir.getLibPath());
 	}
 	
 }

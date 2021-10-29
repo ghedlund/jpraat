@@ -96,10 +96,6 @@ public interface Praat extends Library {
 	@Custom
 	public Str32 praat_dir();
 
-	@Declared("sys/praat.h")
-	@Custom
-	public Str32 praatlib_dir();
-
 	@Declared("sys/Thing.h")
 	Str32 Thing_className (Thing me);
 	

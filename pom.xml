@@ -24,7 +24,7 @@
 
 		<org.apache.maven.plugins.maven-compiler-plugin.version>3.8.0</org.apache.maven.plugins.maven-compiler-plugin.version>
 
-        <ca.hedlund.libjpraat.version>6.1.54-1</ca.hedlund.libjpraat.version>
+        <ca.hedlund.libjpraat.version>6.1.54-2</ca.hedlund.libjpraat.version>
     </properties>
 
     <dependencies>
