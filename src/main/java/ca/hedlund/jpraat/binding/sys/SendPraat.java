@@ -27,9 +27,4 @@ public class SendPraat {
 		return Praat.INSTANCE.sendpraat(display, programName, new NativeLong(timeOut), text);
 	}
 	
-	@Declared("sys/sendpraat.c")
-	public static WString sendpraatW (Object display, String programName, long timeOut, WString text) {
-		return Praat.INSTANCE.sendpraatW(display, programName, new NativeLong(timeOut), text);
-	}
-	
 }
