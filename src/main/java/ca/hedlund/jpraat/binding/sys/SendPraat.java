@@ -15,6 +15,7 @@
  */
 package ca.hedlund.jpraat.binding.sys;
 
+import ca.hedlund.jpraat.binding.jna.Str32;
 import com.sun.jna.*;
 
 import ca.hedlund.jpraat.annotations.*;
