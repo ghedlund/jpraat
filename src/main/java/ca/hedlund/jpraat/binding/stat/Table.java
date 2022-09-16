@@ -312,6 +312,20 @@ public class Table extends Daata {
 			Praat.wrapperLock.unlock();
 		}
 	}
+
+	public double getSum(Table me, long icol) throws PraatException {
+		double retVal = 0.0;
+		try {
+			Praat.wrapperLock.lock();
+			retVal = Praat.INSTANCE.Table_getSum(this, new NativeIntptr_t(icol));
+			Praat.checkAndClearLastError();
+		} catch (PraatException e) {
+			throw e;
+		} finally {
+			Praat.wrapperLock.unlock();
+		}
+		return retVal;
+	}
 	
 	public double getMaximum (Table me, long icol) throws PraatException {
 		double retVal = 0.0;

@@ -1413,7 +1413,11 @@ public interface Praat extends Library {
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getQuantile_wrapped (Table me, NativeIntptr_t column, double quantile);
-	
+
+	@Declared("stat/Table.h")
+	@Wrapped
+	public double Table_getSum(Table me, NativeIntptr_t column);
+
 	@Declared("stat/Table.h")
 	@Wrapped
 	public double Table_getMean_wrapped (Table me, NativeIntptr_t column);
