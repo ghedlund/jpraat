@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ca.hedlund</groupId>
     <artifactId>jpraat</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <name>jpraat</name>
     <description></description>
     <packaging>jar</packaging>
@@ -24,7 +24,7 @@
 
 		<org.apache.maven.plugins.maven-compiler-plugin.version>3.8.0</org.apache.maven.plugins.maven-compiler-plugin.version>
 
-        <ca.hedlund.libjpraat.version>6.2.18-1</ca.hedlund.libjpraat.version>
+        <ca.hedlund.libjpraat.version>6.3.02</ca.hedlund.libjpraat.version>
     </properties>
 
     <dependencies>
