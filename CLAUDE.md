@@ -4,19 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-jpraat is a Java (17) binding library for the [Praat](https://www.fon.hum.uva.nl/praat/) speech analysis toolkit. It uses JNA (Java Native Access) to call into a native C++ Praat library (`libjpraat`) without JNI boilerplate.
+jpraat is a Java 21 binding library for the [Praat](https://www.fon.hum.uva.nl/praat/) speech analysis toolkit. It uses JNA (Java Native Access) to call into a native C++ Praat library (`libjpraat`) without JNI boilerplate.
 
 ## Build Commands
 
 ```bash
-mvn clean package              # Build and run tests
-mvn clean package -DskipTests  # Build without tests
-mvn test                       # Run all tests
-mvn test -Dtest=TestVersion    # Run a single test class
-mvn test -Dtest=TestTextGrid#testRead  # Run a single test method
+./gradlew build                        # Build and run tests
+./gradlew build -x test                # Build without tests
+./gradlew test                         # Run all tests
+./gradlew test --tests TestVersion     # Run a single test class
+./gradlew test --tests TestTextGrid.testRead  # Run a single test method
 ```
 
-Distribution is via GitHub Maven Packages (`ca.hedlund:jpraat`).
+Distribution is via GitHub Maven Packages (`ca.hedlund:jpraat`). Publish with `./gradlew publish`.
 
 ## Architecture
 
@@ -67,12 +67,12 @@ try {
 
 ### Native Library
 
-Platform-specific native libraries are separate Maven artifacts (`libjpraat-darwin`, `libjpraat-win64`) versioned by the `ca.hedlund.libjpraat.version` property in `pom.xml`. These track upstream Praat releases (currently 6.3.02).
+Platform-specific native libraries are separate Maven artifacts (`libjpraat-darwin`, `libjpraat-win64`) versioned by the `libjpraatVersion` property in `build.gradle.kts`. These track upstream Praat releases (currently 6.3.02). Resolved from GitHub Packages — requires `gpr.user`/`gpr.key` in `gradle.properties` or `GITHUB_ACTOR`/`GITHUB_TOKEN` env vars.
 
 ### Tests
 
-JUnit 4. Each test must call `Praat.initLibrary()` in `@Before`. Test resources (WAV, TextGrid) are in `src/test/resources/ca/hedlund/jpraat/binding/fon/`. Surefire is configured with `forkCount=1, reuseForks=false` — each test class runs in its own JVM fork.
+JUnit 4. Each test must call `Praat.initLibrary()` in `@Before`. Test resources (WAV, TextGrid) are in `src/test/resources/ca/hedlund/jpraat/binding/fon/`. Tests fork per class (`forkEvery = 1`).
 
-### Java Module
+### Java Module (JPMS)
 
-The project uses JPMS (`module-info.java`). Module name: `ca.hedlund.jpraat`. Requires `com.sun.jna` transitively.
+Module name: `ca.hedlund.jpraat` (`src/main/java/module-info.java`). Requires `com.sun.jna` transitively. Binding packages are opened to `com.sun.jna` for reflective access.

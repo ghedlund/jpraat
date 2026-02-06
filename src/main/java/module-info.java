@@ -15,7 +15,7 @@
  */
 module ca.hedlund.jpraat {
 	requires transitive com.sun.jna;
-	
+
 	exports ca.hedlund.jpraat;
 	exports ca.hedlund.jpraat.annotations;
 	exports ca.hedlund.jpraat.binding;
@@ -25,4 +25,11 @@ module ca.hedlund.jpraat {
 	exports ca.hedlund.jpraat.binding.sys;
 	exports ca.hedlund.jpraat.binding.stat;
 	exports ca.hedlund.jpraat.exceptions;
+
+	opens ca.hedlund.jpraat.binding to com.sun.jna;
+	opens ca.hedlund.jpraat.binding.fon to com.sun.jna;
+	opens ca.hedlund.jpraat.binding.jna to com.sun.jna;
+	opens ca.hedlund.jpraat.binding.melder to com.sun.jna;
+	opens ca.hedlund.jpraat.binding.sys to com.sun.jna;
+	opens ca.hedlund.jpraat.binding.stat to com.sun.jna;
 }

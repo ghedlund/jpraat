@@ -1,8 +1,13 @@
-/target
-*.*\~
+# Gradle
+.gradle/
+build/
+
+# IDE
 .classpath
 .project
-.settings
-.settings
-jpraat (2).iml
+.settings/
 .idea/
+*.iml
+
+# OS
+*.*~
