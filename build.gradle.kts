@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ca.hedlund"
-version = "1.2.2"
+version = "1.3.0"
 
 val libjpraatVersion = "6.3.02"
 
